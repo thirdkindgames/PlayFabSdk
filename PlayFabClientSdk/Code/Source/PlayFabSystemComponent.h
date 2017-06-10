@@ -1,16 +1,29 @@
+
 #pragma once
 
-#include "PlayFabError.h"
-#include "PlayFabClientDataModels.h"
-#include "IPlayFabClientApi.h"
+#include <AzCore/Component/Component.h>
+
+#include <PlayFab/PlayFabBus.h>
 
 namespace PlayFab
 {
-    class PlayFabClientApiWrapper : public IPlayFabClientApi
+    class PlayFabSystemComponent
+        : public AZ::Component
+        , protected PlayFabRequestBus::Handler
     {
     public:
-        static PlayFabClientApiWrapper globalWrapper;
+        AZ_COMPONENT(PlayFabSystemComponent, "{BFCF0949-980C-4880-A25C-9BC9F137B729}");
 
+        static void Reflect(AZ::ReflectContext* context);
+
+        static void GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided);
+        static void GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible);
+        static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required);
+        static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent);
+
+    protected:
+        ////////////////////////////////////////////////////////////////////////
+        // PlayFabRequestBus interface implementation
         // Public, Client-Specific
         bool IsClientLoggedIn() override;
 
@@ -143,6 +156,13 @@ namespace PlayFab
         void GetPlayerSegments(ProcessApiCallback<ClientModels::GetPlayerSegmentsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) override;
         void GetPlayerTags(ClientModels::GetPlayerTagsRequest& request, ProcessApiCallback<ClientModels::GetPlayerTagsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) override;
         void ValidateWindowsStoreReceipt(ClientModels::ValidateWindowsReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateWindowsReceiptResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) override;
+        ////////////////////////////////////////////////////////////////////////
 
+        ////////////////////////////////////////////////////////////////////////
+        // AZ::Component interface implementation
+        void Init() override;
+        void Activate() override;
+        void Deactivate() override;
+        ////////////////////////////////////////////////////////////////////////
     };
-};
+}

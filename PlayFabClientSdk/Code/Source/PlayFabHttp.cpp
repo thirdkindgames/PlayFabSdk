@@ -1,6 +1,7 @@
 #include "StdAfx.h"
-#include "PlayFabHttp.h"
+#include "PlayFab/PlayFabHttp.h"
 #include "PlayFabSettings.h"
+#include "PlayFabClientApi.h"
 
 #include <aws/core/http/HttpClient.h>
 #include <aws/core/http/HttpRequest.h>
@@ -16,8 +17,27 @@ using namespace rapidjson;
 PlayFabRequest::PlayFabRequest(const Aws::String& URI, Aws::Http::HttpMethod method, const Aws::String& authKey, const Aws::String& authValue, const Aws::String& requestJsonBody, void* customData, void* mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback)
     : mURI(URI)
     , mMethod(method)
+    , mUsePlayFabAuthToken(false)
     , mAuthKey(authKey)
     , mAuthValue(authValue)
+    , mRequestJsonBody(requestJsonBody)
+    , mCustomData(customData)
+    , mResponseText(nullptr)
+    , mResponseSize(0)
+    , mResponseJson(new rapidjson::Document)
+    , mError(nullptr)
+    , mInternalCallback(internalCallback)
+    , mResultCallback(mResultCallback)
+    , mErrorCallback(mErrorCallback)
+{
+}
+
+PlayFabRequest::PlayFabRequest(const Aws::String& URI, Aws::Http::HttpMethod method, bool usePlayFabAuthToken, const Aws::String& requestJsonBody, void* customData, void* mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback)
+    : mURI(URI)
+    , mMethod(method)
+    , mUsePlayFabAuthToken(usePlayFabAuthToken)
+    , mAuthKey ("")
+    , mAuthValue("")
     , mRequestJsonBody(requestJsonBody)
     , mCustomData(customData)
     , mResponseText(nullptr)
@@ -92,76 +112,79 @@ void PlayFabRequest::HandleErrorReport()
 }
 
 ///////////////////// PlayFabRequestManager /////////////////////
-PlayFabRequestManager PlayFabRequestManager::playFabHttp;
+PlayFabRequestManager * PlayFabRequestManager::playFabHttp = nullptr;
 
 PlayFabRequestManager::PlayFabRequestManager()
 {
     m_runThread = true;
     auto function = std::bind(&PlayFabRequestManager::ThreadFunction, this);
-    m_thread = CrySimpleManagedThread::CreateThread("PlayFabHttp", AZStd::move(function));
+    m_thread = AZStd::thread(function);
 }
 
 PlayFabRequestManager::~PlayFabRequestManager()
 {
     m_runThread = false;
-    m_thread->Join();
-}
-
-int PlayFabRequestManager::GetPendingCalls()
-{
-    int temp;
+    m_requestConditionVar.notify_all();
+    if (m_thread.joinable())
     {
-        AZStd::lock_guard<AZStd::mutex> lock(m_requestMutex);
-        temp = m_pendingCalls;
+        m_thread.join();
     }
-    return temp;
 }
 
 void PlayFabRequestManager::AddRequest(PlayFabRequest* requestContainer)
 {
     {
         AZStd::lock_guard<AZStd::mutex> lock(m_requestMutex);
-        m_requestsToHandle.insert(m_requestsToHandle.end(), AZStd::move(requestContainer));
-        m_pendingCalls++;
+        m_requestsToHandle.push(AZStd::move(requestContainer));
     }
+    m_requestConditionVar.notify_all();
 }
 
 void PlayFabRequestManager::ThreadFunction()
 {
-    Aws::UniquePtr<Aws::Http::HttpClientFactory> httpClientFactory = Aws::MakeUnique<Aws::Http::HttpClientFactory>("PlayFabHttp");
+    // Run the thread as long as directed
     while (m_runThread)
     {
-        HandleRequestBatch(httpClientFactory);
-        CrySleep(33);
+        HandleRequestBatch();
     }
 }
 
-void PlayFabRequestManager::HandleRequestBatch(const Aws::UniquePtr<Aws::Http::HttpClientFactory>& httpClientFactory)
+void PlayFabRequestManager::HandleRequestBatch()
 {
-    std::list<PlayFabRequest*> requestsToHandle;
+    // Lock mutex and wait for work to be signalled via the condition variable
+    AZStd::unique_lock<AZStd::mutex> lock(m_requestMutex);
+    m_requestConditionVar.wait(lock, [&] { return !m_requestsToHandle.empty(); });
 
-    {
-        AZStd::lock_guard<AZStd::mutex> lock(m_requestMutex);
-        requestsToHandle.swap(m_requestsToHandle);
-    }
+    // Swap queues
+    AZStd::queue<PlayFabRequest*> requestsToHandle;
+    requestsToHandle.swap(m_requestsToHandle);
+
+    // Release lock
+    lock.unlock();
 
     // Handle requests
     while (!requestsToHandle.empty())
     {
-        // Spam send all the requests, these don't really wait (much if at all)
-        for (auto it = requestsToHandle.begin(); it != requestsToHandle.end(); ++it)
-            HandleRequest(*it, httpClientFactory);
-
-        HandleResponse(requestsToHandle.front());
-        requestsToHandle.remove(requestsToHandle.front());
+        auto request = requestsToHandle.front();
+        HandleRequest(request);
+        HandleResponse(request);
+        requestsToHandle.pop();
     }
 }
 
-void PlayFabRequestManager::HandleRequest(PlayFabRequest* requestContainer, const Aws::UniquePtr<Aws::Http::HttpClientFactory>& httpClientFactory)
+void PlayFabRequestManager::HandleRequest(PlayFabRequest* requestContainer)
 {
-    std::shared_ptr<Aws::Http::HttpClient> httpClient = httpClientFactory->CreateHttpClient(Aws::Client::ClientConfiguration());
+    if (requestContainer->mUsePlayFabAuthToken)
+    {
+        // Late binding of the auth token, avoids response order issues during login
+        requestContainer->mAuthKey = "X-Authorization";
+        requestContainer->mAuthValue = PlayFabClientApi::mUserSessionTicket;
+    }
 
-    auto httpRequest = httpClientFactory->CreateHttpRequest(requestContainer->mURI, requestContainer->mMethod, Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
+    std::shared_ptr<Aws::Http::HttpClient> httpClient = Aws::Http::CreateHttpClient(Aws::Client::ClientConfiguration());
+
+    auto httpRequest = Aws::Http::CreateHttpRequest(requestContainer->mURI, requestContainer->mMethod, Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
+
     httpRequest->SetContentType("application/json");
     httpRequest->SetHeaderValue("X-PlayFabSDK", PlayFabSettings::playFabSettings.playFabVersionString);
     if (requestContainer->mAuthKey.length() > 0)
@@ -187,8 +210,4 @@ void PlayFabRequestManager::HandleResponse(PlayFabRequest* requestContainer)
     requestContainer->mResponseJson = new rapidjson::Document;
     requestContainer->mResponseJson->Parse<0>(requestContainer->mResponseText);
     requestContainer->mInternalCallback(requestContainer);
-    {
-        AZStd::lock_guard<AZStd::mutex> lock(m_requestMutex);
-        m_pendingCalls--;
-    }
 }

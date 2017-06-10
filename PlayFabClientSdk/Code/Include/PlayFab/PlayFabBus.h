@@ -1,13 +1,16 @@
 #pragma once
 
-#include "PlayFabError.h"
-#include "PlayFabClientDataModels.h"
+#include "PlayFab/PlayFabError.h"
+#include "PlayFab/PlayFabClientDataModels.h"
 
 namespace PlayFab
 {
-    class IPlayFabClientApi
+    class PlayFabRequests : public AZ::EBusTraits
     {
     public:
+        static const AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::Single;
+        static const AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Single;
+
         virtual bool IsClientLoggedIn() = 0;
 
         // ------------ Generated API call wrappers
@@ -139,6 +142,7 @@ namespace PlayFab
         virtual void GetPlayerSegments(ProcessApiCallback<ClientModels::GetPlayerSegmentsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void GetPlayerTags(ClientModels::GetPlayerTagsRequest& request, ProcessApiCallback<ClientModels::GetPlayerTagsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void ValidateWindowsStoreReceipt(ClientModels::ValidateWindowsReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateWindowsReceiptResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
-
     };
+
+    using PlayFabRequestBus = AZ::EBus<PlayFabRequests>;
 };

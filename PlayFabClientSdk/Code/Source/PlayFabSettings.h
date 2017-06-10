@@ -1,6 +1,6 @@
 #pragma once
 
-#include "PlayFabError.h"
+#include "PlayFab/PlayFabError.h"
 
 namespace PlayFab
 {
@@ -15,7 +15,7 @@ namespace PlayFab
         bool useDevelopmentEnvironment;
         Aws::String developmentEnvironmentURL;
         Aws::String productionEnvironmentURL;
-        Aws::String titleId; // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
+        Aws::String titleId; // You must set this value for PlayFab to work properly (Found in the Game Manager for your title, at the PlayFab Website)
         ErrorCallback globalErrorHandler;
         Aws::String advertisingIdType; // Set this to the appropriate AD_TYPE_X constant below
         Aws::String advertisingIdValue; // Set this to corresponding device value

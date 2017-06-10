@@ -1,9 +1,8 @@
 #pragma once
 
-#include "PlayFabError.h"
-#include "PlayFabHttp.h"
-#include "IPlayFabClientApi.h"
-#include "PlayFabClientDataModels.h"
+#include "PlayFab/PlayFabError.h"
+#include "PlayFab/PlayFabClientDataModels.h"
+#include "PlayFab/PlayFabHttp.h"
 
 namespace PlayFab
 {
@@ -279,6 +278,8 @@ namespace PlayFab
 
         // Private, Client-Specific
         static void MultiStepClientLogin(bool needsAttribution);
+
+    public:
         static Aws::String mUserSessionTicket;
     };
 };

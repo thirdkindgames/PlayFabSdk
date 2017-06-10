@@ -11,7 +11,7 @@ playFabVersionString("LumberyardSDK-0.0.170530"),
 useDevelopmentEnvironment(false),
 developmentEnvironmentURL(".playfabsandbox.com"),
 productionEnvironmentURL(".playfabapi.com"),
-titleId(), // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
+titleId(), // You must set this value for PlayFab to work properly (Found in the Game Manager for your title, at the PlayFab Website)
 globalErrorHandler(nullptr),
 advertisingIdType(), // Set this to the appropriate AD_TYPE_X constant below
 advertisingIdValue(), // Set this to corresponding device value
