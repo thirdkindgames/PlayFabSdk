@@ -39,8 +39,8 @@ void PlayFabClientApi::GetPhotonAuthenticationToken(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPhotonAuthenticationToken"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPhotonAuthenticationTokenResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPhotonAuthenticationToken"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetPhotonAuthenticationTokenResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPhotonAuthenticationTokenResult(PlayFabRequest* request)
@@ -69,8 +69,8 @@ void PlayFabClientApi::GetWindowsHelloChallenge(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetWindowsHelloChallenge"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnGetWindowsHelloChallengeResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetWindowsHelloChallenge"), Aws::Http::HttpMethod::HTTP_POST, false, request.toJSONString(), customData, callback, errorCallback, OnGetWindowsHelloChallengeResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetWindowsHelloChallengeResult(PlayFabRequest* request)
@@ -101,8 +101,8 @@ void PlayFabClientApi::LoginWithAndroidDeviceID(
     if (PlayFabSettings::playFabSettings.titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings.titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithAndroidDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithAndroidDeviceIDResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithAndroidDeviceID"), Aws::Http::HttpMethod::HTTP_POST, false, request.toJSONString(), customData, callback, errorCallback, OnLoginWithAndroidDeviceIDResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithAndroidDeviceIDResult(PlayFabRequest* request)
@@ -136,8 +136,8 @@ void PlayFabClientApi::LoginWithCustomID(
     if (PlayFabSettings::playFabSettings.titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings.titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithCustomID"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithCustomIDResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithCustomID"), Aws::Http::HttpMethod::HTTP_POST, false, request.toJSONString(), customData, callback, errorCallback, OnLoginWithCustomIDResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithCustomIDResult(PlayFabRequest* request)
@@ -171,8 +171,8 @@ void PlayFabClientApi::LoginWithEmailAddress(
     if (PlayFabSettings::playFabSettings.titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings.titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithEmailAddress"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithEmailAddressResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithEmailAddress"), Aws::Http::HttpMethod::HTTP_POST, false, request.toJSONString(), customData, callback, errorCallback, OnLoginWithEmailAddressResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithEmailAddressResult(PlayFabRequest* request)
@@ -206,8 +206,8 @@ void PlayFabClientApi::LoginWithFacebook(
     if (PlayFabSettings::playFabSettings.titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings.titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithFacebook"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithFacebookResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithFacebook"), Aws::Http::HttpMethod::HTTP_POST, false, request.toJSONString(), customData, callback, errorCallback, OnLoginWithFacebookResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithFacebookResult(PlayFabRequest* request)
@@ -241,8 +241,8 @@ void PlayFabClientApi::LoginWithGameCenter(
     if (PlayFabSettings::playFabSettings.titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings.titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithGameCenter"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithGameCenterResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithGameCenter"), Aws::Http::HttpMethod::HTTP_POST, false, request.toJSONString(), customData, callback, errorCallback, OnLoginWithGameCenterResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithGameCenterResult(PlayFabRequest* request)
@@ -276,8 +276,8 @@ void PlayFabClientApi::LoginWithGoogleAccount(
     if (PlayFabSettings::playFabSettings.titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings.titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithGoogleAccount"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithGoogleAccountResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithGoogleAccount"), Aws::Http::HttpMethod::HTTP_POST, false, request.toJSONString(), customData, callback, errorCallback, OnLoginWithGoogleAccountResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithGoogleAccountResult(PlayFabRequest* request)
@@ -311,8 +311,8 @@ void PlayFabClientApi::LoginWithIOSDeviceID(
     if (PlayFabSettings::playFabSettings.titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings.titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithIOSDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithIOSDeviceIDResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithIOSDeviceID"), Aws::Http::HttpMethod::HTTP_POST, false, request.toJSONString(), customData, callback, errorCallback, OnLoginWithIOSDeviceIDResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithIOSDeviceIDResult(PlayFabRequest* request)
@@ -346,8 +346,8 @@ void PlayFabClientApi::LoginWithKongregate(
     if (PlayFabSettings::playFabSettings.titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings.titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithKongregate"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithKongregateResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithKongregate"), Aws::Http::HttpMethod::HTTP_POST, false, request.toJSONString(), customData, callback, errorCallback, OnLoginWithKongregateResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithKongregateResult(PlayFabRequest* request)
@@ -381,8 +381,8 @@ void PlayFabClientApi::LoginWithPlayFab(
     if (PlayFabSettings::playFabSettings.titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings.titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithPlayFab"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithPlayFabResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithPlayFab"), Aws::Http::HttpMethod::HTTP_POST, false, request.toJSONString(), customData, callback, errorCallback, OnLoginWithPlayFabResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithPlayFabResult(PlayFabRequest* request)
@@ -416,8 +416,8 @@ void PlayFabClientApi::LoginWithSteam(
     if (PlayFabSettings::playFabSettings.titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings.titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithSteam"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithSteamResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithSteam"), Aws::Http::HttpMethod::HTTP_POST, false, request.toJSONString(), customData, callback, errorCallback, OnLoginWithSteamResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithSteamResult(PlayFabRequest* request)
@@ -451,8 +451,8 @@ void PlayFabClientApi::LoginWithTwitch(
     if (PlayFabSettings::playFabSettings.titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings.titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithTwitch"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithTwitchResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithTwitch"), Aws::Http::HttpMethod::HTTP_POST, false, request.toJSONString(), customData, callback, errorCallback, OnLoginWithTwitchResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithTwitchResult(PlayFabRequest* request)
@@ -486,8 +486,8 @@ void PlayFabClientApi::LoginWithWindowsHello(
     if (PlayFabSettings::playFabSettings.titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings.titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithWindowsHelloResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, false, request.toJSONString(), customData, callback, errorCallback, OnLoginWithWindowsHelloResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithWindowsHelloResult(PlayFabRequest* request)
@@ -521,8 +521,8 @@ void PlayFabClientApi::RegisterPlayFabUser(
     if (PlayFabSettings::playFabSettings.titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings.titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RegisterPlayFabUser"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnRegisterPlayFabUserResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RegisterPlayFabUser"), Aws::Http::HttpMethod::HTTP_POST, false, request.toJSONString(), customData, callback, errorCallback, OnRegisterPlayFabUserResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnRegisterPlayFabUserResult(PlayFabRequest* request)
@@ -556,8 +556,8 @@ void PlayFabClientApi::RegisterWithWindowsHello(
     if (PlayFabSettings::playFabSettings.titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings.titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RegisterWithWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnRegisterWithWindowsHelloResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RegisterWithWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, false, request.toJSONString(), customData, callback, errorCallback, OnRegisterWithWindowsHelloResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnRegisterWithWindowsHelloResult(PlayFabRequest* request)
@@ -589,8 +589,8 @@ void PlayFabClientApi::AddGenericID(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AddGenericID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddGenericIDResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AddGenericID"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnAddGenericIDResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnAddGenericIDResult(PlayFabRequest* request)
@@ -619,8 +619,8 @@ void PlayFabClientApi::AddUsernamePassword(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AddUsernamePassword"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddUsernamePasswordResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AddUsernamePassword"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnAddUsernamePasswordResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnAddUsernamePasswordResult(PlayFabRequest* request)
@@ -649,8 +649,8 @@ void PlayFabClientApi::GetAccountInfo(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetAccountInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetAccountInfoResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetAccountInfo"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetAccountInfoResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetAccountInfoResult(PlayFabRequest* request)
@@ -679,8 +679,8 @@ void PlayFabClientApi::GetPlayerCombinedInfo(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayerCombinedInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerCombinedInfoResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayerCombinedInfo"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerCombinedInfoResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayerCombinedInfoResult(PlayFabRequest* request)
@@ -709,8 +709,8 @@ void PlayFabClientApi::GetPlayerProfile(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayerProfile"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerProfileResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayerProfile"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerProfileResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayerProfileResult(PlayFabRequest* request)
@@ -739,8 +739,8 @@ void PlayFabClientApi::GetPlayFabIDsFromFacebookIDs(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayFabIDsFromFacebookIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromFacebookIDsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayFabIDsFromFacebookIDs"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromFacebookIDsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayFabIDsFromFacebookIDsResult(PlayFabRequest* request)
@@ -769,8 +769,8 @@ void PlayFabClientApi::GetPlayFabIDsFromGameCenterIDs(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayFabIDsFromGameCenterIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromGameCenterIDsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayFabIDsFromGameCenterIDs"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromGameCenterIDsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayFabIDsFromGameCenterIDsResult(PlayFabRequest* request)
@@ -799,8 +799,8 @@ void PlayFabClientApi::GetPlayFabIDsFromGenericIDs(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayFabIDsFromGenericIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromGenericIDsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayFabIDsFromGenericIDs"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromGenericIDsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayFabIDsFromGenericIDsResult(PlayFabRequest* request)
@@ -829,8 +829,8 @@ void PlayFabClientApi::GetPlayFabIDsFromGoogleIDs(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayFabIDsFromGoogleIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromGoogleIDsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayFabIDsFromGoogleIDs"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromGoogleIDsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayFabIDsFromGoogleIDsResult(PlayFabRequest* request)
@@ -859,8 +859,8 @@ void PlayFabClientApi::GetPlayFabIDsFromKongregateIDs(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayFabIDsFromKongregateIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromKongregateIDsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayFabIDsFromKongregateIDs"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromKongregateIDsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayFabIDsFromKongregateIDsResult(PlayFabRequest* request)
@@ -889,8 +889,8 @@ void PlayFabClientApi::GetPlayFabIDsFromSteamIDs(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayFabIDsFromSteamIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromSteamIDsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayFabIDsFromSteamIDs"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromSteamIDsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayFabIDsFromSteamIDsResult(PlayFabRequest* request)
@@ -919,8 +919,8 @@ void PlayFabClientApi::GetPlayFabIDsFromTwitchIDs(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayFabIDsFromTwitchIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromTwitchIDsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayFabIDsFromTwitchIDs"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromTwitchIDsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayFabIDsFromTwitchIDsResult(PlayFabRequest* request)
@@ -949,8 +949,8 @@ void PlayFabClientApi::LinkAndroidDeviceID(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkAndroidDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkAndroidDeviceIDResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkAndroidDeviceID"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnLinkAndroidDeviceIDResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkAndroidDeviceIDResult(PlayFabRequest* request)
@@ -979,8 +979,8 @@ void PlayFabClientApi::LinkCustomID(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkCustomID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkCustomIDResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkCustomID"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnLinkCustomIDResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkCustomIDResult(PlayFabRequest* request)
@@ -1009,8 +1009,8 @@ void PlayFabClientApi::LinkFacebookAccount(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkFacebookAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkFacebookAccountResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkFacebookAccount"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnLinkFacebookAccountResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkFacebookAccountResult(PlayFabRequest* request)
@@ -1039,8 +1039,8 @@ void PlayFabClientApi::LinkGameCenterAccount(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkGameCenterAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkGameCenterAccountResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkGameCenterAccount"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnLinkGameCenterAccountResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkGameCenterAccountResult(PlayFabRequest* request)
@@ -1069,8 +1069,8 @@ void PlayFabClientApi::LinkGoogleAccount(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkGoogleAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkGoogleAccountResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkGoogleAccount"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnLinkGoogleAccountResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkGoogleAccountResult(PlayFabRequest* request)
@@ -1099,8 +1099,8 @@ void PlayFabClientApi::LinkIOSDeviceID(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkIOSDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkIOSDeviceIDResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkIOSDeviceID"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnLinkIOSDeviceIDResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkIOSDeviceIDResult(PlayFabRequest* request)
@@ -1129,8 +1129,8 @@ void PlayFabClientApi::LinkKongregate(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkKongregate"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkKongregateResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkKongregate"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnLinkKongregateResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkKongregateResult(PlayFabRequest* request)
@@ -1159,8 +1159,8 @@ void PlayFabClientApi::LinkSteamAccount(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkSteamAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkSteamAccountResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkSteamAccount"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnLinkSteamAccountResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkSteamAccountResult(PlayFabRequest* request)
@@ -1189,8 +1189,8 @@ void PlayFabClientApi::LinkTwitch(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkTwitch"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkTwitchResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkTwitch"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnLinkTwitchResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkTwitchResult(PlayFabRequest* request)
@@ -1219,8 +1219,8 @@ void PlayFabClientApi::LinkWindowsHello(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkWindowsHelloResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnLinkWindowsHelloResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkWindowsHelloResult(PlayFabRequest* request)
@@ -1249,8 +1249,8 @@ void PlayFabClientApi::RemoveGenericID(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RemoveGenericID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRemoveGenericIDResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RemoveGenericID"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnRemoveGenericIDResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnRemoveGenericIDResult(PlayFabRequest* request)
@@ -1279,8 +1279,8 @@ void PlayFabClientApi::ReportPlayer(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ReportPlayer"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnReportPlayerResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ReportPlayer"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnReportPlayerResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnReportPlayerResult(PlayFabRequest* request)
@@ -1309,8 +1309,8 @@ void PlayFabClientApi::SendAccountRecoveryEmail(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/SendAccountRecoveryEmail"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnSendAccountRecoveryEmailResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/SendAccountRecoveryEmail"), Aws::Http::HttpMethod::HTTP_POST, false, request.toJSONString(), customData, callback, errorCallback, OnSendAccountRecoveryEmailResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnSendAccountRecoveryEmailResult(PlayFabRequest* request)
@@ -1339,8 +1339,8 @@ void PlayFabClientApi::UnlinkAndroidDeviceID(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkAndroidDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlinkAndroidDeviceIDResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkAndroidDeviceID"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnUnlinkAndroidDeviceIDResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkAndroidDeviceIDResult(PlayFabRequest* request)
@@ -1369,8 +1369,8 @@ void PlayFabClientApi::UnlinkCustomID(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkCustomID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlinkCustomIDResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkCustomID"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnUnlinkCustomIDResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkCustomIDResult(PlayFabRequest* request)
@@ -1399,8 +1399,8 @@ void PlayFabClientApi::UnlinkFacebookAccount(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkFacebookAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkFacebookAccountResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkFacebookAccount"), Aws::Http::HttpMethod::HTTP_POST, true, "", customData, callback, errorCallback, OnUnlinkFacebookAccountResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkFacebookAccountResult(PlayFabRequest* request)
@@ -1429,8 +1429,8 @@ void PlayFabClientApi::UnlinkGameCenterAccount(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkGameCenterAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkGameCenterAccountResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkGameCenterAccount"), Aws::Http::HttpMethod::HTTP_POST, true, "", customData, callback, errorCallback, OnUnlinkGameCenterAccountResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkGameCenterAccountResult(PlayFabRequest* request)
@@ -1459,8 +1459,8 @@ void PlayFabClientApi::UnlinkGoogleAccount(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkGoogleAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkGoogleAccountResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkGoogleAccount"), Aws::Http::HttpMethod::HTTP_POST, true, "", customData, callback, errorCallback, OnUnlinkGoogleAccountResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkGoogleAccountResult(PlayFabRequest* request)
@@ -1489,8 +1489,8 @@ void PlayFabClientApi::UnlinkIOSDeviceID(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkIOSDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlinkIOSDeviceIDResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkIOSDeviceID"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnUnlinkIOSDeviceIDResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkIOSDeviceIDResult(PlayFabRequest* request)
@@ -1519,8 +1519,8 @@ void PlayFabClientApi::UnlinkKongregate(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkKongregate"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkKongregateResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkKongregate"), Aws::Http::HttpMethod::HTTP_POST, true, "", customData, callback, errorCallback, OnUnlinkKongregateResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkKongregateResult(PlayFabRequest* request)
@@ -1549,8 +1549,8 @@ void PlayFabClientApi::UnlinkSteamAccount(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkSteamAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkSteamAccountResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkSteamAccount"), Aws::Http::HttpMethod::HTTP_POST, true, "", customData, callback, errorCallback, OnUnlinkSteamAccountResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkSteamAccountResult(PlayFabRequest* request)
@@ -1579,8 +1579,8 @@ void PlayFabClientApi::UnlinkTwitch(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkTwitch"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkTwitchResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkTwitch"), Aws::Http::HttpMethod::HTTP_POST, true, "", customData, callback, errorCallback, OnUnlinkTwitchResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkTwitchResult(PlayFabRequest* request)
@@ -1609,8 +1609,8 @@ void PlayFabClientApi::UnlinkWindowsHello(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlinkWindowsHelloResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnUnlinkWindowsHelloResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkWindowsHelloResult(PlayFabRequest* request)
@@ -1639,8 +1639,8 @@ void PlayFabClientApi::UpdateAvatarUrl(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdateAvatarUrl"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateAvatarUrlResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdateAvatarUrl"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnUpdateAvatarUrlResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUpdateAvatarUrlResult(PlayFabRequest* request)
@@ -1669,8 +1669,8 @@ void PlayFabClientApi::UpdateUserTitleDisplayName(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdateUserTitleDisplayName"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserTitleDisplayNameResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdateUserTitleDisplayName"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserTitleDisplayNameResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUpdateUserTitleDisplayNameResult(PlayFabRequest* request)
@@ -1699,8 +1699,8 @@ void PlayFabClientApi::GetFriendLeaderboard(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetFriendLeaderboard"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetFriendLeaderboardResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetFriendLeaderboard"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetFriendLeaderboardResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetFriendLeaderboardResult(PlayFabRequest* request)
@@ -1729,8 +1729,8 @@ void PlayFabClientApi::GetFriendLeaderboardAroundPlayer(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetFriendLeaderboardAroundPlayer"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetFriendLeaderboardAroundPlayerResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetFriendLeaderboardAroundPlayer"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetFriendLeaderboardAroundPlayerResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetFriendLeaderboardAroundPlayerResult(PlayFabRequest* request)
@@ -1759,8 +1759,8 @@ void PlayFabClientApi::GetLeaderboard(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetLeaderboard"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetLeaderboard"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetLeaderboardResult(PlayFabRequest* request)
@@ -1789,8 +1789,8 @@ void PlayFabClientApi::GetLeaderboardAroundPlayer(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetLeaderboardAroundPlayer"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardAroundPlayerResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetLeaderboardAroundPlayer"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardAroundPlayerResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetLeaderboardAroundPlayerResult(PlayFabRequest* request)
@@ -1819,8 +1819,8 @@ void PlayFabClientApi::GetPlayerStatistics(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayerStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerStatisticsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayerStatistics"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerStatisticsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayerStatisticsResult(PlayFabRequest* request)
@@ -1849,8 +1849,8 @@ void PlayFabClientApi::GetPlayerStatisticVersions(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayerStatisticVersions"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerStatisticVersionsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayerStatisticVersions"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerStatisticVersionsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayerStatisticVersionsResult(PlayFabRequest* request)
@@ -1879,8 +1879,8 @@ void PlayFabClientApi::GetUserData(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetUserData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetUserDataResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetUserData"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetUserDataResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetUserDataResult(PlayFabRequest* request)
@@ -1909,8 +1909,8 @@ void PlayFabClientApi::GetUserPublisherData(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetUserPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetUserPublisherDataResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetUserPublisherData"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetUserPublisherDataResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetUserPublisherDataResult(PlayFabRequest* request)
@@ -1939,8 +1939,8 @@ void PlayFabClientApi::GetUserPublisherReadOnlyData(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetUserPublisherReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetUserPublisherReadOnlyDataResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetUserPublisherReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetUserPublisherReadOnlyDataResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetUserPublisherReadOnlyDataResult(PlayFabRequest* request)
@@ -1969,8 +1969,8 @@ void PlayFabClientApi::GetUserReadOnlyData(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetUserReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetUserReadOnlyDataResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetUserReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetUserReadOnlyDataResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetUserReadOnlyDataResult(PlayFabRequest* request)
@@ -1999,8 +1999,8 @@ void PlayFabClientApi::UpdatePlayerStatistics(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdatePlayerStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdatePlayerStatisticsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdatePlayerStatistics"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnUpdatePlayerStatisticsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUpdatePlayerStatisticsResult(PlayFabRequest* request)
@@ -2029,8 +2029,8 @@ void PlayFabClientApi::UpdateUserData(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdateUserData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserDataResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdateUserData"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserDataResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUpdateUserDataResult(PlayFabRequest* request)
@@ -2059,8 +2059,8 @@ void PlayFabClientApi::UpdateUserPublisherData(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdateUserPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserPublisherDataResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdateUserPublisherData"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserPublisherDataResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUpdateUserPublisherDataResult(PlayFabRequest* request)
@@ -2089,8 +2089,8 @@ void PlayFabClientApi::GetCatalogItems(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetCatalogItems"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCatalogItemsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetCatalogItems"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetCatalogItemsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetCatalogItemsResult(PlayFabRequest* request)
@@ -2119,8 +2119,8 @@ void PlayFabClientApi::GetPublisherData(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPublisherDataResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPublisherData"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetPublisherDataResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPublisherDataResult(PlayFabRequest* request)
@@ -2149,8 +2149,8 @@ void PlayFabClientApi::GetStoreItems(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetStoreItems"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetStoreItemsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetStoreItems"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetStoreItemsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetStoreItemsResult(PlayFabRequest* request)
@@ -2179,8 +2179,8 @@ void PlayFabClientApi::GetTime(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetTime"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnGetTimeResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetTime"), Aws::Http::HttpMethod::HTTP_POST, true, "", customData, callback, errorCallback, OnGetTimeResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetTimeResult(PlayFabRequest* request)
@@ -2209,8 +2209,8 @@ void PlayFabClientApi::GetTitleData(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetTitleData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetTitleDataResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetTitleData"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetTitleDataResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetTitleDataResult(PlayFabRequest* request)
@@ -2239,8 +2239,8 @@ void PlayFabClientApi::GetTitleNews(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetTitleNews"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetTitleNewsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetTitleNews"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetTitleNewsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetTitleNewsResult(PlayFabRequest* request)
@@ -2269,8 +2269,8 @@ void PlayFabClientApi::AddUserVirtualCurrency(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AddUserVirtualCurrency"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddUserVirtualCurrencyResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AddUserVirtualCurrency"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnAddUserVirtualCurrencyResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnAddUserVirtualCurrencyResult(PlayFabRequest* request)
@@ -2299,8 +2299,8 @@ void PlayFabClientApi::ConfirmPurchase(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ConfirmPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnConfirmPurchaseResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ConfirmPurchase"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnConfirmPurchaseResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnConfirmPurchaseResult(PlayFabRequest* request)
@@ -2329,8 +2329,8 @@ void PlayFabClientApi::ConsumeItem(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ConsumeItem"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnConsumeItemResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ConsumeItem"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnConsumeItemResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnConsumeItemResult(PlayFabRequest* request)
@@ -2359,8 +2359,8 @@ void PlayFabClientApi::GetCharacterInventory(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetCharacterInventory"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterInventoryResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetCharacterInventory"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterInventoryResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetCharacterInventoryResult(PlayFabRequest* request)
@@ -2389,8 +2389,8 @@ void PlayFabClientApi::GetPurchase(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPurchaseResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPurchase"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetPurchaseResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPurchaseResult(PlayFabRequest* request)
@@ -2419,8 +2419,8 @@ void PlayFabClientApi::GetUserInventory(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetUserInventory"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnGetUserInventoryResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetUserInventory"), Aws::Http::HttpMethod::HTTP_POST, true, "", customData, callback, errorCallback, OnGetUserInventoryResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetUserInventoryResult(PlayFabRequest* request)
@@ -2449,8 +2449,8 @@ void PlayFabClientApi::PayForPurchase(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/PayForPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnPayForPurchaseResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/PayForPurchase"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnPayForPurchaseResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnPayForPurchaseResult(PlayFabRequest* request)
@@ -2479,8 +2479,8 @@ void PlayFabClientApi::PurchaseItem(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/PurchaseItem"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnPurchaseItemResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/PurchaseItem"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnPurchaseItemResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnPurchaseItemResult(PlayFabRequest* request)
@@ -2509,8 +2509,8 @@ void PlayFabClientApi::RedeemCoupon(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RedeemCoupon"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRedeemCouponResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RedeemCoupon"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnRedeemCouponResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnRedeemCouponResult(PlayFabRequest* request)
@@ -2539,8 +2539,8 @@ void PlayFabClientApi::StartPurchase(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/StartPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnStartPurchaseResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/StartPurchase"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnStartPurchaseResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnStartPurchaseResult(PlayFabRequest* request)
@@ -2569,8 +2569,8 @@ void PlayFabClientApi::SubtractUserVirtualCurrency(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/SubtractUserVirtualCurrency"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnSubtractUserVirtualCurrencyResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/SubtractUserVirtualCurrency"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnSubtractUserVirtualCurrencyResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnSubtractUserVirtualCurrencyResult(PlayFabRequest* request)
@@ -2599,8 +2599,8 @@ void PlayFabClientApi::UnlockContainerInstance(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlockContainerInstance"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlockContainerInstanceResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlockContainerInstance"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnUnlockContainerInstanceResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlockContainerInstanceResult(PlayFabRequest* request)
@@ -2629,8 +2629,8 @@ void PlayFabClientApi::UnlockContainerItem(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlockContainerItem"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlockContainerItemResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlockContainerItem"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnUnlockContainerItemResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlockContainerItemResult(PlayFabRequest* request)
@@ -2659,8 +2659,8 @@ void PlayFabClientApi::AddFriend(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AddFriend"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddFriendResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AddFriend"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnAddFriendResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnAddFriendResult(PlayFabRequest* request)
@@ -2689,8 +2689,8 @@ void PlayFabClientApi::GetFriendsList(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetFriendsList"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetFriendsListResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetFriendsList"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetFriendsListResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetFriendsListResult(PlayFabRequest* request)
@@ -2719,8 +2719,8 @@ void PlayFabClientApi::RemoveFriend(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RemoveFriend"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRemoveFriendResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RemoveFriend"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnRemoveFriendResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnRemoveFriendResult(PlayFabRequest* request)
@@ -2749,8 +2749,8 @@ void PlayFabClientApi::SetFriendTags(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/SetFriendTags"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnSetFriendTagsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/SetFriendTags"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnSetFriendTagsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnSetFriendTagsResult(PlayFabRequest* request)
@@ -2779,8 +2779,8 @@ void PlayFabClientApi::RegisterForIOSPushNotification(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RegisterForIOSPushNotification"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRegisterForIOSPushNotificationResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RegisterForIOSPushNotification"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnRegisterForIOSPushNotificationResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnRegisterForIOSPushNotificationResult(PlayFabRequest* request)
@@ -2809,8 +2809,8 @@ void PlayFabClientApi::RestoreIOSPurchases(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RestoreIOSPurchases"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRestoreIOSPurchasesResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RestoreIOSPurchases"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnRestoreIOSPurchasesResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnRestoreIOSPurchasesResult(PlayFabRequest* request)
@@ -2839,8 +2839,8 @@ void PlayFabClientApi::ValidateIOSReceipt(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ValidateIOSReceipt"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnValidateIOSReceiptResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ValidateIOSReceipt"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnValidateIOSReceiptResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnValidateIOSReceiptResult(PlayFabRequest* request)
@@ -2869,8 +2869,8 @@ void PlayFabClientApi::GetCurrentGames(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetCurrentGames"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCurrentGamesResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetCurrentGames"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetCurrentGamesResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetCurrentGamesResult(PlayFabRequest* request)
@@ -2899,8 +2899,8 @@ void PlayFabClientApi::GetGameServerRegions(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetGameServerRegions"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetGameServerRegionsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetGameServerRegions"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetGameServerRegionsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetGameServerRegionsResult(PlayFabRequest* request)
@@ -2929,8 +2929,8 @@ void PlayFabClientApi::Matchmake(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/Matchmake"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnMatchmakeResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/Matchmake"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnMatchmakeResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnMatchmakeResult(PlayFabRequest* request)
@@ -2959,8 +2959,8 @@ void PlayFabClientApi::StartGame(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/StartGame"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnStartGameResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/StartGame"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnStartGameResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnStartGameResult(PlayFabRequest* request)
@@ -2989,8 +2989,8 @@ void PlayFabClientApi::AndroidDevicePushNotificationRegistration(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AndroidDevicePushNotificationRegistration"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAndroidDevicePushNotificationRegistrationResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AndroidDevicePushNotificationRegistration"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnAndroidDevicePushNotificationRegistrationResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnAndroidDevicePushNotificationRegistrationResult(PlayFabRequest* request)
@@ -3019,8 +3019,8 @@ void PlayFabClientApi::ValidateGooglePlayPurchase(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ValidateGooglePlayPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnValidateGooglePlayPurchaseResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ValidateGooglePlayPurchase"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnValidateGooglePlayPurchaseResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnValidateGooglePlayPurchaseResult(PlayFabRequest* request)
@@ -3049,8 +3049,8 @@ void PlayFabClientApi::WriteCharacterEvent(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/WriteCharacterEvent"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnWriteCharacterEventResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/WriteCharacterEvent"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnWriteCharacterEventResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnWriteCharacterEventResult(PlayFabRequest* request)
@@ -3079,8 +3079,8 @@ void PlayFabClientApi::WritePlayerEvent(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/WritePlayerEvent"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnWritePlayerEventResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/WritePlayerEvent"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnWritePlayerEventResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnWritePlayerEventResult(PlayFabRequest* request)
@@ -3109,8 +3109,8 @@ void PlayFabClientApi::WriteTitleEvent(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/WriteTitleEvent"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnWriteTitleEventResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/WriteTitleEvent"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnWriteTitleEventResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnWriteTitleEventResult(PlayFabRequest* request)
@@ -3139,8 +3139,8 @@ void PlayFabClientApi::AddSharedGroupMembers(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AddSharedGroupMembers"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddSharedGroupMembersResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AddSharedGroupMembers"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnAddSharedGroupMembersResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnAddSharedGroupMembersResult(PlayFabRequest* request)
@@ -3169,8 +3169,8 @@ void PlayFabClientApi::CreateSharedGroup(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/CreateSharedGroup"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnCreateSharedGroupResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/CreateSharedGroup"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnCreateSharedGroupResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnCreateSharedGroupResult(PlayFabRequest* request)
@@ -3199,8 +3199,8 @@ void PlayFabClientApi::GetSharedGroupData(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetSharedGroupData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetSharedGroupDataResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetSharedGroupData"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetSharedGroupDataResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetSharedGroupDataResult(PlayFabRequest* request)
@@ -3229,8 +3229,8 @@ void PlayFabClientApi::RemoveSharedGroupMembers(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RemoveSharedGroupMembers"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRemoveSharedGroupMembersResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RemoveSharedGroupMembers"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnRemoveSharedGroupMembersResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnRemoveSharedGroupMembersResult(PlayFabRequest* request)
@@ -3259,8 +3259,8 @@ void PlayFabClientApi::UpdateSharedGroupData(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdateSharedGroupData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateSharedGroupDataResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdateSharedGroupData"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnUpdateSharedGroupDataResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUpdateSharedGroupDataResult(PlayFabRequest* request)
@@ -3289,8 +3289,8 @@ void PlayFabClientApi::ExecuteCloudScript(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ExecuteCloudScript"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnExecuteCloudScriptResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ExecuteCloudScript"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnExecuteCloudScriptResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnExecuteCloudScriptResult(PlayFabRequest* request)
@@ -3319,8 +3319,8 @@ void PlayFabClientApi::GetContentDownloadUrl(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetContentDownloadUrl"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetContentDownloadUrlResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetContentDownloadUrl"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetContentDownloadUrlResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetContentDownloadUrlResult(PlayFabRequest* request)
@@ -3349,8 +3349,8 @@ void PlayFabClientApi::GetAllUsersCharacters(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetAllUsersCharacters"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetAllUsersCharactersResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetAllUsersCharacters"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetAllUsersCharactersResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetAllUsersCharactersResult(PlayFabRequest* request)
@@ -3379,8 +3379,8 @@ void PlayFabClientApi::GetCharacterLeaderboard(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetCharacterLeaderboard"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterLeaderboardResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetCharacterLeaderboard"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterLeaderboardResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetCharacterLeaderboardResult(PlayFabRequest* request)
@@ -3409,8 +3409,8 @@ void PlayFabClientApi::GetCharacterStatistics(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetCharacterStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterStatisticsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetCharacterStatistics"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterStatisticsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetCharacterStatisticsResult(PlayFabRequest* request)
@@ -3439,8 +3439,8 @@ void PlayFabClientApi::GetLeaderboardAroundCharacter(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetLeaderboardAroundCharacter"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardAroundCharacterResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetLeaderboardAroundCharacter"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardAroundCharacterResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetLeaderboardAroundCharacterResult(PlayFabRequest* request)
@@ -3469,8 +3469,8 @@ void PlayFabClientApi::GetLeaderboardForUserCharacters(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetLeaderboardForUserCharacters"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardForUserCharactersResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetLeaderboardForUserCharacters"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardForUserCharactersResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetLeaderboardForUserCharactersResult(PlayFabRequest* request)
@@ -3499,8 +3499,8 @@ void PlayFabClientApi::GrantCharacterToUser(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GrantCharacterToUser"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGrantCharacterToUserResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GrantCharacterToUser"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGrantCharacterToUserResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGrantCharacterToUserResult(PlayFabRequest* request)
@@ -3529,8 +3529,8 @@ void PlayFabClientApi::UpdateCharacterStatistics(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdateCharacterStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateCharacterStatisticsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdateCharacterStatistics"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnUpdateCharacterStatisticsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUpdateCharacterStatisticsResult(PlayFabRequest* request)
@@ -3559,8 +3559,8 @@ void PlayFabClientApi::GetCharacterData(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetCharacterData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterDataResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetCharacterData"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterDataResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetCharacterDataResult(PlayFabRequest* request)
@@ -3589,8 +3589,8 @@ void PlayFabClientApi::GetCharacterReadOnlyData(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetCharacterReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterReadOnlyDataResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetCharacterReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterReadOnlyDataResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetCharacterReadOnlyDataResult(PlayFabRequest* request)
@@ -3619,8 +3619,8 @@ void PlayFabClientApi::UpdateCharacterData(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdateCharacterData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateCharacterDataResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdateCharacterData"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnUpdateCharacterDataResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUpdateCharacterDataResult(PlayFabRequest* request)
@@ -3649,8 +3649,8 @@ void PlayFabClientApi::ValidateAmazonIAPReceipt(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ValidateAmazonIAPReceipt"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnValidateAmazonIAPReceiptResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ValidateAmazonIAPReceipt"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnValidateAmazonIAPReceiptResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnValidateAmazonIAPReceiptResult(PlayFabRequest* request)
@@ -3679,8 +3679,8 @@ void PlayFabClientApi::AcceptTrade(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AcceptTrade"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAcceptTradeResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AcceptTrade"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnAcceptTradeResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnAcceptTradeResult(PlayFabRequest* request)
@@ -3709,8 +3709,8 @@ void PlayFabClientApi::CancelTrade(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/CancelTrade"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnCancelTradeResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/CancelTrade"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnCancelTradeResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnCancelTradeResult(PlayFabRequest* request)
@@ -3739,8 +3739,8 @@ void PlayFabClientApi::GetPlayerTrades(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayerTrades"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerTradesResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayerTrades"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerTradesResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayerTradesResult(PlayFabRequest* request)
@@ -3769,8 +3769,8 @@ void PlayFabClientApi::GetTradeStatus(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetTradeStatus"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetTradeStatusResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetTradeStatus"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetTradeStatusResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetTradeStatusResult(PlayFabRequest* request)
@@ -3799,8 +3799,8 @@ void PlayFabClientApi::OpenTrade(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/OpenTrade"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnOpenTradeResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/OpenTrade"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnOpenTradeResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnOpenTradeResult(PlayFabRequest* request)
@@ -3829,8 +3829,8 @@ void PlayFabClientApi::AttributeInstall(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AttributeInstall"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAttributeInstallResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AttributeInstall"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnAttributeInstallResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnAttributeInstallResult(PlayFabRequest* request)
@@ -3861,8 +3861,8 @@ void PlayFabClientApi::GetPlayerSegments(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayerSegments"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnGetPlayerSegmentsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayerSegments"), Aws::Http::HttpMethod::HTTP_POST, true, "", customData, callback, errorCallback, OnGetPlayerSegmentsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayerSegmentsResult(PlayFabRequest* request)
@@ -3891,8 +3891,8 @@ void PlayFabClientApi::GetPlayerTags(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayerTags"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerTagsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayerTags"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerTagsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayerTagsResult(PlayFabRequest* request)
@@ -3921,8 +3921,8 @@ void PlayFabClientApi::ValidateWindowsStoreReceipt(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ValidateWindowsStoreReceipt"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnValidateWindowsStoreReceiptResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ValidateWindowsStoreReceipt"), Aws::Http::HttpMethod::HTTP_POST, true, request.toJSONString(), customData, callback, errorCallback, OnValidateWindowsStoreReceiptResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnValidateWindowsStoreReceiptResult(PlayFabRequest* request)

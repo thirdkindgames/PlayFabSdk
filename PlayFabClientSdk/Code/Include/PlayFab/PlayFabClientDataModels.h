@@ -44,13 +44,13 @@ namespace PlayFab
                 writer.String("OfferingPlayerId"); writer.String(OfferingPlayerId.c_str());
                 writer.String("TradeId"); writer.String(TradeId.c_str());
                 if (!AcceptedInventoryInstanceIds.empty()) {
-    writer.String("AcceptedInventoryInstanceIds");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = AcceptedInventoryInstanceIds.begin(); iter != AcceptedInventoryInstanceIds.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("AcceptedInventoryInstanceIds");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = AcceptedInventoryInstanceIds.begin(); iter != AcceptedInventoryInstanceIds.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
@@ -61,12 +61,12 @@ namespace PlayFab
                 const Value::ConstMemberIterator TradeId_member = obj.FindMember("TradeId");
                 if (TradeId_member != obj.MemberEnd() && !TradeId_member->value.IsNull()) TradeId = TradeId_member->value.GetString();
                 const Value::ConstMemberIterator AcceptedInventoryInstanceIds_member = obj.FindMember("AcceptedInventoryInstanceIds");
-    if (AcceptedInventoryInstanceIds_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = AcceptedInventoryInstanceIds_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            AcceptedInventoryInstanceIds.push_back(memberList[i].GetString());
-        }
-    }
+                if (AcceptedInventoryInstanceIds_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = AcceptedInventoryInstanceIds_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        AcceptedInventoryInstanceIds.push_back(memberList[i].GetString());
+                    }
+                }
 
                 return true;
             }
@@ -187,46 +187,46 @@ namespace PlayFab
                 if (TradeId.length() > 0) { writer.String("TradeId"); writer.String(TradeId.c_str()); }
                 if (OfferingPlayerId.length() > 0) { writer.String("OfferingPlayerId"); writer.String(OfferingPlayerId.c_str()); }
                 if (!OfferedInventoryInstanceIds.empty()) {
-    writer.String("OfferedInventoryInstanceIds");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = OfferedInventoryInstanceIds.begin(); iter != OfferedInventoryInstanceIds.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("OfferedInventoryInstanceIds");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = OfferedInventoryInstanceIds.begin(); iter != OfferedInventoryInstanceIds.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (!OfferedCatalogItemIds.empty()) {
-    writer.String("OfferedCatalogItemIds");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = OfferedCatalogItemIds.begin(); iter != OfferedCatalogItemIds.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("OfferedCatalogItemIds");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = OfferedCatalogItemIds.begin(); iter != OfferedCatalogItemIds.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (!RequestedCatalogItemIds.empty()) {
-    writer.String("RequestedCatalogItemIds");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = RequestedCatalogItemIds.begin(); iter != RequestedCatalogItemIds.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("RequestedCatalogItemIds");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = RequestedCatalogItemIds.begin(); iter != RequestedCatalogItemIds.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (!AllowedPlayerIds.empty()) {
-    writer.String("AllowedPlayerIds");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = AllowedPlayerIds.begin(); iter != AllowedPlayerIds.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("AllowedPlayerIds");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = AllowedPlayerIds.begin(); iter != AllowedPlayerIds.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (AcceptedPlayerId.length() > 0) { writer.String("AcceptedPlayerId"); writer.String(AcceptedPlayerId.c_str()); }
                 if (!AcceptedInventoryInstanceIds.empty()) {
-    writer.String("AcceptedInventoryInstanceIds");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = AcceptedInventoryInstanceIds.begin(); iter != AcceptedInventoryInstanceIds.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("AcceptedInventoryInstanceIds");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = AcceptedInventoryInstanceIds.begin(); iter != AcceptedInventoryInstanceIds.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (OpenedAt.notNull()) { writer.String("OpenedAt"); writeDatetime(OpenedAt, writer); }
                 if (FilledAt.notNull()) { writer.String("FilledAt"); writeDatetime(FilledAt, writer); }
                 if (CancelledAt.notNull()) { writer.String("CancelledAt"); writeDatetime(CancelledAt, writer); }
@@ -243,42 +243,42 @@ namespace PlayFab
                 const Value::ConstMemberIterator OfferingPlayerId_member = obj.FindMember("OfferingPlayerId");
                 if (OfferingPlayerId_member != obj.MemberEnd() && !OfferingPlayerId_member->value.IsNull()) OfferingPlayerId = OfferingPlayerId_member->value.GetString();
                 const Value::ConstMemberIterator OfferedInventoryInstanceIds_member = obj.FindMember("OfferedInventoryInstanceIds");
-    if (OfferedInventoryInstanceIds_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = OfferedInventoryInstanceIds_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            OfferedInventoryInstanceIds.push_back(memberList[i].GetString());
-        }
-    }
+                if (OfferedInventoryInstanceIds_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = OfferedInventoryInstanceIds_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        OfferedInventoryInstanceIds.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator OfferedCatalogItemIds_member = obj.FindMember("OfferedCatalogItemIds");
-    if (OfferedCatalogItemIds_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = OfferedCatalogItemIds_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            OfferedCatalogItemIds.push_back(memberList[i].GetString());
-        }
-    }
+                if (OfferedCatalogItemIds_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = OfferedCatalogItemIds_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        OfferedCatalogItemIds.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator RequestedCatalogItemIds_member = obj.FindMember("RequestedCatalogItemIds");
-    if (RequestedCatalogItemIds_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = RequestedCatalogItemIds_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            RequestedCatalogItemIds.push_back(memberList[i].GetString());
-        }
-    }
+                if (RequestedCatalogItemIds_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = RequestedCatalogItemIds_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        RequestedCatalogItemIds.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator AllowedPlayerIds_member = obj.FindMember("AllowedPlayerIds");
-    if (AllowedPlayerIds_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = AllowedPlayerIds_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            AllowedPlayerIds.push_back(memberList[i].GetString());
-        }
-    }
+                if (AllowedPlayerIds_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = AllowedPlayerIds_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        AllowedPlayerIds.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator AcceptedPlayerId_member = obj.FindMember("AcceptedPlayerId");
                 if (AcceptedPlayerId_member != obj.MemberEnd() && !AcceptedPlayerId_member->value.IsNull()) AcceptedPlayerId = AcceptedPlayerId_member->value.GetString();
                 const Value::ConstMemberIterator AcceptedInventoryInstanceIds_member = obj.FindMember("AcceptedInventoryInstanceIds");
-    if (AcceptedInventoryInstanceIds_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = AcceptedInventoryInstanceIds_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            AcceptedInventoryInstanceIds.push_back(memberList[i].GetString());
-        }
-    }
+                if (AcceptedInventoryInstanceIds_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = AcceptedInventoryInstanceIds_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        AcceptedInventoryInstanceIds.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator OpenedAt_member = obj.FindMember("OpenedAt");
                 if (OpenedAt_member != obj.MemberEnd() && !OpenedAt_member->value.IsNull()) OpenedAt = readDatetime(OpenedAt_member->value);
                 const Value::ConstMemberIterator FilledAt_member = obj.FindMember("FilledAt");
@@ -627,12 +627,12 @@ namespace PlayFab
                 writer.StartObject();
                 writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
                 writer.String("PlayFabIds");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-    
+                writer.StartArray();
+                for (std::list<Aws::String>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
+                    writer.String(iter->c_str());
+                }
+                writer.EndArray();
+
                 writer.EndObject();
             }
 
@@ -641,12 +641,12 @@ namespace PlayFab
                 const Value::ConstMemberIterator SharedGroupId_member = obj.FindMember("SharedGroupId");
                 if (SharedGroupId_member != obj.MemberEnd() && !SharedGroupId_member->value.IsNull()) SharedGroupId = SharedGroupId_member->value.GetString();
                 const Value::ConstMemberIterator PlayFabIds_member = obj.FindMember("PlayFabIds");
-    if (PlayFabIds_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = PlayFabIds_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            PlayFabIds.push_back(memberList[i].GetString());
-        }
-    }
+                if (PlayFabIds_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = PlayFabIds_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        PlayFabIds.push_back(memberList[i].GetString());
+                    }
+                }
 
                 return true;
             }
@@ -1114,29 +1114,29 @@ namespace PlayFab
                 if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
                 if (Description.length() > 0) { writer.String("Description"); writer.String(Description.c_str()); }
                 if (!VirtualCurrencyPrices.empty()) {
-    writer.String("VirtualCurrencyPrices");
-    writer.StartObject();
-    for (std::map<Aws::String, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Uint(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("VirtualCurrencyPrices");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 if (!RealCurrencyPrices.empty()) {
-    writer.String("RealCurrencyPrices");
-    writer.StartObject();
-    for (std::map<Aws::String, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Uint(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("RealCurrencyPrices");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 if (!VCAmount.empty()) {
-    writer.String("VCAmount");
-    writer.StartObject();
-    for (std::map<Aws::String, Uint32>::iterator iter = VCAmount.begin(); iter != VCAmount.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Uint(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("VCAmount");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Uint32>::iterator iter = VCAmount.begin(); iter != VCAmount.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 writer.EndObject();
             }
 
@@ -1153,23 +1153,23 @@ namespace PlayFab
                 const Value::ConstMemberIterator Description_member = obj.FindMember("Description");
                 if (Description_member != obj.MemberEnd() && !Description_member->value.IsNull()) Description = Description_member->value.GetString();
                 const Value::ConstMemberIterator VirtualCurrencyPrices_member = obj.FindMember("VirtualCurrencyPrices");
-    if (VirtualCurrencyPrices_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = VirtualCurrencyPrices_member->value.MemberBegin(); iter != VirtualCurrencyPrices_member->value.MemberEnd(); ++iter) {
-            VirtualCurrencyPrices[iter->name.GetString()] = iter->value.GetUint();
-        }
-    }
+                if (VirtualCurrencyPrices_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = VirtualCurrencyPrices_member->value.MemberBegin(); iter != VirtualCurrencyPrices_member->value.MemberEnd(); ++iter) {
+                        VirtualCurrencyPrices[iter->name.GetString()] = iter->value.GetUint();
+                    }
+                }
                 const Value::ConstMemberIterator RealCurrencyPrices_member = obj.FindMember("RealCurrencyPrices");
-    if (RealCurrencyPrices_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = RealCurrencyPrices_member->value.MemberBegin(); iter != RealCurrencyPrices_member->value.MemberEnd(); ++iter) {
-            RealCurrencyPrices[iter->name.GetString()] = iter->value.GetUint();
-        }
-    }
+                if (RealCurrencyPrices_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = RealCurrencyPrices_member->value.MemberBegin(); iter != RealCurrencyPrices_member->value.MemberEnd(); ++iter) {
+                        RealCurrencyPrices[iter->name.GetString()] = iter->value.GetUint();
+                    }
+                }
                 const Value::ConstMemberIterator VCAmount_member = obj.FindMember("VCAmount");
-    if (VCAmount_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = VCAmount_member->value.MemberBegin(); iter != VCAmount_member->value.MemberEnd(); ++iter) {
-            VCAmount[iter->name.GetString()] = iter->value.GetUint();
-        }
-    }
+                if (VCAmount_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = VCAmount_member->value.MemberBegin(); iter != VCAmount_member->value.MemberEnd(); ++iter) {
+                        VCAmount[iter->name.GetString()] = iter->value.GetUint();
+                    }
+                }
 
                 return true;
             }
@@ -1263,29 +1263,29 @@ namespace PlayFab
                 writer.StartObject();
                 if (KeyItemId.length() > 0) { writer.String("KeyItemId"); writer.String(KeyItemId.c_str()); }
                 if (!ItemContents.empty()) {
-    writer.String("ItemContents");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = ItemContents.begin(); iter != ItemContents.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("ItemContents");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = ItemContents.begin(); iter != ItemContents.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (!ResultTableContents.empty()) {
-    writer.String("ResultTableContents");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = ResultTableContents.begin(); iter != ResultTableContents.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("ResultTableContents");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = ResultTableContents.begin(); iter != ResultTableContents.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (!VirtualCurrencyContents.empty()) {
-    writer.String("VirtualCurrencyContents");
-    writer.StartObject();
-    for (std::map<Aws::String, Uint32>::iterator iter = VirtualCurrencyContents.begin(); iter != VirtualCurrencyContents.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Uint(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("VirtualCurrencyContents");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Uint32>::iterator iter = VirtualCurrencyContents.begin(); iter != VirtualCurrencyContents.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 writer.EndObject();
             }
 
@@ -1294,25 +1294,25 @@ namespace PlayFab
                 const Value::ConstMemberIterator KeyItemId_member = obj.FindMember("KeyItemId");
                 if (KeyItemId_member != obj.MemberEnd() && !KeyItemId_member->value.IsNull()) KeyItemId = KeyItemId_member->value.GetString();
                 const Value::ConstMemberIterator ItemContents_member = obj.FindMember("ItemContents");
-    if (ItemContents_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = ItemContents_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            ItemContents.push_back(memberList[i].GetString());
-        }
-    }
+                if (ItemContents_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = ItemContents_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        ItemContents.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator ResultTableContents_member = obj.FindMember("ResultTableContents");
-    if (ResultTableContents_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = ResultTableContents_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            ResultTableContents.push_back(memberList[i].GetString());
-        }
-    }
+                if (ResultTableContents_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = ResultTableContents_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        ResultTableContents.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator VirtualCurrencyContents_member = obj.FindMember("VirtualCurrencyContents");
-    if (VirtualCurrencyContents_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = VirtualCurrencyContents_member->value.MemberBegin(); iter != VirtualCurrencyContents_member->value.MemberEnd(); ++iter) {
-            VirtualCurrencyContents[iter->name.GetString()] = iter->value.GetUint();
-        }
-    }
+                if (VirtualCurrencyContents_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = VirtualCurrencyContents_member->value.MemberBegin(); iter != VirtualCurrencyContents_member->value.MemberEnd(); ++iter) {
+                        VirtualCurrencyContents[iter->name.GetString()] = iter->value.GetUint();
+                    }
+                }
 
                 return true;
             }
@@ -1351,54 +1351,54 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!BundledItems.empty()) {
-    writer.String("BundledItems");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = BundledItems.begin(); iter != BundledItems.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("BundledItems");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = BundledItems.begin(); iter != BundledItems.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (!BundledResultTables.empty()) {
-    writer.String("BundledResultTables");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = BundledResultTables.begin(); iter != BundledResultTables.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("BundledResultTables");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = BundledResultTables.begin(); iter != BundledResultTables.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (!BundledVirtualCurrencies.empty()) {
-    writer.String("BundledVirtualCurrencies");
-    writer.StartObject();
-    for (std::map<Aws::String, Uint32>::iterator iter = BundledVirtualCurrencies.begin(); iter != BundledVirtualCurrencies.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Uint(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("BundledVirtualCurrencies");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Uint32>::iterator iter = BundledVirtualCurrencies.begin(); iter != BundledVirtualCurrencies.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator BundledItems_member = obj.FindMember("BundledItems");
-    if (BundledItems_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = BundledItems_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            BundledItems.push_back(memberList[i].GetString());
-        }
-    }
+                if (BundledItems_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = BundledItems_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        BundledItems.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator BundledResultTables_member = obj.FindMember("BundledResultTables");
-    if (BundledResultTables_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = BundledResultTables_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            BundledResultTables.push_back(memberList[i].GetString());
-        }
-    }
+                if (BundledResultTables_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = BundledResultTables_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        BundledResultTables.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator BundledVirtualCurrencies_member = obj.FindMember("BundledVirtualCurrencies");
-    if (BundledVirtualCurrencies_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = BundledVirtualCurrencies_member->value.MemberBegin(); iter != BundledVirtualCurrencies_member->value.MemberEnd(); ++iter) {
-            BundledVirtualCurrencies[iter->name.GetString()] = iter->value.GetUint();
-        }
-    }
+                if (BundledVirtualCurrencies_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = BundledVirtualCurrencies_member->value.MemberBegin(); iter != BundledVirtualCurrencies_member->value.MemberEnd(); ++iter) {
+                        BundledVirtualCurrencies[iter->name.GetString()] = iter->value.GetUint();
+                    }
+                }
 
                 return true;
             }
@@ -1490,29 +1490,29 @@ namespace PlayFab
                 if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
                 if (Description.length() > 0) { writer.String("Description"); writer.String(Description.c_str()); }
                 if (!VirtualCurrencyPrices.empty()) {
-    writer.String("VirtualCurrencyPrices");
-    writer.StartObject();
-    for (std::map<Aws::String, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Uint(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("VirtualCurrencyPrices");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 if (!RealCurrencyPrices.empty()) {
-    writer.String("RealCurrencyPrices");
-    writer.StartObject();
-    for (std::map<Aws::String, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Uint(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("RealCurrencyPrices");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 if (!Tags.empty()) {
-    writer.String("Tags");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("Tags");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (CustomData.length() > 0) { writer.String("CustomData"); writer.String(CustomData.c_str()); }
                 if (Consumable != nullptr) { writer.String("Consumable"); Consumable->writeJSON(writer); }
                 if (Container != nullptr) { writer.String("Container"); Container->writeJSON(writer); }
@@ -1539,24 +1539,24 @@ namespace PlayFab
                 const Value::ConstMemberIterator Description_member = obj.FindMember("Description");
                 if (Description_member != obj.MemberEnd() && !Description_member->value.IsNull()) Description = Description_member->value.GetString();
                 const Value::ConstMemberIterator VirtualCurrencyPrices_member = obj.FindMember("VirtualCurrencyPrices");
-    if (VirtualCurrencyPrices_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = VirtualCurrencyPrices_member->value.MemberBegin(); iter != VirtualCurrencyPrices_member->value.MemberEnd(); ++iter) {
-            VirtualCurrencyPrices[iter->name.GetString()] = iter->value.GetUint();
-        }
-    }
+                if (VirtualCurrencyPrices_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = VirtualCurrencyPrices_member->value.MemberBegin(); iter != VirtualCurrencyPrices_member->value.MemberEnd(); ++iter) {
+                        VirtualCurrencyPrices[iter->name.GetString()] = iter->value.GetUint();
+                    }
+                }
                 const Value::ConstMemberIterator RealCurrencyPrices_member = obj.FindMember("RealCurrencyPrices");
-    if (RealCurrencyPrices_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = RealCurrencyPrices_member->value.MemberBegin(); iter != RealCurrencyPrices_member->value.MemberEnd(); ++iter) {
-            RealCurrencyPrices[iter->name.GetString()] = iter->value.GetUint();
-        }
-    }
+                if (RealCurrencyPrices_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = RealCurrencyPrices_member->value.MemberBegin(); iter != RealCurrencyPrices_member->value.MemberEnd(); ++iter) {
+                        RealCurrencyPrices[iter->name.GetString()] = iter->value.GetUint();
+                    }
+                }
                 const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
-    if (Tags_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Tags_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Tags.push_back(memberList[i].GetString());
-        }
-    }
+                if (Tags_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Tags_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Tags.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator CustomData_member = obj.FindMember("CustomData");
                 if (CustomData_member != obj.MemberEnd() && !CustomData_member->value.IsNull()) CustomData = CustomData_member->value.GetString();
                 const Value::ConstMemberIterator Consumable_member = obj.FindMember("Consumable");
@@ -1664,21 +1664,21 @@ namespace PlayFab
                 if (UnitCurrency.length() > 0) { writer.String("UnitCurrency"); writer.String(UnitCurrency.c_str()); }
                 writer.String("UnitPrice"); writer.Uint(UnitPrice);
                 if (!BundleContents.empty()) {
-    writer.String("BundleContents");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("BundleContents");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (!CustomData.empty()) {
-    writer.String("CustomData");
-    writer.StartObject();
-    for (std::map<Aws::String, Aws::String>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-    }
-    writer.EndObject();
-     }
+                    writer.String("CustomData");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Aws::String>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                    }
+                    writer.EndObject();
+                }
                 writer.EndObject();
             }
 
@@ -1711,18 +1711,18 @@ namespace PlayFab
                 const Value::ConstMemberIterator UnitPrice_member = obj.FindMember("UnitPrice");
                 if (UnitPrice_member != obj.MemberEnd() && !UnitPrice_member->value.IsNull()) UnitPrice = UnitPrice_member->value.GetUint();
                 const Value::ConstMemberIterator BundleContents_member = obj.FindMember("BundleContents");
-    if (BundleContents_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = BundleContents_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            BundleContents.push_back(memberList[i].GetString());
-        }
-    }
+                if (BundleContents_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = BundleContents_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        BundleContents.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator CustomData_member = obj.FindMember("CustomData");
-    if (CustomData_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = CustomData_member->value.MemberBegin(); iter != CustomData_member->value.MemberEnd(); ++iter) {
-            CustomData[iter->name.GetString()] = iter->value.GetString();
-        }
-    }
+                if (CustomData_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = CustomData_member->value.MemberBegin(); iter != CustomData_member->value.MemberEnd(); ++iter) {
+                        CustomData[iter->name.GetString()] = iter->value.GetString();
+                    }
+                }
 
                 return true;
             }
@@ -1759,13 +1759,13 @@ namespace PlayFab
                 writer.StartObject();
                 if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
                 if (!Inventory.empty()) {
-    writer.String("Inventory");
-    writer.StartArray();
-    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Inventory");
+                    writer.StartArray();
+                    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
@@ -1774,12 +1774,12 @@ namespace PlayFab
                 const Value::ConstMemberIterator CharacterId_member = obj.FindMember("CharacterId");
                 if (CharacterId_member != obj.MemberEnd() && !CharacterId_member->value.IsNull()) CharacterId = CharacterId_member->value.GetString();
                 const Value::ConstMemberIterator Inventory_member = obj.FindMember("Inventory");
-    if (Inventory_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Inventory_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Inventory.push_back(ItemInstance(memberList[i]));
-        }
-    }
+                if (Inventory_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Inventory_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Inventory.push_back(ItemInstance(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -1975,24 +1975,24 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Data.empty()) {
-    writer.String("Data");
-    writer.StartObject();
-    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-    }
-    writer.EndObject();
-     }
+                    writer.String("Data");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                    }
+                    writer.EndObject();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
-    if (Data_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
-            Data[iter->name.GetString()] = iter->value.GetString();
-        }
-    }
+                if (Data_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
+                        Data[iter->name.GetString()] = iter->value.GetString();
+                    }
+                }
 
                 return true;
             }
@@ -2028,40 +2028,40 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Includes.empty()) {
-    writer.String("Includes");
-    writer.StartArray();
-    for (std::list<Container_Dictionary_String_String>::iterator iter = Includes.begin(); iter != Includes.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Includes");
+                    writer.StartArray();
+                    for (std::list<Container_Dictionary_String_String>::iterator iter = Includes.begin(); iter != Includes.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (!Excludes.empty()) {
-    writer.String("Excludes");
-    writer.StartArray();
-    for (std::list<Container_Dictionary_String_String>::iterator iter = Excludes.begin(); iter != Excludes.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Excludes");
+                    writer.StartArray();
+                    for (std::list<Container_Dictionary_String_String>::iterator iter = Excludes.begin(); iter != Excludes.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Includes_member = obj.FindMember("Includes");
-    if (Includes_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Includes_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Includes.push_back(Container_Dictionary_String_String(memberList[i]));
-        }
-    }
+                if (Includes_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Includes_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Includes.push_back(Container_Dictionary_String_String(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator Excludes_member = obj.FindMember("Excludes");
-    if (Excludes_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Excludes_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Excludes.push_back(Container_Dictionary_String_String(memberList[i]));
-        }
-    }
+                if (Excludes_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Excludes_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Excludes.push_back(Container_Dictionary_String_String(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -2141,13 +2141,13 @@ namespace PlayFab
                 if (OrderId.length() > 0) { writer.String("OrderId"); writer.String(OrderId.c_str()); }
                 writer.String("PurchaseDate"); writeDatetime(PurchaseDate, writer);
                 if (!Items.empty()) {
-    writer.String("Items");
-    writer.StartArray();
-    for (std::list<ItemInstance>::iterator iter = Items.begin(); iter != Items.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Items");
+                    writer.StartArray();
+                    for (std::list<ItemInstance>::iterator iter = Items.begin(); iter != Items.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
@@ -2158,12 +2158,12 @@ namespace PlayFab
                 const Value::ConstMemberIterator PurchaseDate_member = obj.FindMember("PurchaseDate");
                 if (PurchaseDate_member != obj.MemberEnd() && !PurchaseDate_member->value.IsNull()) PurchaseDate = readDatetime(PurchaseDate_member->value);
                 const Value::ConstMemberIterator Items_member = obj.FindMember("Items");
-    if (Items_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Items_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Items.push_back(ItemInstance(memberList[i]));
-        }
-    }
+                if (Items_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Items_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Items.push_back(ItemInstance(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -3900,24 +3900,24 @@ namespace PlayFab
                 if (StatisticName.length() > 0) { writer.String("StatisticName"); writer.String(StatisticName.c_str()); }
                 if (MaxPlayers.notNull()) { writer.String("MaxPlayers"); writer.Int(MaxPlayers); }
                 if (!PlayerUserIds.empty()) {
-    writer.String("PlayerUserIds");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = PlayerUserIds.begin(); iter != PlayerUserIds.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("PlayerUserIds");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = PlayerUserIds.begin(); iter != PlayerUserIds.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 writer.String("RunTime"); writer.Uint(RunTime);
                 if (GameServerState.notNull()) { writer.String("GameServerState"); writeGameInstanceStateEnumJSON(GameServerState, writer); }
                 if (GameServerData.length() > 0) { writer.String("GameServerData"); writer.String(GameServerData.c_str()); }
                 if (!Tags.empty()) {
-    writer.String("Tags");
-    writer.StartObject();
-    for (std::map<Aws::String, Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-    }
-    writer.EndObject();
-     }
+                    writer.String("Tags");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                    }
+                    writer.EndObject();
+                }
                 if (LastHeartbeat.notNull()) { writer.String("LastHeartbeat"); writeDatetime(LastHeartbeat, writer); }
                 if (ServerHostname.length() > 0) { writer.String("ServerHostname"); writer.String(ServerHostname.c_str()); }
                 if (ServerPort.notNull()) { writer.String("ServerPort"); writer.Int(ServerPort); }
@@ -3939,12 +3939,12 @@ namespace PlayFab
                 const Value::ConstMemberIterator MaxPlayers_member = obj.FindMember("MaxPlayers");
                 if (MaxPlayers_member != obj.MemberEnd() && !MaxPlayers_member->value.IsNull()) MaxPlayers = MaxPlayers_member->value.GetInt();
                 const Value::ConstMemberIterator PlayerUserIds_member = obj.FindMember("PlayerUserIds");
-    if (PlayerUserIds_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = PlayerUserIds_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            PlayerUserIds.push_back(memberList[i].GetString());
-        }
-    }
+                if (PlayerUserIds_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = PlayerUserIds_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        PlayerUserIds.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator RunTime_member = obj.FindMember("RunTime");
                 if (RunTime_member != obj.MemberEnd() && !RunTime_member->value.IsNull()) RunTime = RunTime_member->value.GetUint();
                 const Value::ConstMemberIterator GameServerState_member = obj.FindMember("GameServerState");
@@ -3952,11 +3952,11 @@ namespace PlayFab
                 const Value::ConstMemberIterator GameServerData_member = obj.FindMember("GameServerData");
                 if (GameServerData_member != obj.MemberEnd() && !GameServerData_member->value.IsNull()) GameServerData = GameServerData_member->value.GetString();
                 const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
-    if (Tags_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = Tags_member->value.MemberBegin(); iter != Tags_member->value.MemberEnd(); ++iter) {
-            Tags[iter->name.GetString()] = iter->value.GetString();
-        }
-    }
+                if (Tags_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = Tags_member->value.MemberBegin(); iter != Tags_member->value.MemberEnd(); ++iter) {
+                        Tags[iter->name.GetString()] = iter->value.GetString();
+                    }
+                }
                 const Value::ConstMemberIterator LastHeartbeat_member = obj.FindMember("LastHeartbeat");
                 if (LastHeartbeat_member != obj.MemberEnd() && !LastHeartbeat_member->value.IsNull()) LastHeartbeat = readDatetime(LastHeartbeat_member->value);
                 const Value::ConstMemberIterator ServerHostname_member = obj.FindMember("ServerHostname");
@@ -4001,13 +4001,13 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Games.empty()) {
-    writer.String("Games");
-    writer.StartArray();
-    for (std::list<GameInfo>::iterator iter = Games.begin(); iter != Games.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Games");
+                    writer.StartArray();
+                    for (std::list<GameInfo>::iterator iter = Games.begin(); iter != Games.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.String("PlayerCount"); writer.Int(PlayerCount);
                 writer.String("GameCount"); writer.Int(GameCount);
                 writer.EndObject();
@@ -4016,12 +4016,12 @@ namespace PlayFab
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Games_member = obj.FindMember("Games");
-    if (Games_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Games_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Games.push_back(GameInfo(memberList[i]));
-        }
-    }
+                if (Games_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Games_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Games.push_back(GameInfo(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator PlayerCount_member = obj.FindMember("PlayerCount");
                 if (PlayerCount_member != obj.MemberEnd() && !PlayerCount_member->value.IsNull()) PlayerCount = PlayerCount_member->value.GetInt();
                 const Value::ConstMemberIterator GameCount_member = obj.FindMember("GameCount");
@@ -4294,13 +4294,13 @@ namespace PlayFab
                 if (FunctionResult.notNull()) { writer.String("FunctionResult"); FunctionResult.writeJSON(writer); }
                 if (FunctionResultTooLarge.notNull()) { writer.String("FunctionResultTooLarge"); writer.Bool(FunctionResultTooLarge); }
                 if (!Logs.empty()) {
-    writer.String("Logs");
-    writer.StartArray();
-    for (std::list<LogStatement>::iterator iter = Logs.begin(); iter != Logs.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Logs");
+                    writer.StartArray();
+                    for (std::list<LogStatement>::iterator iter = Logs.begin(); iter != Logs.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (LogsTooLarge.notNull()) { writer.String("LogsTooLarge"); writer.Bool(LogsTooLarge); }
                 writer.String("ExecutionTimeSeconds"); writer.Double(ExecutionTimeSeconds);
                 writer.String("ProcessorTimeSeconds"); writer.Double(ProcessorTimeSeconds);
@@ -4322,12 +4322,12 @@ namespace PlayFab
                 const Value::ConstMemberIterator FunctionResultTooLarge_member = obj.FindMember("FunctionResultTooLarge");
                 if (FunctionResultTooLarge_member != obj.MemberEnd() && !FunctionResultTooLarge_member->value.IsNull()) FunctionResultTooLarge = FunctionResultTooLarge_member->value.GetBool();
                 const Value::ConstMemberIterator Logs_member = obj.FindMember("Logs");
-    if (Logs_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Logs_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Logs.push_back(LogStatement(memberList[i]));
-        }
-    }
+                if (Logs_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Logs_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Logs.push_back(LogStatement(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator LogsTooLarge_member = obj.FindMember("LogsTooLarge");
                 if (LogsTooLarge_member != obj.MemberEnd() && !LogsTooLarge_member->value.IsNull()) LogsTooLarge = LogsTooLarge_member->value.GetBool();
                 const Value::ConstMemberIterator ExecutionTimeSeconds_member = obj.FindMember("ExecutionTimeSeconds");
@@ -4630,13 +4630,13 @@ namespace PlayFab
                 if (Username.length() > 0) { writer.String("Username"); writer.String(Username.c_str()); }
                 if (TitleDisplayName.length() > 0) { writer.String("TitleDisplayName"); writer.String(TitleDisplayName.c_str()); }
                 if (!Tags.empty()) {
-    writer.String("Tags");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("Tags");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (CurrentMatchmakerLobbyId.length() > 0) { writer.String("CurrentMatchmakerLobbyId"); writer.String(CurrentMatchmakerLobbyId.c_str()); }
                 if (FacebookInfo != nullptr) { writer.String("FacebookInfo"); FacebookInfo->writeJSON(writer); }
                 if (SteamInfo != nullptr) { writer.String("SteamInfo"); SteamInfo->writeJSON(writer); }
@@ -4653,12 +4653,12 @@ namespace PlayFab
                 const Value::ConstMemberIterator TitleDisplayName_member = obj.FindMember("TitleDisplayName");
                 if (TitleDisplayName_member != obj.MemberEnd() && !TitleDisplayName_member->value.IsNull()) TitleDisplayName = TitleDisplayName_member->value.GetString();
                 const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
-    if (Tags_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Tags_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Tags.push_back(memberList[i].GetString());
-        }
-    }
+                if (Tags_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Tags_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Tags.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator CurrentMatchmakerLobbyId_member = obj.FindMember("CurrentMatchmakerLobbyId");
                 if (CurrentMatchmakerLobbyId_member != obj.MemberEnd() && !CurrentMatchmakerLobbyId_member->value.IsNull()) CurrentMatchmakerLobbyId = CurrentMatchmakerLobbyId_member->value.GetString();
                 const Value::ConstMemberIterator FacebookInfo_member = obj.FindMember("FacebookInfo");
@@ -4846,25 +4846,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Regions.empty()) {
-    writer.String("Regions");
-    writer.StartArray();
-    for (std::list<RegionInfo>::iterator iter = Regions.begin(); iter != Regions.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Regions");
+                    writer.StartArray();
+                    for (std::list<RegionInfo>::iterator iter = Regions.begin(); iter != Regions.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Regions_member = obj.FindMember("Regions");
-    if (Regions_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Regions_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Regions.push_back(RegionInfo(memberList[i]));
-        }
-    }
+                if (Regions_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Regions_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Regions.push_back(RegionInfo(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -5765,25 +5765,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Catalog.empty()) {
-    writer.String("Catalog");
-    writer.StartArray();
-    for (std::list<CatalogItem>::iterator iter = Catalog.begin(); iter != Catalog.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Catalog");
+                    writer.StartArray();
+                    for (std::list<CatalogItem>::iterator iter = Catalog.begin(); iter != Catalog.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Catalog_member = obj.FindMember("Catalog");
-    if (Catalog_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Catalog_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Catalog.push_back(CatalogItem(memberList[i]));
-        }
-    }
+                if (Catalog_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Catalog_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Catalog.push_back(CatalogItem(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -5827,13 +5827,13 @@ namespace PlayFab
                 if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
                 writer.String("CharacterId"); writer.String(CharacterId.c_str());
                 if (!Keys.empty()) {
-    writer.String("Keys");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("Keys");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (IfChangedFromDataVersion.notNull()) { writer.String("IfChangedFromDataVersion"); writer.Uint(IfChangedFromDataVersion); }
                 writer.EndObject();
             }
@@ -5845,12 +5845,12 @@ namespace PlayFab
                 const Value::ConstMemberIterator CharacterId_member = obj.FindMember("CharacterId");
                 if (CharacterId_member != obj.MemberEnd() && !CharacterId_member->value.IsNull()) CharacterId = CharacterId_member->value.GetString();
                 const Value::ConstMemberIterator Keys_member = obj.FindMember("Keys");
-    if (Keys_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Keys_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Keys.push_back(memberList[i].GetString());
-        }
-    }
+                if (Keys_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Keys_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Keys.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator IfChangedFromDataVersion_member = obj.FindMember("IfChangedFromDataVersion");
                 if (IfChangedFromDataVersion_member != obj.MemberEnd() && !IfChangedFromDataVersion_member->value.IsNull()) IfChangedFromDataVersion = IfChangedFromDataVersion_member->value.GetUint();
 
@@ -5977,13 +5977,13 @@ namespace PlayFab
                 writer.StartObject();
                 if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
                 if (!Data.empty()) {
-    writer.String("Data");
-    writer.StartObject();
-    for (std::map<Aws::String, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-    }
-    writer.EndObject();
-     }
+                    writer.String("Data");
+                    writer.StartObject();
+                    for (std::map<Aws::String, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                    }
+                    writer.EndObject();
+                }
                 writer.String("DataVersion"); writer.Uint(DataVersion);
                 writer.EndObject();
             }
@@ -5993,11 +5993,11 @@ namespace PlayFab
                 const Value::ConstMemberIterator CharacterId_member = obj.FindMember("CharacterId");
                 if (CharacterId_member != obj.MemberEnd() && !CharacterId_member->value.IsNull()) CharacterId = CharacterId_member->value.GetString();
                 const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
-    if (Data_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
-            Data[iter->name.GetString()] = UserDataRecord(iter->value);
-        }
-    }
+                if (Data_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
+                        Data[iter->name.GetString()] = UserDataRecord(iter->value);
+                    }
+                }
                 const Value::ConstMemberIterator DataVersion_member = obj.FindMember("DataVersion");
                 if (DataVersion_member != obj.MemberEnd() && !DataVersion_member->value.IsNull()) DataVersion = DataVersion_member->value.GetUint();
 
@@ -6138,29 +6138,29 @@ namespace PlayFab
                 writer.StartObject();
                 if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
                 if (!Inventory.empty()) {
-    writer.String("Inventory");
-    writer.StartArray();
-    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Inventory");
+                    writer.StartArray();
+                    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (!VirtualCurrency.empty()) {
-    writer.String("VirtualCurrency");
-    writer.StartObject();
-    for (std::map<Aws::String, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Int(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("VirtualCurrency");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Int(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 if (!VirtualCurrencyRechargeTimes.empty()) {
-    writer.String("VirtualCurrencyRechargeTimes");
-    writer.StartObject();
-    for (std::map<Aws::String, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
-        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-    }
-    writer.EndObject();
-     }
+                    writer.String("VirtualCurrencyRechargeTimes");
+                    writer.StartObject();
+                    for (std::map<Aws::String, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
+                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                    }
+                    writer.EndObject();
+                }
                 writer.EndObject();
             }
 
@@ -6169,24 +6169,24 @@ namespace PlayFab
                 const Value::ConstMemberIterator CharacterId_member = obj.FindMember("CharacterId");
                 if (CharacterId_member != obj.MemberEnd() && !CharacterId_member->value.IsNull()) CharacterId = CharacterId_member->value.GetString();
                 const Value::ConstMemberIterator Inventory_member = obj.FindMember("Inventory");
-    if (Inventory_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Inventory_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Inventory.push_back(ItemInstance(memberList[i]));
-        }
-    }
+                if (Inventory_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Inventory_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Inventory.push_back(ItemInstance(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator VirtualCurrency_member = obj.FindMember("VirtualCurrency");
-    if (VirtualCurrency_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = VirtualCurrency_member->value.MemberBegin(); iter != VirtualCurrency_member->value.MemberEnd(); ++iter) {
-            VirtualCurrency[iter->name.GetString()] = iter->value.GetInt();
-        }
-    }
+                if (VirtualCurrency_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = VirtualCurrency_member->value.MemberBegin(); iter != VirtualCurrency_member->value.MemberEnd(); ++iter) {
+                        VirtualCurrency[iter->name.GetString()] = iter->value.GetInt();
+                    }
+                }
                 const Value::ConstMemberIterator VirtualCurrencyRechargeTimes_member = obj.FindMember("VirtualCurrencyRechargeTimes");
-    if (VirtualCurrencyRechargeTimes_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = VirtualCurrencyRechargeTimes_member->value.MemberBegin(); iter != VirtualCurrencyRechargeTimes_member->value.MemberEnd(); ++iter) {
-            VirtualCurrencyRechargeTimes[iter->name.GetString()] = VirtualCurrencyRechargeTime(iter->value);
-        }
-    }
+                if (VirtualCurrencyRechargeTimes_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = VirtualCurrencyRechargeTimes_member->value.MemberBegin(); iter != VirtualCurrencyRechargeTimes_member->value.MemberEnd(); ++iter) {
+                        VirtualCurrencyRechargeTimes[iter->name.GetString()] = VirtualCurrencyRechargeTime(iter->value);
+                    }
+                }
 
                 return true;
             }
@@ -6276,25 +6276,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Leaderboard.empty()) {
-    writer.String("Leaderboard");
-    writer.StartArray();
-    for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Leaderboard");
+                    writer.StartArray();
+                    for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Leaderboard_member = obj.FindMember("Leaderboard");
-    if (Leaderboard_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Leaderboard_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Leaderboard.push_back(CharacterLeaderboardEntry(memberList[i]));
-        }
-    }
+                if (Leaderboard_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Leaderboard_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Leaderboard.push_back(CharacterLeaderboardEntry(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -6366,24 +6366,24 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!CharacterStatistics.empty()) {
-    writer.String("CharacterStatistics");
-    writer.StartObject();
-    for (std::map<Aws::String, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Int(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("CharacterStatistics");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Int(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator CharacterStatistics_member = obj.FindMember("CharacterStatistics");
-    if (CharacterStatistics_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = CharacterStatistics_member->value.MemberBegin(); iter != CharacterStatistics_member->value.MemberEnd(); ++iter) {
-            CharacterStatistics[iter->name.GetString()] = iter->value.GetInt();
-        }
-    }
+                if (CharacterStatistics_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = CharacterStatistics_member->value.MemberBegin(); iter != CharacterStatistics_member->value.MemberEnd(); ++iter) {
+                        CharacterStatistics[iter->name.GetString()] = iter->value.GetInt();
+                    }
+                }
 
                 return true;
             }
@@ -7218,72 +7218,72 @@ namespace PlayFab
                 if (LastLogin.notNull()) { writer.String("LastLogin"); writeDatetime(LastLogin, writer); }
                 if (BannedUntil.notNull()) { writer.String("BannedUntil"); writeDatetime(BannedUntil, writer); }
                 if (!Locations.empty()) {
-    writer.String("Locations");
-    writer.StartArray();
-    for (std::list<LocationModel>::iterator iter = Locations.begin(); iter != Locations.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Locations");
+                    writer.StartArray();
+                    for (std::list<LocationModel>::iterator iter = Locations.begin(); iter != Locations.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
                 if (AvatarUrl.length() > 0) { writer.String("AvatarUrl"); writer.String(AvatarUrl.c_str()); }
                 if (!Tags.empty()) {
-    writer.String("Tags");
-    writer.StartArray();
-    for (std::list<TagModel>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Tags");
+                    writer.StartArray();
+                    for (std::list<TagModel>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (!PushNotificationRegistrations.empty()) {
-    writer.String("PushNotificationRegistrations");
-    writer.StartArray();
-    for (std::list<PushNotificationRegistrationModel>::iterator iter = PushNotificationRegistrations.begin(); iter != PushNotificationRegistrations.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("PushNotificationRegistrations");
+                    writer.StartArray();
+                    for (std::list<PushNotificationRegistrationModel>::iterator iter = PushNotificationRegistrations.begin(); iter != PushNotificationRegistrations.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (!LinkedAccounts.empty()) {
-    writer.String("LinkedAccounts");
-    writer.StartArray();
-    for (std::list<LinkedPlatformAccountModel>::iterator iter = LinkedAccounts.begin(); iter != LinkedAccounts.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("LinkedAccounts");
+                    writer.StartArray();
+                    for (std::list<LinkedPlatformAccountModel>::iterator iter = LinkedAccounts.begin(); iter != LinkedAccounts.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (!AdCampaignAttributions.empty()) {
-    writer.String("AdCampaignAttributions");
-    writer.StartArray();
-    for (std::list<AdCampaignAttributionModel>::iterator iter = AdCampaignAttributions.begin(); iter != AdCampaignAttributions.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("AdCampaignAttributions");
+                    writer.StartArray();
+                    for (std::list<AdCampaignAttributionModel>::iterator iter = AdCampaignAttributions.begin(); iter != AdCampaignAttributions.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (TotalValueToDateInUSD.notNull()) { writer.String("TotalValueToDateInUSD"); writer.Uint(TotalValueToDateInUSD); }
                 if (!ValuesToDate.empty()) {
-    writer.String("ValuesToDate");
-    writer.StartArray();
-    for (std::list<ValueToDateModel>::iterator iter = ValuesToDate.begin(); iter != ValuesToDate.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("ValuesToDate");
+                    writer.StartArray();
+                    for (std::list<ValueToDateModel>::iterator iter = ValuesToDate.begin(); iter != ValuesToDate.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (!VirtualCurrencyBalances.empty()) {
-    writer.String("VirtualCurrencyBalances");
-    writer.StartArray();
-    for (std::list<VirtualCurrencyBalanceModel>::iterator iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("VirtualCurrencyBalances");
+                    writer.StartArray();
+                    for (std::list<VirtualCurrencyBalanceModel>::iterator iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (!Statistics.empty()) {
-    writer.String("Statistics");
-    writer.StartArray();
-    for (std::list<StatisticModel>::iterator iter = Statistics.begin(); iter != Statistics.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Statistics");
+                    writer.StartArray();
+                    for (std::list<StatisticModel>::iterator iter = Statistics.begin(); iter != Statistics.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
@@ -7304,67 +7304,67 @@ namespace PlayFab
                 const Value::ConstMemberIterator BannedUntil_member = obj.FindMember("BannedUntil");
                 if (BannedUntil_member != obj.MemberEnd() && !BannedUntil_member->value.IsNull()) BannedUntil = readDatetime(BannedUntil_member->value);
                 const Value::ConstMemberIterator Locations_member = obj.FindMember("Locations");
-    if (Locations_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Locations_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Locations.push_back(LocationModel(memberList[i]));
-        }
-    }
+                if (Locations_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Locations_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Locations.push_back(LocationModel(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator DisplayName_member = obj.FindMember("DisplayName");
                 if (DisplayName_member != obj.MemberEnd() && !DisplayName_member->value.IsNull()) DisplayName = DisplayName_member->value.GetString();
                 const Value::ConstMemberIterator AvatarUrl_member = obj.FindMember("AvatarUrl");
                 if (AvatarUrl_member != obj.MemberEnd() && !AvatarUrl_member->value.IsNull()) AvatarUrl = AvatarUrl_member->value.GetString();
                 const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
-    if (Tags_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Tags_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Tags.push_back(TagModel(memberList[i]));
-        }
-    }
+                if (Tags_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Tags_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Tags.push_back(TagModel(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator PushNotificationRegistrations_member = obj.FindMember("PushNotificationRegistrations");
-    if (PushNotificationRegistrations_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = PushNotificationRegistrations_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            PushNotificationRegistrations.push_back(PushNotificationRegistrationModel(memberList[i]));
-        }
-    }
+                if (PushNotificationRegistrations_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = PushNotificationRegistrations_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        PushNotificationRegistrations.push_back(PushNotificationRegistrationModel(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator LinkedAccounts_member = obj.FindMember("LinkedAccounts");
-    if (LinkedAccounts_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = LinkedAccounts_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            LinkedAccounts.push_back(LinkedPlatformAccountModel(memberList[i]));
-        }
-    }
+                if (LinkedAccounts_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = LinkedAccounts_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        LinkedAccounts.push_back(LinkedPlatformAccountModel(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator AdCampaignAttributions_member = obj.FindMember("AdCampaignAttributions");
-    if (AdCampaignAttributions_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = AdCampaignAttributions_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            AdCampaignAttributions.push_back(AdCampaignAttributionModel(memberList[i]));
-        }
-    }
+                if (AdCampaignAttributions_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = AdCampaignAttributions_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        AdCampaignAttributions.push_back(AdCampaignAttributionModel(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator TotalValueToDateInUSD_member = obj.FindMember("TotalValueToDateInUSD");
                 if (TotalValueToDateInUSD_member != obj.MemberEnd() && !TotalValueToDateInUSD_member->value.IsNull()) TotalValueToDateInUSD = TotalValueToDateInUSD_member->value.GetUint();
                 const Value::ConstMemberIterator ValuesToDate_member = obj.FindMember("ValuesToDate");
-    if (ValuesToDate_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = ValuesToDate_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            ValuesToDate.push_back(ValueToDateModel(memberList[i]));
-        }
-    }
+                if (ValuesToDate_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = ValuesToDate_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        ValuesToDate.push_back(ValueToDateModel(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator VirtualCurrencyBalances_member = obj.FindMember("VirtualCurrencyBalances");
-    if (VirtualCurrencyBalances_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = VirtualCurrencyBalances_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            VirtualCurrencyBalances.push_back(VirtualCurrencyBalanceModel(memberList[i]));
-        }
-    }
+                if (VirtualCurrencyBalances_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = VirtualCurrencyBalances_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        VirtualCurrencyBalances.push_back(VirtualCurrencyBalanceModel(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator Statistics_member = obj.FindMember("Statistics");
-    if (Statistics_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Statistics_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Statistics.push_back(StatisticModel(memberList[i]));
-        }
-    }
+                if (Statistics_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Statistics_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Statistics.push_back(StatisticModel(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -7467,13 +7467,13 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Leaderboard.empty()) {
-    writer.String("Leaderboard");
-    writer.StartArray();
-    for (std::list<PlayerLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Leaderboard");
+                    writer.StartArray();
+                    for (std::list<PlayerLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.String("Version"); writer.Int(Version);
                 if (NextReset.notNull()) { writer.String("NextReset"); writeDatetime(NextReset, writer); }
                 writer.EndObject();
@@ -7482,12 +7482,12 @@ namespace PlayFab
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Leaderboard_member = obj.FindMember("Leaderboard");
-    if (Leaderboard_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Leaderboard_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Leaderboard.push_back(PlayerLeaderboardEntry(memberList[i]));
-        }
-    }
+                if (Leaderboard_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Leaderboard_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Leaderboard.push_back(PlayerLeaderboardEntry(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
                 const Value::ConstMemberIterator NextReset_member = obj.FindMember("NextReset");
@@ -7651,25 +7651,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Friends.empty()) {
-    writer.String("Friends");
-    writer.StartArray();
-    for (std::list<FriendInfo>::iterator iter = Friends.begin(); iter != Friends.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Friends");
+                    writer.StartArray();
+                    for (std::list<FriendInfo>::iterator iter = Friends.begin(); iter != Friends.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Friends_member = obj.FindMember("Friends");
-    if (Friends_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Friends_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Friends.push_back(FriendInfo(memberList[i]));
-        }
-    }
+                if (Friends_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Friends_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Friends.push_back(FriendInfo(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -7759,25 +7759,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Leaderboard.empty()) {
-    writer.String("Leaderboard");
-    writer.StartArray();
-    for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Leaderboard");
+                    writer.StartArray();
+                    for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Leaderboard_member = obj.FindMember("Leaderboard");
-    if (Leaderboard_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Leaderboard_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Leaderboard.push_back(CharacterLeaderboardEntry(memberList[i]));
-        }
-    }
+                if (Leaderboard_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Leaderboard_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Leaderboard.push_back(CharacterLeaderboardEntry(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -7886,13 +7886,13 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Leaderboard.empty()) {
-    writer.String("Leaderboard");
-    writer.StartArray();
-    for (std::list<PlayerLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Leaderboard");
+                    writer.StartArray();
+                    for (std::list<PlayerLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.String("Version"); writer.Int(Version);
                 if (NextReset.notNull()) { writer.String("NextReset"); writeDatetime(NextReset, writer); }
                 writer.EndObject();
@@ -7901,12 +7901,12 @@ namespace PlayFab
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Leaderboard_member = obj.FindMember("Leaderboard");
-    if (Leaderboard_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Leaderboard_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Leaderboard.push_back(PlayerLeaderboardEntry(memberList[i]));
-        }
-    }
+                if (Leaderboard_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Leaderboard_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Leaderboard.push_back(PlayerLeaderboardEntry(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
                 const Value::ConstMemberIterator NextReset_member = obj.FindMember("NextReset");
@@ -7988,25 +7988,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Leaderboard.empty()) {
-    writer.String("Leaderboard");
-    writer.StartArray();
-    for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Leaderboard");
+                    writer.StartArray();
+                    for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Leaderboard_member = obj.FindMember("Leaderboard");
-    if (Leaderboard_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Leaderboard_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Leaderboard.push_back(CharacterLeaderboardEntry(memberList[i]));
-        }
-    }
+                if (Leaderboard_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Leaderboard_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Leaderboard.push_back(CharacterLeaderboardEntry(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -8115,13 +8115,13 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Leaderboard.empty()) {
-    writer.String("Leaderboard");
-    writer.StartArray();
-    for (std::list<PlayerLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Leaderboard");
+                    writer.StartArray();
+                    for (std::list<PlayerLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.String("Version"); writer.Int(Version);
                 if (NextReset.notNull()) { writer.String("NextReset"); writeDatetime(NextReset, writer); }
                 writer.EndObject();
@@ -8130,12 +8130,12 @@ namespace PlayFab
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Leaderboard_member = obj.FindMember("Leaderboard");
-    if (Leaderboard_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Leaderboard_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Leaderboard.push_back(PlayerLeaderboardEntry(memberList[i]));
-        }
-    }
+                if (Leaderboard_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Leaderboard_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Leaderboard.push_back(PlayerLeaderboardEntry(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
                 const Value::ConstMemberIterator NextReset_member = obj.FindMember("NextReset");
@@ -8297,42 +8297,42 @@ namespace PlayFab
                 writer.String("GetUserVirtualCurrency"); writer.Bool(GetUserVirtualCurrency);
                 writer.String("GetUserData"); writer.Bool(GetUserData);
                 if (!UserDataKeys.empty()) {
-    writer.String("UserDataKeys");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = UserDataKeys.begin(); iter != UserDataKeys.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("UserDataKeys");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = UserDataKeys.begin(); iter != UserDataKeys.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 writer.String("GetUserReadOnlyData"); writer.Bool(GetUserReadOnlyData);
                 if (!UserReadOnlyDataKeys.empty()) {
-    writer.String("UserReadOnlyDataKeys");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = UserReadOnlyDataKeys.begin(); iter != UserReadOnlyDataKeys.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("UserReadOnlyDataKeys");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = UserReadOnlyDataKeys.begin(); iter != UserReadOnlyDataKeys.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 writer.String("GetCharacterInventories"); writer.Bool(GetCharacterInventories);
                 writer.String("GetCharacterList"); writer.Bool(GetCharacterList);
                 writer.String("GetTitleData"); writer.Bool(GetTitleData);
                 if (!TitleDataKeys.empty()) {
-    writer.String("TitleDataKeys");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = TitleDataKeys.begin(); iter != TitleDataKeys.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("TitleDataKeys");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = TitleDataKeys.begin(); iter != TitleDataKeys.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 writer.String("GetPlayerStatistics"); writer.Bool(GetPlayerStatistics);
                 if (!PlayerStatisticNames.empty()) {
-    writer.String("PlayerStatisticNames");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = PlayerStatisticNames.begin(); iter != PlayerStatisticNames.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("PlayerStatisticNames");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = PlayerStatisticNames.begin(); iter != PlayerStatisticNames.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 writer.String("GetPlayerProfile"); writer.Bool(GetPlayerProfile);
                 if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
                 writer.EndObject();
@@ -8349,21 +8349,21 @@ namespace PlayFab
                 const Value::ConstMemberIterator GetUserData_member = obj.FindMember("GetUserData");
                 if (GetUserData_member != obj.MemberEnd() && !GetUserData_member->value.IsNull()) GetUserData = GetUserData_member->value.GetBool();
                 const Value::ConstMemberIterator UserDataKeys_member = obj.FindMember("UserDataKeys");
-    if (UserDataKeys_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = UserDataKeys_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            UserDataKeys.push_back(memberList[i].GetString());
-        }
-    }
+                if (UserDataKeys_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = UserDataKeys_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        UserDataKeys.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator GetUserReadOnlyData_member = obj.FindMember("GetUserReadOnlyData");
                 if (GetUserReadOnlyData_member != obj.MemberEnd() && !GetUserReadOnlyData_member->value.IsNull()) GetUserReadOnlyData = GetUserReadOnlyData_member->value.GetBool();
                 const Value::ConstMemberIterator UserReadOnlyDataKeys_member = obj.FindMember("UserReadOnlyDataKeys");
-    if (UserReadOnlyDataKeys_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = UserReadOnlyDataKeys_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            UserReadOnlyDataKeys.push_back(memberList[i].GetString());
-        }
-    }
+                if (UserReadOnlyDataKeys_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = UserReadOnlyDataKeys_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        UserReadOnlyDataKeys.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator GetCharacterInventories_member = obj.FindMember("GetCharacterInventories");
                 if (GetCharacterInventories_member != obj.MemberEnd() && !GetCharacterInventories_member->value.IsNull()) GetCharacterInventories = GetCharacterInventories_member->value.GetBool();
                 const Value::ConstMemberIterator GetCharacterList_member = obj.FindMember("GetCharacterList");
@@ -8371,21 +8371,21 @@ namespace PlayFab
                 const Value::ConstMemberIterator GetTitleData_member = obj.FindMember("GetTitleData");
                 if (GetTitleData_member != obj.MemberEnd() && !GetTitleData_member->value.IsNull()) GetTitleData = GetTitleData_member->value.GetBool();
                 const Value::ConstMemberIterator TitleDataKeys_member = obj.FindMember("TitleDataKeys");
-    if (TitleDataKeys_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = TitleDataKeys_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            TitleDataKeys.push_back(memberList[i].GetString());
-        }
-    }
+                if (TitleDataKeys_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = TitleDataKeys_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        TitleDataKeys.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator GetPlayerStatistics_member = obj.FindMember("GetPlayerStatistics");
                 if (GetPlayerStatistics_member != obj.MemberEnd() && !GetPlayerStatistics_member->value.IsNull()) GetPlayerStatistics = GetPlayerStatistics_member->value.GetBool();
                 const Value::ConstMemberIterator PlayerStatisticNames_member = obj.FindMember("PlayerStatisticNames");
-    if (PlayerStatisticNames_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = PlayerStatisticNames_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            PlayerStatisticNames.push_back(memberList[i].GetString());
-        }
-    }
+                if (PlayerStatisticNames_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = PlayerStatisticNames_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        PlayerStatisticNames.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator GetPlayerProfile_member = obj.FindMember("GetPlayerProfile");
                 if (GetPlayerProfile_member != obj.MemberEnd() && !GetPlayerProfile_member->value.IsNull()) GetPlayerProfile = GetPlayerProfile_member->value.GetBool();
                 const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
@@ -8557,79 +8557,79 @@ namespace PlayFab
                 writer.StartObject();
                 if (AccountInfo != nullptr) { writer.String("AccountInfo"); AccountInfo->writeJSON(writer); }
                 if (!UserInventory.empty()) {
-    writer.String("UserInventory");
-    writer.StartArray();
-    for (std::list<ItemInstance>::iterator iter = UserInventory.begin(); iter != UserInventory.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("UserInventory");
+                    writer.StartArray();
+                    for (std::list<ItemInstance>::iterator iter = UserInventory.begin(); iter != UserInventory.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (!UserVirtualCurrency.empty()) {
-    writer.String("UserVirtualCurrency");
-    writer.StartObject();
-    for (std::map<Aws::String, Int32>::iterator iter = UserVirtualCurrency.begin(); iter != UserVirtualCurrency.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Int(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("UserVirtualCurrency");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Int32>::iterator iter = UserVirtualCurrency.begin(); iter != UserVirtualCurrency.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Int(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 if (!UserVirtualCurrencyRechargeTimes.empty()) {
-    writer.String("UserVirtualCurrencyRechargeTimes");
-    writer.StartObject();
-    for (std::map<Aws::String, VirtualCurrencyRechargeTime>::iterator iter = UserVirtualCurrencyRechargeTimes.begin(); iter != UserVirtualCurrencyRechargeTimes.end(); ++iter) {
-        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-    }
-    writer.EndObject();
-     }
+                    writer.String("UserVirtualCurrencyRechargeTimes");
+                    writer.StartObject();
+                    for (std::map<Aws::String, VirtualCurrencyRechargeTime>::iterator iter = UserVirtualCurrencyRechargeTimes.begin(); iter != UserVirtualCurrencyRechargeTimes.end(); ++iter) {
+                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                    }
+                    writer.EndObject();
+                }
                 if (!UserData.empty()) {
-    writer.String("UserData");
-    writer.StartObject();
-    for (std::map<Aws::String, UserDataRecord>::iterator iter = UserData.begin(); iter != UserData.end(); ++iter) {
-        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-    }
-    writer.EndObject();
-     }
+                    writer.String("UserData");
+                    writer.StartObject();
+                    for (std::map<Aws::String, UserDataRecord>::iterator iter = UserData.begin(); iter != UserData.end(); ++iter) {
+                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                    }
+                    writer.EndObject();
+                }
                 writer.String("UserDataVersion"); writer.Uint(UserDataVersion);
                 if (!UserReadOnlyData.empty()) {
-    writer.String("UserReadOnlyData");
-    writer.StartObject();
-    for (std::map<Aws::String, UserDataRecord>::iterator iter = UserReadOnlyData.begin(); iter != UserReadOnlyData.end(); ++iter) {
-        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-    }
-    writer.EndObject();
-     }
+                    writer.String("UserReadOnlyData");
+                    writer.StartObject();
+                    for (std::map<Aws::String, UserDataRecord>::iterator iter = UserReadOnlyData.begin(); iter != UserReadOnlyData.end(); ++iter) {
+                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                    }
+                    writer.EndObject();
+                }
                 writer.String("UserReadOnlyDataVersion"); writer.Uint(UserReadOnlyDataVersion);
                 if (!CharacterList.empty()) {
-    writer.String("CharacterList");
-    writer.StartArray();
-    for (std::list<CharacterResult>::iterator iter = CharacterList.begin(); iter != CharacterList.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("CharacterList");
+                    writer.StartArray();
+                    for (std::list<CharacterResult>::iterator iter = CharacterList.begin(); iter != CharacterList.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (!CharacterInventories.empty()) {
-    writer.String("CharacterInventories");
-    writer.StartArray();
-    for (std::list<CharacterInventory>::iterator iter = CharacterInventories.begin(); iter != CharacterInventories.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("CharacterInventories");
+                    writer.StartArray();
+                    for (std::list<CharacterInventory>::iterator iter = CharacterInventories.begin(); iter != CharacterInventories.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (!TitleData.empty()) {
-    writer.String("TitleData");
-    writer.StartObject();
-    for (std::map<Aws::String, Aws::String>::iterator iter = TitleData.begin(); iter != TitleData.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-    }
-    writer.EndObject();
-     }
+                    writer.String("TitleData");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Aws::String>::iterator iter = TitleData.begin(); iter != TitleData.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                    }
+                    writer.EndObject();
+                }
                 if (!PlayerStatistics.empty()) {
-    writer.String("PlayerStatistics");
-    writer.StartArray();
-    for (std::list<StatisticValue>::iterator iter = PlayerStatistics.begin(); iter != PlayerStatistics.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("PlayerStatistics");
+                    writer.StartArray();
+                    for (std::list<StatisticValue>::iterator iter = PlayerStatistics.begin(); iter != PlayerStatistics.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (PlayerProfile != nullptr) { writer.String("PlayerProfile"); PlayerProfile->writeJSON(writer); }
                 writer.EndObject();
             }
@@ -8639,67 +8639,67 @@ namespace PlayFab
                 const Value::ConstMemberIterator AccountInfo_member = obj.FindMember("AccountInfo");
                 if (AccountInfo_member != obj.MemberEnd() && !AccountInfo_member->value.IsNull()) AccountInfo = new UserAccountInfo(AccountInfo_member->value);
                 const Value::ConstMemberIterator UserInventory_member = obj.FindMember("UserInventory");
-    if (UserInventory_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = UserInventory_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            UserInventory.push_back(ItemInstance(memberList[i]));
-        }
-    }
+                if (UserInventory_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = UserInventory_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        UserInventory.push_back(ItemInstance(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator UserVirtualCurrency_member = obj.FindMember("UserVirtualCurrency");
-    if (UserVirtualCurrency_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = UserVirtualCurrency_member->value.MemberBegin(); iter != UserVirtualCurrency_member->value.MemberEnd(); ++iter) {
-            UserVirtualCurrency[iter->name.GetString()] = iter->value.GetInt();
-        }
-    }
+                if (UserVirtualCurrency_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = UserVirtualCurrency_member->value.MemberBegin(); iter != UserVirtualCurrency_member->value.MemberEnd(); ++iter) {
+                        UserVirtualCurrency[iter->name.GetString()] = iter->value.GetInt();
+                    }
+                }
                 const Value::ConstMemberIterator UserVirtualCurrencyRechargeTimes_member = obj.FindMember("UserVirtualCurrencyRechargeTimes");
-    if (UserVirtualCurrencyRechargeTimes_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = UserVirtualCurrencyRechargeTimes_member->value.MemberBegin(); iter != UserVirtualCurrencyRechargeTimes_member->value.MemberEnd(); ++iter) {
-            UserVirtualCurrencyRechargeTimes[iter->name.GetString()] = VirtualCurrencyRechargeTime(iter->value);
-        }
-    }
+                if (UserVirtualCurrencyRechargeTimes_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = UserVirtualCurrencyRechargeTimes_member->value.MemberBegin(); iter != UserVirtualCurrencyRechargeTimes_member->value.MemberEnd(); ++iter) {
+                        UserVirtualCurrencyRechargeTimes[iter->name.GetString()] = VirtualCurrencyRechargeTime(iter->value);
+                    }
+                }
                 const Value::ConstMemberIterator UserData_member = obj.FindMember("UserData");
-    if (UserData_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = UserData_member->value.MemberBegin(); iter != UserData_member->value.MemberEnd(); ++iter) {
-            UserData[iter->name.GetString()] = UserDataRecord(iter->value);
-        }
-    }
+                if (UserData_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = UserData_member->value.MemberBegin(); iter != UserData_member->value.MemberEnd(); ++iter) {
+                        UserData[iter->name.GetString()] = UserDataRecord(iter->value);
+                    }
+                }
                 const Value::ConstMemberIterator UserDataVersion_member = obj.FindMember("UserDataVersion");
                 if (UserDataVersion_member != obj.MemberEnd() && !UserDataVersion_member->value.IsNull()) UserDataVersion = UserDataVersion_member->value.GetUint();
                 const Value::ConstMemberIterator UserReadOnlyData_member = obj.FindMember("UserReadOnlyData");
-    if (UserReadOnlyData_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = UserReadOnlyData_member->value.MemberBegin(); iter != UserReadOnlyData_member->value.MemberEnd(); ++iter) {
-            UserReadOnlyData[iter->name.GetString()] = UserDataRecord(iter->value);
-        }
-    }
+                if (UserReadOnlyData_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = UserReadOnlyData_member->value.MemberBegin(); iter != UserReadOnlyData_member->value.MemberEnd(); ++iter) {
+                        UserReadOnlyData[iter->name.GetString()] = UserDataRecord(iter->value);
+                    }
+                }
                 const Value::ConstMemberIterator UserReadOnlyDataVersion_member = obj.FindMember("UserReadOnlyDataVersion");
                 if (UserReadOnlyDataVersion_member != obj.MemberEnd() && !UserReadOnlyDataVersion_member->value.IsNull()) UserReadOnlyDataVersion = UserReadOnlyDataVersion_member->value.GetUint();
                 const Value::ConstMemberIterator CharacterList_member = obj.FindMember("CharacterList");
-    if (CharacterList_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = CharacterList_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            CharacterList.push_back(CharacterResult(memberList[i]));
-        }
-    }
+                if (CharacterList_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = CharacterList_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        CharacterList.push_back(CharacterResult(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator CharacterInventories_member = obj.FindMember("CharacterInventories");
-    if (CharacterInventories_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = CharacterInventories_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            CharacterInventories.push_back(CharacterInventory(memberList[i]));
-        }
-    }
+                if (CharacterInventories_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = CharacterInventories_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        CharacterInventories.push_back(CharacterInventory(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator TitleData_member = obj.FindMember("TitleData");
-    if (TitleData_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = TitleData_member->value.MemberBegin(); iter != TitleData_member->value.MemberEnd(); ++iter) {
-            TitleData[iter->name.GetString()] = iter->value.GetString();
-        }
-    }
+                if (TitleData_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = TitleData_member->value.MemberBegin(); iter != TitleData_member->value.MemberEnd(); ++iter) {
+                        TitleData[iter->name.GetString()] = iter->value.GetString();
+                    }
+                }
                 const Value::ConstMemberIterator PlayerStatistics_member = obj.FindMember("PlayerStatistics");
-    if (PlayerStatistics_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = PlayerStatistics_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            PlayerStatistics.push_back(StatisticValue(memberList[i]));
-        }
-    }
+                if (PlayerStatistics_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = PlayerStatistics_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        PlayerStatistics.push_back(StatisticValue(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator PlayerProfile_member = obj.FindMember("PlayerProfile");
                 if (PlayerProfile_member != obj.MemberEnd() && !PlayerProfile_member->value.IsNull()) PlayerProfile = new PlayerProfileModel(PlayerProfile_member->value);
 
@@ -8950,25 +8950,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Segments.empty()) {
-    writer.String("Segments");
-    writer.StartArray();
-    for (std::list<GetSegmentResult>::iterator iter = Segments.begin(); iter != Segments.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Segments");
+                    writer.StartArray();
+                    for (std::list<GetSegmentResult>::iterator iter = Segments.begin(); iter != Segments.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Segments_member = obj.FindMember("Segments");
-    if (Segments_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Segments_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Segments.push_back(GetSegmentResult(memberList[i]));
-        }
-    }
+                if (Segments_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Segments_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Segments.push_back(GetSegmentResult(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -9049,40 +9049,40 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!StatisticNames.empty()) {
-    writer.String("StatisticNames");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = StatisticNames.begin(); iter != StatisticNames.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("StatisticNames");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = StatisticNames.begin(); iter != StatisticNames.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (!StatisticNameVersions.empty()) {
-    writer.String("StatisticNameVersions");
-    writer.StartArray();
-    for (std::list<StatisticNameVersion>::iterator iter = StatisticNameVersions.begin(); iter != StatisticNameVersions.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("StatisticNameVersions");
+                    writer.StartArray();
+                    for (std::list<StatisticNameVersion>::iterator iter = StatisticNameVersions.begin(); iter != StatisticNameVersions.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator StatisticNames_member = obj.FindMember("StatisticNames");
-    if (StatisticNames_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = StatisticNames_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            StatisticNames.push_back(memberList[i].GetString());
-        }
-    }
+                if (StatisticNames_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = StatisticNames_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        StatisticNames.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator StatisticNameVersions_member = obj.FindMember("StatisticNameVersions");
-    if (StatisticNameVersions_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = StatisticNameVersions_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            StatisticNameVersions.push_back(StatisticNameVersion(memberList[i]));
-        }
-    }
+                if (StatisticNameVersions_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = StatisticNameVersions_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        StatisticNameVersions.push_back(StatisticNameVersion(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -9115,25 +9115,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Statistics.empty()) {
-    writer.String("Statistics");
-    writer.StartArray();
-    for (std::list<StatisticValue>::iterator iter = Statistics.begin(); iter != Statistics.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Statistics");
+                    writer.StartArray();
+                    for (std::list<StatisticValue>::iterator iter = Statistics.begin(); iter != Statistics.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Statistics_member = obj.FindMember("Statistics");
-    if (Statistics_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Statistics_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Statistics.push_back(StatisticValue(memberList[i]));
-        }
-    }
+                if (Statistics_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Statistics_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Statistics.push_back(StatisticValue(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -9274,25 +9274,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!StatisticVersions.empty()) {
-    writer.String("StatisticVersions");
-    writer.StartArray();
-    for (std::list<PlayerStatisticVersion>::iterator iter = StatisticVersions.begin(); iter != StatisticVersions.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("StatisticVersions");
+                    writer.StartArray();
+                    for (std::list<PlayerStatisticVersion>::iterator iter = StatisticVersions.begin(); iter != StatisticVersions.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator StatisticVersions_member = obj.FindMember("StatisticVersions");
-    if (StatisticVersions_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = StatisticVersions_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            StatisticVersions.push_back(PlayerStatisticVersion(memberList[i]));
-        }
-    }
+                if (StatisticVersions_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = StatisticVersions_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        StatisticVersions.push_back(PlayerStatisticVersion(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -9374,12 +9374,12 @@ namespace PlayFab
                 writer.StartObject();
                 writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
                 writer.String("Tags");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-    
+                writer.StartArray();
+                for (std::list<Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                    writer.String(iter->c_str());
+                }
+                writer.EndArray();
+
                 writer.EndObject();
             }
 
@@ -9388,12 +9388,12 @@ namespace PlayFab
                 const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
                 if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
                 const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
-    if (Tags_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Tags_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Tags.push_back(memberList[i].GetString());
-        }
-    }
+                if (Tags_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Tags_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Tags.push_back(memberList[i].GetString());
+                    }
+                }
 
                 return true;
             }
@@ -9468,40 +9468,40 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!OpenedTrades.empty()) {
-    writer.String("OpenedTrades");
-    writer.StartArray();
-    for (std::list<TradeInfo>::iterator iter = OpenedTrades.begin(); iter != OpenedTrades.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("OpenedTrades");
+                    writer.StartArray();
+                    for (std::list<TradeInfo>::iterator iter = OpenedTrades.begin(); iter != OpenedTrades.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (!AcceptedTrades.empty()) {
-    writer.String("AcceptedTrades");
-    writer.StartArray();
-    for (std::list<TradeInfo>::iterator iter = AcceptedTrades.begin(); iter != AcceptedTrades.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("AcceptedTrades");
+                    writer.StartArray();
+                    for (std::list<TradeInfo>::iterator iter = AcceptedTrades.begin(); iter != AcceptedTrades.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator OpenedTrades_member = obj.FindMember("OpenedTrades");
-    if (OpenedTrades_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = OpenedTrades_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            OpenedTrades.push_back(TradeInfo(memberList[i]));
-        }
-    }
+                if (OpenedTrades_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = OpenedTrades_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        OpenedTrades.push_back(TradeInfo(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator AcceptedTrades_member = obj.FindMember("AcceptedTrades");
-    if (AcceptedTrades_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = AcceptedTrades_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            AcceptedTrades.push_back(TradeInfo(memberList[i]));
-        }
-    }
+                if (AcceptedTrades_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = AcceptedTrades_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        AcceptedTrades.push_back(TradeInfo(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -9534,24 +9534,24 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("FacebookIDs");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = FacebookIDs.begin(); iter != FacebookIDs.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-    
+                writer.StartArray();
+                for (std::list<Aws::String>::iterator iter = FacebookIDs.begin(); iter != FacebookIDs.end(); iter++) {
+                    writer.String(iter->c_str());
+                }
+                writer.EndArray();
+
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator FacebookIDs_member = obj.FindMember("FacebookIDs");
-    if (FacebookIDs_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = FacebookIDs_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            FacebookIDs.push_back(memberList[i].GetString());
-        }
-    }
+                if (FacebookIDs_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = FacebookIDs_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        FacebookIDs.push_back(memberList[i].GetString());
+                    }
+                }
 
                 return true;
             }
@@ -9584,25 +9584,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Data.empty()) {
-    writer.String("Data");
-    writer.StartArray();
-    for (std::list<FacebookPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Data");
+                    writer.StartArray();
+                    for (std::list<FacebookPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
-    if (Data_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Data_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Data.push_back(FacebookPlayFabIdPair(memberList[i]));
-        }
-    }
+                if (Data_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Data_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Data.push_back(FacebookPlayFabIdPair(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -9635,24 +9635,24 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("GameCenterIDs");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = GameCenterIDs.begin(); iter != GameCenterIDs.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-    
+                writer.StartArray();
+                for (std::list<Aws::String>::iterator iter = GameCenterIDs.begin(); iter != GameCenterIDs.end(); iter++) {
+                    writer.String(iter->c_str());
+                }
+                writer.EndArray();
+
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator GameCenterIDs_member = obj.FindMember("GameCenterIDs");
-    if (GameCenterIDs_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = GameCenterIDs_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            GameCenterIDs.push_back(memberList[i].GetString());
-        }
-    }
+                if (GameCenterIDs_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = GameCenterIDs_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        GameCenterIDs.push_back(memberList[i].GetString());
+                    }
+                }
 
                 return true;
             }
@@ -9685,25 +9685,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Data.empty()) {
-    writer.String("Data");
-    writer.StartArray();
-    for (std::list<GameCenterPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Data");
+                    writer.StartArray();
+                    for (std::list<GameCenterPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
-    if (Data_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Data_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Data.push_back(GameCenterPlayFabIdPair(memberList[i]));
-        }
-    }
+                if (Data_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Data_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Data.push_back(GameCenterPlayFabIdPair(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -9736,24 +9736,24 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("GenericIDs");
-    writer.StartArray();
-    for (std::list<GenericServiceId>::iterator iter = GenericIDs.begin(); iter != GenericIDs.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-    
+                writer.StartArray();
+                for (std::list<GenericServiceId>::iterator iter = GenericIDs.begin(); iter != GenericIDs.end(); iter++) {
+                    iter->writeJSON(writer);
+                }
+                writer.EndArray();
+
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator GenericIDs_member = obj.FindMember("GenericIDs");
-    if (GenericIDs_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = GenericIDs_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            GenericIDs.push_back(GenericServiceId(memberList[i]));
-        }
-    }
+                if (GenericIDs_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = GenericIDs_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        GenericIDs.push_back(GenericServiceId(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -9786,25 +9786,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Data.empty()) {
-    writer.String("Data");
-    writer.StartArray();
-    for (std::list<GenericPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Data");
+                    writer.StartArray();
+                    for (std::list<GenericPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
-    if (Data_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Data_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Data.push_back(GenericPlayFabIdPair(memberList[i]));
-        }
-    }
+                if (Data_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Data_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Data.push_back(GenericPlayFabIdPair(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -9837,24 +9837,24 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("GoogleIDs");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = GoogleIDs.begin(); iter != GoogleIDs.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-    
+                writer.StartArray();
+                for (std::list<Aws::String>::iterator iter = GoogleIDs.begin(); iter != GoogleIDs.end(); iter++) {
+                    writer.String(iter->c_str());
+                }
+                writer.EndArray();
+
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator GoogleIDs_member = obj.FindMember("GoogleIDs");
-    if (GoogleIDs_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = GoogleIDs_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            GoogleIDs.push_back(memberList[i].GetString());
-        }
-    }
+                if (GoogleIDs_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = GoogleIDs_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        GoogleIDs.push_back(memberList[i].GetString());
+                    }
+                }
 
                 return true;
             }
@@ -9932,25 +9932,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Data.empty()) {
-    writer.String("Data");
-    writer.StartArray();
-    for (std::list<GooglePlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Data");
+                    writer.StartArray();
+                    for (std::list<GooglePlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
-    if (Data_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Data_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Data.push_back(GooglePlayFabIdPair(memberList[i]));
-        }
-    }
+                if (Data_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Data_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Data.push_back(GooglePlayFabIdPair(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -9983,24 +9983,24 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("KongregateIDs");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = KongregateIDs.begin(); iter != KongregateIDs.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-    
+                writer.StartArray();
+                for (std::list<Aws::String>::iterator iter = KongregateIDs.begin(); iter != KongregateIDs.end(); iter++) {
+                    writer.String(iter->c_str());
+                }
+                writer.EndArray();
+
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator KongregateIDs_member = obj.FindMember("KongregateIDs");
-    if (KongregateIDs_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = KongregateIDs_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            KongregateIDs.push_back(memberList[i].GetString());
-        }
-    }
+                if (KongregateIDs_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = KongregateIDs_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        KongregateIDs.push_back(memberList[i].GetString());
+                    }
+                }
 
                 return true;
             }
@@ -10078,25 +10078,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Data.empty()) {
-    writer.String("Data");
-    writer.StartArray();
-    for (std::list<KongregatePlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Data");
+                    writer.StartArray();
+                    for (std::list<KongregatePlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
-    if (Data_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Data_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Data.push_back(KongregatePlayFabIdPair(memberList[i]));
-        }
-    }
+                if (Data_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Data_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Data.push_back(KongregatePlayFabIdPair(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -10129,25 +10129,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!SteamStringIDs.empty()) {
-    writer.String("SteamStringIDs");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = SteamStringIDs.begin(); iter != SteamStringIDs.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("SteamStringIDs");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = SteamStringIDs.begin(); iter != SteamStringIDs.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator SteamStringIDs_member = obj.FindMember("SteamStringIDs");
-    if (SteamStringIDs_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = SteamStringIDs_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            SteamStringIDs.push_back(memberList[i].GetString());
-        }
-    }
+                if (SteamStringIDs_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = SteamStringIDs_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        SteamStringIDs.push_back(memberList[i].GetString());
+                    }
+                }
 
                 return true;
             }
@@ -10225,25 +10225,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Data.empty()) {
-    writer.String("Data");
-    writer.StartArray();
-    for (std::list<SteamPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Data");
+                    writer.StartArray();
+                    for (std::list<SteamPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
-    if (Data_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Data_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Data.push_back(SteamPlayFabIdPair(memberList[i]));
-        }
-    }
+                if (Data_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Data_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Data.push_back(SteamPlayFabIdPair(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -10276,24 +10276,24 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("TwitchIds");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = TwitchIds.begin(); iter != TwitchIds.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-    
+                writer.StartArray();
+                for (std::list<Aws::String>::iterator iter = TwitchIds.begin(); iter != TwitchIds.end(); iter++) {
+                    writer.String(iter->c_str());
+                }
+                writer.EndArray();
+
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator TwitchIds_member = obj.FindMember("TwitchIds");
-    if (TwitchIds_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = TwitchIds_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            TwitchIds.push_back(memberList[i].GetString());
-        }
-    }
+                if (TwitchIds_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = TwitchIds_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        TwitchIds.push_back(memberList[i].GetString());
+                    }
+                }
 
                 return true;
             }
@@ -10371,25 +10371,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Data.empty()) {
-    writer.String("Data");
-    writer.StartArray();
-    for (std::list<TwitchPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Data");
+                    writer.StartArray();
+                    for (std::list<TwitchPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
-    if (Data_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Data_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Data.push_back(TwitchPlayFabIdPair(memberList[i]));
-        }
-    }
+                if (Data_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Data_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Data.push_back(TwitchPlayFabIdPair(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -10422,24 +10422,24 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("Keys");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-    
+                writer.StartArray();
+                for (std::list<Aws::String>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                    writer.String(iter->c_str());
+                }
+                writer.EndArray();
+
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Keys_member = obj.FindMember("Keys");
-    if (Keys_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Keys_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Keys.push_back(memberList[i].GetString());
-        }
-    }
+                if (Keys_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Keys_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Keys.push_back(memberList[i].GetString());
+                    }
+                }
 
                 return true;
             }
@@ -10472,24 +10472,24 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Data.empty()) {
-    writer.String("Data");
-    writer.StartObject();
-    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-    }
-    writer.EndObject();
-     }
+                    writer.String("Data");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                    }
+                    writer.EndObject();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
-    if (Data_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
-            Data[iter->name.GetString()] = iter->value.GetString();
-        }
-    }
+                if (Data_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
+                        Data[iter->name.GetString()] = iter->value.GetString();
+                    }
+                }
 
                 return true;
             }
@@ -10631,13 +10631,13 @@ namespace PlayFab
                 writer.StartObject();
                 writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
                 if (!Keys.empty()) {
-    writer.String("Keys");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("Keys");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (GetMembers.notNull()) { writer.String("GetMembers"); writer.Bool(GetMembers); }
                 writer.EndObject();
             }
@@ -10647,12 +10647,12 @@ namespace PlayFab
                 const Value::ConstMemberIterator SharedGroupId_member = obj.FindMember("SharedGroupId");
                 if (SharedGroupId_member != obj.MemberEnd() && !SharedGroupId_member->value.IsNull()) SharedGroupId = SharedGroupId_member->value.GetString();
                 const Value::ConstMemberIterator Keys_member = obj.FindMember("Keys");
-    if (Keys_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Keys_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Keys.push_back(memberList[i].GetString());
-        }
-    }
+                if (Keys_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Keys_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Keys.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator GetMembers_member = obj.FindMember("GetMembers");
                 if (GetMembers_member != obj.MemberEnd() && !GetMembers_member->value.IsNull()) GetMembers = GetMembers_member->value.GetBool();
 
@@ -10747,39 +10747,39 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Data.empty()) {
-    writer.String("Data");
-    writer.StartObject();
-    for (std::map<Aws::String, SharedGroupDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-    }
-    writer.EndObject();
-     }
+                    writer.String("Data");
+                    writer.StartObject();
+                    for (std::map<Aws::String, SharedGroupDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                    }
+                    writer.EndObject();
+                }
                 if (!Members.empty()) {
-    writer.String("Members");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = Members.begin(); iter != Members.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("Members");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = Members.begin(); iter != Members.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
-    if (Data_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
-            Data[iter->name.GetString()] = SharedGroupDataRecord(iter->value);
-        }
-    }
+                if (Data_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
+                        Data[iter->name.GetString()] = SharedGroupDataRecord(iter->value);
+                    }
+                }
                 const Value::ConstMemberIterator Members_member = obj.FindMember("Members");
-    if (Members_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Members_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Members.push_back(memberList[i].GetString());
-        }
-    }
+                if (Members_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Members_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Members.push_back(memberList[i].GetString());
+                    }
+                }
 
                 return true;
             }
@@ -10870,21 +10870,21 @@ namespace PlayFab
                 writer.StartObject();
                 writer.String("ItemId"); writer.String(ItemId.c_str());
                 if (!VirtualCurrencyPrices.empty()) {
-    writer.String("VirtualCurrencyPrices");
-    writer.StartObject();
-    for (std::map<Aws::String, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Uint(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("VirtualCurrencyPrices");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 if (!RealCurrencyPrices.empty()) {
-    writer.String("RealCurrencyPrices");
-    writer.StartObject();
-    for (std::map<Aws::String, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Uint(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("RealCurrencyPrices");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 if (CustomData.notNull()) { writer.String("CustomData"); CustomData.writeJSON(writer); }
                 if (DisplayPosition.notNull()) { writer.String("DisplayPosition"); writer.Uint(DisplayPosition); }
                 writer.EndObject();
@@ -10895,17 +10895,17 @@ namespace PlayFab
                 const Value::ConstMemberIterator ItemId_member = obj.FindMember("ItemId");
                 if (ItemId_member != obj.MemberEnd() && !ItemId_member->value.IsNull()) ItemId = ItemId_member->value.GetString();
                 const Value::ConstMemberIterator VirtualCurrencyPrices_member = obj.FindMember("VirtualCurrencyPrices");
-    if (VirtualCurrencyPrices_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = VirtualCurrencyPrices_member->value.MemberBegin(); iter != VirtualCurrencyPrices_member->value.MemberEnd(); ++iter) {
-            VirtualCurrencyPrices[iter->name.GetString()] = iter->value.GetUint();
-        }
-    }
+                if (VirtualCurrencyPrices_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = VirtualCurrencyPrices_member->value.MemberBegin(); iter != VirtualCurrencyPrices_member->value.MemberEnd(); ++iter) {
+                        VirtualCurrencyPrices[iter->name.GetString()] = iter->value.GetUint();
+                    }
+                }
                 const Value::ConstMemberIterator RealCurrencyPrices_member = obj.FindMember("RealCurrencyPrices");
-    if (RealCurrencyPrices_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = RealCurrencyPrices_member->value.MemberBegin(); iter != RealCurrencyPrices_member->value.MemberEnd(); ++iter) {
-            RealCurrencyPrices[iter->name.GetString()] = iter->value.GetUint();
-        }
-    }
+                if (RealCurrencyPrices_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = RealCurrencyPrices_member->value.MemberBegin(); iter != RealCurrencyPrices_member->value.MemberEnd(); ++iter) {
+                        RealCurrencyPrices[iter->name.GetString()] = iter->value.GetUint();
+                    }
+                }
                 const Value::ConstMemberIterator CustomData_member = obj.FindMember("CustomData");
                 if (CustomData_member != obj.MemberEnd() && !CustomData_member->value.IsNull()) CustomData = MultitypeVar(CustomData_member->value);
                 const Value::ConstMemberIterator DisplayPosition_member = obj.FindMember("DisplayPosition");
@@ -11049,13 +11049,13 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Store.empty()) {
-    writer.String("Store");
-    writer.StartArray();
-    for (std::list<StoreItem>::iterator iter = Store.begin(); iter != Store.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Store");
+                    writer.StartArray();
+                    for (std::list<StoreItem>::iterator iter = Store.begin(); iter != Store.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (Source.notNull()) { writer.String("Source"); writeSourceTypeEnumJSON(Source, writer); }
                 if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
                 if (StoreId.length() > 0) { writer.String("StoreId"); writer.String(StoreId.c_str()); }
@@ -11066,12 +11066,12 @@ namespace PlayFab
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Store_member = obj.FindMember("Store");
-    if (Store_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Store_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Store.push_back(StoreItem(memberList[i]));
-        }
-    }
+                if (Store_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Store_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Store.push_back(StoreItem(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator Source_member = obj.FindMember("Source");
                 if (Source_member != obj.MemberEnd() && !Source_member->value.IsNull()) Source = readSourceTypeFromValue(Source_member->value);
                 const Value::ConstMemberIterator CatalogVersion_member = obj.FindMember("CatalogVersion");
@@ -11184,25 +11184,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Keys.empty()) {
-    writer.String("Keys");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("Keys");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Keys_member = obj.FindMember("Keys");
-    if (Keys_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Keys_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Keys.push_back(memberList[i].GetString());
-        }
-    }
+                if (Keys_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Keys_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Keys.push_back(memberList[i].GetString());
+                    }
+                }
 
                 return true;
             }
@@ -11235,24 +11235,24 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Data.empty()) {
-    writer.String("Data");
-    writer.StartObject();
-    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-    }
-    writer.EndObject();
-     }
+                    writer.String("Data");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                    }
+                    writer.EndObject();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
-    if (Data_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
-            Data[iter->name.GetString()] = iter->value.GetString();
-        }
-    }
+                if (Data_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
+                        Data[iter->name.GetString()] = iter->value.GetString();
+                    }
+                }
 
                 return true;
             }
@@ -11381,25 +11381,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!News.empty()) {
-    writer.String("News");
-    writer.StartArray();
-    for (std::list<TitleNewsItem>::iterator iter = News.begin(); iter != News.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("News");
+                    writer.StartArray();
+                    for (std::list<TitleNewsItem>::iterator iter = News.begin(); iter != News.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator News_member = obj.FindMember("News");
-    if (News_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = News_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            News.push_back(TitleNewsItem(memberList[i]));
-        }
-    }
+                if (News_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = News_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        News.push_back(TitleNewsItem(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -11523,13 +11523,13 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Keys.empty()) {
-    writer.String("Keys");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("Keys");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
                 if (IfChangedFromDataVersion.notNull()) { writer.String("IfChangedFromDataVersion"); writer.Uint(IfChangedFromDataVersion); }
                 writer.EndObject();
@@ -11538,12 +11538,12 @@ namespace PlayFab
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Keys_member = obj.FindMember("Keys");
-    if (Keys_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Keys_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Keys.push_back(memberList[i].GetString());
-        }
-    }
+                if (Keys_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Keys_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Keys.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
                 if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
                 const Value::ConstMemberIterator IfChangedFromDataVersion_member = obj.FindMember("IfChangedFromDataVersion");
@@ -11583,13 +11583,13 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Data.empty()) {
-    writer.String("Data");
-    writer.StartObject();
-    for (std::map<Aws::String, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-    }
-    writer.EndObject();
-     }
+                    writer.String("Data");
+                    writer.StartObject();
+                    for (std::map<Aws::String, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                    }
+                    writer.EndObject();
+                }
                 writer.String("DataVersion"); writer.Uint(DataVersion);
                 writer.EndObject();
             }
@@ -11597,11 +11597,11 @@ namespace PlayFab
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
-    if (Data_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
-            Data[iter->name.GetString()] = UserDataRecord(iter->value);
-        }
-    }
+                if (Data_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
+                        Data[iter->name.GetString()] = UserDataRecord(iter->value);
+                    }
+                }
                 const Value::ConstMemberIterator DataVersion_member = obj.FindMember("DataVersion");
                 if (DataVersion_member != obj.MemberEnd() && !DataVersion_member->value.IsNull()) DataVersion = DataVersion_member->value.GetUint();
 
@@ -11675,53 +11675,53 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Inventory.empty()) {
-    writer.String("Inventory");
-    writer.StartArray();
-    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Inventory");
+                    writer.StartArray();
+                    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (!VirtualCurrency.empty()) {
-    writer.String("VirtualCurrency");
-    writer.StartObject();
-    for (std::map<Aws::String, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Int(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("VirtualCurrency");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Int(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 if (!VirtualCurrencyRechargeTimes.empty()) {
-    writer.String("VirtualCurrencyRechargeTimes");
-    writer.StartObject();
-    for (std::map<Aws::String, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
-        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-    }
-    writer.EndObject();
-     }
+                    writer.String("VirtualCurrencyRechargeTimes");
+                    writer.StartObject();
+                    for (std::map<Aws::String, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
+                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                    }
+                    writer.EndObject();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Inventory_member = obj.FindMember("Inventory");
-    if (Inventory_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Inventory_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Inventory.push_back(ItemInstance(memberList[i]));
-        }
-    }
+                if (Inventory_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Inventory_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Inventory.push_back(ItemInstance(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator VirtualCurrency_member = obj.FindMember("VirtualCurrency");
-    if (VirtualCurrency_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = VirtualCurrency_member->value.MemberBegin(); iter != VirtualCurrency_member->value.MemberEnd(); ++iter) {
-            VirtualCurrency[iter->name.GetString()] = iter->value.GetInt();
-        }
-    }
+                if (VirtualCurrency_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = VirtualCurrency_member->value.MemberBegin(); iter != VirtualCurrency_member->value.MemberEnd(); ++iter) {
+                        VirtualCurrency[iter->name.GetString()] = iter->value.GetInt();
+                    }
+                }
                 const Value::ConstMemberIterator VirtualCurrencyRechargeTimes_member = obj.FindMember("VirtualCurrencyRechargeTimes");
-    if (VirtualCurrencyRechargeTimes_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = VirtualCurrencyRechargeTimes_member->value.MemberBegin(); iter != VirtualCurrencyRechargeTimes_member->value.MemberEnd(); ++iter) {
-            VirtualCurrencyRechargeTimes[iter->name.GetString()] = VirtualCurrencyRechargeTime(iter->value);
-        }
-    }
+                if (VirtualCurrencyRechargeTimes_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = VirtualCurrencyRechargeTimes_member->value.MemberBegin(); iter != VirtualCurrencyRechargeTimes_member->value.MemberEnd(); ++iter) {
+                        VirtualCurrencyRechargeTimes[iter->name.GetString()] = VirtualCurrencyRechargeTime(iter->value);
+                    }
+                }
 
                 return true;
             }
@@ -11952,13 +11952,13 @@ namespace PlayFab
                 writer.String("Quantity"); writer.Uint(Quantity);
                 if (Annotation.length() > 0) { writer.String("Annotation"); writer.String(Annotation.c_str()); }
                 if (!UpgradeFromItems.empty()) {
-    writer.String("UpgradeFromItems");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = UpgradeFromItems.begin(); iter != UpgradeFromItems.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("UpgradeFromItems");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = UpgradeFromItems.begin(); iter != UpgradeFromItems.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
@@ -11971,12 +11971,12 @@ namespace PlayFab
                 const Value::ConstMemberIterator Annotation_member = obj.FindMember("Annotation");
                 if (Annotation_member != obj.MemberEnd() && !Annotation_member->value.IsNull()) Annotation = Annotation_member->value.GetString();
                 const Value::ConstMemberIterator UpgradeFromItems_member = obj.FindMember("UpgradeFromItems");
-    if (UpgradeFromItems_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = UpgradeFromItems_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            UpgradeFromItems.push_back(memberList[i].GetString());
-        }
-    }
+                if (UpgradeFromItems_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = UpgradeFromItems_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        UpgradeFromItems.push_back(memberList[i].GetString());
+                    }
+                }
 
                 return true;
             }
@@ -12870,25 +12870,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Characters.empty()) {
-    writer.String("Characters");
-    writer.StartArray();
-    for (std::list<CharacterResult>::iterator iter = Characters.begin(); iter != Characters.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Characters");
+                    writer.StartArray();
+                    for (std::list<CharacterResult>::iterator iter = Characters.begin(); iter != Characters.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Characters_member = obj.FindMember("Characters");
-    if (Characters_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Characters_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Characters.push_back(CharacterResult(memberList[i]));
-        }
-    }
+                if (Characters_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Characters_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Characters.push_back(CharacterResult(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -14173,55 +14173,55 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!OfferedInventoryInstanceIds.empty()) {
-    writer.String("OfferedInventoryInstanceIds");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = OfferedInventoryInstanceIds.begin(); iter != OfferedInventoryInstanceIds.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("OfferedInventoryInstanceIds");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = OfferedInventoryInstanceIds.begin(); iter != OfferedInventoryInstanceIds.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (!RequestedCatalogItemIds.empty()) {
-    writer.String("RequestedCatalogItemIds");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = RequestedCatalogItemIds.begin(); iter != RequestedCatalogItemIds.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("RequestedCatalogItemIds");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = RequestedCatalogItemIds.begin(); iter != RequestedCatalogItemIds.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (!AllowedPlayerIds.empty()) {
-    writer.String("AllowedPlayerIds");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = AllowedPlayerIds.begin(); iter != AllowedPlayerIds.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("AllowedPlayerIds");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = AllowedPlayerIds.begin(); iter != AllowedPlayerIds.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator OfferedInventoryInstanceIds_member = obj.FindMember("OfferedInventoryInstanceIds");
-    if (OfferedInventoryInstanceIds_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = OfferedInventoryInstanceIds_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            OfferedInventoryInstanceIds.push_back(memberList[i].GetString());
-        }
-    }
+                if (OfferedInventoryInstanceIds_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = OfferedInventoryInstanceIds_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        OfferedInventoryInstanceIds.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator RequestedCatalogItemIds_member = obj.FindMember("RequestedCatalogItemIds");
-    if (RequestedCatalogItemIds_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = RequestedCatalogItemIds_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            RequestedCatalogItemIds.push_back(memberList[i].GetString());
-        }
-    }
+                if (RequestedCatalogItemIds_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = RequestedCatalogItemIds_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        RequestedCatalogItemIds.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator AllowedPlayerIds_member = obj.FindMember("AllowedPlayerIds");
-    if (AllowedPlayerIds_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = AllowedPlayerIds_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            AllowedPlayerIds.push_back(memberList[i].GetString());
-        }
-    }
+                if (AllowedPlayerIds_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = AllowedPlayerIds_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        AllowedPlayerIds.push_back(memberList[i].GetString());
+                    }
+                }
 
                 return true;
             }
@@ -14468,26 +14468,26 @@ namespace PlayFab
                 if (OrderId.length() > 0) { writer.String("OrderId"); writer.String(OrderId.c_str()); }
                 if (Status.notNull()) { writer.String("Status"); writeTransactionStatusEnumJSON(Status, writer); }
                 if (!VCAmount.empty()) {
-    writer.String("VCAmount");
-    writer.StartObject();
-    for (std::map<Aws::String, Int32>::iterator iter = VCAmount.begin(); iter != VCAmount.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Int(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("VCAmount");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Int32>::iterator iter = VCAmount.begin(); iter != VCAmount.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Int(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 if (PurchaseCurrency.length() > 0) { writer.String("PurchaseCurrency"); writer.String(PurchaseCurrency.c_str()); }
                 writer.String("PurchasePrice"); writer.Uint(PurchasePrice);
                 writer.String("CreditApplied"); writer.Uint(CreditApplied);
                 if (ProviderData.length() > 0) { writer.String("ProviderData"); writer.String(ProviderData.c_str()); }
                 if (PurchaseConfirmationPageURL.length() > 0) { writer.String("PurchaseConfirmationPageURL"); writer.String(PurchaseConfirmationPageURL.c_str()); }
                 if (!VirtualCurrency.empty()) {
-    writer.String("VirtualCurrency");
-    writer.StartObject();
-    for (std::map<Aws::String, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Int(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("VirtualCurrency");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Int(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 if (ProviderToken.length() > 0) { writer.String("ProviderToken"); writer.String(ProviderToken.c_str()); }
                 writer.EndObject();
             }
@@ -14499,11 +14499,11 @@ namespace PlayFab
                 const Value::ConstMemberIterator Status_member = obj.FindMember("Status");
                 if (Status_member != obj.MemberEnd() && !Status_member->value.IsNull()) Status = readTransactionStatusFromValue(Status_member->value);
                 const Value::ConstMemberIterator VCAmount_member = obj.FindMember("VCAmount");
-    if (VCAmount_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = VCAmount_member->value.MemberBegin(); iter != VCAmount_member->value.MemberEnd(); ++iter) {
-            VCAmount[iter->name.GetString()] = iter->value.GetInt();
-        }
-    }
+                if (VCAmount_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = VCAmount_member->value.MemberBegin(); iter != VCAmount_member->value.MemberEnd(); ++iter) {
+                        VCAmount[iter->name.GetString()] = iter->value.GetInt();
+                    }
+                }
                 const Value::ConstMemberIterator PurchaseCurrency_member = obj.FindMember("PurchaseCurrency");
                 if (PurchaseCurrency_member != obj.MemberEnd() && !PurchaseCurrency_member->value.IsNull()) PurchaseCurrency = PurchaseCurrency_member->value.GetString();
                 const Value::ConstMemberIterator PurchasePrice_member = obj.FindMember("PurchasePrice");
@@ -14515,11 +14515,11 @@ namespace PlayFab
                 const Value::ConstMemberIterator PurchaseConfirmationPageURL_member = obj.FindMember("PurchaseConfirmationPageURL");
                 if (PurchaseConfirmationPageURL_member != obj.MemberEnd() && !PurchaseConfirmationPageURL_member->value.IsNull()) PurchaseConfirmationPageURL = PurchaseConfirmationPageURL_member->value.GetString();
                 const Value::ConstMemberIterator VirtualCurrency_member = obj.FindMember("VirtualCurrency");
-    if (VirtualCurrency_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = VirtualCurrency_member->value.MemberBegin(); iter != VirtualCurrency_member->value.MemberEnd(); ++iter) {
-            VirtualCurrency[iter->name.GetString()] = iter->value.GetInt();
-        }
-    }
+                if (VirtualCurrency_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = VirtualCurrency_member->value.MemberBegin(); iter != VirtualCurrency_member->value.MemberEnd(); ++iter) {
+                        VirtualCurrency[iter->name.GetString()] = iter->value.GetInt();
+                    }
+                }
                 const Value::ConstMemberIterator ProviderToken_member = obj.FindMember("ProviderToken");
                 if (ProviderToken_member != obj.MemberEnd() && !ProviderToken_member->value.IsNull()) ProviderToken = ProviderToken_member->value.GetString();
 
@@ -14680,25 +14680,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Items.empty()) {
-    writer.String("Items");
-    writer.StartArray();
-    for (std::list<ItemInstance>::iterator iter = Items.begin(); iter != Items.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Items");
+                    writer.StartArray();
+                    for (std::list<ItemInstance>::iterator iter = Items.begin(); iter != Items.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Items_member = obj.FindMember("Items");
-    if (Items_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Items_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Items.push_back(ItemInstance(memberList[i]));
-        }
-    }
+                if (Items_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Items_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Items.push_back(ItemInstance(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -14782,25 +14782,25 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!GrantedItems.empty()) {
-    writer.String("GrantedItems");
-    writer.StartArray();
-    for (std::list<ItemInstance>::iterator iter = GrantedItems.begin(); iter != GrantedItems.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("GrantedItems");
+                    writer.StartArray();
+                    for (std::list<ItemInstance>::iterator iter = GrantedItems.begin(); iter != GrantedItems.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator GrantedItems_member = obj.FindMember("GrantedItems");
-    if (GrantedItems_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = GrantedItems_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            GrantedItems.push_back(ItemInstance(memberList[i]));
-        }
-    }
+                if (GrantedItems_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = GrantedItems_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        GrantedItems.push_back(ItemInstance(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -15287,12 +15287,12 @@ namespace PlayFab
                 writer.StartObject();
                 writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
                 writer.String("PlayFabIds");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-    
+                writer.StartArray();
+                for (std::list<Aws::String>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
+                    writer.String(iter->c_str());
+                }
+                writer.EndArray();
+
                 writer.EndObject();
             }
 
@@ -15301,12 +15301,12 @@ namespace PlayFab
                 const Value::ConstMemberIterator SharedGroupId_member = obj.FindMember("SharedGroupId");
                 if (SharedGroupId_member != obj.MemberEnd() && !SharedGroupId_member->value.IsNull()) SharedGroupId = SharedGroupId_member->value.GetString();
                 const Value::ConstMemberIterator PlayFabIds_member = obj.FindMember("PlayFabIds");
-    if (PlayFabIds_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = PlayFabIds_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            PlayFabIds.push_back(memberList[i].GetString());
-        }
-    }
+                if (PlayFabIds_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = PlayFabIds_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        PlayFabIds.push_back(memberList[i].GetString());
+                    }
+                }
 
                 return true;
             }
@@ -15616,12 +15616,12 @@ namespace PlayFab
                 writer.StartObject();
                 writer.String("FriendPlayFabId"); writer.String(FriendPlayFabId.c_str());
                 writer.String("Tags");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-    
+                writer.StartArray();
+                for (std::list<Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                    writer.String(iter->c_str());
+                }
+                writer.EndArray();
+
                 writer.EndObject();
             }
 
@@ -15630,12 +15630,12 @@ namespace PlayFab
                 const Value::ConstMemberIterator FriendPlayFabId_member = obj.FindMember("FriendPlayFabId");
                 if (FriendPlayFabId_member != obj.MemberEnd() && !FriendPlayFabId_member->value.IsNull()) FriendPlayFabId = FriendPlayFabId_member->value.GetString();
                 const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
-    if (Tags_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Tags_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Tags.push_back(memberList[i].GetString());
-        }
-    }
+                if (Tags_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Tags_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Tags.push_back(memberList[i].GetString());
+                    }
+                }
 
                 return true;
             }
@@ -15847,12 +15847,12 @@ namespace PlayFab
                 if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
                 if (StoreId.length() > 0) { writer.String("StoreId"); writer.String(StoreId.c_str()); }
                 writer.String("Items");
-    writer.StartArray();
-    for (std::list<ItemPurchaseRequest>::iterator iter = Items.begin(); iter != Items.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-    
+                writer.StartArray();
+                for (std::list<ItemPurchaseRequest>::iterator iter = Items.begin(); iter != Items.end(); iter++) {
+                    iter->writeJSON(writer);
+                }
+                writer.EndArray();
+
                 writer.EndObject();
             }
 
@@ -15863,12 +15863,12 @@ namespace PlayFab
                 const Value::ConstMemberIterator StoreId_member = obj.FindMember("StoreId");
                 if (StoreId_member != obj.MemberEnd() && !StoreId_member->value.IsNull()) StoreId = StoreId_member->value.GetString();
                 const Value::ConstMemberIterator Items_member = obj.FindMember("Items");
-    if (Items_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Items_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Items.push_back(ItemPurchaseRequest(memberList[i]));
-        }
-    }
+                if (Items_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Items_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Items.push_back(ItemPurchaseRequest(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -15911,29 +15911,29 @@ namespace PlayFab
                 writer.StartObject();
                 if (OrderId.length() > 0) { writer.String("OrderId"); writer.String(OrderId.c_str()); }
                 if (!Contents.empty()) {
-    writer.String("Contents");
-    writer.StartArray();
-    for (std::list<CartItem>::iterator iter = Contents.begin(); iter != Contents.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("Contents");
+                    writer.StartArray();
+                    for (std::list<CartItem>::iterator iter = Contents.begin(); iter != Contents.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (!PaymentOptions.empty()) {
-    writer.String("PaymentOptions");
-    writer.StartArray();
-    for (std::list<PaymentOption>::iterator iter = PaymentOptions.begin(); iter != PaymentOptions.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("PaymentOptions");
+                    writer.StartArray();
+                    for (std::list<PaymentOption>::iterator iter = PaymentOptions.begin(); iter != PaymentOptions.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (!VirtualCurrencyBalances.empty()) {
-    writer.String("VirtualCurrencyBalances");
-    writer.StartObject();
-    for (std::map<Aws::String, Int32>::iterator iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Int(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("VirtualCurrencyBalances");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Int32>::iterator iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Int(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 writer.EndObject();
             }
 
@@ -15942,25 +15942,25 @@ namespace PlayFab
                 const Value::ConstMemberIterator OrderId_member = obj.FindMember("OrderId");
                 if (OrderId_member != obj.MemberEnd() && !OrderId_member->value.IsNull()) OrderId = OrderId_member->value.GetString();
                 const Value::ConstMemberIterator Contents_member = obj.FindMember("Contents");
-    if (Contents_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Contents_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Contents.push_back(CartItem(memberList[i]));
-        }
-    }
+                if (Contents_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Contents_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Contents.push_back(CartItem(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator PaymentOptions_member = obj.FindMember("PaymentOptions");
-    if (PaymentOptions_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = PaymentOptions_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            PaymentOptions.push_back(PaymentOption(memberList[i]));
-        }
-    }
+                if (PaymentOptions_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = PaymentOptions_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        PaymentOptions.push_back(PaymentOption(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator VirtualCurrencyBalances_member = obj.FindMember("VirtualCurrencyBalances");
-    if (VirtualCurrencyBalances_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = VirtualCurrencyBalances_member->value.MemberBegin(); iter != VirtualCurrencyBalances_member->value.MemberEnd(); ++iter) {
-            VirtualCurrencyBalances[iter->name.GetString()] = iter->value.GetInt();
-        }
-    }
+                if (VirtualCurrencyBalances_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = VirtualCurrencyBalances_member->value.MemberBegin(); iter != VirtualCurrencyBalances_member->value.MemberEnd(); ++iter) {
+                        VirtualCurrencyBalances[iter->name.GetString()] = iter->value.GetInt();
+                    }
+                }
 
                 return true;
             }
@@ -16892,21 +16892,21 @@ namespace PlayFab
                 if (UnlockedItemInstanceId.length() > 0) { writer.String("UnlockedItemInstanceId"); writer.String(UnlockedItemInstanceId.c_str()); }
                 if (UnlockedWithItemInstanceId.length() > 0) { writer.String("UnlockedWithItemInstanceId"); writer.String(UnlockedWithItemInstanceId.c_str()); }
                 if (!GrantedItems.empty()) {
-    writer.String("GrantedItems");
-    writer.StartArray();
-    for (std::list<ItemInstance>::iterator iter = GrantedItems.begin(); iter != GrantedItems.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
+                    writer.String("GrantedItems");
+                    writer.StartArray();
+                    for (std::list<ItemInstance>::iterator iter = GrantedItems.begin(); iter != GrantedItems.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 if (!VirtualCurrency.empty()) {
-    writer.String("VirtualCurrency");
-    writer.StartObject();
-    for (std::map<Aws::String, Uint32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Uint(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("VirtualCurrency");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Uint32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 writer.EndObject();
             }
 
@@ -16917,18 +16917,18 @@ namespace PlayFab
                 const Value::ConstMemberIterator UnlockedWithItemInstanceId_member = obj.FindMember("UnlockedWithItemInstanceId");
                 if (UnlockedWithItemInstanceId_member != obj.MemberEnd() && !UnlockedWithItemInstanceId_member->value.IsNull()) UnlockedWithItemInstanceId = UnlockedWithItemInstanceId_member->value.GetString();
                 const Value::ConstMemberIterator GrantedItems_member = obj.FindMember("GrantedItems");
-    if (GrantedItems_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = GrantedItems_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            GrantedItems.push_back(ItemInstance(memberList[i]));
-        }
-    }
+                if (GrantedItems_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = GrantedItems_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        GrantedItems.push_back(ItemInstance(memberList[i]));
+                    }
+                }
                 const Value::ConstMemberIterator VirtualCurrency_member = obj.FindMember("VirtualCurrency");
-    if (VirtualCurrency_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = VirtualCurrency_member->value.MemberBegin(); iter != VirtualCurrency_member->value.MemberEnd(); ++iter) {
-            VirtualCurrency[iter->name.GetString()] = iter->value.GetUint();
-        }
-    }
+                if (VirtualCurrency_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = VirtualCurrency_member->value.MemberBegin(); iter != VirtualCurrency_member->value.MemberEnd(); ++iter) {
+                        VirtualCurrency[iter->name.GetString()] = iter->value.GetUint();
+                    }
+                }
 
                 return true;
             }
@@ -17010,21 +17010,21 @@ namespace PlayFab
                 writer.StartObject();
                 writer.String("CharacterId"); writer.String(CharacterId.c_str());
                 if (!Data.empty()) {
-    writer.String("Data");
-    writer.StartObject();
-    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-    }
-    writer.EndObject();
-     }
+                    writer.String("Data");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                    }
+                    writer.EndObject();
+                }
                 if (!KeysToRemove.empty()) {
-    writer.String("KeysToRemove");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("KeysToRemove");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
                 writer.EndObject();
             }
@@ -17034,18 +17034,18 @@ namespace PlayFab
                 const Value::ConstMemberIterator CharacterId_member = obj.FindMember("CharacterId");
                 if (CharacterId_member != obj.MemberEnd() && !CharacterId_member->value.IsNull()) CharacterId = CharacterId_member->value.GetString();
                 const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
-    if (Data_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
-            Data[iter->name.GetString()] = iter->value.GetString();
-        }
-    }
+                if (Data_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
+                        Data[iter->name.GetString()] = iter->value.GetString();
+                    }
+                }
                 const Value::ConstMemberIterator KeysToRemove_member = obj.FindMember("KeysToRemove");
-    if (KeysToRemove_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = KeysToRemove_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            KeysToRemove.push_back(memberList[i].GetString());
-        }
-    }
+                if (KeysToRemove_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = KeysToRemove_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        KeysToRemove.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator Permission_member = obj.FindMember("Permission");
                 if (Permission_member != obj.MemberEnd() && !Permission_member->value.IsNull()) Permission = readUserDataPermissionFromValue(Permission_member->value);
 
@@ -17123,13 +17123,13 @@ namespace PlayFab
                 writer.StartObject();
                 writer.String("CharacterId"); writer.String(CharacterId.c_str());
                 if (!CharacterStatistics.empty()) {
-    writer.String("CharacterStatistics");
-    writer.StartObject();
-    for (std::map<Aws::String, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Int(iter->second);
-    }
-    writer.EndObject();
-     }
+                    writer.String("CharacterStatistics");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.Int(iter->second);
+                    }
+                    writer.EndObject();
+                }
                 writer.EndObject();
             }
 
@@ -17138,11 +17138,11 @@ namespace PlayFab
                 const Value::ConstMemberIterator CharacterId_member = obj.FindMember("CharacterId");
                 if (CharacterId_member != obj.MemberEnd() && !CharacterId_member->value.IsNull()) CharacterId = CharacterId_member->value.GetString();
                 const Value::ConstMemberIterator CharacterStatistics_member = obj.FindMember("CharacterStatistics");
-    if (CharacterStatistics_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = CharacterStatistics_member->value.MemberBegin(); iter != CharacterStatistics_member->value.MemberEnd(); ++iter) {
-            CharacterStatistics[iter->name.GetString()] = iter->value.GetInt();
-        }
-    }
+                if (CharacterStatistics_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = CharacterStatistics_member->value.MemberBegin(); iter != CharacterStatistics_member->value.MemberEnd(); ++iter) {
+                        CharacterStatistics[iter->name.GetString()] = iter->value.GetInt();
+                    }
+                }
 
                 return true;
             }
@@ -17208,24 +17208,24 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("Statistics");
-    writer.StartArray();
-    for (std::list<StatisticUpdate>::iterator iter = Statistics.begin(); iter != Statistics.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-    
+                writer.StartArray();
+                for (std::list<StatisticUpdate>::iterator iter = Statistics.begin(); iter != Statistics.end(); iter++) {
+                    iter->writeJSON(writer);
+                }
+                writer.EndArray();
+
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Statistics_member = obj.FindMember("Statistics");
-    if (Statistics_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Statistics_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Statistics.push_back(StatisticUpdate(memberList[i]));
-        }
-    }
+                if (Statistics_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Statistics_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Statistics.push_back(StatisticUpdate(memberList[i]));
+                    }
+                }
 
                 return true;
             }
@@ -17301,21 +17301,21 @@ namespace PlayFab
                 writer.StartObject();
                 writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
                 if (!Data.empty()) {
-    writer.String("Data");
-    writer.StartObject();
-    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-    }
-    writer.EndObject();
-     }
+                    writer.String("Data");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                    }
+                    writer.EndObject();
+                }
                 if (!KeysToRemove.empty()) {
-    writer.String("KeysToRemove");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("KeysToRemove");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
                 writer.EndObject();
             }
@@ -17325,18 +17325,18 @@ namespace PlayFab
                 const Value::ConstMemberIterator SharedGroupId_member = obj.FindMember("SharedGroupId");
                 if (SharedGroupId_member != obj.MemberEnd() && !SharedGroupId_member->value.IsNull()) SharedGroupId = SharedGroupId_member->value.GetString();
                 const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
-    if (Data_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
-            Data[iter->name.GetString()] = iter->value.GetString();
-        }
-    }
+                if (Data_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
+                        Data[iter->name.GetString()] = iter->value.GetString();
+                    }
+                }
                 const Value::ConstMemberIterator KeysToRemove_member = obj.FindMember("KeysToRemove");
-    if (KeysToRemove_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = KeysToRemove_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            KeysToRemove.push_back(memberList[i].GetString());
-        }
-    }
+                if (KeysToRemove_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = KeysToRemove_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        KeysToRemove.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator Permission_member = obj.FindMember("Permission");
                 if (Permission_member != obj.MemberEnd() && !Permission_member->value.IsNull()) Permission = readUserDataPermissionFromValue(Permission_member->value);
 
@@ -17410,21 +17410,21 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (!Data.empty()) {
-    writer.String("Data");
-    writer.StartObject();
-    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-    }
-    writer.EndObject();
-     }
+                    writer.String("Data");
+                    writer.StartObject();
+                    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                    }
+                    writer.EndObject();
+                }
                 if (!KeysToRemove.empty()) {
-    writer.String("KeysToRemove");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
+                    writer.String("KeysToRemove");
+                    writer.StartArray();
+                    for (std::list<Aws::String>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
                 if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
                 writer.EndObject();
             }
@@ -17432,18 +17432,18 @@ namespace PlayFab
             bool readFromValue(const rapidjson::Value& obj) override
             {
                 const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
-    if (Data_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
-            Data[iter->name.GetString()] = iter->value.GetString();
-        }
-    }
+                if (Data_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
+                        Data[iter->name.GetString()] = iter->value.GetString();
+                    }
+                }
                 const Value::ConstMemberIterator KeysToRemove_member = obj.FindMember("KeysToRemove");
-    if (KeysToRemove_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = KeysToRemove_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            KeysToRemove.push_back(memberList[i].GetString());
-        }
-    }
+                if (KeysToRemove_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = KeysToRemove_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        KeysToRemove.push_back(memberList[i].GetString());
+                    }
+                }
                 const Value::ConstMemberIterator Permission_member = obj.FindMember("Permission");
                 if (Permission_member != obj.MemberEnd() && !Permission_member->value.IsNull()) Permission = readUserDataPermissionFromValue(Permission_member->value);
 
@@ -17967,13 +17967,13 @@ namespace PlayFab
                 writer.String("EventName"); writer.String(EventName.c_str());
                 if (Timestamp.notNull()) { writer.String("Timestamp"); writeDatetime(Timestamp, writer); }
                 if (!Body.empty()) {
-    writer.String("Body");
-    writer.StartObject();
-    for (std::map<Aws::String, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
-        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-    }
-    writer.EndObject();
-     }
+                    writer.String("Body");
+                    writer.StartObject();
+                    for (std::map<Aws::String, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
+                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                    }
+                    writer.EndObject();
+                }
                 writer.EndObject();
             }
 
@@ -17986,11 +17986,11 @@ namespace PlayFab
                 const Value::ConstMemberIterator Timestamp_member = obj.FindMember("Timestamp");
                 if (Timestamp_member != obj.MemberEnd() && !Timestamp_member->value.IsNull()) Timestamp = readDatetime(Timestamp_member->value);
                 const Value::ConstMemberIterator Body_member = obj.FindMember("Body");
-    if (Body_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = Body_member->value.MemberBegin(); iter != Body_member->value.MemberEnd(); ++iter) {
-            Body[iter->name.GetString()] = MultitypeVar(iter->value);
-        }
-    }
+                if (Body_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = Body_member->value.MemberBegin(); iter != Body_member->value.MemberEnd(); ++iter) {
+                        Body[iter->name.GetString()] = MultitypeVar(iter->value);
+                    }
+                }
 
                 return true;
             }
@@ -18031,13 +18031,13 @@ namespace PlayFab
                 writer.String("EventName"); writer.String(EventName.c_str());
                 if (Timestamp.notNull()) { writer.String("Timestamp"); writeDatetime(Timestamp, writer); }
                 if (!Body.empty()) {
-    writer.String("Body");
-    writer.StartObject();
-    for (std::map<Aws::String, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
-        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-    }
-    writer.EndObject();
-     }
+                    writer.String("Body");
+                    writer.StartObject();
+                    for (std::map<Aws::String, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
+                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                    }
+                    writer.EndObject();
+                }
                 writer.EndObject();
             }
 
@@ -18048,11 +18048,11 @@ namespace PlayFab
                 const Value::ConstMemberIterator Timestamp_member = obj.FindMember("Timestamp");
                 if (Timestamp_member != obj.MemberEnd() && !Timestamp_member->value.IsNull()) Timestamp = readDatetime(Timestamp_member->value);
                 const Value::ConstMemberIterator Body_member = obj.FindMember("Body");
-    if (Body_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = Body_member->value.MemberBegin(); iter != Body_member->value.MemberEnd(); ++iter) {
-            Body[iter->name.GetString()] = MultitypeVar(iter->value);
-        }
-    }
+                if (Body_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = Body_member->value.MemberBegin(); iter != Body_member->value.MemberEnd(); ++iter) {
+                        Body[iter->name.GetString()] = MultitypeVar(iter->value);
+                    }
+                }
 
                 return true;
             }
@@ -18132,13 +18132,13 @@ namespace PlayFab
                 writer.String("EventName"); writer.String(EventName.c_str());
                 if (Timestamp.notNull()) { writer.String("Timestamp"); writeDatetime(Timestamp, writer); }
                 if (!Body.empty()) {
-    writer.String("Body");
-    writer.StartObject();
-    for (std::map<Aws::String, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
-        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-    }
-    writer.EndObject();
-     }
+                    writer.String("Body");
+                    writer.StartObject();
+                    for (std::map<Aws::String, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
+                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                    }
+                    writer.EndObject();
+                }
                 writer.EndObject();
             }
 
@@ -18149,11 +18149,11 @@ namespace PlayFab
                 const Value::ConstMemberIterator Timestamp_member = obj.FindMember("Timestamp");
                 if (Timestamp_member != obj.MemberEnd() && !Timestamp_member->value.IsNull()) Timestamp = readDatetime(Timestamp_member->value);
                 const Value::ConstMemberIterator Body_member = obj.FindMember("Body");
-    if (Body_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = Body_member->value.MemberBegin(); iter != Body_member->value.MemberEnd(); ++iter) {
-            Body[iter->name.GetString()] = MultitypeVar(iter->value);
-        }
-    }
+                if (Body_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = Body_member->value.MemberBegin(); iter != Body_member->value.MemberEnd(); ++iter) {
+                        Body[iter->name.GetString()] = MultitypeVar(iter->value);
+                    }
+                }
 
                 return true;
             }

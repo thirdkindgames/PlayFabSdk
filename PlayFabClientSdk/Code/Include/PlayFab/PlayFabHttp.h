@@ -1,14 +1,14 @@
 #pragma once
 
-#include "PlayFabError.h"
+#include "PlayFab/PlayFabError.h"
 
 #include "aws/core/http/HttpTypes.h"
 #include "aws/core/http/HttpResponse.h"
 #include <aws/core/http/HttpClientFactory.h>
 #include <AZCore/std/parallel/atomic.h>
 #include <AZCore/std/parallel/mutex.h>
+#include <AzCore/std/parallel/conditional_variable.h>
 #include <AzCore/JSON/document.h>
-#include <CrySimpleManagedThread.h>
 
 namespace PlayFab
 {
@@ -19,6 +19,7 @@ namespace PlayFab
 
         // Initializing ctor
         PlayFabRequest(const Aws::String& URI, Aws::Http::HttpMethod method, const Aws::String& authKey, const Aws::String& authValue, const Aws::String& requestJsonBody, void* customData, void* mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback);
+        PlayFabRequest(const Aws::String& URI, Aws::Http::HttpMethod method, bool usePlayFabAuthToken, const Aws::String& requestJsonBody, void* customData, void* mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback);
         ~PlayFabRequest();
 
         void HandleErrorReport(); // Call this when the response information describes an error (this parses that information into mError, and activates the error callback)
@@ -28,6 +29,7 @@ namespace PlayFab
         // the method of which the HTTP request will take. GET, POST, DELETE, PUT, or HEAD
         Aws::Http::HttpMethod mMethod;
         // Authentication, when present
+        bool mUsePlayFabAuthToken;
         Aws::String mAuthKey;
         Aws::String mAuthValue;
         // Json request body
@@ -57,7 +59,7 @@ namespace PlayFab
     class PlayFabRequestManager
     {
     public:
-        static PlayFabRequestManager playFabHttp;
+        static PlayFabRequestManager *playFabHttp;
 
         PlayFabRequestManager();
         ~PlayFabRequestManager();
@@ -65,31 +67,31 @@ namespace PlayFab
         // see IHttpRequestManager::AddRequest
         // Add these parameters to a queue of request parameters to send off as an HTTP request as soon as they reach the head of the queue
         void AddRequest(PlayFabRequest* httpRequestParameters);
-        int GetPendingCalls();
 
     private:
         // PlayFabRequestManager thread loop. 
         void ThreadFunction();
 
         // Called by ThreadFunction. Waits for timeout or until notified and processes any requests queued up.
-        void HandleRequestBatch(const Aws::UniquePtr<Aws::Http::HttpClientFactory>& httpClientFactory);
+        void HandleRequestBatch();
 
         // Perform an HTTP request.  Not sure if this one blocks, but if it does, it's very short
-        void HandleRequest(PlayFabRequest* httpRequestParameters, const Aws::UniquePtr<Aws::Http::HttpClientFactory>& factory);
+        void HandleRequest(PlayFabRequest* httpRequestParameters);
         // For the request, block until a response is received, then give the returned JSON to the callback to parse.
         void PlayFabRequestManager::HandleResponse(PlayFabRequest* requestContainer);
 
         // Collection of requests
-        int m_pendingCalls;
-        std::list<PlayFabRequest*> m_requestsToHandle;
+		AZStd::queue<PlayFabRequest*> m_requestsToHandle;
 
         // Member variables for synchronization
         AZStd::mutex m_requestMutex;
+
+		AZStd::condition_variable m_requestConditionVar;
 
         // Run flag used to signal the worker thread
         AZStd::atomic<bool> m_runThread;
 
         // This is the thread that will be used for all async operations
-        std::shared_ptr<CrySimpleManagedThread> m_thread;
+		AZStd::thread m_thread;
     };
 }

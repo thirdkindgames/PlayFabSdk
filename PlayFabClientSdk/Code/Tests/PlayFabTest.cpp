@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-class PlayFabSdkTest : public ::testing::Test
+class PlayFabTest : public ::testing::Test
 {
 protected:
     void SetUp() override
@@ -17,7 +17,7 @@ protected:
     }
 };
 
-TEST_F(PlayFabSdkTest, ExampleTest)
+TEST_F(PlayFabTest, ExampleTest)
 {
     ASSERT_TRUE(true);
 }
