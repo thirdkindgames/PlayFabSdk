@@ -279,7 +279,7 @@ namespace PlayFab
         // Private, Client-Specific
         static void MultiStepClientLogin(bool needsAttribution);
 
-    public:
+		// As a *slight* security improvement, this is private
         static Aws::String mUserSessionTicket;
     };
 };

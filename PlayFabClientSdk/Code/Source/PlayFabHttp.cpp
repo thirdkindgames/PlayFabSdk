@@ -8,6 +8,7 @@
 #include <aws/core/http/HttpResponse.h>
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
+#include <aws/core/http/HttpClientFactory.h>
 #include <AZCore/std/parallel/lock.h>
 
 using namespace PlayFab;
@@ -17,7 +18,6 @@ using namespace rapidjson;
 PlayFabRequest::PlayFabRequest(const Aws::String& URI, Aws::Http::HttpMethod method, const Aws::String& authKey, const Aws::String& authValue, const Aws::String& requestJsonBody, void* customData, void* mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback)
     : mURI(URI)
     , mMethod(method)
-    , mUsePlayFabAuthToken(false)
     , mAuthKey(authKey)
     , mAuthValue(authValue)
     , mRequestJsonBody(requestJsonBody)
@@ -26,24 +26,7 @@ PlayFabRequest::PlayFabRequest(const Aws::String& URI, Aws::Http::HttpMethod met
     , mResponseSize(0)
     , mResponseJson(new rapidjson::Document)
     , mError(nullptr)
-    , mInternalCallback(internalCallback)
-    , mResultCallback(mResultCallback)
-    , mErrorCallback(mErrorCallback)
-{
-}
-
-PlayFabRequest::PlayFabRequest(const Aws::String& URI, Aws::Http::HttpMethod method, bool usePlayFabAuthToken, const Aws::String& requestJsonBody, void* customData, void* mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback)
-    : mURI(URI)
-    , mMethod(method)
-    , mUsePlayFabAuthToken(usePlayFabAuthToken)
-    , mAuthKey ("")
-    , mAuthValue("")
-    , mRequestJsonBody(requestJsonBody)
-    , mCustomData(customData)
-    , mResponseText(nullptr)
-    , mResponseSize(0)
-    , mResponseJson(new rapidjson::Document)
-    , mError(nullptr)
+    , mHttpCode(Aws::Http::HttpResponseCode::BAD_REQUEST)
     , mInternalCallback(internalCallback)
     , mResultCallback(mResultCallback)
     , mErrorCallback(mErrorCallback)
@@ -124,11 +107,18 @@ PlayFabRequestManager::PlayFabRequestManager()
 PlayFabRequestManager::~PlayFabRequestManager()
 {
     m_runThread = false;
-    m_requestConditionVar.notify_all();
     if (m_thread.joinable())
-    {
         m_thread.join();
+}
+
+int PlayFabRequestManager::GetPendingCalls()
+{
+    int temp;
+    {
+        AZStd::lock_guard<AZStd::mutex> lock(m_requestMutex);
+        temp = m_pendingCalls;
     }
+    return temp;
 }
 
 void PlayFabRequestManager::AddRequest(PlayFabRequest* requestContainer)
@@ -137,50 +127,44 @@ void PlayFabRequestManager::AddRequest(PlayFabRequest* requestContainer)
         AZStd::lock_guard<AZStd::mutex> lock(m_requestMutex);
         m_requestsToHandle.push(AZStd::move(requestContainer));
     }
-    m_requestConditionVar.notify_all();
 }
 
 void PlayFabRequestManager::ThreadFunction()
 {
+    AZStd::queue<PlayFabRequest*> requestsToHandle, resultsToHandle;
+
     // Run the thread as long as directed
     while (m_runThread)
     {
-        HandleRequestBatch();
-    }
-}
+        {
+            AZStd::lock_guard<AZStd::mutex> lock(m_requestMutex);
+            requestsToHandle.swap(m_requestsToHandle);
+            m_pendingCalls = requestsToHandle.size() + resultsToHandle.size();
+        }
 
-void PlayFabRequestManager::HandleRequestBatch()
-{
-    // Lock mutex and wait for work to be signalled via the condition variable
-    AZStd::unique_lock<AZStd::mutex> lock(m_requestMutex);
-    m_requestConditionVar.wait(lock, [&] { return !m_requestsToHandle.empty(); });
+        // Send all the requests immediately to make API calls work in Parellel, these don't really wait (much if at all <1 ms)
+        while (!requestsToHandle.empty())
+        {
+            auto request = requestsToHandle.front();
+            HandleRequest(request);
+            resultsToHandle.push(request);
+            requestsToHandle.pop();
+        }
 
-    // Swap queues
-    AZStd::queue<PlayFabRequest*> requestsToHandle;
-    requestsToHandle.swap(m_requestsToHandle);
-
-    // Release lock
-    lock.unlock();
-
-    // Handle requests
-    while (!requestsToHandle.empty())
-    {
-        auto request = requestsToHandle.front();
-        HandleRequest(request);
-        HandleResponse(request);
-        requestsToHandle.pop();
+        // Handle a single result this tick (blocking call takes 50-500 ms) - Results in Serial unfortunately, can't evaluate which has returned yet (maybe something to fix)
+        if (!resultsToHandle.empty())
+        {
+            auto request = resultsToHandle.front();
+            HandleResponse(request);
+            resultsToHandle.pop();
+        }
+        else
+            CrySleep(33); // Don't thrash this thread too hard when there's no requests active
     }
 }
 
 void PlayFabRequestManager::HandleRequest(PlayFabRequest* requestContainer)
 {
-    if (requestContainer->mUsePlayFabAuthToken)
-    {
-        // Late binding of the auth token, avoids response order issues during login
-        requestContainer->mAuthKey = "X-Authorization";
-        requestContainer->mAuthValue = PlayFabClientApi::mUserSessionTicket;
-    }
-
     std::shared_ptr<Aws::Http::HttpClient> httpClient = Aws::Http::CreateHttpClient(Aws::Client::ClientConfiguration());
 
     auto httpRequest = Aws::Http::CreateHttpRequest(requestContainer->mURI, requestContainer->mMethod, Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
