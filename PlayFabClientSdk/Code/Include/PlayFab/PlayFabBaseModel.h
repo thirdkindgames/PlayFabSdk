@@ -5,8 +5,8 @@
 #include <list>
 #include <map>
 
-#include <AZCore/JSON/rapidjson.h>
-#include <AZCore/JSON/writer.h>
+#include <AzCore/JSON/rapidjson.h>
+#include <AzCore/JSON/writer.h>
 #include <AzCore/JSON/document.h>
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include <rapidjson/stringbuffer.h>
@@ -201,14 +201,14 @@ namespace PlayFab
         return true;
     }
 
-    inline void PlayFab::writeDatetime(time_t datetime, PFStringJsonWriter& writer)
+    inline void writeDatetime(time_t datetime, PFStringJsonWriter& writer)
     {
         char buff[40];
         strftime(buff, 40, "%Y-%m-%dT%H:%M:%S.000Z", gmtime(&datetime));
         writer.String(buff);
     }
 
-    inline time_t PlayFab::readDatetime(const rapidjson::Value& obj)
+    inline time_t readDatetime(const rapidjson::Value& obj)
     {
         Aws::String enumStr = obj.GetString();
 
@@ -228,7 +228,7 @@ namespace PlayFab
 
         // Check for bad responses
         if (request->mResponseSize != 0 // Not a null response
-            && request->mResponseJson->GetParseError() == NULL) // Proper json response
+            && request->mResponseJson->GetParseError() == kParseErrorNone) // Proper json response
         {
             // Check if the returned json indicates an error
             auto end = request->mResponseJson->MemberEnd();
