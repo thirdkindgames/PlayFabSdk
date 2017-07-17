@@ -3,16 +3,16 @@
 
 #include <AzCore/Component/Component.h>
 
-#include <PlayFab/PlayFabBus.h>
+#include <PlayFabClientSdk/PlayFabClientSdkBus.h>
 
-namespace PlayFab
+namespace PlayFabClientSdk
 {
-    class PlayFabSystemComponent
+    class PlayFabClientSdkSystemComponent
         : public AZ::Component
-        , protected PlayFabRequestBus::Handler
+        , protected PlayFabClientSdkRequestBus::Handler
     {
     public:
-        AZ_COMPONENT(PlayFabSystemComponent, "{BFCF0949-980C-4880-A25C-9BC9F137B729}");
+        AZ_COMPONENT(PlayFabClientSdkSystemComponent, "{FDEEA325-EC4C-4D4B-9FBD-E64A8D523CE6}");
 
         static void Reflect(AZ::ReflectContext* context);
 

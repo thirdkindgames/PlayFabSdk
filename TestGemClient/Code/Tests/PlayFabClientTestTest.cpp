@@ -1,9 +1,10 @@
 
 #include "StdAfx.h"
 
-#include <gtest/gtest.h>
+#include <AzTest/AzTest.h>
 
-class PlayFabApiTestTest : public ::testing::Test
+class PlayFabClientTestTest
+    : public ::testing::Test
 {
 protected:
     void SetUp() override
@@ -17,9 +18,9 @@ protected:
     }
 };
 
-TEST_F(PlayFabApiTestTest, ExampleTest)
+TEST_F(PlayFabClientTestTest, ExampleTest)
 {
     ASSERT_TRUE(true);
 }
 
-GEM_IMPLEMENT_TEST_RUNNER
+AZ_UNIT_TEST_HOOK();

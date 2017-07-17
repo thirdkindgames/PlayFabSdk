@@ -1,15 +1,19 @@
+
 #pragma once
 
 #include "PlayFab/PlayFabError.h"
 #include "PlayFab/PlayFabClientDataModels.h"
+#include <AzCore/EBus/EBus.h>
 
-namespace PlayFab
+namespace PlayFabClientSdk
 {
-    class PlayFabRequests : public AZ::EBusTraits
+    class PlayFabClientSdkRequests
+        : public AZ::EBusTraits
     {
+
     public:
-        static const AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::Single;
         static const AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Single;
+        static const AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::Single;
 
         virtual bool IsClientLoggedIn() = 0;
 
@@ -144,5 +148,5 @@ namespace PlayFab
         virtual void ValidateWindowsStoreReceipt(ClientModels::ValidateWindowsReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateWindowsReceiptResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
     };
 
-    using PlayFabRequestBus = AZ::EBus<PlayFabRequests>;
-};
+    using PlayFabClientSdkRequestBus = AZ::EBus<PlayFabClientSdkRequests>;
+} // namespace PlayFabClientSdk

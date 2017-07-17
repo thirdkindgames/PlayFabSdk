@@ -1,7 +1,7 @@
 {
     "auto": {
         "Tests": [
-            "Tests/PlayFabTest.cpp"
+            "Tests/PlayFabClientSdkTest.cpp"
         ]
     }
 }

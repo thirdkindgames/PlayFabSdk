@@ -1,11 +1,11 @@
 {
-    "GemFormatVersion": 2,
-    "Uuid": "9a7579845dd84bd6b8c486837766939c",
-    "Name": "PlayFabApiTest",
-    "DisplayName": "PlayFabApiTest",
+    "GemFormatVersion": 3,
+    "Uuid": "a283c61c3bb84efbb6bfbd04c9b2f0d0",
+    "Name": "PlayFabClientTest",
+    "DisplayName": "PlayFabClientTest",
     "Version": "0.1.0",
     "LinkType": "Dynamic",
-    "Summary": "PlayFab test gem.  Demonstrates the usage of the API from outside the PlayFab Gem, and verifies that the apis work.",
+    "Summary": "Tests for the PlayFab Client SDK",
     "Tags": ["Untagged"],
     "IconPath": "preview.png",
     "Dependencies": [

@@ -1,17 +1,18 @@
+
 #include "StdAfx.h"
 
 #include <platform_impl.h> // Resharper says this is unused, but it's still required in some less direct way
 
-#include "PlayFabSystemComponent.h"
+#include "PlayFabClientSdkSystemComponent.h"
 
 #include "PlayFabSettings.h"
 #include "PlayFab/PlayFabError.h"
 
 #include <IGem.h>
 
-namespace PlayFab
+namespace PlayFabClientSdk
 {
-    static void GlobalErrorHandler(const PlayFabError& error, void* customData)
+    static void ExampleGlobalErrorHandler(const PlayFabError& error, void* customData)
     {
         AZ_TracePrintf("PlayFab", "==================================================================\n");
         AZ_TracePrintf("PlayFab", "PlayFab Error\n");
@@ -30,28 +31,28 @@ namespace PlayFab
         AZ_TracePrintf("PlayFab", "==================================================================\n");
     }
 
-    class PlayFabModule
+    class PlayFabClientSdkModule
         : public CryHooksModule
     {
     public:
-        AZ_RTTI(PlayFabModule, "{8B158B60-CD06-49A4-BCB2-D6D5C3C53ADD}", CryHooksModule);
+        AZ_RTTI(PlayFabClientSdkModule, "{F73EAA98-BB00-45D4-832F-6001FF96D66E}", CryHooksModule);
 
-        PlayFabModule()
+        PlayFabClientSdkModule()
             : CryHooksModule()
         {
             // Push results of [MyComponent]::CreateDescriptor() into m_descriptors here.
             m_descriptors.insert(m_descriptors.end(), {
-                PlayFabSystemComponent::CreateDescriptor(),
+                PlayFabClientSdkSystemComponent::CreateDescriptor(),
             });
         }
 
         /**
-        * Add required SystemComponents to the SystemEntity.
-        */
+         * Add required SystemComponents to the SystemEntity.
+         */
         AZ::ComponentTypeList GetRequiredSystemComponents() const override
         {
             return AZ::ComponentTypeList{
-                azrtti_typeid<PlayFabSystemComponent>(),
+                azrtti_typeid<PlayFabClientSdkSystemComponent>(),
             };
         }
 
@@ -87,5 +88,4 @@ namespace PlayFab
 // DO NOT MODIFY THIS LINE UNLESS YOU RENAME THE GEM
 // The first parameter should be GemName_GemIdLower
 // The second should be the fully qualified name of the class above
-AZ_DECLARE_MODULE_CLASS(PlayFab_ca11198cd2904c539c29d22409fbb628, PlayFab::PlayFabModule)
-
+AZ_DECLARE_MODULE_CLASS(PlayFabClientSdk_59aceeb4fcdc4556859a00fdef51702b, PlayFabClientSdk::PlayFabClientSdkModule)
