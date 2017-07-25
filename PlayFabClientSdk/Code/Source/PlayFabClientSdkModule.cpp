@@ -2,7 +2,6 @@
 #include "StdAfx.h"
 
 #include <platform_impl.h> // Resharper says this is unused, but it's still required in some less direct way
-
 #include "PlayFabClient_ClientSysComponent.h"
 
 #include "PlayFabSettings.h"
@@ -43,6 +42,7 @@ namespace PlayFabClientSdk
             // Push results of [MyComponent]::CreateDescriptor() into m_descriptors here.
             m_descriptors.insert(m_descriptors.end(), {
                 PlayFabClient_ClientSysComponent::CreateDescriptor(),
+
             });
         }
 
@@ -53,6 +53,7 @@ namespace PlayFabClientSdk
         {
             return AZ::ComponentTypeList{
                 azrtti_typeid<PlayFabClient_ClientSysComponent>(),
+
             };
         }
 

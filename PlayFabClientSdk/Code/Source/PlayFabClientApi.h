@@ -9,6 +9,7 @@ namespace PlayFabClientSdk
     class PlayFabClientApi
     {
     public:
+
         // Public, Client-Specific
         static bool IsClientLoggedIn();
         static int GetPendingCalls();

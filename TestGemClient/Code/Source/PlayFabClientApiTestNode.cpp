@@ -288,12 +288,12 @@ private:
     /// </summary>
     static void InvalidLogin(PfTestContext& testContext)
     {
-        LoginWithEmailAddressRequest request;
+        ClientModels::LoginWithEmailAddressRequest request;
         request.Email = userEmail;
         request.Password = userPassword + "INVALID";
         EBUS_EVENT(PlayFabClient_ClientRequestBus, LoginWithEmailAddress, request, InvalidLoginSuccess, InvalidLoginFail, &testContext);
     }
-    static void InvalidLoginSuccess(const LoginResult& result, void* customData)
+    static void InvalidLoginSuccess(const ClientModels::LoginResult& result, void* customData)
     {
         PfTestContext* testContext = reinterpret_cast<PfTestContext*>(customData);
         EndTest(*testContext, FAILED, "Expected login to fail");
@@ -314,13 +314,13 @@ private:
     /// </summary>
     static void InvalidRegistration(PfTestContext& testContext)
     {
-        RegisterPlayFabUserRequest request;
+        ClientModels::RegisterPlayFabUserRequest request;
         request.Username = userName;
         request.Email = "x";
         request.Password = "x";
         EBUS_EVENT(PlayFabClient_ClientRequestBus, RegisterPlayFabUser, request, InvalidRegistrationSuccess, InvalidRegistrationFail, &testContext);
     }
-    static void InvalidRegistrationSuccess(const RegisterPlayFabUserResult& result, void* customData)
+    static void InvalidRegistrationSuccess(const ClientModels::RegisterPlayFabUserResult& result, void* customData)
     {
         PfTestContext* testContext = reinterpret_cast<PfTestContext*>(customData);
         EndTest(*testContext, FAILED, "Expected registration to fail");
@@ -353,12 +353,12 @@ private:
     /// </summary>
     static void LoginOrRegister(PfTestContext& testContext)
     {
-        LoginWithEmailAddressRequest request;
+        ClientModels::LoginWithEmailAddressRequest request;
         request.Email = userEmail;
         request.Password = userPassword;
         EBUS_EVENT(PlayFabClient_ClientRequestBus, LoginWithEmailAddress, request, OnLoginOrRegister, OnSharedError, &testContext);
     }
-    static void OnLoginOrRegister(const LoginResult& result, void* customData)
+    static void OnLoginOrRegister(const ClientModels::LoginResult& result, void* customData)
     {
         playFabId = result.PlayFabId;
         PfTestContext* testContext = reinterpret_cast<PfTestContext*>(customData);
@@ -374,12 +374,12 @@ private:
         // playFabSettings->advertisingIdType = playFabSettings->AD_TYPE_ANDROID_ID;
         // playFabSettings->advertisingIdValue = "PlayFabTestId";
 
-        LoginWithEmailAddressRequest request;
+        ClientModels::LoginWithEmailAddressRequest request;
         request.Email = userEmail;
         request.Password = userPassword;
         EBUS_EVENT(PlayFabClient_ClientRequestBus, LoginWithEmailAddress, request, OnLoginWithAdvertisingId, OnSharedError, &testContext);
     }
-    static void OnLoginWithAdvertisingId(const LoginResult& result, void* customData)
+    static void OnLoginWithAdvertisingId(const ClientModels::LoginResult& result, void* customData)
     {
         // TODO: Need to wait for the NEXT api call to complete, and then test PlayFabSettings::advertisingIdType
         PfTestContext* testContext = reinterpret_cast<PfTestContext*>(customData);
@@ -403,17 +403,17 @@ private:
             return;
         }
 
-        GetUserDataRequest request;
+        ClientModels::GetUserDataRequest request;
         EBUS_EVENT(PlayFabClient_ClientRequestBus, GetUserData, request, OnUserDataApiGet1, OnSharedError, &testContext);
     }
-    static void OnUserDataApiGet1(const GetUserDataResult& result, void* customData)
+    static void OnUserDataApiGet1(const ClientModels::GetUserDataResult& result, void* customData)
     {
         auto it = result.Data.find(TEST_DATA_KEY);
         testMessageInt = (it == result.Data.end()) ? 1 : atoi(it->second.Value.c_str());
         // testMessageTime = it->second.LastUpdated; // Don't need the first time
 
         testMessageInt = (testMessageInt + 1) % 100;
-        UpdateUserDataRequest updateRequest;
+        ClientModels::UpdateUserDataRequest updateRequest;
 
         // itoa is not avaialable in android
         char buffer[16];
@@ -424,12 +424,12 @@ private:
         updateRequest.Data[TEST_DATA_KEY] = temp;
         EBUS_EVENT(PlayFabClient_ClientRequestBus, UpdateUserData, updateRequest, OnUserDataApiUpdate, OnSharedError, customData);
     }
-    static void OnUserDataApiUpdate(const UpdateUserDataResult& result, void* customData)
+    static void OnUserDataApiUpdate(const ClientModels::UpdateUserDataResult& result, void* customData)
     {
-        GetUserDataRequest request;
+        ClientModels::GetUserDataRequest request;
         EBUS_EVENT(PlayFabClient_ClientRequestBus, GetUserData, request, OnUserDataApiGet2, OnSharedError, customData);
     }
-    static void OnUserDataApiGet2(const GetUserDataResult& result, void* customData)
+    static void OnUserDataApiGet2(const ClientModels::GetUserDataResult& result, void* customData)
     {
         auto it = result.Data.find(TEST_DATA_KEY);
         int actualDataValue = (it == result.Data.end()) ? -1 : atoi(it->second.Value.c_str());
@@ -468,10 +468,10 @@ private:
             return;
         }
 
-        GetPlayerStatisticsRequest getRequest;
+        ClientModels::GetPlayerStatisticsRequest getRequest;
         EBUS_EVENT(PlayFabClient_ClientRequestBus, GetPlayerStatistics, getRequest, OnPlayerStatisticsApiGet1, OnSharedError, &testContext);
     }
-    static void OnPlayerStatisticsApiGet1(const GetPlayerStatisticsResult& result, void* customData)
+    static void OnPlayerStatisticsApiGet1(const ClientModels::GetPlayerStatisticsResult& result, void* customData)
     {
         for (auto it = result.Statistics.begin(); it != result.Statistics.end(); ++it)
             if (it->StatisticName == TEST_STAT_NAME)
@@ -479,20 +479,20 @@ private:
         // testMessageTime = it->second.LastUpdated; // Don't need the first time
 
         testMessageInt = (testMessageInt + 1) % 100;
-        UpdatePlayerStatisticsRequest updateRequest;
+        ClientModels::UpdatePlayerStatisticsRequest updateRequest;
 
-        StatisticUpdate newStat;
+        ClientModels::StatisticUpdate newStat;
         newStat.StatisticName = TEST_STAT_NAME;
         newStat.Value = testMessageInt;
         updateRequest.Statistics.push_back(newStat);
         EBUS_EVENT(PlayFabClient_ClientRequestBus, UpdatePlayerStatistics, updateRequest, OnPlayerStatisticsApiUpdate, OnSharedError, customData);
     }
-    static void OnPlayerStatisticsApiUpdate(const UpdatePlayerStatisticsResult& result, void* customData)
+    static void OnPlayerStatisticsApiUpdate(const ClientModels::UpdatePlayerStatisticsResult& result, void* customData)
     {
-        GetPlayerStatisticsRequest getRequest;
+        ClientModels::GetPlayerStatisticsRequest getRequest;
         EBUS_EVENT(PlayFabClient_ClientRequestBus, GetPlayerStatistics, getRequest, OnPlayerStatisticsApiGet2, OnSharedError, customData);
     }
-    static void OnPlayerStatisticsApiGet2(const GetPlayerStatisticsResult& result, void* customData)
+    static void OnPlayerStatisticsApiGet2(const ClientModels::GetPlayerStatisticsResult& result, void* customData)
     {
         int actualStatValue = -1;
         for (auto it = result.Statistics.begin(); it != result.Statistics.end(); ++it)
@@ -515,10 +515,10 @@ private:
     /// </summary>
     static void UserCharacter(PfTestContext& testContext)
     {
-        ListUsersCharactersRequest request;
+        ClientModels::ListUsersCharactersRequest request;
         EBUS_EVENT(PlayFabClient_ClientRequestBus, GetAllUsersCharacters, request, OnUserCharacter, OnSharedError, &testContext);
     }
-    static void OnUserCharacter(const ListUsersCharactersResult& result, void* customData)
+    static void OnUserCharacter(const ClientModels::ListUsersCharactersResult& result, void* customData)
     {
         bool charFound = false;
         for (auto it = result.Characters.begin(); it != result.Characters.end(); ++it)
@@ -540,12 +540,12 @@ private:
     static void LeaderBoard(PfTestContext& testContext)
     {
         testMessageInt = 0;
-        GetLeaderboardRequest clientRequest;
+        ClientModels::GetLeaderboardRequest clientRequest;
         clientRequest.MaxResultsCount = 3;
         clientRequest.StatisticName = TEST_STAT_NAME;
         EBUS_EVENT(PlayFabClient_ClientRequestBus, GetLeaderboard, clientRequest, OnClientLeaderBoard, OnSharedError, &testContext);
     }
-    static void OnClientLeaderBoard(const GetLeaderboardResult& result, void* customData)
+    static void OnClientLeaderBoard(const ClientModels::GetLeaderboardResult& result, void* customData)
     {
         PfTestContext* testContext = reinterpret_cast<PfTestContext*>(customData);
         if (result.Leaderboard.size() > 0)
@@ -561,16 +561,16 @@ private:
     /// </summary>
     static void AccountInfo(PfTestContext& testContext)
     {
-        GetAccountInfoRequest request;
+        ClientModels::GetAccountInfoRequest request;
         EBUS_EVENT(PlayFabClient_ClientRequestBus, GetAccountInfo, request, OnAccountInfo, OnSharedError, &testContext);
     }
-    static void OnAccountInfo(const GetAccountInfoResult& result, void* customData)
+    static void OnAccountInfo(const ClientModels::GetAccountInfoResult& result, void* customData)
     {
         PfTestContext* testContext = reinterpret_cast<PfTestContext*>(customData);
         // Enums-by-name can't really be tested in C++, the way they can in other languages
         if (result.AccountInfo == nullptr || result.AccountInfo->TitleInfo == nullptr || result.AccountInfo->TitleInfo->Origination.isNull())
             EndTest(*testContext, FAILED, "The Origination data is not present to test");
-        else if (result.AccountInfo->TitleInfo->Origination.mValue != UserOriginationOrganic)
+        else if (result.AccountInfo->TitleInfo->Origination.mValue != ClientModels::UserOriginationOrganic)
             EndTest(*testContext, FAILED, "The Origination does not match expected value");
         else // Received data-format as expected
             EndTest(*testContext, PASSED, "");
@@ -583,11 +583,11 @@ private:
     /// </summary>
     static void CloudScript(PfTestContext& testContext)
     {
-        ExecuteCloudScriptRequest request;
+        ClientModels::ExecuteCloudScriptRequest request;
         request.FunctionName = "helloWorld";
         EBUS_EVENT(PlayFabClient_ClientRequestBus, ExecuteCloudScript, request, OnHelloWorldCloudScript, OnSharedError, &testContext);
     }
-    static void OnHelloWorldCloudScript(const ExecuteCloudScriptResult& result, void* customData)
+    static void OnHelloWorldCloudScript(const ClientModels::ExecuteCloudScriptResult& result, void* customData)
     {
         auto strResult = (AZStd::string)result.FunctionResult;
         bool success = (strResult.find("Hello " + playFabId + "!") != -1);
@@ -604,14 +604,14 @@ private:
     /// </summary>
     static void WriteEvent(PfTestContext& testContext)
     {
-        WriteClientPlayerEventRequest request;
+        ClientModels::WriteClientPlayerEventRequest request;
         request.EventName = "ForumPostEvent";
         request.Timestamp = time(nullptr);
         request.Body["Subject"] = "My First Post";
         request.Body["Body"] = "My awesome post.";
         EBUS_EVENT(PlayFabClient_ClientRequestBus, WritePlayerEvent, request, OnWritePlayerEvent, OnSharedError, &testContext);
     }
-    static void OnWritePlayerEvent(const WriteEventResponse& result, void* customData)
+    static void OnWritePlayerEvent(const ClientModels::WriteEventResponse& result, void* customData)
     {
         PfTestContext* testContext = reinterpret_cast<PfTestContext*>(customData);
         EndTest(*testContext, PASSED, "");

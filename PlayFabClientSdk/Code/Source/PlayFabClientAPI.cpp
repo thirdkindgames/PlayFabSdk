@@ -3,7 +3,6 @@
 #include "PlayFabSettings.h"
 
 using namespace PlayFabClientSdk;
-using namespace ClientModels;
 
 // Client-Specific
 AZStd::string PlayFabClientApi::mUserSessionTicket;
@@ -22,7 +21,7 @@ void PlayFabClientApi::MultiStepClientLogin(bool needsAttribution)
 {
     if (needsAttribution && !PlayFabSettings::playFabSettings.disableAdvertising && PlayFabSettings::playFabSettings.advertisingIdType.length() > 0 && PlayFabSettings::playFabSettings.advertisingIdValue.length() > 0)
     {
-        AttributeInstallRequest request;
+        ClientModels::AttributeInstallRequest request;
         if (PlayFabSettings::playFabSettings.advertisingIdType == PlayFabSettings::playFabSettings.AD_TYPE_IDFA)
             request.Idfa = PlayFabSettings::playFabSettings.advertisingIdValue;
         else if (PlayFabSettings::playFabSettings.advertisingIdType == PlayFabSettings::playFabSettings.AD_TYPE_ANDROID_ID)
@@ -37,8 +36,8 @@ void PlayFabClientApi::MultiStepClientLogin(bool needsAttribution)
 PlayFabClientApi::PlayFabClientApi() {}
 
 void PlayFabClientApi::GetPhotonAuthenticationToken(
-    GetPhotonAuthenticationTokenRequest& request,
-    ProcessApiCallback<GetPhotonAuthenticationTokenResult> callback,
+    ClientModels::GetPhotonAuthenticationTokenRequest& request,
+    ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -52,13 +51,13 @@ void PlayFabClientApi::OnGetPhotonAuthenticationTokenResult(PlayFabRequest* requ
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPhotonAuthenticationTokenResult* outResult = new GetPhotonAuthenticationTokenResult;
+        ClientModels::GetPhotonAuthenticationTokenResult* outResult = new ClientModels::GetPhotonAuthenticationTokenResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPhotonAuthenticationTokenResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPhotonAuthenticationTokenResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -67,8 +66,8 @@ void PlayFabClientApi::OnGetPhotonAuthenticationTokenResult(PlayFabRequest* requ
 }
 
 void PlayFabClientApi::GetTitlePublicKey(
-    GetTitlePublicKeyRequest& request,
-    ProcessApiCallback<GetTitlePublicKeyResult> callback,
+    ClientModels::GetTitlePublicKeyRequest& request,
+    ProcessApiCallback<ClientModels::GetTitlePublicKeyResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -82,13 +81,13 @@ void PlayFabClientApi::OnGetTitlePublicKeyResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetTitlePublicKeyResult* outResult = new GetTitlePublicKeyResult;
+        ClientModels::GetTitlePublicKeyResult* outResult = new ClientModels::GetTitlePublicKeyResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetTitlePublicKeyResult> successCallback = reinterpret_cast<ProcessApiCallback<GetTitlePublicKeyResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetTitlePublicKeyResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetTitlePublicKeyResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -97,8 +96,8 @@ void PlayFabClientApi::OnGetTitlePublicKeyResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetWindowsHelloChallenge(
-    GetWindowsHelloChallengeRequest& request,
-    ProcessApiCallback<GetWindowsHelloChallengeResponse> callback,
+    ClientModels::GetWindowsHelloChallengeRequest& request,
+    ProcessApiCallback<ClientModels::GetWindowsHelloChallengeResponse> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -112,13 +111,13 @@ void PlayFabClientApi::OnGetWindowsHelloChallengeResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetWindowsHelloChallengeResponse* outResult = new GetWindowsHelloChallengeResponse;
+        ClientModels::GetWindowsHelloChallengeResponse* outResult = new ClientModels::GetWindowsHelloChallengeResponse;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetWindowsHelloChallengeResponse> successCallback = reinterpret_cast<ProcessApiCallback<GetWindowsHelloChallengeResponse>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetWindowsHelloChallengeResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetWindowsHelloChallengeResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -127,8 +126,8 @@ void PlayFabClientApi::OnGetWindowsHelloChallengeResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LoginWithAndroidDeviceID(
-    LoginWithAndroidDeviceIDRequest& request,
-    ProcessApiCallback<LoginResult> callback,
+    ClientModels::LoginWithAndroidDeviceIDRequest& request,
+    ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -144,7 +143,7 @@ void PlayFabClientApi::OnLoginWithAndroidDeviceIDResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LoginResult* outResult = new LoginResult;
+        ClientModels::LoginResult* outResult = new ClientModels::LoginResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
         if (outResult->SessionTicket.length() > 0)
@@ -153,7 +152,7 @@ void PlayFabClientApi::OnLoginWithAndroidDeviceIDResult(PlayFabRequest* request)
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<LoginResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -162,8 +161,8 @@ void PlayFabClientApi::OnLoginWithAndroidDeviceIDResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LoginWithCustomID(
-    LoginWithCustomIDRequest& request,
-    ProcessApiCallback<LoginResult> callback,
+    ClientModels::LoginWithCustomIDRequest& request,
+    ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -179,7 +178,7 @@ void PlayFabClientApi::OnLoginWithCustomIDResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LoginResult* outResult = new LoginResult;
+        ClientModels::LoginResult* outResult = new ClientModels::LoginResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
         if (outResult->SessionTicket.length() > 0)
@@ -188,7 +187,7 @@ void PlayFabClientApi::OnLoginWithCustomIDResult(PlayFabRequest* request)
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<LoginResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -197,8 +196,8 @@ void PlayFabClientApi::OnLoginWithCustomIDResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LoginWithEmailAddress(
-    LoginWithEmailAddressRequest& request,
-    ProcessApiCallback<LoginResult> callback,
+    ClientModels::LoginWithEmailAddressRequest& request,
+    ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -214,7 +213,7 @@ void PlayFabClientApi::OnLoginWithEmailAddressResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LoginResult* outResult = new LoginResult;
+        ClientModels::LoginResult* outResult = new ClientModels::LoginResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
         if (outResult->SessionTicket.length() > 0)
@@ -223,7 +222,7 @@ void PlayFabClientApi::OnLoginWithEmailAddressResult(PlayFabRequest* request)
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<LoginResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -232,8 +231,8 @@ void PlayFabClientApi::OnLoginWithEmailAddressResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LoginWithFacebook(
-    LoginWithFacebookRequest& request,
-    ProcessApiCallback<LoginResult> callback,
+    ClientModels::LoginWithFacebookRequest& request,
+    ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -249,7 +248,7 @@ void PlayFabClientApi::OnLoginWithFacebookResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LoginResult* outResult = new LoginResult;
+        ClientModels::LoginResult* outResult = new ClientModels::LoginResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
         if (outResult->SessionTicket.length() > 0)
@@ -258,7 +257,7 @@ void PlayFabClientApi::OnLoginWithFacebookResult(PlayFabRequest* request)
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<LoginResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -267,8 +266,8 @@ void PlayFabClientApi::OnLoginWithFacebookResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LoginWithGameCenter(
-    LoginWithGameCenterRequest& request,
-    ProcessApiCallback<LoginResult> callback,
+    ClientModels::LoginWithGameCenterRequest& request,
+    ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -284,7 +283,7 @@ void PlayFabClientApi::OnLoginWithGameCenterResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LoginResult* outResult = new LoginResult;
+        ClientModels::LoginResult* outResult = new ClientModels::LoginResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
         if (outResult->SessionTicket.length() > 0)
@@ -293,7 +292,7 @@ void PlayFabClientApi::OnLoginWithGameCenterResult(PlayFabRequest* request)
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<LoginResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -302,8 +301,8 @@ void PlayFabClientApi::OnLoginWithGameCenterResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LoginWithGoogleAccount(
-    LoginWithGoogleAccountRequest& request,
-    ProcessApiCallback<LoginResult> callback,
+    ClientModels::LoginWithGoogleAccountRequest& request,
+    ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -319,7 +318,7 @@ void PlayFabClientApi::OnLoginWithGoogleAccountResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LoginResult* outResult = new LoginResult;
+        ClientModels::LoginResult* outResult = new ClientModels::LoginResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
         if (outResult->SessionTicket.length() > 0)
@@ -328,7 +327,7 @@ void PlayFabClientApi::OnLoginWithGoogleAccountResult(PlayFabRequest* request)
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<LoginResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -337,8 +336,8 @@ void PlayFabClientApi::OnLoginWithGoogleAccountResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LoginWithIOSDeviceID(
-    LoginWithIOSDeviceIDRequest& request,
-    ProcessApiCallback<LoginResult> callback,
+    ClientModels::LoginWithIOSDeviceIDRequest& request,
+    ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -354,7 +353,7 @@ void PlayFabClientApi::OnLoginWithIOSDeviceIDResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LoginResult* outResult = new LoginResult;
+        ClientModels::LoginResult* outResult = new ClientModels::LoginResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
         if (outResult->SessionTicket.length() > 0)
@@ -363,7 +362,7 @@ void PlayFabClientApi::OnLoginWithIOSDeviceIDResult(PlayFabRequest* request)
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<LoginResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -372,8 +371,8 @@ void PlayFabClientApi::OnLoginWithIOSDeviceIDResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LoginWithKongregate(
-    LoginWithKongregateRequest& request,
-    ProcessApiCallback<LoginResult> callback,
+    ClientModels::LoginWithKongregateRequest& request,
+    ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -389,7 +388,7 @@ void PlayFabClientApi::OnLoginWithKongregateResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LoginResult* outResult = new LoginResult;
+        ClientModels::LoginResult* outResult = new ClientModels::LoginResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
         if (outResult->SessionTicket.length() > 0)
@@ -398,7 +397,7 @@ void PlayFabClientApi::OnLoginWithKongregateResult(PlayFabRequest* request)
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<LoginResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -407,8 +406,8 @@ void PlayFabClientApi::OnLoginWithKongregateResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LoginWithPlayFab(
-    LoginWithPlayFabRequest& request,
-    ProcessApiCallback<LoginResult> callback,
+    ClientModels::LoginWithPlayFabRequest& request,
+    ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -424,7 +423,7 @@ void PlayFabClientApi::OnLoginWithPlayFabResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LoginResult* outResult = new LoginResult;
+        ClientModels::LoginResult* outResult = new ClientModels::LoginResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
         if (outResult->SessionTicket.length() > 0)
@@ -433,7 +432,7 @@ void PlayFabClientApi::OnLoginWithPlayFabResult(PlayFabRequest* request)
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<LoginResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -442,8 +441,8 @@ void PlayFabClientApi::OnLoginWithPlayFabResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LoginWithSteam(
-    LoginWithSteamRequest& request,
-    ProcessApiCallback<LoginResult> callback,
+    ClientModels::LoginWithSteamRequest& request,
+    ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -459,7 +458,7 @@ void PlayFabClientApi::OnLoginWithSteamResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LoginResult* outResult = new LoginResult;
+        ClientModels::LoginResult* outResult = new ClientModels::LoginResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
         if (outResult->SessionTicket.length() > 0)
@@ -468,7 +467,7 @@ void PlayFabClientApi::OnLoginWithSteamResult(PlayFabRequest* request)
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<LoginResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -477,8 +476,8 @@ void PlayFabClientApi::OnLoginWithSteamResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LoginWithTwitch(
-    LoginWithTwitchRequest& request,
-    ProcessApiCallback<LoginResult> callback,
+    ClientModels::LoginWithTwitchRequest& request,
+    ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -494,7 +493,7 @@ void PlayFabClientApi::OnLoginWithTwitchResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LoginResult* outResult = new LoginResult;
+        ClientModels::LoginResult* outResult = new ClientModels::LoginResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
         if (outResult->SessionTicket.length() > 0)
@@ -503,7 +502,7 @@ void PlayFabClientApi::OnLoginWithTwitchResult(PlayFabRequest* request)
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<LoginResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -512,8 +511,8 @@ void PlayFabClientApi::OnLoginWithTwitchResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LoginWithWindowsHello(
-    LoginWithWindowsHelloRequest& request,
-    ProcessApiCallback<LoginResult> callback,
+    ClientModels::LoginWithWindowsHelloRequest& request,
+    ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -529,7 +528,7 @@ void PlayFabClientApi::OnLoginWithWindowsHelloResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LoginResult* outResult = new LoginResult;
+        ClientModels::LoginResult* outResult = new ClientModels::LoginResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
         if (outResult->SessionTicket.length() > 0)
@@ -538,7 +537,7 @@ void PlayFabClientApi::OnLoginWithWindowsHelloResult(PlayFabRequest* request)
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<LoginResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -547,8 +546,8 @@ void PlayFabClientApi::OnLoginWithWindowsHelloResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::RegisterPlayFabUser(
-    RegisterPlayFabUserRequest& request,
-    ProcessApiCallback<RegisterPlayFabUserResult> callback,
+    ClientModels::RegisterPlayFabUserRequest& request,
+    ProcessApiCallback<ClientModels::RegisterPlayFabUserResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -564,7 +563,7 @@ void PlayFabClientApi::OnRegisterPlayFabUserResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        RegisterPlayFabUserResult* outResult = new RegisterPlayFabUserResult;
+        ClientModels::RegisterPlayFabUserResult* outResult = new ClientModels::RegisterPlayFabUserResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
         if (outResult->SessionTicket.length() > 0)
@@ -573,7 +572,7 @@ void PlayFabClientApi::OnRegisterPlayFabUserResult(PlayFabRequest* request)
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<RegisterPlayFabUserResult> successCallback = reinterpret_cast<ProcessApiCallback<RegisterPlayFabUserResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::RegisterPlayFabUserResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::RegisterPlayFabUserResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -582,8 +581,8 @@ void PlayFabClientApi::OnRegisterPlayFabUserResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::RegisterWithWindowsHello(
-    RegisterWithWindowsHelloRequest& request,
-    ProcessApiCallback<LoginResult> callback,
+    ClientModels::RegisterWithWindowsHelloRequest& request,
+    ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -599,7 +598,7 @@ void PlayFabClientApi::OnRegisterWithWindowsHelloResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LoginResult* outResult = new LoginResult;
+        ClientModels::LoginResult* outResult = new ClientModels::LoginResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
         if (outResult->SessionTicket.length() > 0)
@@ -608,7 +607,7 @@ void PlayFabClientApi::OnRegisterWithWindowsHelloResult(PlayFabRequest* request)
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<LoginResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -617,8 +616,8 @@ void PlayFabClientApi::OnRegisterWithWindowsHelloResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::SetPlayerSecret(
-    SetPlayerSecretRequest& request,
-    ProcessApiCallback<SetPlayerSecretResult> callback,
+    ClientModels::SetPlayerSecretRequest& request,
+    ProcessApiCallback<ClientModels::SetPlayerSecretResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -632,13 +631,13 @@ void PlayFabClientApi::OnSetPlayerSecretResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        SetPlayerSecretResult* outResult = new SetPlayerSecretResult;
+        ClientModels::SetPlayerSecretResult* outResult = new ClientModels::SetPlayerSecretResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<SetPlayerSecretResult> successCallback = reinterpret_cast<ProcessApiCallback<SetPlayerSecretResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::SetPlayerSecretResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::SetPlayerSecretResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -647,8 +646,8 @@ void PlayFabClientApi::OnSetPlayerSecretResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::AddGenericID(
-    AddGenericIDRequest& request,
-    ProcessApiCallback<AddGenericIDResult> callback,
+    ClientModels::AddGenericIDRequest& request,
+    ProcessApiCallback<ClientModels::AddGenericIDResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -662,13 +661,13 @@ void PlayFabClientApi::OnAddGenericIDResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        AddGenericIDResult* outResult = new AddGenericIDResult;
+        ClientModels::AddGenericIDResult* outResult = new ClientModels::AddGenericIDResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<AddGenericIDResult> successCallback = reinterpret_cast<ProcessApiCallback<AddGenericIDResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::AddGenericIDResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::AddGenericIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -677,8 +676,8 @@ void PlayFabClientApi::OnAddGenericIDResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::AddUsernamePassword(
-    AddUsernamePasswordRequest& request,
-    ProcessApiCallback<AddUsernamePasswordResult> callback,
+    ClientModels::AddUsernamePasswordRequest& request,
+    ProcessApiCallback<ClientModels::AddUsernamePasswordResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -692,13 +691,13 @@ void PlayFabClientApi::OnAddUsernamePasswordResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        AddUsernamePasswordResult* outResult = new AddUsernamePasswordResult;
+        ClientModels::AddUsernamePasswordResult* outResult = new ClientModels::AddUsernamePasswordResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<AddUsernamePasswordResult> successCallback = reinterpret_cast<ProcessApiCallback<AddUsernamePasswordResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::AddUsernamePasswordResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::AddUsernamePasswordResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -707,8 +706,8 @@ void PlayFabClientApi::OnAddUsernamePasswordResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetAccountInfo(
-    GetAccountInfoRequest& request,
-    ProcessApiCallback<GetAccountInfoResult> callback,
+    ClientModels::GetAccountInfoRequest& request,
+    ProcessApiCallback<ClientModels::GetAccountInfoResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -722,13 +721,13 @@ void PlayFabClientApi::OnGetAccountInfoResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetAccountInfoResult* outResult = new GetAccountInfoResult;
+        ClientModels::GetAccountInfoResult* outResult = new ClientModels::GetAccountInfoResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetAccountInfoResult> successCallback = reinterpret_cast<ProcessApiCallback<GetAccountInfoResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetAccountInfoResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetAccountInfoResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -737,8 +736,8 @@ void PlayFabClientApi::OnGetAccountInfoResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetPlayerCombinedInfo(
-    GetPlayerCombinedInfoRequest& request,
-    ProcessApiCallback<GetPlayerCombinedInfoResult> callback,
+    ClientModels::GetPlayerCombinedInfoRequest& request,
+    ProcessApiCallback<ClientModels::GetPlayerCombinedInfoResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -752,13 +751,13 @@ void PlayFabClientApi::OnGetPlayerCombinedInfoResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPlayerCombinedInfoResult* outResult = new GetPlayerCombinedInfoResult;
+        ClientModels::GetPlayerCombinedInfoResult* outResult = new ClientModels::GetPlayerCombinedInfoResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPlayerCombinedInfoResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayerCombinedInfoResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPlayerCombinedInfoResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayerCombinedInfoResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -767,8 +766,8 @@ void PlayFabClientApi::OnGetPlayerCombinedInfoResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetPlayerProfile(
-    GetPlayerProfileRequest& request,
-    ProcessApiCallback<GetPlayerProfileResult> callback,
+    ClientModels::GetPlayerProfileRequest& request,
+    ProcessApiCallback<ClientModels::GetPlayerProfileResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -782,13 +781,13 @@ void PlayFabClientApi::OnGetPlayerProfileResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPlayerProfileResult* outResult = new GetPlayerProfileResult;
+        ClientModels::GetPlayerProfileResult* outResult = new ClientModels::GetPlayerProfileResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPlayerProfileResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayerProfileResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPlayerProfileResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayerProfileResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -797,8 +796,8 @@ void PlayFabClientApi::OnGetPlayerProfileResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetPlayFabIDsFromFacebookIDs(
-    GetPlayFabIDsFromFacebookIDsRequest& request,
-    ProcessApiCallback<GetPlayFabIDsFromFacebookIDsResult> callback,
+    ClientModels::GetPlayFabIDsFromFacebookIDsRequest& request,
+    ProcessApiCallback<ClientModels::GetPlayFabIDsFromFacebookIDsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -812,13 +811,13 @@ void PlayFabClientApi::OnGetPlayFabIDsFromFacebookIDsResult(PlayFabRequest* requ
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPlayFabIDsFromFacebookIDsResult* outResult = new GetPlayFabIDsFromFacebookIDsResult;
+        ClientModels::GetPlayFabIDsFromFacebookIDsResult* outResult = new ClientModels::GetPlayFabIDsFromFacebookIDsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPlayFabIDsFromFacebookIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayFabIDsFromFacebookIDsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPlayFabIDsFromFacebookIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayFabIDsFromFacebookIDsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -827,8 +826,8 @@ void PlayFabClientApi::OnGetPlayFabIDsFromFacebookIDsResult(PlayFabRequest* requ
 }
 
 void PlayFabClientApi::GetPlayFabIDsFromGameCenterIDs(
-    GetPlayFabIDsFromGameCenterIDsRequest& request,
-    ProcessApiCallback<GetPlayFabIDsFromGameCenterIDsResult> callback,
+    ClientModels::GetPlayFabIDsFromGameCenterIDsRequest& request,
+    ProcessApiCallback<ClientModels::GetPlayFabIDsFromGameCenterIDsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -842,13 +841,13 @@ void PlayFabClientApi::OnGetPlayFabIDsFromGameCenterIDsResult(PlayFabRequest* re
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPlayFabIDsFromGameCenterIDsResult* outResult = new GetPlayFabIDsFromGameCenterIDsResult;
+        ClientModels::GetPlayFabIDsFromGameCenterIDsResult* outResult = new ClientModels::GetPlayFabIDsFromGameCenterIDsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPlayFabIDsFromGameCenterIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayFabIDsFromGameCenterIDsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPlayFabIDsFromGameCenterIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayFabIDsFromGameCenterIDsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -857,8 +856,8 @@ void PlayFabClientApi::OnGetPlayFabIDsFromGameCenterIDsResult(PlayFabRequest* re
 }
 
 void PlayFabClientApi::GetPlayFabIDsFromGenericIDs(
-    GetPlayFabIDsFromGenericIDsRequest& request,
-    ProcessApiCallback<GetPlayFabIDsFromGenericIDsResult> callback,
+    ClientModels::GetPlayFabIDsFromGenericIDsRequest& request,
+    ProcessApiCallback<ClientModels::GetPlayFabIDsFromGenericIDsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -872,13 +871,13 @@ void PlayFabClientApi::OnGetPlayFabIDsFromGenericIDsResult(PlayFabRequest* reque
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPlayFabIDsFromGenericIDsResult* outResult = new GetPlayFabIDsFromGenericIDsResult;
+        ClientModels::GetPlayFabIDsFromGenericIDsResult* outResult = new ClientModels::GetPlayFabIDsFromGenericIDsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPlayFabIDsFromGenericIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayFabIDsFromGenericIDsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPlayFabIDsFromGenericIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayFabIDsFromGenericIDsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -887,8 +886,8 @@ void PlayFabClientApi::OnGetPlayFabIDsFromGenericIDsResult(PlayFabRequest* reque
 }
 
 void PlayFabClientApi::GetPlayFabIDsFromGoogleIDs(
-    GetPlayFabIDsFromGoogleIDsRequest& request,
-    ProcessApiCallback<GetPlayFabIDsFromGoogleIDsResult> callback,
+    ClientModels::GetPlayFabIDsFromGoogleIDsRequest& request,
+    ProcessApiCallback<ClientModels::GetPlayFabIDsFromGoogleIDsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -902,13 +901,13 @@ void PlayFabClientApi::OnGetPlayFabIDsFromGoogleIDsResult(PlayFabRequest* reques
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPlayFabIDsFromGoogleIDsResult* outResult = new GetPlayFabIDsFromGoogleIDsResult;
+        ClientModels::GetPlayFabIDsFromGoogleIDsResult* outResult = new ClientModels::GetPlayFabIDsFromGoogleIDsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPlayFabIDsFromGoogleIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayFabIDsFromGoogleIDsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPlayFabIDsFromGoogleIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayFabIDsFromGoogleIDsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -917,8 +916,8 @@ void PlayFabClientApi::OnGetPlayFabIDsFromGoogleIDsResult(PlayFabRequest* reques
 }
 
 void PlayFabClientApi::GetPlayFabIDsFromKongregateIDs(
-    GetPlayFabIDsFromKongregateIDsRequest& request,
-    ProcessApiCallback<GetPlayFabIDsFromKongregateIDsResult> callback,
+    ClientModels::GetPlayFabIDsFromKongregateIDsRequest& request,
+    ProcessApiCallback<ClientModels::GetPlayFabIDsFromKongregateIDsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -932,13 +931,13 @@ void PlayFabClientApi::OnGetPlayFabIDsFromKongregateIDsResult(PlayFabRequest* re
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPlayFabIDsFromKongregateIDsResult* outResult = new GetPlayFabIDsFromKongregateIDsResult;
+        ClientModels::GetPlayFabIDsFromKongregateIDsResult* outResult = new ClientModels::GetPlayFabIDsFromKongregateIDsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPlayFabIDsFromKongregateIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayFabIDsFromKongregateIDsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPlayFabIDsFromKongregateIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayFabIDsFromKongregateIDsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -947,8 +946,8 @@ void PlayFabClientApi::OnGetPlayFabIDsFromKongregateIDsResult(PlayFabRequest* re
 }
 
 void PlayFabClientApi::GetPlayFabIDsFromSteamIDs(
-    GetPlayFabIDsFromSteamIDsRequest& request,
-    ProcessApiCallback<GetPlayFabIDsFromSteamIDsResult> callback,
+    ClientModels::GetPlayFabIDsFromSteamIDsRequest& request,
+    ProcessApiCallback<ClientModels::GetPlayFabIDsFromSteamIDsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -962,13 +961,13 @@ void PlayFabClientApi::OnGetPlayFabIDsFromSteamIDsResult(PlayFabRequest* request
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPlayFabIDsFromSteamIDsResult* outResult = new GetPlayFabIDsFromSteamIDsResult;
+        ClientModels::GetPlayFabIDsFromSteamIDsResult* outResult = new ClientModels::GetPlayFabIDsFromSteamIDsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPlayFabIDsFromSteamIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayFabIDsFromSteamIDsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPlayFabIDsFromSteamIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayFabIDsFromSteamIDsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -977,8 +976,8 @@ void PlayFabClientApi::OnGetPlayFabIDsFromSteamIDsResult(PlayFabRequest* request
 }
 
 void PlayFabClientApi::GetPlayFabIDsFromTwitchIDs(
-    GetPlayFabIDsFromTwitchIDsRequest& request,
-    ProcessApiCallback<GetPlayFabIDsFromTwitchIDsResult> callback,
+    ClientModels::GetPlayFabIDsFromTwitchIDsRequest& request,
+    ProcessApiCallback<ClientModels::GetPlayFabIDsFromTwitchIDsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -992,13 +991,13 @@ void PlayFabClientApi::OnGetPlayFabIDsFromTwitchIDsResult(PlayFabRequest* reques
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPlayFabIDsFromTwitchIDsResult* outResult = new GetPlayFabIDsFromTwitchIDsResult;
+        ClientModels::GetPlayFabIDsFromTwitchIDsResult* outResult = new ClientModels::GetPlayFabIDsFromTwitchIDsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPlayFabIDsFromTwitchIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayFabIDsFromTwitchIDsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPlayFabIDsFromTwitchIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayFabIDsFromTwitchIDsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1007,8 +1006,8 @@ void PlayFabClientApi::OnGetPlayFabIDsFromTwitchIDsResult(PlayFabRequest* reques
 }
 
 void PlayFabClientApi::LinkAndroidDeviceID(
-    LinkAndroidDeviceIDRequest& request,
-    ProcessApiCallback<LinkAndroidDeviceIDResult> callback,
+    ClientModels::LinkAndroidDeviceIDRequest& request,
+    ProcessApiCallback<ClientModels::LinkAndroidDeviceIDResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1022,13 +1021,13 @@ void PlayFabClientApi::OnLinkAndroidDeviceIDResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LinkAndroidDeviceIDResult* outResult = new LinkAndroidDeviceIDResult;
+        ClientModels::LinkAndroidDeviceIDResult* outResult = new ClientModels::LinkAndroidDeviceIDResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LinkAndroidDeviceIDResult> successCallback = reinterpret_cast<ProcessApiCallback<LinkAndroidDeviceIDResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LinkAndroidDeviceIDResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkAndroidDeviceIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1037,8 +1036,8 @@ void PlayFabClientApi::OnLinkAndroidDeviceIDResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LinkCustomID(
-    LinkCustomIDRequest& request,
-    ProcessApiCallback<LinkCustomIDResult> callback,
+    ClientModels::LinkCustomIDRequest& request,
+    ProcessApiCallback<ClientModels::LinkCustomIDResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1052,13 +1051,13 @@ void PlayFabClientApi::OnLinkCustomIDResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LinkCustomIDResult* outResult = new LinkCustomIDResult;
+        ClientModels::LinkCustomIDResult* outResult = new ClientModels::LinkCustomIDResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LinkCustomIDResult> successCallback = reinterpret_cast<ProcessApiCallback<LinkCustomIDResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LinkCustomIDResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkCustomIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1067,8 +1066,8 @@ void PlayFabClientApi::OnLinkCustomIDResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LinkFacebookAccount(
-    LinkFacebookAccountRequest& request,
-    ProcessApiCallback<LinkFacebookAccountResult> callback,
+    ClientModels::LinkFacebookAccountRequest& request,
+    ProcessApiCallback<ClientModels::LinkFacebookAccountResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1082,13 +1081,13 @@ void PlayFabClientApi::OnLinkFacebookAccountResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LinkFacebookAccountResult* outResult = new LinkFacebookAccountResult;
+        ClientModels::LinkFacebookAccountResult* outResult = new ClientModels::LinkFacebookAccountResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LinkFacebookAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<LinkFacebookAccountResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LinkFacebookAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkFacebookAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1097,8 +1096,8 @@ void PlayFabClientApi::OnLinkFacebookAccountResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LinkGameCenterAccount(
-    LinkGameCenterAccountRequest& request,
-    ProcessApiCallback<LinkGameCenterAccountResult> callback,
+    ClientModels::LinkGameCenterAccountRequest& request,
+    ProcessApiCallback<ClientModels::LinkGameCenterAccountResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1112,13 +1111,13 @@ void PlayFabClientApi::OnLinkGameCenterAccountResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LinkGameCenterAccountResult* outResult = new LinkGameCenterAccountResult;
+        ClientModels::LinkGameCenterAccountResult* outResult = new ClientModels::LinkGameCenterAccountResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LinkGameCenterAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<LinkGameCenterAccountResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LinkGameCenterAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkGameCenterAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1127,8 +1126,8 @@ void PlayFabClientApi::OnLinkGameCenterAccountResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LinkGoogleAccount(
-    LinkGoogleAccountRequest& request,
-    ProcessApiCallback<LinkGoogleAccountResult> callback,
+    ClientModels::LinkGoogleAccountRequest& request,
+    ProcessApiCallback<ClientModels::LinkGoogleAccountResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1142,13 +1141,13 @@ void PlayFabClientApi::OnLinkGoogleAccountResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LinkGoogleAccountResult* outResult = new LinkGoogleAccountResult;
+        ClientModels::LinkGoogleAccountResult* outResult = new ClientModels::LinkGoogleAccountResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LinkGoogleAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<LinkGoogleAccountResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LinkGoogleAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkGoogleAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1157,8 +1156,8 @@ void PlayFabClientApi::OnLinkGoogleAccountResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LinkIOSDeviceID(
-    LinkIOSDeviceIDRequest& request,
-    ProcessApiCallback<LinkIOSDeviceIDResult> callback,
+    ClientModels::LinkIOSDeviceIDRequest& request,
+    ProcessApiCallback<ClientModels::LinkIOSDeviceIDResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1172,13 +1171,13 @@ void PlayFabClientApi::OnLinkIOSDeviceIDResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LinkIOSDeviceIDResult* outResult = new LinkIOSDeviceIDResult;
+        ClientModels::LinkIOSDeviceIDResult* outResult = new ClientModels::LinkIOSDeviceIDResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LinkIOSDeviceIDResult> successCallback = reinterpret_cast<ProcessApiCallback<LinkIOSDeviceIDResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LinkIOSDeviceIDResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkIOSDeviceIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1187,8 +1186,8 @@ void PlayFabClientApi::OnLinkIOSDeviceIDResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LinkKongregate(
-    LinkKongregateAccountRequest& request,
-    ProcessApiCallback<LinkKongregateAccountResult> callback,
+    ClientModels::LinkKongregateAccountRequest& request,
+    ProcessApiCallback<ClientModels::LinkKongregateAccountResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1202,13 +1201,13 @@ void PlayFabClientApi::OnLinkKongregateResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LinkKongregateAccountResult* outResult = new LinkKongregateAccountResult;
+        ClientModels::LinkKongregateAccountResult* outResult = new ClientModels::LinkKongregateAccountResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LinkKongregateAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<LinkKongregateAccountResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LinkKongregateAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkKongregateAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1217,8 +1216,8 @@ void PlayFabClientApi::OnLinkKongregateResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LinkSteamAccount(
-    LinkSteamAccountRequest& request,
-    ProcessApiCallback<LinkSteamAccountResult> callback,
+    ClientModels::LinkSteamAccountRequest& request,
+    ProcessApiCallback<ClientModels::LinkSteamAccountResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1232,13 +1231,13 @@ void PlayFabClientApi::OnLinkSteamAccountResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LinkSteamAccountResult* outResult = new LinkSteamAccountResult;
+        ClientModels::LinkSteamAccountResult* outResult = new ClientModels::LinkSteamAccountResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LinkSteamAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<LinkSteamAccountResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LinkSteamAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkSteamAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1247,8 +1246,8 @@ void PlayFabClientApi::OnLinkSteamAccountResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LinkTwitch(
-    LinkTwitchAccountRequest& request,
-    ProcessApiCallback<LinkTwitchAccountResult> callback,
+    ClientModels::LinkTwitchAccountRequest& request,
+    ProcessApiCallback<ClientModels::LinkTwitchAccountResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1262,13 +1261,13 @@ void PlayFabClientApi::OnLinkTwitchResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LinkTwitchAccountResult* outResult = new LinkTwitchAccountResult;
+        ClientModels::LinkTwitchAccountResult* outResult = new ClientModels::LinkTwitchAccountResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LinkTwitchAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<LinkTwitchAccountResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LinkTwitchAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkTwitchAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1277,8 +1276,8 @@ void PlayFabClientApi::OnLinkTwitchResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::LinkWindowsHello(
-    LinkWindowsHelloAccountRequest& request,
-    ProcessApiCallback<LinkWindowsHelloAccountResponse> callback,
+    ClientModels::LinkWindowsHelloAccountRequest& request,
+    ProcessApiCallback<ClientModels::LinkWindowsHelloAccountResponse> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1292,13 +1291,13 @@ void PlayFabClientApi::OnLinkWindowsHelloResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        LinkWindowsHelloAccountResponse* outResult = new LinkWindowsHelloAccountResponse;
+        ClientModels::LinkWindowsHelloAccountResponse* outResult = new ClientModels::LinkWindowsHelloAccountResponse;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<LinkWindowsHelloAccountResponse> successCallback = reinterpret_cast<ProcessApiCallback<LinkWindowsHelloAccountResponse>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::LinkWindowsHelloAccountResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkWindowsHelloAccountResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1307,8 +1306,8 @@ void PlayFabClientApi::OnLinkWindowsHelloResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::RemoveGenericID(
-    RemoveGenericIDRequest& request,
-    ProcessApiCallback<RemoveGenericIDResult> callback,
+    ClientModels::RemoveGenericIDRequest& request,
+    ProcessApiCallback<ClientModels::RemoveGenericIDResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1322,13 +1321,13 @@ void PlayFabClientApi::OnRemoveGenericIDResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        RemoveGenericIDResult* outResult = new RemoveGenericIDResult;
+        ClientModels::RemoveGenericIDResult* outResult = new ClientModels::RemoveGenericIDResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<RemoveGenericIDResult> successCallback = reinterpret_cast<ProcessApiCallback<RemoveGenericIDResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::RemoveGenericIDResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::RemoveGenericIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1337,8 +1336,8 @@ void PlayFabClientApi::OnRemoveGenericIDResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::ReportPlayer(
-    ReportPlayerClientRequest& request,
-    ProcessApiCallback<ReportPlayerClientResult> callback,
+    ClientModels::ReportPlayerClientRequest& request,
+    ProcessApiCallback<ClientModels::ReportPlayerClientResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1352,13 +1351,13 @@ void PlayFabClientApi::OnReportPlayerResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        ReportPlayerClientResult* outResult = new ReportPlayerClientResult;
+        ClientModels::ReportPlayerClientResult* outResult = new ClientModels::ReportPlayerClientResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<ReportPlayerClientResult> successCallback = reinterpret_cast<ProcessApiCallback<ReportPlayerClientResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::ReportPlayerClientResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ReportPlayerClientResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1367,8 +1366,8 @@ void PlayFabClientApi::OnReportPlayerResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::SendAccountRecoveryEmail(
-    SendAccountRecoveryEmailRequest& request,
-    ProcessApiCallback<SendAccountRecoveryEmailResult> callback,
+    ClientModels::SendAccountRecoveryEmailRequest& request,
+    ProcessApiCallback<ClientModels::SendAccountRecoveryEmailResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1382,13 +1381,13 @@ void PlayFabClientApi::OnSendAccountRecoveryEmailResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        SendAccountRecoveryEmailResult* outResult = new SendAccountRecoveryEmailResult;
+        ClientModels::SendAccountRecoveryEmailResult* outResult = new ClientModels::SendAccountRecoveryEmailResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<SendAccountRecoveryEmailResult> successCallback = reinterpret_cast<ProcessApiCallback<SendAccountRecoveryEmailResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::SendAccountRecoveryEmailResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::SendAccountRecoveryEmailResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1397,8 +1396,8 @@ void PlayFabClientApi::OnSendAccountRecoveryEmailResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::UnlinkAndroidDeviceID(
-    UnlinkAndroidDeviceIDRequest& request,
-    ProcessApiCallback<UnlinkAndroidDeviceIDResult> callback,
+    ClientModels::UnlinkAndroidDeviceIDRequest& request,
+    ProcessApiCallback<ClientModels::UnlinkAndroidDeviceIDResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1412,13 +1411,13 @@ void PlayFabClientApi::OnUnlinkAndroidDeviceIDResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UnlinkAndroidDeviceIDResult* outResult = new UnlinkAndroidDeviceIDResult;
+        ClientModels::UnlinkAndroidDeviceIDResult* outResult = new ClientModels::UnlinkAndroidDeviceIDResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UnlinkAndroidDeviceIDResult> successCallback = reinterpret_cast<ProcessApiCallback<UnlinkAndroidDeviceIDResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UnlinkAndroidDeviceIDResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkAndroidDeviceIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1427,8 +1426,8 @@ void PlayFabClientApi::OnUnlinkAndroidDeviceIDResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::UnlinkCustomID(
-    UnlinkCustomIDRequest& request,
-    ProcessApiCallback<UnlinkCustomIDResult> callback,
+    ClientModels::UnlinkCustomIDRequest& request,
+    ProcessApiCallback<ClientModels::UnlinkCustomIDResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1442,13 +1441,13 @@ void PlayFabClientApi::OnUnlinkCustomIDResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UnlinkCustomIDResult* outResult = new UnlinkCustomIDResult;
+        ClientModels::UnlinkCustomIDResult* outResult = new ClientModels::UnlinkCustomIDResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UnlinkCustomIDResult> successCallback = reinterpret_cast<ProcessApiCallback<UnlinkCustomIDResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UnlinkCustomIDResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkCustomIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1458,7 +1457,7 @@ void PlayFabClientApi::OnUnlinkCustomIDResult(PlayFabRequest* request)
 
 void PlayFabClientApi::UnlinkFacebookAccount(
 
-    ProcessApiCallback<UnlinkFacebookAccountResult> callback,
+    ProcessApiCallback<ClientModels::UnlinkFacebookAccountResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1472,13 +1471,13 @@ void PlayFabClientApi::OnUnlinkFacebookAccountResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UnlinkFacebookAccountResult* outResult = new UnlinkFacebookAccountResult;
+        ClientModels::UnlinkFacebookAccountResult* outResult = new ClientModels::UnlinkFacebookAccountResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UnlinkFacebookAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<UnlinkFacebookAccountResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UnlinkFacebookAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkFacebookAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1488,7 +1487,7 @@ void PlayFabClientApi::OnUnlinkFacebookAccountResult(PlayFabRequest* request)
 
 void PlayFabClientApi::UnlinkGameCenterAccount(
 
-    ProcessApiCallback<UnlinkGameCenterAccountResult> callback,
+    ProcessApiCallback<ClientModels::UnlinkGameCenterAccountResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1502,13 +1501,13 @@ void PlayFabClientApi::OnUnlinkGameCenterAccountResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UnlinkGameCenterAccountResult* outResult = new UnlinkGameCenterAccountResult;
+        ClientModels::UnlinkGameCenterAccountResult* outResult = new ClientModels::UnlinkGameCenterAccountResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UnlinkGameCenterAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<UnlinkGameCenterAccountResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UnlinkGameCenterAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkGameCenterAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1518,7 +1517,7 @@ void PlayFabClientApi::OnUnlinkGameCenterAccountResult(PlayFabRequest* request)
 
 void PlayFabClientApi::UnlinkGoogleAccount(
 
-    ProcessApiCallback<UnlinkGoogleAccountResult> callback,
+    ProcessApiCallback<ClientModels::UnlinkGoogleAccountResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1532,13 +1531,13 @@ void PlayFabClientApi::OnUnlinkGoogleAccountResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UnlinkGoogleAccountResult* outResult = new UnlinkGoogleAccountResult;
+        ClientModels::UnlinkGoogleAccountResult* outResult = new ClientModels::UnlinkGoogleAccountResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UnlinkGoogleAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<UnlinkGoogleAccountResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UnlinkGoogleAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkGoogleAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1547,8 +1546,8 @@ void PlayFabClientApi::OnUnlinkGoogleAccountResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::UnlinkIOSDeviceID(
-    UnlinkIOSDeviceIDRequest& request,
-    ProcessApiCallback<UnlinkIOSDeviceIDResult> callback,
+    ClientModels::UnlinkIOSDeviceIDRequest& request,
+    ProcessApiCallback<ClientModels::UnlinkIOSDeviceIDResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1562,13 +1561,13 @@ void PlayFabClientApi::OnUnlinkIOSDeviceIDResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UnlinkIOSDeviceIDResult* outResult = new UnlinkIOSDeviceIDResult;
+        ClientModels::UnlinkIOSDeviceIDResult* outResult = new ClientModels::UnlinkIOSDeviceIDResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UnlinkIOSDeviceIDResult> successCallback = reinterpret_cast<ProcessApiCallback<UnlinkIOSDeviceIDResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UnlinkIOSDeviceIDResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkIOSDeviceIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1578,7 +1577,7 @@ void PlayFabClientApi::OnUnlinkIOSDeviceIDResult(PlayFabRequest* request)
 
 void PlayFabClientApi::UnlinkKongregate(
 
-    ProcessApiCallback<UnlinkKongregateAccountResult> callback,
+    ProcessApiCallback<ClientModels::UnlinkKongregateAccountResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1592,13 +1591,13 @@ void PlayFabClientApi::OnUnlinkKongregateResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UnlinkKongregateAccountResult* outResult = new UnlinkKongregateAccountResult;
+        ClientModels::UnlinkKongregateAccountResult* outResult = new ClientModels::UnlinkKongregateAccountResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UnlinkKongregateAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<UnlinkKongregateAccountResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UnlinkKongregateAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkKongregateAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1608,7 +1607,7 @@ void PlayFabClientApi::OnUnlinkKongregateResult(PlayFabRequest* request)
 
 void PlayFabClientApi::UnlinkSteamAccount(
 
-    ProcessApiCallback<UnlinkSteamAccountResult> callback,
+    ProcessApiCallback<ClientModels::UnlinkSteamAccountResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1622,13 +1621,13 @@ void PlayFabClientApi::OnUnlinkSteamAccountResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UnlinkSteamAccountResult* outResult = new UnlinkSteamAccountResult;
+        ClientModels::UnlinkSteamAccountResult* outResult = new ClientModels::UnlinkSteamAccountResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UnlinkSteamAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<UnlinkSteamAccountResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UnlinkSteamAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkSteamAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1638,7 +1637,7 @@ void PlayFabClientApi::OnUnlinkSteamAccountResult(PlayFabRequest* request)
 
 void PlayFabClientApi::UnlinkTwitch(
 
-    ProcessApiCallback<UnlinkTwitchAccountResult> callback,
+    ProcessApiCallback<ClientModels::UnlinkTwitchAccountResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1652,13 +1651,13 @@ void PlayFabClientApi::OnUnlinkTwitchResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UnlinkTwitchAccountResult* outResult = new UnlinkTwitchAccountResult;
+        ClientModels::UnlinkTwitchAccountResult* outResult = new ClientModels::UnlinkTwitchAccountResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UnlinkTwitchAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<UnlinkTwitchAccountResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UnlinkTwitchAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkTwitchAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1667,8 +1666,8 @@ void PlayFabClientApi::OnUnlinkTwitchResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::UnlinkWindowsHello(
-    UnlinkWindowsHelloAccountRequest& request,
-    ProcessApiCallback<UnlinkWindowsHelloAccountResponse> callback,
+    ClientModels::UnlinkWindowsHelloAccountRequest& request,
+    ProcessApiCallback<ClientModels::UnlinkWindowsHelloAccountResponse> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1682,13 +1681,13 @@ void PlayFabClientApi::OnUnlinkWindowsHelloResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UnlinkWindowsHelloAccountResponse* outResult = new UnlinkWindowsHelloAccountResponse;
+        ClientModels::UnlinkWindowsHelloAccountResponse* outResult = new ClientModels::UnlinkWindowsHelloAccountResponse;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UnlinkWindowsHelloAccountResponse> successCallback = reinterpret_cast<ProcessApiCallback<UnlinkWindowsHelloAccountResponse>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UnlinkWindowsHelloAccountResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkWindowsHelloAccountResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1697,8 +1696,8 @@ void PlayFabClientApi::OnUnlinkWindowsHelloResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::UpdateAvatarUrl(
-    UpdateAvatarUrlRequest& request,
-    ProcessApiCallback<EmptyResult> callback,
+    ClientModels::UpdateAvatarUrlRequest& request,
+    ProcessApiCallback<ClientModels::EmptyResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1712,13 +1711,13 @@ void PlayFabClientApi::OnUpdateAvatarUrlResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        EmptyResult* outResult = new EmptyResult;
+        ClientModels::EmptyResult* outResult = new ClientModels::EmptyResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<EmptyResult> successCallback = reinterpret_cast<ProcessApiCallback<EmptyResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::EmptyResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::EmptyResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1727,8 +1726,8 @@ void PlayFabClientApi::OnUpdateAvatarUrlResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::UpdateUserTitleDisplayName(
-    UpdateUserTitleDisplayNameRequest& request,
-    ProcessApiCallback<UpdateUserTitleDisplayNameResult> callback,
+    ClientModels::UpdateUserTitleDisplayNameRequest& request,
+    ProcessApiCallback<ClientModels::UpdateUserTitleDisplayNameResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1742,13 +1741,13 @@ void PlayFabClientApi::OnUpdateUserTitleDisplayNameResult(PlayFabRequest* reques
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UpdateUserTitleDisplayNameResult* outResult = new UpdateUserTitleDisplayNameResult;
+        ClientModels::UpdateUserTitleDisplayNameResult* outResult = new ClientModels::UpdateUserTitleDisplayNameResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UpdateUserTitleDisplayNameResult> successCallback = reinterpret_cast<ProcessApiCallback<UpdateUserTitleDisplayNameResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UpdateUserTitleDisplayNameResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UpdateUserTitleDisplayNameResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1757,8 +1756,8 @@ void PlayFabClientApi::OnUpdateUserTitleDisplayNameResult(PlayFabRequest* reques
 }
 
 void PlayFabClientApi::GetFriendLeaderboard(
-    GetFriendLeaderboardRequest& request,
-    ProcessApiCallback<GetLeaderboardResult> callback,
+    ClientModels::GetFriendLeaderboardRequest& request,
+    ProcessApiCallback<ClientModels::GetLeaderboardResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1772,13 +1771,13 @@ void PlayFabClientApi::OnGetFriendLeaderboardResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetLeaderboardResult* outResult = new GetLeaderboardResult;
+        ClientModels::GetLeaderboardResult* outResult = new ClientModels::GetLeaderboardResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetLeaderboardResult> successCallback = reinterpret_cast<ProcessApiCallback<GetLeaderboardResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetLeaderboardResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetLeaderboardResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1787,8 +1786,8 @@ void PlayFabClientApi::OnGetFriendLeaderboardResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetFriendLeaderboardAroundPlayer(
-    GetFriendLeaderboardAroundPlayerRequest& request,
-    ProcessApiCallback<GetFriendLeaderboardAroundPlayerResult> callback,
+    ClientModels::GetFriendLeaderboardAroundPlayerRequest& request,
+    ProcessApiCallback<ClientModels::GetFriendLeaderboardAroundPlayerResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1802,13 +1801,13 @@ void PlayFabClientApi::OnGetFriendLeaderboardAroundPlayerResult(PlayFabRequest* 
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetFriendLeaderboardAroundPlayerResult* outResult = new GetFriendLeaderboardAroundPlayerResult;
+        ClientModels::GetFriendLeaderboardAroundPlayerResult* outResult = new ClientModels::GetFriendLeaderboardAroundPlayerResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetFriendLeaderboardAroundPlayerResult> successCallback = reinterpret_cast<ProcessApiCallback<GetFriendLeaderboardAroundPlayerResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetFriendLeaderboardAroundPlayerResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetFriendLeaderboardAroundPlayerResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1817,8 +1816,8 @@ void PlayFabClientApi::OnGetFriendLeaderboardAroundPlayerResult(PlayFabRequest* 
 }
 
 void PlayFabClientApi::GetLeaderboard(
-    GetLeaderboardRequest& request,
-    ProcessApiCallback<GetLeaderboardResult> callback,
+    ClientModels::GetLeaderboardRequest& request,
+    ProcessApiCallback<ClientModels::GetLeaderboardResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1832,13 +1831,13 @@ void PlayFabClientApi::OnGetLeaderboardResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetLeaderboardResult* outResult = new GetLeaderboardResult;
+        ClientModels::GetLeaderboardResult* outResult = new ClientModels::GetLeaderboardResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetLeaderboardResult> successCallback = reinterpret_cast<ProcessApiCallback<GetLeaderboardResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetLeaderboardResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetLeaderboardResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1847,8 +1846,8 @@ void PlayFabClientApi::OnGetLeaderboardResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetLeaderboardAroundPlayer(
-    GetLeaderboardAroundPlayerRequest& request,
-    ProcessApiCallback<GetLeaderboardAroundPlayerResult> callback,
+    ClientModels::GetLeaderboardAroundPlayerRequest& request,
+    ProcessApiCallback<ClientModels::GetLeaderboardAroundPlayerResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1862,13 +1861,13 @@ void PlayFabClientApi::OnGetLeaderboardAroundPlayerResult(PlayFabRequest* reques
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetLeaderboardAroundPlayerResult* outResult = new GetLeaderboardAroundPlayerResult;
+        ClientModels::GetLeaderboardAroundPlayerResult* outResult = new ClientModels::GetLeaderboardAroundPlayerResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetLeaderboardAroundPlayerResult> successCallback = reinterpret_cast<ProcessApiCallback<GetLeaderboardAroundPlayerResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetLeaderboardAroundPlayerResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetLeaderboardAroundPlayerResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1877,8 +1876,8 @@ void PlayFabClientApi::OnGetLeaderboardAroundPlayerResult(PlayFabRequest* reques
 }
 
 void PlayFabClientApi::GetPlayerStatistics(
-    GetPlayerStatisticsRequest& request,
-    ProcessApiCallback<GetPlayerStatisticsResult> callback,
+    ClientModels::GetPlayerStatisticsRequest& request,
+    ProcessApiCallback<ClientModels::GetPlayerStatisticsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1892,13 +1891,13 @@ void PlayFabClientApi::OnGetPlayerStatisticsResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPlayerStatisticsResult* outResult = new GetPlayerStatisticsResult;
+        ClientModels::GetPlayerStatisticsResult* outResult = new ClientModels::GetPlayerStatisticsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPlayerStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayerStatisticsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPlayerStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayerStatisticsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1907,8 +1906,8 @@ void PlayFabClientApi::OnGetPlayerStatisticsResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetPlayerStatisticVersions(
-    GetPlayerStatisticVersionsRequest& request,
-    ProcessApiCallback<GetPlayerStatisticVersionsResult> callback,
+    ClientModels::GetPlayerStatisticVersionsRequest& request,
+    ProcessApiCallback<ClientModels::GetPlayerStatisticVersionsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1922,13 +1921,13 @@ void PlayFabClientApi::OnGetPlayerStatisticVersionsResult(PlayFabRequest* reques
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPlayerStatisticVersionsResult* outResult = new GetPlayerStatisticVersionsResult;
+        ClientModels::GetPlayerStatisticVersionsResult* outResult = new ClientModels::GetPlayerStatisticVersionsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPlayerStatisticVersionsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayerStatisticVersionsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPlayerStatisticVersionsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayerStatisticVersionsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1937,8 +1936,8 @@ void PlayFabClientApi::OnGetPlayerStatisticVersionsResult(PlayFabRequest* reques
 }
 
 void PlayFabClientApi::GetUserData(
-    GetUserDataRequest& request,
-    ProcessApiCallback<GetUserDataResult> callback,
+    ClientModels::GetUserDataRequest& request,
+    ProcessApiCallback<ClientModels::GetUserDataResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1952,13 +1951,13 @@ void PlayFabClientApi::OnGetUserDataResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetUserDataResult* outResult = new GetUserDataResult;
+        ClientModels::GetUserDataResult* outResult = new ClientModels::GetUserDataResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<GetUserDataResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1967,8 +1966,8 @@ void PlayFabClientApi::OnGetUserDataResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetUserPublisherData(
-    GetUserDataRequest& request,
-    ProcessApiCallback<GetUserDataResult> callback,
+    ClientModels::GetUserDataRequest& request,
+    ProcessApiCallback<ClientModels::GetUserDataResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -1982,13 +1981,13 @@ void PlayFabClientApi::OnGetUserPublisherDataResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetUserDataResult* outResult = new GetUserDataResult;
+        ClientModels::GetUserDataResult* outResult = new ClientModels::GetUserDataResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<GetUserDataResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1997,8 +1996,8 @@ void PlayFabClientApi::OnGetUserPublisherDataResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetUserPublisherReadOnlyData(
-    GetUserDataRequest& request,
-    ProcessApiCallback<GetUserDataResult> callback,
+    ClientModels::GetUserDataRequest& request,
+    ProcessApiCallback<ClientModels::GetUserDataResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2012,13 +2011,13 @@ void PlayFabClientApi::OnGetUserPublisherReadOnlyDataResult(PlayFabRequest* requ
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetUserDataResult* outResult = new GetUserDataResult;
+        ClientModels::GetUserDataResult* outResult = new ClientModels::GetUserDataResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<GetUserDataResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2027,8 +2026,8 @@ void PlayFabClientApi::OnGetUserPublisherReadOnlyDataResult(PlayFabRequest* requ
 }
 
 void PlayFabClientApi::GetUserReadOnlyData(
-    GetUserDataRequest& request,
-    ProcessApiCallback<GetUserDataResult> callback,
+    ClientModels::GetUserDataRequest& request,
+    ProcessApiCallback<ClientModels::GetUserDataResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2042,13 +2041,13 @@ void PlayFabClientApi::OnGetUserReadOnlyDataResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetUserDataResult* outResult = new GetUserDataResult;
+        ClientModels::GetUserDataResult* outResult = new ClientModels::GetUserDataResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<GetUserDataResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2057,8 +2056,8 @@ void PlayFabClientApi::OnGetUserReadOnlyDataResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::UpdatePlayerStatistics(
-    UpdatePlayerStatisticsRequest& request,
-    ProcessApiCallback<UpdatePlayerStatisticsResult> callback,
+    ClientModels::UpdatePlayerStatisticsRequest& request,
+    ProcessApiCallback<ClientModels::UpdatePlayerStatisticsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2072,13 +2071,13 @@ void PlayFabClientApi::OnUpdatePlayerStatisticsResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UpdatePlayerStatisticsResult* outResult = new UpdatePlayerStatisticsResult;
+        ClientModels::UpdatePlayerStatisticsResult* outResult = new ClientModels::UpdatePlayerStatisticsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UpdatePlayerStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<UpdatePlayerStatisticsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UpdatePlayerStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UpdatePlayerStatisticsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2087,8 +2086,8 @@ void PlayFabClientApi::OnUpdatePlayerStatisticsResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::UpdateUserData(
-    UpdateUserDataRequest& request,
-    ProcessApiCallback<UpdateUserDataResult> callback,
+    ClientModels::UpdateUserDataRequest& request,
+    ProcessApiCallback<ClientModels::UpdateUserDataResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2102,13 +2101,13 @@ void PlayFabClientApi::OnUpdateUserDataResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UpdateUserDataResult* outResult = new UpdateUserDataResult;
+        ClientModels::UpdateUserDataResult* outResult = new ClientModels::UpdateUserDataResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UpdateUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<UpdateUserDataResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UpdateUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UpdateUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2117,8 +2116,8 @@ void PlayFabClientApi::OnUpdateUserDataResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::UpdateUserPublisherData(
-    UpdateUserDataRequest& request,
-    ProcessApiCallback<UpdateUserDataResult> callback,
+    ClientModels::UpdateUserDataRequest& request,
+    ProcessApiCallback<ClientModels::UpdateUserDataResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2132,13 +2131,13 @@ void PlayFabClientApi::OnUpdateUserPublisherDataResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UpdateUserDataResult* outResult = new UpdateUserDataResult;
+        ClientModels::UpdateUserDataResult* outResult = new ClientModels::UpdateUserDataResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UpdateUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<UpdateUserDataResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UpdateUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UpdateUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2147,8 +2146,8 @@ void PlayFabClientApi::OnUpdateUserPublisherDataResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetCatalogItems(
-    GetCatalogItemsRequest& request,
-    ProcessApiCallback<GetCatalogItemsResult> callback,
+    ClientModels::GetCatalogItemsRequest& request,
+    ProcessApiCallback<ClientModels::GetCatalogItemsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2162,13 +2161,13 @@ void PlayFabClientApi::OnGetCatalogItemsResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetCatalogItemsResult* outResult = new GetCatalogItemsResult;
+        ClientModels::GetCatalogItemsResult* outResult = new ClientModels::GetCatalogItemsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetCatalogItemsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetCatalogItemsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetCatalogItemsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetCatalogItemsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2177,8 +2176,8 @@ void PlayFabClientApi::OnGetCatalogItemsResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetPublisherData(
-    GetPublisherDataRequest& request,
-    ProcessApiCallback<GetPublisherDataResult> callback,
+    ClientModels::GetPublisherDataRequest& request,
+    ProcessApiCallback<ClientModels::GetPublisherDataResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2192,13 +2191,13 @@ void PlayFabClientApi::OnGetPublisherDataResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPublisherDataResult* outResult = new GetPublisherDataResult;
+        ClientModels::GetPublisherDataResult* outResult = new ClientModels::GetPublisherDataResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPublisherDataResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPublisherDataResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPublisherDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPublisherDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2207,8 +2206,8 @@ void PlayFabClientApi::OnGetPublisherDataResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetStoreItems(
-    GetStoreItemsRequest& request,
-    ProcessApiCallback<GetStoreItemsResult> callback,
+    ClientModels::GetStoreItemsRequest& request,
+    ProcessApiCallback<ClientModels::GetStoreItemsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2222,13 +2221,13 @@ void PlayFabClientApi::OnGetStoreItemsResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetStoreItemsResult* outResult = new GetStoreItemsResult;
+        ClientModels::GetStoreItemsResult* outResult = new ClientModels::GetStoreItemsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetStoreItemsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetStoreItemsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetStoreItemsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetStoreItemsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2238,7 +2237,7 @@ void PlayFabClientApi::OnGetStoreItemsResult(PlayFabRequest* request)
 
 void PlayFabClientApi::GetTime(
 
-    ProcessApiCallback<GetTimeResult> callback,
+    ProcessApiCallback<ClientModels::GetTimeResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2252,13 +2251,13 @@ void PlayFabClientApi::OnGetTimeResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetTimeResult* outResult = new GetTimeResult;
+        ClientModels::GetTimeResult* outResult = new ClientModels::GetTimeResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetTimeResult> successCallback = reinterpret_cast<ProcessApiCallback<GetTimeResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetTimeResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetTimeResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2267,8 +2266,8 @@ void PlayFabClientApi::OnGetTimeResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetTitleData(
-    GetTitleDataRequest& request,
-    ProcessApiCallback<GetTitleDataResult> callback,
+    ClientModels::GetTitleDataRequest& request,
+    ProcessApiCallback<ClientModels::GetTitleDataResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2282,13 +2281,13 @@ void PlayFabClientApi::OnGetTitleDataResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetTitleDataResult* outResult = new GetTitleDataResult;
+        ClientModels::GetTitleDataResult* outResult = new ClientModels::GetTitleDataResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetTitleDataResult> successCallback = reinterpret_cast<ProcessApiCallback<GetTitleDataResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetTitleDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetTitleDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2297,8 +2296,8 @@ void PlayFabClientApi::OnGetTitleDataResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetTitleNews(
-    GetTitleNewsRequest& request,
-    ProcessApiCallback<GetTitleNewsResult> callback,
+    ClientModels::GetTitleNewsRequest& request,
+    ProcessApiCallback<ClientModels::GetTitleNewsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2312,13 +2311,13 @@ void PlayFabClientApi::OnGetTitleNewsResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetTitleNewsResult* outResult = new GetTitleNewsResult;
+        ClientModels::GetTitleNewsResult* outResult = new ClientModels::GetTitleNewsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetTitleNewsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetTitleNewsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetTitleNewsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetTitleNewsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2327,8 +2326,8 @@ void PlayFabClientApi::OnGetTitleNewsResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::AddUserVirtualCurrency(
-    AddUserVirtualCurrencyRequest& request,
-    ProcessApiCallback<ModifyUserVirtualCurrencyResult> callback,
+    ClientModels::AddUserVirtualCurrencyRequest& request,
+    ProcessApiCallback<ClientModels::ModifyUserVirtualCurrencyResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2342,13 +2341,13 @@ void PlayFabClientApi::OnAddUserVirtualCurrencyResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        ModifyUserVirtualCurrencyResult* outResult = new ModifyUserVirtualCurrencyResult;
+        ClientModels::ModifyUserVirtualCurrencyResult* outResult = new ClientModels::ModifyUserVirtualCurrencyResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<ModifyUserVirtualCurrencyResult> successCallback = reinterpret_cast<ProcessApiCallback<ModifyUserVirtualCurrencyResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::ModifyUserVirtualCurrencyResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ModifyUserVirtualCurrencyResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2357,8 +2356,8 @@ void PlayFabClientApi::OnAddUserVirtualCurrencyResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::ConfirmPurchase(
-    ConfirmPurchaseRequest& request,
-    ProcessApiCallback<ConfirmPurchaseResult> callback,
+    ClientModels::ConfirmPurchaseRequest& request,
+    ProcessApiCallback<ClientModels::ConfirmPurchaseResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2372,13 +2371,13 @@ void PlayFabClientApi::OnConfirmPurchaseResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        ConfirmPurchaseResult* outResult = new ConfirmPurchaseResult;
+        ClientModels::ConfirmPurchaseResult* outResult = new ClientModels::ConfirmPurchaseResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<ConfirmPurchaseResult> successCallback = reinterpret_cast<ProcessApiCallback<ConfirmPurchaseResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::ConfirmPurchaseResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ConfirmPurchaseResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2387,8 +2386,8 @@ void PlayFabClientApi::OnConfirmPurchaseResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::ConsumeItem(
-    ConsumeItemRequest& request,
-    ProcessApiCallback<ConsumeItemResult> callback,
+    ClientModels::ConsumeItemRequest& request,
+    ProcessApiCallback<ClientModels::ConsumeItemResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2402,13 +2401,13 @@ void PlayFabClientApi::OnConsumeItemResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        ConsumeItemResult* outResult = new ConsumeItemResult;
+        ClientModels::ConsumeItemResult* outResult = new ClientModels::ConsumeItemResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<ConsumeItemResult> successCallback = reinterpret_cast<ProcessApiCallback<ConsumeItemResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::ConsumeItemResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ConsumeItemResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2417,8 +2416,8 @@ void PlayFabClientApi::OnConsumeItemResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetCharacterInventory(
-    GetCharacterInventoryRequest& request,
-    ProcessApiCallback<GetCharacterInventoryResult> callback,
+    ClientModels::GetCharacterInventoryRequest& request,
+    ProcessApiCallback<ClientModels::GetCharacterInventoryResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2432,13 +2431,13 @@ void PlayFabClientApi::OnGetCharacterInventoryResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetCharacterInventoryResult* outResult = new GetCharacterInventoryResult;
+        ClientModels::GetCharacterInventoryResult* outResult = new ClientModels::GetCharacterInventoryResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetCharacterInventoryResult> successCallback = reinterpret_cast<ProcessApiCallback<GetCharacterInventoryResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetCharacterInventoryResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetCharacterInventoryResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2447,8 +2446,8 @@ void PlayFabClientApi::OnGetCharacterInventoryResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetPurchase(
-    GetPurchaseRequest& request,
-    ProcessApiCallback<GetPurchaseResult> callback,
+    ClientModels::GetPurchaseRequest& request,
+    ProcessApiCallback<ClientModels::GetPurchaseResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2462,13 +2461,13 @@ void PlayFabClientApi::OnGetPurchaseResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPurchaseResult* outResult = new GetPurchaseResult;
+        ClientModels::GetPurchaseResult* outResult = new ClientModels::GetPurchaseResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPurchaseResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPurchaseResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPurchaseResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPurchaseResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2478,7 +2477,7 @@ void PlayFabClientApi::OnGetPurchaseResult(PlayFabRequest* request)
 
 void PlayFabClientApi::GetUserInventory(
 
-    ProcessApiCallback<GetUserInventoryResult> callback,
+    ProcessApiCallback<ClientModels::GetUserInventoryResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2492,13 +2491,13 @@ void PlayFabClientApi::OnGetUserInventoryResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetUserInventoryResult* outResult = new GetUserInventoryResult;
+        ClientModels::GetUserInventoryResult* outResult = new ClientModels::GetUserInventoryResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetUserInventoryResult> successCallback = reinterpret_cast<ProcessApiCallback<GetUserInventoryResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetUserInventoryResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetUserInventoryResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2507,8 +2506,8 @@ void PlayFabClientApi::OnGetUserInventoryResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::PayForPurchase(
-    PayForPurchaseRequest& request,
-    ProcessApiCallback<PayForPurchaseResult> callback,
+    ClientModels::PayForPurchaseRequest& request,
+    ProcessApiCallback<ClientModels::PayForPurchaseResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2522,13 +2521,13 @@ void PlayFabClientApi::OnPayForPurchaseResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        PayForPurchaseResult* outResult = new PayForPurchaseResult;
+        ClientModels::PayForPurchaseResult* outResult = new ClientModels::PayForPurchaseResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<PayForPurchaseResult> successCallback = reinterpret_cast<ProcessApiCallback<PayForPurchaseResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::PayForPurchaseResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::PayForPurchaseResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2537,8 +2536,8 @@ void PlayFabClientApi::OnPayForPurchaseResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::PurchaseItem(
-    PurchaseItemRequest& request,
-    ProcessApiCallback<PurchaseItemResult> callback,
+    ClientModels::PurchaseItemRequest& request,
+    ProcessApiCallback<ClientModels::PurchaseItemResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2552,13 +2551,13 @@ void PlayFabClientApi::OnPurchaseItemResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        PurchaseItemResult* outResult = new PurchaseItemResult;
+        ClientModels::PurchaseItemResult* outResult = new ClientModels::PurchaseItemResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<PurchaseItemResult> successCallback = reinterpret_cast<ProcessApiCallback<PurchaseItemResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::PurchaseItemResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::PurchaseItemResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2567,8 +2566,8 @@ void PlayFabClientApi::OnPurchaseItemResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::RedeemCoupon(
-    RedeemCouponRequest& request,
-    ProcessApiCallback<RedeemCouponResult> callback,
+    ClientModels::RedeemCouponRequest& request,
+    ProcessApiCallback<ClientModels::RedeemCouponResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2582,13 +2581,13 @@ void PlayFabClientApi::OnRedeemCouponResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        RedeemCouponResult* outResult = new RedeemCouponResult;
+        ClientModels::RedeemCouponResult* outResult = new ClientModels::RedeemCouponResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<RedeemCouponResult> successCallback = reinterpret_cast<ProcessApiCallback<RedeemCouponResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::RedeemCouponResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::RedeemCouponResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2597,8 +2596,8 @@ void PlayFabClientApi::OnRedeemCouponResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::StartPurchase(
-    StartPurchaseRequest& request,
-    ProcessApiCallback<StartPurchaseResult> callback,
+    ClientModels::StartPurchaseRequest& request,
+    ProcessApiCallback<ClientModels::StartPurchaseResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2612,13 +2611,13 @@ void PlayFabClientApi::OnStartPurchaseResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        StartPurchaseResult* outResult = new StartPurchaseResult;
+        ClientModels::StartPurchaseResult* outResult = new ClientModels::StartPurchaseResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<StartPurchaseResult> successCallback = reinterpret_cast<ProcessApiCallback<StartPurchaseResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::StartPurchaseResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::StartPurchaseResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2627,8 +2626,8 @@ void PlayFabClientApi::OnStartPurchaseResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::SubtractUserVirtualCurrency(
-    SubtractUserVirtualCurrencyRequest& request,
-    ProcessApiCallback<ModifyUserVirtualCurrencyResult> callback,
+    ClientModels::SubtractUserVirtualCurrencyRequest& request,
+    ProcessApiCallback<ClientModels::ModifyUserVirtualCurrencyResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2642,13 +2641,13 @@ void PlayFabClientApi::OnSubtractUserVirtualCurrencyResult(PlayFabRequest* reque
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        ModifyUserVirtualCurrencyResult* outResult = new ModifyUserVirtualCurrencyResult;
+        ClientModels::ModifyUserVirtualCurrencyResult* outResult = new ClientModels::ModifyUserVirtualCurrencyResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<ModifyUserVirtualCurrencyResult> successCallback = reinterpret_cast<ProcessApiCallback<ModifyUserVirtualCurrencyResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::ModifyUserVirtualCurrencyResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ModifyUserVirtualCurrencyResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2657,8 +2656,8 @@ void PlayFabClientApi::OnSubtractUserVirtualCurrencyResult(PlayFabRequest* reque
 }
 
 void PlayFabClientApi::UnlockContainerInstance(
-    UnlockContainerInstanceRequest& request,
-    ProcessApiCallback<UnlockContainerItemResult> callback,
+    ClientModels::UnlockContainerInstanceRequest& request,
+    ProcessApiCallback<ClientModels::UnlockContainerItemResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2672,13 +2671,13 @@ void PlayFabClientApi::OnUnlockContainerInstanceResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UnlockContainerItemResult* outResult = new UnlockContainerItemResult;
+        ClientModels::UnlockContainerItemResult* outResult = new ClientModels::UnlockContainerItemResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UnlockContainerItemResult> successCallback = reinterpret_cast<ProcessApiCallback<UnlockContainerItemResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UnlockContainerItemResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlockContainerItemResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2687,8 +2686,8 @@ void PlayFabClientApi::OnUnlockContainerInstanceResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::UnlockContainerItem(
-    UnlockContainerItemRequest& request,
-    ProcessApiCallback<UnlockContainerItemResult> callback,
+    ClientModels::UnlockContainerItemRequest& request,
+    ProcessApiCallback<ClientModels::UnlockContainerItemResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2702,13 +2701,13 @@ void PlayFabClientApi::OnUnlockContainerItemResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UnlockContainerItemResult* outResult = new UnlockContainerItemResult;
+        ClientModels::UnlockContainerItemResult* outResult = new ClientModels::UnlockContainerItemResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UnlockContainerItemResult> successCallback = reinterpret_cast<ProcessApiCallback<UnlockContainerItemResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UnlockContainerItemResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlockContainerItemResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2717,8 +2716,8 @@ void PlayFabClientApi::OnUnlockContainerItemResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::AddFriend(
-    AddFriendRequest& request,
-    ProcessApiCallback<AddFriendResult> callback,
+    ClientModels::AddFriendRequest& request,
+    ProcessApiCallback<ClientModels::AddFriendResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2732,13 +2731,13 @@ void PlayFabClientApi::OnAddFriendResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        AddFriendResult* outResult = new AddFriendResult;
+        ClientModels::AddFriendResult* outResult = new ClientModels::AddFriendResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<AddFriendResult> successCallback = reinterpret_cast<ProcessApiCallback<AddFriendResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::AddFriendResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::AddFriendResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2747,8 +2746,8 @@ void PlayFabClientApi::OnAddFriendResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetFriendsList(
-    GetFriendsListRequest& request,
-    ProcessApiCallback<GetFriendsListResult> callback,
+    ClientModels::GetFriendsListRequest& request,
+    ProcessApiCallback<ClientModels::GetFriendsListResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2762,13 +2761,13 @@ void PlayFabClientApi::OnGetFriendsListResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetFriendsListResult* outResult = new GetFriendsListResult;
+        ClientModels::GetFriendsListResult* outResult = new ClientModels::GetFriendsListResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetFriendsListResult> successCallback = reinterpret_cast<ProcessApiCallback<GetFriendsListResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetFriendsListResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetFriendsListResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2777,8 +2776,8 @@ void PlayFabClientApi::OnGetFriendsListResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::RemoveFriend(
-    RemoveFriendRequest& request,
-    ProcessApiCallback<RemoveFriendResult> callback,
+    ClientModels::RemoveFriendRequest& request,
+    ProcessApiCallback<ClientModels::RemoveFriendResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2792,13 +2791,13 @@ void PlayFabClientApi::OnRemoveFriendResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        RemoveFriendResult* outResult = new RemoveFriendResult;
+        ClientModels::RemoveFriendResult* outResult = new ClientModels::RemoveFriendResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<RemoveFriendResult> successCallback = reinterpret_cast<ProcessApiCallback<RemoveFriendResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::RemoveFriendResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::RemoveFriendResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2807,8 +2806,8 @@ void PlayFabClientApi::OnRemoveFriendResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::SetFriendTags(
-    SetFriendTagsRequest& request,
-    ProcessApiCallback<SetFriendTagsResult> callback,
+    ClientModels::SetFriendTagsRequest& request,
+    ProcessApiCallback<ClientModels::SetFriendTagsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2822,13 +2821,13 @@ void PlayFabClientApi::OnSetFriendTagsResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        SetFriendTagsResult* outResult = new SetFriendTagsResult;
+        ClientModels::SetFriendTagsResult* outResult = new ClientModels::SetFriendTagsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<SetFriendTagsResult> successCallback = reinterpret_cast<ProcessApiCallback<SetFriendTagsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::SetFriendTagsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::SetFriendTagsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2837,8 +2836,8 @@ void PlayFabClientApi::OnSetFriendTagsResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetCurrentGames(
-    CurrentGamesRequest& request,
-    ProcessApiCallback<CurrentGamesResult> callback,
+    ClientModels::CurrentGamesRequest& request,
+    ProcessApiCallback<ClientModels::CurrentGamesResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2852,13 +2851,13 @@ void PlayFabClientApi::OnGetCurrentGamesResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        CurrentGamesResult* outResult = new CurrentGamesResult;
+        ClientModels::CurrentGamesResult* outResult = new ClientModels::CurrentGamesResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<CurrentGamesResult> successCallback = reinterpret_cast<ProcessApiCallback<CurrentGamesResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::CurrentGamesResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::CurrentGamesResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2867,8 +2866,8 @@ void PlayFabClientApi::OnGetCurrentGamesResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetGameServerRegions(
-    GameServerRegionsRequest& request,
-    ProcessApiCallback<GameServerRegionsResult> callback,
+    ClientModels::GameServerRegionsRequest& request,
+    ProcessApiCallback<ClientModels::GameServerRegionsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2882,13 +2881,13 @@ void PlayFabClientApi::OnGetGameServerRegionsResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GameServerRegionsResult* outResult = new GameServerRegionsResult;
+        ClientModels::GameServerRegionsResult* outResult = new ClientModels::GameServerRegionsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GameServerRegionsResult> successCallback = reinterpret_cast<ProcessApiCallback<GameServerRegionsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GameServerRegionsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GameServerRegionsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2897,8 +2896,8 @@ void PlayFabClientApi::OnGetGameServerRegionsResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::Matchmake(
-    MatchmakeRequest& request,
-    ProcessApiCallback<MatchmakeResult> callback,
+    ClientModels::MatchmakeRequest& request,
+    ProcessApiCallback<ClientModels::MatchmakeResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2912,13 +2911,13 @@ void PlayFabClientApi::OnMatchmakeResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        MatchmakeResult* outResult = new MatchmakeResult;
+        ClientModels::MatchmakeResult* outResult = new ClientModels::MatchmakeResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<MatchmakeResult> successCallback = reinterpret_cast<ProcessApiCallback<MatchmakeResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::MatchmakeResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::MatchmakeResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2927,8 +2926,8 @@ void PlayFabClientApi::OnMatchmakeResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::StartGame(
-    StartGameRequest& request,
-    ProcessApiCallback<StartGameResult> callback,
+    ClientModels::StartGameRequest& request,
+    ProcessApiCallback<ClientModels::StartGameResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2942,13 +2941,13 @@ void PlayFabClientApi::OnStartGameResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        StartGameResult* outResult = new StartGameResult;
+        ClientModels::StartGameResult* outResult = new ClientModels::StartGameResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<StartGameResult> successCallback = reinterpret_cast<ProcessApiCallback<StartGameResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::StartGameResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::StartGameResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2957,8 +2956,8 @@ void PlayFabClientApi::OnStartGameResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::WriteCharacterEvent(
-    WriteClientCharacterEventRequest& request,
-    ProcessApiCallback<WriteEventResponse> callback,
+    ClientModels::WriteClientCharacterEventRequest& request,
+    ProcessApiCallback<ClientModels::WriteEventResponse> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -2972,13 +2971,13 @@ void PlayFabClientApi::OnWriteCharacterEventResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        WriteEventResponse* outResult = new WriteEventResponse;
+        ClientModels::WriteEventResponse* outResult = new ClientModels::WriteEventResponse;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<WriteEventResponse> successCallback = reinterpret_cast<ProcessApiCallback<WriteEventResponse>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::WriteEventResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::WriteEventResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2987,8 +2986,8 @@ void PlayFabClientApi::OnWriteCharacterEventResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::WritePlayerEvent(
-    WriteClientPlayerEventRequest& request,
-    ProcessApiCallback<WriteEventResponse> callback,
+    ClientModels::WriteClientPlayerEventRequest& request,
+    ProcessApiCallback<ClientModels::WriteEventResponse> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3002,13 +3001,13 @@ void PlayFabClientApi::OnWritePlayerEventResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        WriteEventResponse* outResult = new WriteEventResponse;
+        ClientModels::WriteEventResponse* outResult = new ClientModels::WriteEventResponse;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<WriteEventResponse> successCallback = reinterpret_cast<ProcessApiCallback<WriteEventResponse>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::WriteEventResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::WriteEventResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3017,8 +3016,8 @@ void PlayFabClientApi::OnWritePlayerEventResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::WriteTitleEvent(
-    WriteTitleEventRequest& request,
-    ProcessApiCallback<WriteEventResponse> callback,
+    ClientModels::WriteTitleEventRequest& request,
+    ProcessApiCallback<ClientModels::WriteEventResponse> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3032,13 +3031,13 @@ void PlayFabClientApi::OnWriteTitleEventResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        WriteEventResponse* outResult = new WriteEventResponse;
+        ClientModels::WriteEventResponse* outResult = new ClientModels::WriteEventResponse;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<WriteEventResponse> successCallback = reinterpret_cast<ProcessApiCallback<WriteEventResponse>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::WriteEventResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::WriteEventResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3047,8 +3046,8 @@ void PlayFabClientApi::OnWriteTitleEventResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::AddSharedGroupMembers(
-    AddSharedGroupMembersRequest& request,
-    ProcessApiCallback<AddSharedGroupMembersResult> callback,
+    ClientModels::AddSharedGroupMembersRequest& request,
+    ProcessApiCallback<ClientModels::AddSharedGroupMembersResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3062,13 +3061,13 @@ void PlayFabClientApi::OnAddSharedGroupMembersResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        AddSharedGroupMembersResult* outResult = new AddSharedGroupMembersResult;
+        ClientModels::AddSharedGroupMembersResult* outResult = new ClientModels::AddSharedGroupMembersResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<AddSharedGroupMembersResult> successCallback = reinterpret_cast<ProcessApiCallback<AddSharedGroupMembersResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::AddSharedGroupMembersResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::AddSharedGroupMembersResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3077,8 +3076,8 @@ void PlayFabClientApi::OnAddSharedGroupMembersResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::CreateSharedGroup(
-    CreateSharedGroupRequest& request,
-    ProcessApiCallback<CreateSharedGroupResult> callback,
+    ClientModels::CreateSharedGroupRequest& request,
+    ProcessApiCallback<ClientModels::CreateSharedGroupResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3092,13 +3091,13 @@ void PlayFabClientApi::OnCreateSharedGroupResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        CreateSharedGroupResult* outResult = new CreateSharedGroupResult;
+        ClientModels::CreateSharedGroupResult* outResult = new ClientModels::CreateSharedGroupResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<CreateSharedGroupResult> successCallback = reinterpret_cast<ProcessApiCallback<CreateSharedGroupResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::CreateSharedGroupResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::CreateSharedGroupResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3107,8 +3106,8 @@ void PlayFabClientApi::OnCreateSharedGroupResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetSharedGroupData(
-    GetSharedGroupDataRequest& request,
-    ProcessApiCallback<GetSharedGroupDataResult> callback,
+    ClientModels::GetSharedGroupDataRequest& request,
+    ProcessApiCallback<ClientModels::GetSharedGroupDataResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3122,13 +3121,13 @@ void PlayFabClientApi::OnGetSharedGroupDataResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetSharedGroupDataResult* outResult = new GetSharedGroupDataResult;
+        ClientModels::GetSharedGroupDataResult* outResult = new ClientModels::GetSharedGroupDataResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetSharedGroupDataResult> successCallback = reinterpret_cast<ProcessApiCallback<GetSharedGroupDataResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetSharedGroupDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetSharedGroupDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3137,8 +3136,8 @@ void PlayFabClientApi::OnGetSharedGroupDataResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::RemoveSharedGroupMembers(
-    RemoveSharedGroupMembersRequest& request,
-    ProcessApiCallback<RemoveSharedGroupMembersResult> callback,
+    ClientModels::RemoveSharedGroupMembersRequest& request,
+    ProcessApiCallback<ClientModels::RemoveSharedGroupMembersResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3152,13 +3151,13 @@ void PlayFabClientApi::OnRemoveSharedGroupMembersResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        RemoveSharedGroupMembersResult* outResult = new RemoveSharedGroupMembersResult;
+        ClientModels::RemoveSharedGroupMembersResult* outResult = new ClientModels::RemoveSharedGroupMembersResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<RemoveSharedGroupMembersResult> successCallback = reinterpret_cast<ProcessApiCallback<RemoveSharedGroupMembersResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::RemoveSharedGroupMembersResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::RemoveSharedGroupMembersResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3167,8 +3166,8 @@ void PlayFabClientApi::OnRemoveSharedGroupMembersResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::UpdateSharedGroupData(
-    UpdateSharedGroupDataRequest& request,
-    ProcessApiCallback<UpdateSharedGroupDataResult> callback,
+    ClientModels::UpdateSharedGroupDataRequest& request,
+    ProcessApiCallback<ClientModels::UpdateSharedGroupDataResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3182,13 +3181,13 @@ void PlayFabClientApi::OnUpdateSharedGroupDataResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UpdateSharedGroupDataResult* outResult = new UpdateSharedGroupDataResult;
+        ClientModels::UpdateSharedGroupDataResult* outResult = new ClientModels::UpdateSharedGroupDataResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UpdateSharedGroupDataResult> successCallback = reinterpret_cast<ProcessApiCallback<UpdateSharedGroupDataResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UpdateSharedGroupDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UpdateSharedGroupDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3197,8 +3196,8 @@ void PlayFabClientApi::OnUpdateSharedGroupDataResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::ExecuteCloudScript(
-    ExecuteCloudScriptRequest& request,
-    ProcessApiCallback<ExecuteCloudScriptResult> callback,
+    ClientModels::ExecuteCloudScriptRequest& request,
+    ProcessApiCallback<ClientModels::ExecuteCloudScriptResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3212,13 +3211,13 @@ void PlayFabClientApi::OnExecuteCloudScriptResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        ExecuteCloudScriptResult* outResult = new ExecuteCloudScriptResult;
+        ClientModels::ExecuteCloudScriptResult* outResult = new ClientModels::ExecuteCloudScriptResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<ExecuteCloudScriptResult> successCallback = reinterpret_cast<ProcessApiCallback<ExecuteCloudScriptResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::ExecuteCloudScriptResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ExecuteCloudScriptResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3227,8 +3226,8 @@ void PlayFabClientApi::OnExecuteCloudScriptResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetContentDownloadUrl(
-    GetContentDownloadUrlRequest& request,
-    ProcessApiCallback<GetContentDownloadUrlResult> callback,
+    ClientModels::GetContentDownloadUrlRequest& request,
+    ProcessApiCallback<ClientModels::GetContentDownloadUrlResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3242,13 +3241,13 @@ void PlayFabClientApi::OnGetContentDownloadUrlResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetContentDownloadUrlResult* outResult = new GetContentDownloadUrlResult;
+        ClientModels::GetContentDownloadUrlResult* outResult = new ClientModels::GetContentDownloadUrlResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetContentDownloadUrlResult> successCallback = reinterpret_cast<ProcessApiCallback<GetContentDownloadUrlResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetContentDownloadUrlResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetContentDownloadUrlResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3257,8 +3256,8 @@ void PlayFabClientApi::OnGetContentDownloadUrlResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetAllUsersCharacters(
-    ListUsersCharactersRequest& request,
-    ProcessApiCallback<ListUsersCharactersResult> callback,
+    ClientModels::ListUsersCharactersRequest& request,
+    ProcessApiCallback<ClientModels::ListUsersCharactersResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3272,13 +3271,13 @@ void PlayFabClientApi::OnGetAllUsersCharactersResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        ListUsersCharactersResult* outResult = new ListUsersCharactersResult;
+        ClientModels::ListUsersCharactersResult* outResult = new ClientModels::ListUsersCharactersResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<ListUsersCharactersResult> successCallback = reinterpret_cast<ProcessApiCallback<ListUsersCharactersResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::ListUsersCharactersResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ListUsersCharactersResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3287,8 +3286,8 @@ void PlayFabClientApi::OnGetAllUsersCharactersResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetCharacterLeaderboard(
-    GetCharacterLeaderboardRequest& request,
-    ProcessApiCallback<GetCharacterLeaderboardResult> callback,
+    ClientModels::GetCharacterLeaderboardRequest& request,
+    ProcessApiCallback<ClientModels::GetCharacterLeaderboardResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3302,13 +3301,13 @@ void PlayFabClientApi::OnGetCharacterLeaderboardResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetCharacterLeaderboardResult* outResult = new GetCharacterLeaderboardResult;
+        ClientModels::GetCharacterLeaderboardResult* outResult = new ClientModels::GetCharacterLeaderboardResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetCharacterLeaderboardResult> successCallback = reinterpret_cast<ProcessApiCallback<GetCharacterLeaderboardResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetCharacterLeaderboardResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetCharacterLeaderboardResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3317,8 +3316,8 @@ void PlayFabClientApi::OnGetCharacterLeaderboardResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetCharacterStatistics(
-    GetCharacterStatisticsRequest& request,
-    ProcessApiCallback<GetCharacterStatisticsResult> callback,
+    ClientModels::GetCharacterStatisticsRequest& request,
+    ProcessApiCallback<ClientModels::GetCharacterStatisticsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3332,13 +3331,13 @@ void PlayFabClientApi::OnGetCharacterStatisticsResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetCharacterStatisticsResult* outResult = new GetCharacterStatisticsResult;
+        ClientModels::GetCharacterStatisticsResult* outResult = new ClientModels::GetCharacterStatisticsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetCharacterStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetCharacterStatisticsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetCharacterStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetCharacterStatisticsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3347,8 +3346,8 @@ void PlayFabClientApi::OnGetCharacterStatisticsResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetLeaderboardAroundCharacter(
-    GetLeaderboardAroundCharacterRequest& request,
-    ProcessApiCallback<GetLeaderboardAroundCharacterResult> callback,
+    ClientModels::GetLeaderboardAroundCharacterRequest& request,
+    ProcessApiCallback<ClientModels::GetLeaderboardAroundCharacterResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3362,13 +3361,13 @@ void PlayFabClientApi::OnGetLeaderboardAroundCharacterResult(PlayFabRequest* req
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetLeaderboardAroundCharacterResult* outResult = new GetLeaderboardAroundCharacterResult;
+        ClientModels::GetLeaderboardAroundCharacterResult* outResult = new ClientModels::GetLeaderboardAroundCharacterResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetLeaderboardAroundCharacterResult> successCallback = reinterpret_cast<ProcessApiCallback<GetLeaderboardAroundCharacterResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetLeaderboardAroundCharacterResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetLeaderboardAroundCharacterResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3377,8 +3376,8 @@ void PlayFabClientApi::OnGetLeaderboardAroundCharacterResult(PlayFabRequest* req
 }
 
 void PlayFabClientApi::GetLeaderboardForUserCharacters(
-    GetLeaderboardForUsersCharactersRequest& request,
-    ProcessApiCallback<GetLeaderboardForUsersCharactersResult> callback,
+    ClientModels::GetLeaderboardForUsersCharactersRequest& request,
+    ProcessApiCallback<ClientModels::GetLeaderboardForUsersCharactersResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3392,13 +3391,13 @@ void PlayFabClientApi::OnGetLeaderboardForUserCharactersResult(PlayFabRequest* r
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetLeaderboardForUsersCharactersResult* outResult = new GetLeaderboardForUsersCharactersResult;
+        ClientModels::GetLeaderboardForUsersCharactersResult* outResult = new ClientModels::GetLeaderboardForUsersCharactersResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetLeaderboardForUsersCharactersResult> successCallback = reinterpret_cast<ProcessApiCallback<GetLeaderboardForUsersCharactersResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetLeaderboardForUsersCharactersResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetLeaderboardForUsersCharactersResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3407,8 +3406,8 @@ void PlayFabClientApi::OnGetLeaderboardForUserCharactersResult(PlayFabRequest* r
 }
 
 void PlayFabClientApi::GrantCharacterToUser(
-    GrantCharacterToUserRequest& request,
-    ProcessApiCallback<GrantCharacterToUserResult> callback,
+    ClientModels::GrantCharacterToUserRequest& request,
+    ProcessApiCallback<ClientModels::GrantCharacterToUserResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3422,13 +3421,13 @@ void PlayFabClientApi::OnGrantCharacterToUserResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GrantCharacterToUserResult* outResult = new GrantCharacterToUserResult;
+        ClientModels::GrantCharacterToUserResult* outResult = new ClientModels::GrantCharacterToUserResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GrantCharacterToUserResult> successCallback = reinterpret_cast<ProcessApiCallback<GrantCharacterToUserResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GrantCharacterToUserResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GrantCharacterToUserResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3437,8 +3436,8 @@ void PlayFabClientApi::OnGrantCharacterToUserResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::UpdateCharacterStatistics(
-    UpdateCharacterStatisticsRequest& request,
-    ProcessApiCallback<UpdateCharacterStatisticsResult> callback,
+    ClientModels::UpdateCharacterStatisticsRequest& request,
+    ProcessApiCallback<ClientModels::UpdateCharacterStatisticsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3452,13 +3451,13 @@ void PlayFabClientApi::OnUpdateCharacterStatisticsResult(PlayFabRequest* request
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UpdateCharacterStatisticsResult* outResult = new UpdateCharacterStatisticsResult;
+        ClientModels::UpdateCharacterStatisticsResult* outResult = new ClientModels::UpdateCharacterStatisticsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UpdateCharacterStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<UpdateCharacterStatisticsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UpdateCharacterStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UpdateCharacterStatisticsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3467,8 +3466,8 @@ void PlayFabClientApi::OnUpdateCharacterStatisticsResult(PlayFabRequest* request
 }
 
 void PlayFabClientApi::GetCharacterData(
-    GetCharacterDataRequest& request,
-    ProcessApiCallback<GetCharacterDataResult> callback,
+    ClientModels::GetCharacterDataRequest& request,
+    ProcessApiCallback<ClientModels::GetCharacterDataResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3482,13 +3481,13 @@ void PlayFabClientApi::OnGetCharacterDataResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetCharacterDataResult* outResult = new GetCharacterDataResult;
+        ClientModels::GetCharacterDataResult* outResult = new ClientModels::GetCharacterDataResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetCharacterDataResult> successCallback = reinterpret_cast<ProcessApiCallback<GetCharacterDataResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetCharacterDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetCharacterDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3497,8 +3496,8 @@ void PlayFabClientApi::OnGetCharacterDataResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetCharacterReadOnlyData(
-    GetCharacterDataRequest& request,
-    ProcessApiCallback<GetCharacterDataResult> callback,
+    ClientModels::GetCharacterDataRequest& request,
+    ProcessApiCallback<ClientModels::GetCharacterDataResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3512,13 +3511,13 @@ void PlayFabClientApi::OnGetCharacterReadOnlyDataResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetCharacterDataResult* outResult = new GetCharacterDataResult;
+        ClientModels::GetCharacterDataResult* outResult = new ClientModels::GetCharacterDataResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetCharacterDataResult> successCallback = reinterpret_cast<ProcessApiCallback<GetCharacterDataResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetCharacterDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetCharacterDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3527,8 +3526,8 @@ void PlayFabClientApi::OnGetCharacterReadOnlyDataResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::UpdateCharacterData(
-    UpdateCharacterDataRequest& request,
-    ProcessApiCallback<UpdateCharacterDataResult> callback,
+    ClientModels::UpdateCharacterDataRequest& request,
+    ProcessApiCallback<ClientModels::UpdateCharacterDataResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3542,13 +3541,13 @@ void PlayFabClientApi::OnUpdateCharacterDataResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        UpdateCharacterDataResult* outResult = new UpdateCharacterDataResult;
+        ClientModels::UpdateCharacterDataResult* outResult = new ClientModels::UpdateCharacterDataResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<UpdateCharacterDataResult> successCallback = reinterpret_cast<ProcessApiCallback<UpdateCharacterDataResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::UpdateCharacterDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UpdateCharacterDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3557,8 +3556,8 @@ void PlayFabClientApi::OnUpdateCharacterDataResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::AcceptTrade(
-    AcceptTradeRequest& request,
-    ProcessApiCallback<AcceptTradeResponse> callback,
+    ClientModels::AcceptTradeRequest& request,
+    ProcessApiCallback<ClientModels::AcceptTradeResponse> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3572,13 +3571,13 @@ void PlayFabClientApi::OnAcceptTradeResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        AcceptTradeResponse* outResult = new AcceptTradeResponse;
+        ClientModels::AcceptTradeResponse* outResult = new ClientModels::AcceptTradeResponse;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<AcceptTradeResponse> successCallback = reinterpret_cast<ProcessApiCallback<AcceptTradeResponse>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::AcceptTradeResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::AcceptTradeResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3587,8 +3586,8 @@ void PlayFabClientApi::OnAcceptTradeResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::CancelTrade(
-    CancelTradeRequest& request,
-    ProcessApiCallback<CancelTradeResponse> callback,
+    ClientModels::CancelTradeRequest& request,
+    ProcessApiCallback<ClientModels::CancelTradeResponse> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3602,13 +3601,13 @@ void PlayFabClientApi::OnCancelTradeResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        CancelTradeResponse* outResult = new CancelTradeResponse;
+        ClientModels::CancelTradeResponse* outResult = new ClientModels::CancelTradeResponse;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<CancelTradeResponse> successCallback = reinterpret_cast<ProcessApiCallback<CancelTradeResponse>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::CancelTradeResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::CancelTradeResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3617,8 +3616,8 @@ void PlayFabClientApi::OnCancelTradeResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetPlayerTrades(
-    GetPlayerTradesRequest& request,
-    ProcessApiCallback<GetPlayerTradesResponse> callback,
+    ClientModels::GetPlayerTradesRequest& request,
+    ProcessApiCallback<ClientModels::GetPlayerTradesResponse> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3632,13 +3631,13 @@ void PlayFabClientApi::OnGetPlayerTradesResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPlayerTradesResponse* outResult = new GetPlayerTradesResponse;
+        ClientModels::GetPlayerTradesResponse* outResult = new ClientModels::GetPlayerTradesResponse;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPlayerTradesResponse> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayerTradesResponse>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPlayerTradesResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayerTradesResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3647,8 +3646,8 @@ void PlayFabClientApi::OnGetPlayerTradesResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetTradeStatus(
-    GetTradeStatusRequest& request,
-    ProcessApiCallback<GetTradeStatusResponse> callback,
+    ClientModels::GetTradeStatusRequest& request,
+    ProcessApiCallback<ClientModels::GetTradeStatusResponse> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3662,13 +3661,13 @@ void PlayFabClientApi::OnGetTradeStatusResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetTradeStatusResponse* outResult = new GetTradeStatusResponse;
+        ClientModels::GetTradeStatusResponse* outResult = new ClientModels::GetTradeStatusResponse;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetTradeStatusResponse> successCallback = reinterpret_cast<ProcessApiCallback<GetTradeStatusResponse>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetTradeStatusResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetTradeStatusResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3677,8 +3676,8 @@ void PlayFabClientApi::OnGetTradeStatusResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::OpenTrade(
-    OpenTradeRequest& request,
-    ProcessApiCallback<OpenTradeResponse> callback,
+    ClientModels::OpenTradeRequest& request,
+    ProcessApiCallback<ClientModels::OpenTradeResponse> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3692,13 +3691,13 @@ void PlayFabClientApi::OnOpenTradeResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        OpenTradeResponse* outResult = new OpenTradeResponse;
+        ClientModels::OpenTradeResponse* outResult = new ClientModels::OpenTradeResponse;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<OpenTradeResponse> successCallback = reinterpret_cast<ProcessApiCallback<OpenTradeResponse>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::OpenTradeResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::OpenTradeResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3707,8 +3706,8 @@ void PlayFabClientApi::OnOpenTradeResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::AttributeInstall(
-    AttributeInstallRequest& request,
-    ProcessApiCallback<AttributeInstallResult> callback,
+    ClientModels::AttributeInstallRequest& request,
+    ProcessApiCallback<ClientModels::AttributeInstallResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3722,7 +3721,7 @@ void PlayFabClientApi::OnAttributeInstallResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        AttributeInstallResult* outResult = new AttributeInstallResult;
+        ClientModels::AttributeInstallResult* outResult = new ClientModels::AttributeInstallResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
         // Modify advertisingIdType:  Prevents us from sending the id multiple times, and allows automated tests to determine id was sent successfully
@@ -3730,7 +3729,7 @@ void PlayFabClientApi::OnAttributeInstallResult(PlayFabRequest* request)
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<AttributeInstallResult> successCallback = reinterpret_cast<ProcessApiCallback<AttributeInstallResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::AttributeInstallResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::AttributeInstallResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3740,7 +3739,7 @@ void PlayFabClientApi::OnAttributeInstallResult(PlayFabRequest* request)
 
 void PlayFabClientApi::GetPlayerSegments(
 
-    ProcessApiCallback<GetPlayerSegmentsResult> callback,
+    ProcessApiCallback<ClientModels::GetPlayerSegmentsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3754,13 +3753,13 @@ void PlayFabClientApi::OnGetPlayerSegmentsResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPlayerSegmentsResult* outResult = new GetPlayerSegmentsResult;
+        ClientModels::GetPlayerSegmentsResult* outResult = new ClientModels::GetPlayerSegmentsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPlayerSegmentsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayerSegmentsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPlayerSegmentsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayerSegmentsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3769,8 +3768,8 @@ void PlayFabClientApi::OnGetPlayerSegmentsResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::GetPlayerTags(
-    GetPlayerTagsRequest& request,
-    ProcessApiCallback<GetPlayerTagsResult> callback,
+    ClientModels::GetPlayerTagsRequest& request,
+    ProcessApiCallback<ClientModels::GetPlayerTagsResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3784,13 +3783,13 @@ void PlayFabClientApi::OnGetPlayerTagsResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        GetPlayerTagsResult* outResult = new GetPlayerTagsResult;
+        ClientModels::GetPlayerTagsResult* outResult = new ClientModels::GetPlayerTagsResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<GetPlayerTagsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayerTagsResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::GetPlayerTagsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayerTagsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3799,8 +3798,8 @@ void PlayFabClientApi::OnGetPlayerTagsResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::AndroidDevicePushNotificationRegistration(
-    AndroidDevicePushNotificationRegistrationRequest& request,
-    ProcessApiCallback<AndroidDevicePushNotificationRegistrationResult> callback,
+    ClientModels::AndroidDevicePushNotificationRegistrationRequest& request,
+    ProcessApiCallback<ClientModels::AndroidDevicePushNotificationRegistrationResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3814,13 +3813,13 @@ void PlayFabClientApi::OnAndroidDevicePushNotificationRegistrationResult(PlayFab
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        AndroidDevicePushNotificationRegistrationResult* outResult = new AndroidDevicePushNotificationRegistrationResult;
+        ClientModels::AndroidDevicePushNotificationRegistrationResult* outResult = new ClientModels::AndroidDevicePushNotificationRegistrationResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<AndroidDevicePushNotificationRegistrationResult> successCallback = reinterpret_cast<ProcessApiCallback<AndroidDevicePushNotificationRegistrationResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::AndroidDevicePushNotificationRegistrationResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::AndroidDevicePushNotificationRegistrationResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3829,8 +3828,8 @@ void PlayFabClientApi::OnAndroidDevicePushNotificationRegistrationResult(PlayFab
 }
 
 void PlayFabClientApi::RegisterForIOSPushNotification(
-    RegisterForIOSPushNotificationRequest& request,
-    ProcessApiCallback<RegisterForIOSPushNotificationResult> callback,
+    ClientModels::RegisterForIOSPushNotificationRequest& request,
+    ProcessApiCallback<ClientModels::RegisterForIOSPushNotificationResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3844,13 +3843,13 @@ void PlayFabClientApi::OnRegisterForIOSPushNotificationResult(PlayFabRequest* re
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        RegisterForIOSPushNotificationResult* outResult = new RegisterForIOSPushNotificationResult;
+        ClientModels::RegisterForIOSPushNotificationResult* outResult = new ClientModels::RegisterForIOSPushNotificationResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<RegisterForIOSPushNotificationResult> successCallback = reinterpret_cast<ProcessApiCallback<RegisterForIOSPushNotificationResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::RegisterForIOSPushNotificationResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::RegisterForIOSPushNotificationResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3859,8 +3858,8 @@ void PlayFabClientApi::OnRegisterForIOSPushNotificationResult(PlayFabRequest* re
 }
 
 void PlayFabClientApi::RestoreIOSPurchases(
-    RestoreIOSPurchasesRequest& request,
-    ProcessApiCallback<RestoreIOSPurchasesResult> callback,
+    ClientModels::RestoreIOSPurchasesRequest& request,
+    ProcessApiCallback<ClientModels::RestoreIOSPurchasesResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3874,13 +3873,13 @@ void PlayFabClientApi::OnRestoreIOSPurchasesResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        RestoreIOSPurchasesResult* outResult = new RestoreIOSPurchasesResult;
+        ClientModels::RestoreIOSPurchasesResult* outResult = new ClientModels::RestoreIOSPurchasesResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<RestoreIOSPurchasesResult> successCallback = reinterpret_cast<ProcessApiCallback<RestoreIOSPurchasesResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::RestoreIOSPurchasesResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::RestoreIOSPurchasesResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3889,8 +3888,8 @@ void PlayFabClientApi::OnRestoreIOSPurchasesResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::ValidateAmazonIAPReceipt(
-    ValidateAmazonReceiptRequest& request,
-    ProcessApiCallback<ValidateAmazonReceiptResult> callback,
+    ClientModels::ValidateAmazonReceiptRequest& request,
+    ProcessApiCallback<ClientModels::ValidateAmazonReceiptResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3904,13 +3903,13 @@ void PlayFabClientApi::OnValidateAmazonIAPReceiptResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        ValidateAmazonReceiptResult* outResult = new ValidateAmazonReceiptResult;
+        ClientModels::ValidateAmazonReceiptResult* outResult = new ClientModels::ValidateAmazonReceiptResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<ValidateAmazonReceiptResult> successCallback = reinterpret_cast<ProcessApiCallback<ValidateAmazonReceiptResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::ValidateAmazonReceiptResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ValidateAmazonReceiptResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3919,8 +3918,8 @@ void PlayFabClientApi::OnValidateAmazonIAPReceiptResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::ValidateGooglePlayPurchase(
-    ValidateGooglePlayPurchaseRequest& request,
-    ProcessApiCallback<ValidateGooglePlayPurchaseResult> callback,
+    ClientModels::ValidateGooglePlayPurchaseRequest& request,
+    ProcessApiCallback<ClientModels::ValidateGooglePlayPurchaseResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3934,13 +3933,13 @@ void PlayFabClientApi::OnValidateGooglePlayPurchaseResult(PlayFabRequest* reques
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        ValidateGooglePlayPurchaseResult* outResult = new ValidateGooglePlayPurchaseResult;
+        ClientModels::ValidateGooglePlayPurchaseResult* outResult = new ClientModels::ValidateGooglePlayPurchaseResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<ValidateGooglePlayPurchaseResult> successCallback = reinterpret_cast<ProcessApiCallback<ValidateGooglePlayPurchaseResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::ValidateGooglePlayPurchaseResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ValidateGooglePlayPurchaseResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3949,8 +3948,8 @@ void PlayFabClientApi::OnValidateGooglePlayPurchaseResult(PlayFabRequest* reques
 }
 
 void PlayFabClientApi::ValidateIOSReceipt(
-    ValidateIOSReceiptRequest& request,
-    ProcessApiCallback<ValidateIOSReceiptResult> callback,
+    ClientModels::ValidateIOSReceiptRequest& request,
+    ProcessApiCallback<ClientModels::ValidateIOSReceiptResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3964,13 +3963,13 @@ void PlayFabClientApi::OnValidateIOSReceiptResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        ValidateIOSReceiptResult* outResult = new ValidateIOSReceiptResult;
+        ClientModels::ValidateIOSReceiptResult* outResult = new ClientModels::ValidateIOSReceiptResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<ValidateIOSReceiptResult> successCallback = reinterpret_cast<ProcessApiCallback<ValidateIOSReceiptResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::ValidateIOSReceiptResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ValidateIOSReceiptResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3979,8 +3978,8 @@ void PlayFabClientApi::OnValidateIOSReceiptResult(PlayFabRequest* request)
 }
 
 void PlayFabClientApi::ValidateWindowsStoreReceipt(
-    ValidateWindowsReceiptRequest& request,
-    ProcessApiCallback<ValidateWindowsReceiptResult> callback,
+    ClientModels::ValidateWindowsReceiptRequest& request,
+    ProcessApiCallback<ClientModels::ValidateWindowsReceiptResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
@@ -3994,13 +3993,13 @@ void PlayFabClientApi::OnValidateWindowsStoreReceiptResult(PlayFabRequest* reque
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        ValidateWindowsReceiptResult* outResult = new ValidateWindowsReceiptResult;
+        ClientModels::ValidateWindowsReceiptResult* outResult = new ClientModels::ValidateWindowsReceiptResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<ValidateWindowsReceiptResult> successCallback = reinterpret_cast<ProcessApiCallback<ValidateWindowsReceiptResult>>(request->mResultCallback);
+            ProcessApiCallback<ClientModels::ValidateWindowsReceiptResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ValidateWindowsReceiptResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
