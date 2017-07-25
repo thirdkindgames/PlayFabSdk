@@ -2,15 +2,20 @@
 #include "PlayFabClientApi.h"
 #include "PlayFabSettings.h"
 
-using namespace PlayFab;
+using namespace PlayFabClientSdk;
 using namespace ClientModels;
 
 // Client-Specific
-Aws::String PlayFabClientApi::mUserSessionTicket;
+AZStd::string PlayFabClientApi::mUserSessionTicket;
 
 bool PlayFabClientApi::IsClientLoggedIn()
 {
     return mUserSessionTicket.length() != 0;
+}
+
+int PlayFabClientApi::GetPendingCalls()
+{
+    return PlayFabRequestManager::playFabHttp->GetPendingCalls();
 }
 
 void PlayFabClientApi::MultiStepClientLogin(bool needsAttribution)

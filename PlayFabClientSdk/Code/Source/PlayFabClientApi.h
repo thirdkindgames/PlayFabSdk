@@ -1,16 +1,17 @@
 #pragma once
 
-#include "PlayFab/PlayFabError.h"
-#include "PlayFab/PlayFabClientDataModels.h"
-#include "PlayFab/PlayFabHttp.h"
+#include <PlayFabClientSdk/PlayFabError.h>
+#include <PlayFabClientSdk/PlayFabClientDataModels.h>
+#include <PlayFabClientSdk/PlayFabHttp.h>
 
-namespace PlayFab
+namespace PlayFabClientSdk
 {
     class PlayFabClientApi
     {
     public:
         // Public, Client-Specific
         static bool IsClientLoggedIn();
+        static int GetPendingCalls();
 
         // ------------ Generated Api calls
         static void GetPhotonAuthenticationToken(ClientModels::GetPhotonAuthenticationTokenRequest& request, ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -279,7 +280,7 @@ namespace PlayFab
         // Private, Client-Specific
         static void MultiStepClientLogin(bool needsAttribution);
 
-		// As a *slight* security improvement, this is private
-        static Aws::String mUserSessionTicket;
+        // As a *slight* security improvement, this is private
+        static AZStd::string mUserSessionTicket;
     };
 };

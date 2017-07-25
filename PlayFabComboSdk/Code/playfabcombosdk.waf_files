@@ -1,0 +1,18 @@
+{
+    "none": {
+        "Source": [
+            "Source/StdAfx.cpp",
+            "Source/StdAfx.h"
+        ]
+    },
+    "auto": {
+        "Include": [
+            "Include/PlayFabComboSdk/PlayFabComboSdkBus.h"
+        ],
+        "Source": [
+            "Source/PlayFabComboSdkModule.cpp",
+            "Source/PlayFabComboSdkSystemComponent.cpp",
+            "Source/PlayFabComboSdkSystemComponent.h"
+        ]
+    }
+}

@@ -1,9 +1,8 @@
 #pragma once
 
 #include <map>
-#include <aws/core/utils/memory/stl/AWSString.h>
 
-namespace PlayFab
+namespace PlayFabClientSdk
 {
     enum PlayFabErrorCode
     {
@@ -312,11 +311,11 @@ namespace PlayFab
     struct PlayFabError
     {
         int HttpCode; // Http status code
-        Aws::String HttpStatus; // Http status code description
+        AZStd::string HttpStatus; // Http status code description
         PlayFabErrorCode ErrorCode; // Playfab error
-        Aws::String ErrorName; // PlayFab error name
-        Aws::String ErrorMessage; // PlayFab error message
-        std::map< Aws::String, Aws::String > ErrorDetails; // More specific details about failures (when present)
+        AZStd::string ErrorName; // PlayFab error name
+        AZStd::string ErrorMessage; // PlayFab error message
+        std::map< AZStd::string, AZStd::string > ErrorDetails; // More specific details about failures (when present)
     };
 
     typedef void(*ErrorCallback)(const PlayFabError& error, void* customData);

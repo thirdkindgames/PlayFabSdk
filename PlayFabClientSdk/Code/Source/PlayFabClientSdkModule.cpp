@@ -3,10 +3,10 @@
 
 #include <platform_impl.h> // Resharper says this is unused, but it's still required in some less direct way
 
-#include "PlayFabClientSdkSystemComponent.h"
+#include "PlayFabClient_ClientSysComponent.h"
 
 #include "PlayFabSettings.h"
-#include "PlayFab/PlayFabError.h"
+#include <PlayFabClientSdk/PlayFabError.h>
 
 #include <IGem.h>
 
@@ -23,10 +23,10 @@ namespace PlayFabClientSdk
         if (!error.ErrorDetails.empty())
         {
             AZ_TracePrintf("PlayFab", " Additional Info:\n")
-            for (auto& details : error.ErrorDetails)
-            {
-                AZ_TracePrintf("PlayFab", "  %s: %s\n", details.first.c_str(), details.second.c_str());
-            }
+                for (auto& details : error.ErrorDetails)
+                {
+                    AZ_TracePrintf("PlayFab", "  %s: %s\n", details.first.c_str(), details.second.c_str());
+                }
         }
         AZ_TracePrintf("PlayFab", "==================================================================\n");
     }
@@ -42,7 +42,7 @@ namespace PlayFabClientSdk
         {
             // Push results of [MyComponent]::CreateDescriptor() into m_descriptors here.
             m_descriptors.insert(m_descriptors.end(), {
-                PlayFabClientSdkSystemComponent::CreateDescriptor(),
+                PlayFabClient_ClientSysComponent::CreateDescriptor(),
             });
         }
 
@@ -52,7 +52,7 @@ namespace PlayFabClientSdk
         AZ::ComponentTypeList GetRequiredSystemComponents() const override
         {
             return AZ::ComponentTypeList{
-                azrtti_typeid<PlayFabClientSdkSystemComponent>(),
+                azrtti_typeid<PlayFabClient_ClientSysComponent>(),
             };
         }
 
@@ -61,19 +61,19 @@ namespace PlayFabClientSdk
             switch (event)
             {
             case ESYSTEM_EVENT_GAME_POST_INIT:
+            {
+                // Set the game title id
+                auto titleIdCvar = gEnv->pConsole->GetCVar("playfab_titleid");
+                if (titleIdCvar)
                 {
-                    // Set the game title id
-                    auto titleIdCvar = gEnv->pConsole->GetCVar("playfab_titleid");
-                    if (titleIdCvar)
-                    {
-                        PlayFabSettings::playFabSettings.titleId = titleIdCvar->GetString();
-                    }
-
-                    PlayFabSettings::playFabSettings.globalErrorHandler = &GlobalErrorHandler;
+                    PlayFabSettings::playFabSettings.titleId = titleIdCvar->GetString();
                 }
-        
-                break;
-        
+
+                PlayFabSettings::playFabSettings.globalErrorHandler = &ExampleGlobalErrorHandler;
+            }
+
+            break;
+
             case ESYSTEM_EVENT_FULL_SHUTDOWN:
             case ESYSTEM_EVENT_FAST_SHUTDOWN:
                 // Put your shutdown code here

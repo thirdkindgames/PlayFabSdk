@@ -6,7 +6,7 @@
         ],
         "Interface": [
             "Include/PlayFabClientSdk/PlayFabClientDataModels.h",
-            "Include/PlayFabClientSdk/PlayFabBus.h",
+            "Include/PlayFabClientSdk/PlayFabClient_ClientBus.h",
             "Include/PlayFabClientSdk/PlayFabBaseModel.h",
             "Include/PlayFabClientSdk/PlayFabError.h",
             "Include/PlayFabClientSdk/PlayFabHttp.h"
@@ -14,15 +14,12 @@
         "Implementation": [
             "Source/PlayFabClientApi.h",
             "Source/PlayFabClientApi.cpp",
-            "Source/PlayFabSystemComponent.h",
-            "Source/PlayFabSystemComponent.cpp",
-
+            "Source/PlayFabClient_ClientSysComponent.h",
+            "Source/PlayFabClient_ClientSysComponent.cpp",
+            "Source/PlayFabClientSdkModule.cpp",
             "Source/PlayFabHttp.cpp",
-
             "Source/PlayFabSettings.h",
-            "Source/PlayFabSettings.cpp",
-
-            "Source/PlayFabModule.cpp"
+            "Source/PlayFabSettings.cpp"
         ]
     }
 }

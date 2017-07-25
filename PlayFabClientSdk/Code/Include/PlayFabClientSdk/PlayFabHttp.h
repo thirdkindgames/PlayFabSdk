@@ -1,15 +1,15 @@
 #pragma once
 
-#include "PlayFab/PlayFabError.h"
+#include <PlayFabClientSdk/PlayFabError.h>
 
-#include "aws/core/http/HttpTypes.h"
-#include "aws/core/http/HttpResponse.h"
+#include <aws/core/http/HttpTypes.h>
+#include <aws/core/http/HttpResponse.h>
 #include <AZCore/std/parallel/atomic.h>
 #include <AZCore/std/parallel/mutex.h>
 #include <AzCore/std/parallel/conditional_variable.h>
 #include <AzCore/JSON/document.h>
 
-namespace PlayFab
+namespace PlayFabClientSdk
 {
     class PlayFabRequest
     {
@@ -17,20 +17,20 @@ namespace PlayFab
         typedef std::function<void(PlayFabRequest* request)> HttpCallback;
 
         // Initializing ctor
-        PlayFabRequest(const Aws::String& URI, Aws::Http::HttpMethod method, const Aws::String& authKey, const Aws::String& authValue, const Aws::String& requestJsonBody, void* customData, void* mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback);
+        PlayFabRequest(const AZStd::string& URI, Aws::Http::HttpMethod method, const AZStd::string& authKey, const AZStd::string& authValue, const AZStd::string& requestJsonBody, void* customData, void* mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback);
         ~PlayFabRequest();
 
         void HandleErrorReport(); // Call this when the response information describes an error (this parses that information into mError, and activates the error callback)
 
         // the URI in string form as an recipient of the HTTP connection
-        Aws::String mURI;
+        AZStd::string mURI;
         // the method of which the HTTP request will take. GET, POST, DELETE, PUT, or HEAD
         Aws::Http::HttpMethod mMethod;
         // Authentication, when present
-        Aws::String mAuthKey;
-        Aws::String mAuthValue;
+        AZStd::string mAuthKey;
+        AZStd::string mAuthValue;
         // Json request body
-        Aws::String mRequestJsonBody;
+        AZStd::string mRequestJsonBody;
         // Customizable object that provides identification or other information for the caller, in the callback
         void* mCustomData;
 

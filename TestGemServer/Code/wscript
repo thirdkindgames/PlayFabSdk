@@ -1,10 +1,7 @@
-def build(bld):
-    import lumberyard_sdks
 
+
+def build(bld):
     bld.DefineGem(
-        includes = [bld.Path('Code/CryEngine/CryAction'),
-                    bld.Path('Code/CryEngine/CryAction/FlowSystem/Nodes'),
-                    bld.Path('Code/CryEngine/LmbrAWS')],
-        win_use = bld.make_aws_library_task_list(['aws-cpp-sdk-core']),
-        win_features = ['AWSNativeSDK']
+        # Add custom build options here
+        includes    = [bld.Path('Code/CryEngine/CryAction')],
     )

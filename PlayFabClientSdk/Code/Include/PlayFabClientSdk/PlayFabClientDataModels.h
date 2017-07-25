@@ -1,19 +1,19 @@
 #pragma once
 
-#include "PlayFabBaseModel.h"
-#include "aws/core/utils/json/JsonSerializer.h"
+#include <PlayFabClientSdk/PlayFabBaseModel.h>
+#include <aws/core/utils/json/JsonSerializer.h>
 
 using namespace rapidjson;
 
-namespace PlayFab
+namespace PlayFabClientSdk
 {
     namespace ClientModels
     {
         struct AcceptTradeRequest : public PlayFabBaseModel
         {
-            Aws::String OfferingPlayerId;
-            Aws::String TradeId;
-            std::list<Aws::String> AcceptedInventoryInstanceIds;
+            AZStd::string OfferingPlayerId;
+            AZStd::string TradeId;
+            std::list<AZStd::string> AcceptedInventoryInstanceIds;
 
             AcceptTradeRequest() :
                 PlayFabBaseModel(),
@@ -46,7 +46,7 @@ namespace PlayFab
                 if (!AcceptedInventoryInstanceIds.empty()) {
                     writer.String("AcceptedInventoryInstanceIds");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = AcceptedInventoryInstanceIds.begin(); iter != AcceptedInventoryInstanceIds.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = AcceptedInventoryInstanceIds.begin(); iter != AcceptedInventoryInstanceIds.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -100,7 +100,7 @@ namespace PlayFab
 
         inline TradeStatus readTradeStatusFromValue(const rapidjson::Value& obj)
         {
-            static std::map<Aws::String, TradeStatus> _TradeStatusMap;
+            static std::map<AZStd::string, TradeStatus> _TradeStatusMap;
             if (_TradeStatusMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -124,14 +124,14 @@ namespace PlayFab
         struct TradeInfo : public PlayFabBaseModel
         {
             Boxed<TradeStatus> Status;
-            Aws::String TradeId;
-            Aws::String OfferingPlayerId;
-            std::list<Aws::String> OfferedInventoryInstanceIds;
-            std::list<Aws::String> OfferedCatalogItemIds;
-            std::list<Aws::String> RequestedCatalogItemIds;
-            std::list<Aws::String> AllowedPlayerIds;
-            Aws::String AcceptedPlayerId;
-            std::list<Aws::String> AcceptedInventoryInstanceIds;
+            AZStd::string TradeId;
+            AZStd::string OfferingPlayerId;
+            std::list<AZStd::string> OfferedInventoryInstanceIds;
+            std::list<AZStd::string> OfferedCatalogItemIds;
+            std::list<AZStd::string> RequestedCatalogItemIds;
+            std::list<AZStd::string> AllowedPlayerIds;
+            AZStd::string AcceptedPlayerId;
+            std::list<AZStd::string> AcceptedInventoryInstanceIds;
             OptionalTime OpenedAt;
             OptionalTime FilledAt;
             OptionalTime CancelledAt;
@@ -189,7 +189,7 @@ namespace PlayFab
                 if (!OfferedInventoryInstanceIds.empty()) {
                     writer.String("OfferedInventoryInstanceIds");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = OfferedInventoryInstanceIds.begin(); iter != OfferedInventoryInstanceIds.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = OfferedInventoryInstanceIds.begin(); iter != OfferedInventoryInstanceIds.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -197,7 +197,7 @@ namespace PlayFab
                 if (!OfferedCatalogItemIds.empty()) {
                     writer.String("OfferedCatalogItemIds");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = OfferedCatalogItemIds.begin(); iter != OfferedCatalogItemIds.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = OfferedCatalogItemIds.begin(); iter != OfferedCatalogItemIds.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -205,7 +205,7 @@ namespace PlayFab
                 if (!RequestedCatalogItemIds.empty()) {
                     writer.String("RequestedCatalogItemIds");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = RequestedCatalogItemIds.begin(); iter != RequestedCatalogItemIds.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = RequestedCatalogItemIds.begin(); iter != RequestedCatalogItemIds.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -213,7 +213,7 @@ namespace PlayFab
                 if (!AllowedPlayerIds.empty()) {
                     writer.String("AllowedPlayerIds");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = AllowedPlayerIds.begin(); iter != AllowedPlayerIds.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = AllowedPlayerIds.begin(); iter != AllowedPlayerIds.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -222,7 +222,7 @@ namespace PlayFab
                 if (!AcceptedInventoryInstanceIds.empty()) {
                     writer.String("AcceptedInventoryInstanceIds");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = AcceptedInventoryInstanceIds.begin(); iter != AcceptedInventoryInstanceIds.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = AcceptedInventoryInstanceIds.begin(); iter != AcceptedInventoryInstanceIds.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -334,8 +334,8 @@ namespace PlayFab
 
         struct AdCampaignAttributionModel : public PlayFabBaseModel
         {
-            Aws::String Platform;
-            Aws::String CampaignId;
+            AZStd::string Platform;
+            AZStd::string CampaignId;
             time_t AttributedAt;
 
             AdCampaignAttributionModel() :
@@ -385,10 +385,10 @@ namespace PlayFab
 
         struct AddFriendRequest : public PlayFabBaseModel
         {
-            Aws::String FriendPlayFabId;
-            Aws::String FriendUsername;
-            Aws::String FriendEmail;
-            Aws::String FriendTitleDisplayName;
+            AZStd::string FriendPlayFabId;
+            AZStd::string FriendUsername;
+            AZStd::string FriendEmail;
+            AZStd::string FriendTitleDisplayName;
 
             AddFriendRequest() :
                 PlayFabBaseModel(),
@@ -481,8 +481,8 @@ namespace PlayFab
 
         struct GenericServiceId : public PlayFabBaseModel
         {
-            Aws::String ServiceName;
-            Aws::String UserId;
+            AZStd::string ServiceName;
+            AZStd::string UserId;
 
             GenericServiceId() :
                 PlayFabBaseModel(),
@@ -598,8 +598,8 @@ namespace PlayFab
 
         struct AddSharedGroupMembersRequest : public PlayFabBaseModel
         {
-            Aws::String SharedGroupId;
-            std::list<Aws::String> PlayFabIds;
+            AZStd::string SharedGroupId;
+            std::list<AZStd::string> PlayFabIds;
 
             AddSharedGroupMembersRequest() :
                 PlayFabBaseModel(),
@@ -628,7 +628,7 @@ namespace PlayFab
                 writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
                 writer.String("PlayFabIds");
                 writer.StartArray();
-                for (std::list<Aws::String>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
+                for (std::list<AZStd::string>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -687,9 +687,9 @@ namespace PlayFab
 
         struct AddUsernamePasswordRequest : public PlayFabBaseModel
         {
-            Aws::String Username;
-            Aws::String Email;
-            Aws::String Password;
+            AZStd::string Username;
+            AZStd::string Email;
+            AZStd::string Password;
 
             AddUsernamePasswordRequest() :
                 PlayFabBaseModel(),
@@ -738,7 +738,7 @@ namespace PlayFab
 
         struct AddUsernamePasswordResult : public PlayFabBaseModel
         {
-            Aws::String Username;
+            AZStd::string Username;
 
             AddUsernamePasswordResult() :
                 PlayFabBaseModel(),
@@ -777,7 +777,7 @@ namespace PlayFab
 
         struct AddUserVirtualCurrencyRequest : public PlayFabBaseModel
         {
-            Aws::String VirtualCurrency;
+            AZStd::string VirtualCurrency;
             Int32 Amount;
 
             AddUserVirtualCurrencyRequest() :
@@ -822,9 +822,9 @@ namespace PlayFab
 
         struct AndroidDevicePushNotificationRegistrationRequest : public PlayFabBaseModel
         {
-            Aws::String DeviceToken;
+            AZStd::string DeviceToken;
             OptionalBool SendPushNotificationConfirmation;
-            Aws::String ConfirmationMessage;
+            AZStd::string ConfirmationMessage;
 
             AndroidDevicePushNotificationRegistrationRequest() :
                 PlayFabBaseModel(),
@@ -906,8 +906,8 @@ namespace PlayFab
 
         struct AttributeInstallRequest : public PlayFabBaseModel
         {
-            Aws::String Idfa;
-            Aws::String Adid;
+            AZStd::string Idfa;
+            AZStd::string Adid;
 
             AttributeInstallRequest() :
                 PlayFabBaseModel(),
@@ -984,7 +984,7 @@ namespace PlayFab
 
         struct CancelTradeRequest : public PlayFabBaseModel
         {
-            Aws::String TradeId;
+            AZStd::string TradeId;
 
             CancelTradeRequest() :
                 PlayFabBaseModel(),
@@ -1063,14 +1063,14 @@ namespace PlayFab
 
         struct CartItem : public PlayFabBaseModel
         {
-            Aws::String ItemId;
-            Aws::String ItemClass;
-            Aws::String ItemInstanceId;
-            Aws::String DisplayName;
-            Aws::String Description;
-            std::map<Aws::String, Uint32> VirtualCurrencyPrices;
-            std::map<Aws::String, Uint32> RealCurrencyPrices;
-            std::map<Aws::String, Uint32> VCAmount;
+            AZStd::string ItemId;
+            AZStd::string ItemClass;
+            AZStd::string ItemInstanceId;
+            AZStd::string DisplayName;
+            AZStd::string Description;
+            std::map<AZStd::string, Uint32> VirtualCurrencyPrices;
+            std::map<AZStd::string, Uint32> RealCurrencyPrices;
+            std::map<AZStd::string, Uint32> VCAmount;
 
             CartItem() :
                 PlayFabBaseModel(),
@@ -1116,7 +1116,7 @@ namespace PlayFab
                 if (!VirtualCurrencyPrices.empty()) {
                     writer.String("VirtualCurrencyPrices");
                     writer.StartObject();
-                    for (std::map<Aws::String, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
+                    for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Uint(iter->second);
                     }
                     writer.EndObject();
@@ -1124,7 +1124,7 @@ namespace PlayFab
                 if (!RealCurrencyPrices.empty()) {
                     writer.String("RealCurrencyPrices");
                     writer.StartObject();
-                    for (std::map<Aws::String, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
+                    for (std::map<AZStd::string, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Uint(iter->second);
                     }
                     writer.EndObject();
@@ -1132,7 +1132,7 @@ namespace PlayFab
                 if (!VCAmount.empty()) {
                     writer.String("VCAmount");
                     writer.StartObject();
-                    for (std::map<Aws::String, Uint32>::iterator iter = VCAmount.begin(); iter != VCAmount.end(); ++iter) {
+                    for (std::map<AZStd::string, Uint32>::iterator iter = VCAmount.begin(); iter != VCAmount.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Uint(iter->second);
                     }
                     writer.EndObject();
@@ -1179,7 +1179,7 @@ namespace PlayFab
         {
             OptionalUint32 UsageCount;
             OptionalUint32 UsagePeriod;
-            Aws::String UsagePeriodGroup;
+            AZStd::string UsagePeriodGroup;
 
             CatalogItemConsumableInfo() :
                 PlayFabBaseModel(),
@@ -1228,10 +1228,10 @@ namespace PlayFab
 
         struct CatalogItemContainerInfo : public PlayFabBaseModel
         {
-            Aws::String KeyItemId;
-            std::list<Aws::String> ItemContents;
-            std::list<Aws::String> ResultTableContents;
-            std::map<Aws::String, Uint32> VirtualCurrencyContents;
+            AZStd::string KeyItemId;
+            std::list<AZStd::string> ItemContents;
+            std::list<AZStd::string> ResultTableContents;
+            std::map<AZStd::string, Uint32> VirtualCurrencyContents;
 
             CatalogItemContainerInfo() :
                 PlayFabBaseModel(),
@@ -1265,7 +1265,7 @@ namespace PlayFab
                 if (!ItemContents.empty()) {
                     writer.String("ItemContents");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = ItemContents.begin(); iter != ItemContents.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = ItemContents.begin(); iter != ItemContents.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -1273,7 +1273,7 @@ namespace PlayFab
                 if (!ResultTableContents.empty()) {
                     writer.String("ResultTableContents");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = ResultTableContents.begin(); iter != ResultTableContents.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = ResultTableContents.begin(); iter != ResultTableContents.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -1281,7 +1281,7 @@ namespace PlayFab
                 if (!VirtualCurrencyContents.empty()) {
                     writer.String("VirtualCurrencyContents");
                     writer.StartObject();
-                    for (std::map<Aws::String, Uint32>::iterator iter = VirtualCurrencyContents.begin(); iter != VirtualCurrencyContents.end(); ++iter) {
+                    for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrencyContents.begin(); iter != VirtualCurrencyContents.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Uint(iter->second);
                     }
                     writer.EndObject();
@@ -1320,9 +1320,9 @@ namespace PlayFab
 
         struct CatalogItemBundleInfo : public PlayFabBaseModel
         {
-            std::list<Aws::String> BundledItems;
-            std::list<Aws::String> BundledResultTables;
-            std::map<Aws::String, Uint32> BundledVirtualCurrencies;
+            std::list<AZStd::string> BundledItems;
+            std::list<AZStd::string> BundledResultTables;
+            std::map<AZStd::string, Uint32> BundledVirtualCurrencies;
 
             CatalogItemBundleInfo() :
                 PlayFabBaseModel(),
@@ -1353,7 +1353,7 @@ namespace PlayFab
                 if (!BundledItems.empty()) {
                     writer.String("BundledItems");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = BundledItems.begin(); iter != BundledItems.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = BundledItems.begin(); iter != BundledItems.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -1361,7 +1361,7 @@ namespace PlayFab
                 if (!BundledResultTables.empty()) {
                     writer.String("BundledResultTables");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = BundledResultTables.begin(); iter != BundledResultTables.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = BundledResultTables.begin(); iter != BundledResultTables.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -1369,7 +1369,7 @@ namespace PlayFab
                 if (!BundledVirtualCurrencies.empty()) {
                     writer.String("BundledVirtualCurrencies");
                     writer.StartObject();
-                    for (std::map<Aws::String, Uint32>::iterator iter = BundledVirtualCurrencies.begin(); iter != BundledVirtualCurrencies.end(); ++iter) {
+                    for (std::map<AZStd::string, Uint32>::iterator iter = BundledVirtualCurrencies.begin(); iter != BundledVirtualCurrencies.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Uint(iter->second);
                     }
                     writer.EndObject();
@@ -1406,22 +1406,22 @@ namespace PlayFab
 
         struct CatalogItem : public PlayFabBaseModel
         {
-            Aws::String ItemId;
-            Aws::String ItemClass;
-            Aws::String CatalogVersion;
-            Aws::String DisplayName;
-            Aws::String Description;
-            std::map<Aws::String, Uint32> VirtualCurrencyPrices;
-            std::map<Aws::String, Uint32> RealCurrencyPrices;
-            std::list<Aws::String> Tags;
-            Aws::String CustomData;
+            AZStd::string ItemId;
+            AZStd::string ItemClass;
+            AZStd::string CatalogVersion;
+            AZStd::string DisplayName;
+            AZStd::string Description;
+            std::map<AZStd::string, Uint32> VirtualCurrencyPrices;
+            std::map<AZStd::string, Uint32> RealCurrencyPrices;
+            std::list<AZStd::string> Tags;
+            AZStd::string CustomData;
             CatalogItemConsumableInfo* Consumable;
             CatalogItemContainerInfo* Container;
             CatalogItemBundleInfo* Bundle;
             bool CanBecomeCharacter;
             bool IsStackable;
             bool IsTradable;
-            Aws::String ItemImageUrl;
+            AZStd::string ItemImageUrl;
             bool IsLimitedEdition;
             Int32 InitialLimitedEditionCount;
 
@@ -1492,7 +1492,7 @@ namespace PlayFab
                 if (!VirtualCurrencyPrices.empty()) {
                     writer.String("VirtualCurrencyPrices");
                     writer.StartObject();
-                    for (std::map<Aws::String, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
+                    for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Uint(iter->second);
                     }
                     writer.EndObject();
@@ -1500,7 +1500,7 @@ namespace PlayFab
                 if (!RealCurrencyPrices.empty()) {
                     writer.String("RealCurrencyPrices");
                     writer.StartObject();
-                    for (std::map<Aws::String, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
+                    for (std::map<AZStd::string, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Uint(iter->second);
                     }
                     writer.EndObject();
@@ -1508,7 +1508,7 @@ namespace PlayFab
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -1584,21 +1584,21 @@ namespace PlayFab
 
         struct ItemInstance : public PlayFabBaseModel
         {
-            Aws::String ItemId;
-            Aws::String ItemInstanceId;
-            Aws::String ItemClass;
+            AZStd::string ItemId;
+            AZStd::string ItemInstanceId;
+            AZStd::string ItemClass;
             OptionalTime PurchaseDate;
             OptionalTime Expiration;
             OptionalInt32 RemainingUses;
             OptionalInt32 UsesIncrementedBy;
-            Aws::String Annotation;
-            Aws::String CatalogVersion;
-            Aws::String BundleParent;
-            Aws::String DisplayName;
-            Aws::String UnitCurrency;
+            AZStd::string Annotation;
+            AZStd::string CatalogVersion;
+            AZStd::string BundleParent;
+            AZStd::string DisplayName;
+            AZStd::string UnitCurrency;
             Uint32 UnitPrice;
-            std::list<Aws::String> BundleContents;
-            std::map<Aws::String, Aws::String> CustomData;
+            std::list<AZStd::string> BundleContents;
+            std::map<AZStd::string, AZStd::string> CustomData;
 
             ItemInstance() :
                 PlayFabBaseModel(),
@@ -1666,7 +1666,7 @@ namespace PlayFab
                 if (!BundleContents.empty()) {
                     writer.String("BundleContents");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -1674,7 +1674,7 @@ namespace PlayFab
                 if (!CustomData.empty()) {
                     writer.String("CustomData");
                     writer.StartObject();
-                    for (std::map<Aws::String, Aws::String>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
+                    for (std::map<AZStd::string, AZStd::string>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
@@ -1730,7 +1730,7 @@ namespace PlayFab
 
         struct CharacterInventory : public PlayFabBaseModel
         {
-            Aws::String CharacterId;
+            AZStd::string CharacterId;
             std::list<ItemInstance> Inventory;
 
             CharacterInventory() :
@@ -1787,11 +1787,11 @@ namespace PlayFab
 
         struct CharacterLeaderboardEntry : public PlayFabBaseModel
         {
-            Aws::String PlayFabId;
-            Aws::String CharacterId;
-            Aws::String CharacterName;
-            Aws::String DisplayName;
-            Aws::String CharacterType;
+            AZStd::string PlayFabId;
+            AZStd::string CharacterId;
+            AZStd::string CharacterName;
+            AZStd::string DisplayName;
+            AZStd::string CharacterType;
             Int32 StatValue;
             Int32 Position;
 
@@ -1862,9 +1862,9 @@ namespace PlayFab
 
         struct CharacterResult : public PlayFabBaseModel
         {
-            Aws::String CharacterId;
-            Aws::String CharacterName;
-            Aws::String CharacterType;
+            AZStd::string CharacterId;
+            AZStd::string CharacterName;
+            AZStd::string CharacterType;
 
             CharacterResult() :
                 PlayFabBaseModel(),
@@ -1931,7 +1931,7 @@ namespace PlayFab
 
         inline CloudScriptRevisionOption readCloudScriptRevisionOptionFromValue(const rapidjson::Value& obj)
         {
-            static std::map<Aws::String, CloudScriptRevisionOption> _CloudScriptRevisionOptionMap;
+            static std::map<AZStd::string, CloudScriptRevisionOption> _CloudScriptRevisionOptionMap;
             if (_CloudScriptRevisionOptionMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -1950,7 +1950,7 @@ namespace PlayFab
 
         struct Container_Dictionary_String_String : public PlayFabBaseModel
         {
-            std::map<Aws::String, Aws::String> Data;
+            std::map<AZStd::string, AZStd::string> Data;
 
             Container_Dictionary_String_String() :
                 PlayFabBaseModel(),
@@ -1977,7 +1977,7 @@ namespace PlayFab
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
@@ -2069,7 +2069,7 @@ namespace PlayFab
 
         struct ConfirmPurchaseRequest : public PlayFabBaseModel
         {
-            Aws::String OrderId;
+            AZStd::string OrderId;
 
             ConfirmPurchaseRequest() :
                 PlayFabBaseModel(),
@@ -2108,7 +2108,7 @@ namespace PlayFab
 
         struct ConfirmPurchaseResult : public PlayFabBaseModel
         {
-            Aws::String OrderId;
+            AZStd::string OrderId;
             time_t PurchaseDate;
             std::list<ItemInstance> Items;
 
@@ -2171,9 +2171,9 @@ namespace PlayFab
 
         struct ConsumeItemRequest : public PlayFabBaseModel
         {
-            Aws::String ItemInstanceId;
+            AZStd::string ItemInstanceId;
             Int32 ConsumeCount;
-            Aws::String CharacterId;
+            AZStd::string CharacterId;
 
             ConsumeItemRequest() :
                 PlayFabBaseModel(),
@@ -2222,7 +2222,7 @@ namespace PlayFab
 
         struct ConsumeItemResult : public PlayFabBaseModel
         {
-            Aws::String ItemInstanceId;
+            AZStd::string ItemInstanceId;
             Int32 RemainingUses;
 
             ConsumeItemResult() :
@@ -2293,7 +2293,7 @@ namespace PlayFab
 
         inline ContinentCode readContinentCodeFromValue(const rapidjson::Value& obj)
         {
-            static std::map<Aws::String, ContinentCode> _ContinentCodeMap;
+            static std::map<AZStd::string, ContinentCode> _ContinentCodeMap;
             if (_ContinentCodeMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -2826,7 +2826,7 @@ namespace PlayFab
 
         inline CountryCode readCountryCodeFromValue(const rapidjson::Value& obj)
         {
-            static std::map<Aws::String, CountryCode> _CountryCodeMap;
+            static std::map<AZStd::string, CountryCode> _CountryCodeMap;
             if (_CountryCodeMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -3091,7 +3091,7 @@ namespace PlayFab
 
         struct CreateSharedGroupRequest : public PlayFabBaseModel
         {
-            Aws::String SharedGroupId;
+            AZStd::string SharedGroupId;
 
             CreateSharedGroupRequest() :
                 PlayFabBaseModel(),
@@ -3130,7 +3130,7 @@ namespace PlayFab
 
         struct CreateSharedGroupResult : public PlayFabBaseModel
         {
-            Aws::String SharedGroupId;
+            AZStd::string SharedGroupId;
 
             CreateSharedGroupResult() :
                 PlayFabBaseModel(),
@@ -3505,7 +3505,7 @@ namespace PlayFab
 
         inline Currency readCurrencyFromValue(const rapidjson::Value& obj)
         {
-            static std::map<Aws::String, Currency> _CurrencyMap;
+            static std::map<AZStd::string, Currency> _CurrencyMap;
             if (_CurrencyMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -3709,7 +3709,7 @@ namespace PlayFab
 
         inline Region readRegionFromValue(const rapidjson::Value& obj)
         {
-            static std::map<Aws::String, Region> _RegionMap;
+            static std::map<AZStd::string, Region> _RegionMap;
             if (_RegionMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -3733,9 +3733,9 @@ namespace PlayFab
         struct CurrentGamesRequest : public PlayFabBaseModel
         {
             Boxed<Region> pfRegion;
-            Aws::String BuildVersion;
-            Aws::String GameMode;
-            Aws::String StatisticName;
+            AZStd::string BuildVersion;
+            AZStd::string GameMode;
+            AZStd::string StatisticName;
             CollectionFilter* TagFilter;
 
             CurrentGamesRequest() :
@@ -3812,7 +3812,7 @@ namespace PlayFab
 
         inline GameInstanceState readGameInstanceStateFromValue(const rapidjson::Value& obj)
         {
-            static std::map<Aws::String, GameInstanceState> _GameInstanceStateMap;
+            static std::map<AZStd::string, GameInstanceState> _GameInstanceStateMap;
             if (_GameInstanceStateMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -3831,18 +3831,18 @@ namespace PlayFab
         struct GameInfo : public PlayFabBaseModel
         {
             Boxed<Region> pfRegion;
-            Aws::String LobbyID;
-            Aws::String BuildVersion;
-            Aws::String GameMode;
-            Aws::String StatisticName;
+            AZStd::string LobbyID;
+            AZStd::string BuildVersion;
+            AZStd::string GameMode;
+            AZStd::string StatisticName;
             OptionalInt32 MaxPlayers;
-            std::list<Aws::String> PlayerUserIds;
+            std::list<AZStd::string> PlayerUserIds;
             Uint32 RunTime;
             Boxed<GameInstanceState> GameServerState;
-            Aws::String GameServerData;
-            std::map<Aws::String, Aws::String> Tags;
+            AZStd::string GameServerData;
+            std::map<AZStd::string, AZStd::string> Tags;
             OptionalTime LastHeartbeat;
-            Aws::String ServerHostname;
+            AZStd::string ServerHostname;
             OptionalInt32 ServerPort;
 
             GameInfo() :
@@ -3902,7 +3902,7 @@ namespace PlayFab
                 if (!PlayerUserIds.empty()) {
                     writer.String("PlayerUserIds");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = PlayerUserIds.begin(); iter != PlayerUserIds.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = PlayerUserIds.begin(); iter != PlayerUserIds.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -3913,7 +3913,7 @@ namespace PlayFab
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartObject();
-                    for (std::map<Aws::String, Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); ++iter) {
+                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
@@ -4066,7 +4066,7 @@ namespace PlayFab
 
         struct ExecuteCloudScriptRequest : public PlayFabBaseModel
         {
-            Aws::String FunctionName;
+            AZStd::string FunctionName;
             MultitypeVar FunctionParameter;
             Boxed<CloudScriptRevisionOption> RevisionSelection;
             OptionalInt32 SpecificRevision;
@@ -4129,8 +4129,8 @@ namespace PlayFab
 
         struct LogStatement : public PlayFabBaseModel
         {
-            Aws::String Level;
-            Aws::String Message;
+            AZStd::string Level;
+            AZStd::string Message;
             MultitypeVar Data;
 
             LogStatement() :
@@ -4180,9 +4180,9 @@ namespace PlayFab
 
         struct ScriptExecutionError : public PlayFabBaseModel
         {
-            Aws::String Error;
-            Aws::String Message;
-            Aws::String StackTrace;
+            AZStd::string Error;
+            AZStd::string Message;
+            AZStd::string StackTrace;
 
             ScriptExecutionError() :
                 PlayFabBaseModel(),
@@ -4231,7 +4231,7 @@ namespace PlayFab
 
         struct ExecuteCloudScriptResult : public PlayFabBaseModel
         {
-            Aws::String FunctionName;
+            AZStd::string FunctionName;
             Int32 Revision;
             MultitypeVar FunctionResult;
             OptionalBool FunctionResultTooLarge;
@@ -4349,8 +4349,8 @@ namespace PlayFab
 
         struct FacebookPlayFabIdPair : public PlayFabBaseModel
         {
-            Aws::String FacebookId;
-            Aws::String PlayFabId;
+            AZStd::string FacebookId;
+            AZStd::string PlayFabId;
 
             FacebookPlayFabIdPair() :
                 PlayFabBaseModel(),
@@ -4394,8 +4394,8 @@ namespace PlayFab
 
         struct UserFacebookInfo : public PlayFabBaseModel
         {
-            Aws::String FacebookId;
-            Aws::String FullName;
+            AZStd::string FacebookId;
+            AZStd::string FullName;
 
             UserFacebookInfo() :
                 PlayFabBaseModel(),
@@ -4461,7 +4461,7 @@ namespace PlayFab
 
         inline TitleActivationStatus readTitleActivationStatusFromValue(const rapidjson::Value& obj)
         {
-            static std::map<Aws::String, TitleActivationStatus> _TitleActivationStatusMap;
+            static std::map<AZStd::string, TitleActivationStatus> _TitleActivationStatusMap;
             if (_TitleActivationStatusMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -4482,8 +4482,8 @@ namespace PlayFab
 
         struct UserSteamInfo : public PlayFabBaseModel
         {
-            Aws::String SteamId;
-            Aws::String SteamCountry;
+            AZStd::string SteamId;
+            AZStd::string SteamCountry;
             Boxed<Currency> SteamCurrency;
             Boxed<TitleActivationStatus> SteamActivationStatus;
 
@@ -4539,7 +4539,7 @@ namespace PlayFab
 
         struct UserGameCenterInfo : public PlayFabBaseModel
         {
-            Aws::String GameCenterId;
+            AZStd::string GameCenterId;
 
             UserGameCenterInfo() :
                 PlayFabBaseModel(),
@@ -4578,11 +4578,11 @@ namespace PlayFab
 
         struct FriendInfo : public PlayFabBaseModel
         {
-            Aws::String FriendPlayFabId;
-            Aws::String Username;
-            Aws::String TitleDisplayName;
-            std::list<Aws::String> Tags;
-            Aws::String CurrentMatchmakerLobbyId;
+            AZStd::string FriendPlayFabId;
+            AZStd::string Username;
+            AZStd::string TitleDisplayName;
+            std::list<AZStd::string> Tags;
+            AZStd::string CurrentMatchmakerLobbyId;
             UserFacebookInfo* FacebookInfo;
             UserSteamInfo* SteamInfo;
             UserGameCenterInfo* GameCenterInfo;
@@ -4632,7 +4632,7 @@ namespace PlayFab
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -4674,8 +4674,8 @@ namespace PlayFab
 
         struct GameCenterPlayFabIdPair : public PlayFabBaseModel
         {
-            Aws::String GameCenterId;
-            Aws::String PlayFabId;
+            AZStd::string GameCenterId;
+            AZStd::string PlayFabId;
 
             GameCenterPlayFabIdPair() :
                 PlayFabBaseModel(),
@@ -4719,8 +4719,8 @@ namespace PlayFab
 
         struct GameServerRegionsRequest : public PlayFabBaseModel
         {
-            Aws::String BuildVersion;
-            Aws::String TitleId;
+            AZStd::string BuildVersion;
+            AZStd::string TitleId;
 
             GameServerRegionsRequest() :
                 PlayFabBaseModel(),
@@ -4765,9 +4765,9 @@ namespace PlayFab
         struct RegionInfo : public PlayFabBaseModel
         {
             Boxed<Region> pfRegion;
-            Aws::String Name;
+            AZStd::string Name;
             bool Available;
-            Aws::String PingUrl;
+            AZStd::string PingUrl;
 
             RegionInfo() :
                 PlayFabBaseModel(),
@@ -4873,7 +4873,7 @@ namespace PlayFab
         struct GenericPlayFabIdPair : public PlayFabBaseModel
         {
             GenericServiceId* GenericId;
-            Aws::String PlayFabId;
+            AZStd::string PlayFabId;
 
             GenericPlayFabIdPair() :
                 PlayFabBaseModel(),
@@ -4918,10 +4918,10 @@ namespace PlayFab
 
         struct GetAccountInfoRequest : public PlayFabBaseModel
         {
-            Aws::String PlayFabId;
-            Aws::String Username;
-            Aws::String Email;
-            Aws::String TitleDisplayName;
+            AZStd::string PlayFabId;
+            AZStd::string Username;
+            AZStd::string Email;
+            AZStd::string TitleDisplayName;
 
             GetAccountInfoRequest() :
                 PlayFabBaseModel(),
@@ -5023,7 +5023,7 @@ namespace PlayFab
 
         inline UserOrigination readUserOriginationFromValue(const rapidjson::Value& obj)
         {
-            static std::map<Aws::String, UserOrigination> _UserOriginationMap;
+            static std::map<AZStd::string, UserOrigination> _UserOriginationMap;
             if (_UserOriginationMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -5057,13 +5057,13 @@ namespace PlayFab
 
         struct UserTitleInfo : public PlayFabBaseModel
         {
-            Aws::String DisplayName;
+            AZStd::string DisplayName;
             Boxed<UserOrigination> Origination;
             time_t Created;
             OptionalTime LastLogin;
             OptionalTime FirstLogin;
             OptionalBool isBanned;
-            Aws::String AvatarUrl;
+            AZStd::string AvatarUrl;
 
             UserTitleInfo() :
                 PlayFabBaseModel(),
@@ -5132,7 +5132,7 @@ namespace PlayFab
 
         struct UserPrivateAccountInfo : public PlayFabBaseModel
         {
-            Aws::String Email;
+            AZStd::string Email;
 
             UserPrivateAccountInfo() :
                 PlayFabBaseModel(),
@@ -5171,7 +5171,7 @@ namespace PlayFab
 
         struct UserIosDeviceInfo : public PlayFabBaseModel
         {
-            Aws::String IosDeviceId;
+            AZStd::string IosDeviceId;
 
             UserIosDeviceInfo() :
                 PlayFabBaseModel(),
@@ -5210,7 +5210,7 @@ namespace PlayFab
 
         struct UserAndroidDeviceInfo : public PlayFabBaseModel
         {
-            Aws::String AndroidDeviceId;
+            AZStd::string AndroidDeviceId;
 
             UserAndroidDeviceInfo() :
                 PlayFabBaseModel(),
@@ -5249,8 +5249,8 @@ namespace PlayFab
 
         struct UserKongregateInfo : public PlayFabBaseModel
         {
-            Aws::String KongregateId;
-            Aws::String KongregateName;
+            AZStd::string KongregateId;
+            AZStd::string KongregateName;
 
             UserKongregateInfo() :
                 PlayFabBaseModel(),
@@ -5294,8 +5294,8 @@ namespace PlayFab
 
         struct UserTwitchInfo : public PlayFabBaseModel
         {
-            Aws::String TwitchId;
-            Aws::String TwitchUserName;
+            AZStd::string TwitchId;
+            AZStd::string TwitchUserName;
 
             UserTwitchInfo() :
                 PlayFabBaseModel(),
@@ -5339,8 +5339,8 @@ namespace PlayFab
 
         struct UserPsnInfo : public PlayFabBaseModel
         {
-            Aws::String PsnAccountId;
-            Aws::String PsnOnlineId;
+            AZStd::string PsnAccountId;
+            AZStd::string PsnOnlineId;
 
             UserPsnInfo() :
                 PlayFabBaseModel(),
@@ -5384,10 +5384,10 @@ namespace PlayFab
 
         struct UserGoogleInfo : public PlayFabBaseModel
         {
-            Aws::String GoogleId;
-            Aws::String GoogleEmail;
-            Aws::String GoogleLocale;
-            Aws::String GoogleGender;
+            AZStd::string GoogleId;
+            AZStd::string GoogleEmail;
+            AZStd::string GoogleLocale;
+            AZStd::string GoogleGender;
 
             UserGoogleInfo() :
                 PlayFabBaseModel(),
@@ -5441,7 +5441,7 @@ namespace PlayFab
 
         struct UserXboxInfo : public PlayFabBaseModel
         {
-            Aws::String XboxUserId;
+            AZStd::string XboxUserId;
 
             UserXboxInfo() :
                 PlayFabBaseModel(),
@@ -5480,7 +5480,7 @@ namespace PlayFab
 
         struct UserCustomIdInfo : public PlayFabBaseModel
         {
-            Aws::String CustomId;
+            AZStd::string CustomId;
 
             UserCustomIdInfo() :
                 PlayFabBaseModel(),
@@ -5519,9 +5519,9 @@ namespace PlayFab
 
         struct UserAccountInfo : public PlayFabBaseModel
         {
-            Aws::String PlayFabId;
+            AZStd::string PlayFabId;
             time_t Created;
-            Aws::String Username;
+            AZStd::string Username;
             UserTitleInfo* TitleInfo;
             UserPrivateAccountInfo* PrivateInfo;
             UserFacebookInfo* FacebookInfo;
@@ -5701,7 +5701,7 @@ namespace PlayFab
 
         struct GetCatalogItemsRequest : public PlayFabBaseModel
         {
-            Aws::String CatalogVersion;
+            AZStd::string CatalogVersion;
 
             GetCatalogItemsRequest() :
                 PlayFabBaseModel(),
@@ -5791,9 +5791,9 @@ namespace PlayFab
 
         struct GetCharacterDataRequest : public PlayFabBaseModel
         {
-            Aws::String PlayFabId;
-            Aws::String CharacterId;
-            std::list<Aws::String> Keys;
+            AZStd::string PlayFabId;
+            AZStd::string CharacterId;
+            std::list<AZStd::string> Keys;
             OptionalUint32 IfChangedFromDataVersion;
 
             GetCharacterDataRequest() :
@@ -5829,7 +5829,7 @@ namespace PlayFab
                 if (!Keys.empty()) {
                     writer.String("Keys");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -5876,7 +5876,7 @@ namespace PlayFab
 
         inline UserDataPermission readUserDataPermissionFromValue(const rapidjson::Value& obj)
         {
-            static std::map<Aws::String, UserDataPermission> _UserDataPermissionMap;
+            static std::map<AZStd::string, UserDataPermission> _UserDataPermissionMap;
             if (_UserDataPermissionMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -5894,7 +5894,7 @@ namespace PlayFab
 
         struct UserDataRecord : public PlayFabBaseModel
         {
-            Aws::String Value;
+            AZStd::string Value;
             time_t LastUpdated;
             Boxed<UserDataPermission> Permission;
 
@@ -5945,8 +5945,8 @@ namespace PlayFab
 
         struct GetCharacterDataResult : public PlayFabBaseModel
         {
-            Aws::String CharacterId;
-            std::map<Aws::String, UserDataRecord> Data;
+            AZStd::string CharacterId;
+            std::map<AZStd::string, UserDataRecord> Data;
             Uint32 DataVersion;
 
             GetCharacterDataResult() :
@@ -5979,7 +5979,7 @@ namespace PlayFab
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<Aws::String, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (std::map<AZStd::string, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
@@ -6007,8 +6007,8 @@ namespace PlayFab
 
         struct GetCharacterInventoryRequest : public PlayFabBaseModel
         {
-            Aws::String CharacterId;
-            Aws::String CatalogVersion;
+            AZStd::string CharacterId;
+            AZStd::string CatalogVersion;
 
             GetCharacterInventoryRequest() :
                 PlayFabBaseModel(),
@@ -6103,10 +6103,10 @@ namespace PlayFab
 
         struct GetCharacterInventoryResult : public PlayFabBaseModel
         {
-            Aws::String CharacterId;
+            AZStd::string CharacterId;
             std::list<ItemInstance> Inventory;
-            std::map<Aws::String, Int32> VirtualCurrency;
-            std::map<Aws::String, VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
+            std::map<AZStd::string, Int32> VirtualCurrency;
+            std::map<AZStd::string, VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
 
             GetCharacterInventoryResult() :
                 PlayFabBaseModel(),
@@ -6148,7 +6148,7 @@ namespace PlayFab
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
-                    for (std::map<Aws::String, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                    for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Int(iter->second);
                     }
                     writer.EndObject();
@@ -6156,7 +6156,7 @@ namespace PlayFab
                 if (!VirtualCurrencyRechargeTimes.empty()) {
                     writer.String("VirtualCurrencyRechargeTimes");
                     writer.StartObject();
-                    for (std::map<Aws::String, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
+                    for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
                         writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
@@ -6194,8 +6194,8 @@ namespace PlayFab
 
         struct GetCharacterLeaderboardRequest : public PlayFabBaseModel
         {
-            Aws::String CharacterType;
-            Aws::String StatisticName;
+            AZStd::string CharacterType;
+            AZStd::string StatisticName;
             Int32 StartPosition;
             OptionalInt32 MaxResultsCount;
 
@@ -6302,7 +6302,7 @@ namespace PlayFab
 
         struct GetCharacterStatisticsRequest : public PlayFabBaseModel
         {
-            Aws::String CharacterId;
+            AZStd::string CharacterId;
 
             GetCharacterStatisticsRequest() :
                 PlayFabBaseModel(),
@@ -6341,7 +6341,7 @@ namespace PlayFab
 
         struct GetCharacterStatisticsResult : public PlayFabBaseModel
         {
-            std::map<Aws::String, Int32> CharacterStatistics;
+            std::map<AZStd::string, Int32> CharacterStatistics;
 
             GetCharacterStatisticsResult() :
                 PlayFabBaseModel(),
@@ -6368,7 +6368,7 @@ namespace PlayFab
                 if (!CharacterStatistics.empty()) {
                     writer.String("CharacterStatistics");
                     writer.StartObject();
-                    for (std::map<Aws::String, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
+                    for (std::map<AZStd::string, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Int(iter->second);
                     }
                     writer.EndObject();
@@ -6391,8 +6391,8 @@ namespace PlayFab
 
         struct GetContentDownloadUrlRequest : public PlayFabBaseModel
         {
-            Aws::String Key;
-            Aws::String HttpMethod;
+            AZStd::string Key;
+            AZStd::string HttpMethod;
             OptionalBool ThruCDN;
 
             GetContentDownloadUrlRequest() :
@@ -6442,7 +6442,7 @@ namespace PlayFab
 
         struct GetContentDownloadUrlResult : public PlayFabBaseModel
         {
-            Aws::String URL;
+            AZStd::string URL;
 
             GetContentDownloadUrlResult() :
                 PlayFabBaseModel(),
@@ -6598,9 +6598,9 @@ namespace PlayFab
 
         struct GetFriendLeaderboardAroundPlayerRequest : public PlayFabBaseModel
         {
-            Aws::String StatisticName;
+            AZStd::string StatisticName;
             OptionalInt32 MaxResultsCount;
-            Aws::String PlayFabId;
+            AZStd::string PlayFabId;
             OptionalBool IncludeSteamFriends;
             OptionalBool IncludeFacebookFriends;
             OptionalInt32 Version;
@@ -6720,7 +6720,7 @@ namespace PlayFab
 
         inline LoginIdentityProvider readLoginIdentityProviderFromValue(const rapidjson::Value& obj)
         {
-            static std::map<Aws::String, LoginIdentityProvider> _LoginIdentityProviderMap;
+            static std::map<AZStd::string, LoginIdentityProvider> _LoginIdentityProviderMap;
             if (_LoginIdentityProviderMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -6752,7 +6752,7 @@ namespace PlayFab
         {
             Boxed<ContinentCode> pfContinentCode;
             Boxed<CountryCode> pfCountryCode;
-            Aws::String City;
+            AZStd::string City;
             OptionalDouble Latitude;
             OptionalDouble Longitude;
 
@@ -6813,7 +6813,7 @@ namespace PlayFab
 
         struct TagModel : public PlayFabBaseModel
         {
-            Aws::String TagValue;
+            AZStd::string TagValue;
 
             TagModel() :
                 PlayFabBaseModel(),
@@ -6868,7 +6868,7 @@ namespace PlayFab
 
         inline PushNotificationPlatform readPushNotificationPlatformFromValue(const rapidjson::Value& obj)
         {
-            static std::map<Aws::String, PushNotificationPlatform> _PushNotificationPlatformMap;
+            static std::map<AZStd::string, PushNotificationPlatform> _PushNotificationPlatformMap;
             if (_PushNotificationPlatformMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -6887,7 +6887,7 @@ namespace PlayFab
         struct PushNotificationRegistrationModel : public PlayFabBaseModel
         {
             Boxed<PushNotificationPlatform> Platform;
-            Aws::String NotificationEndpointARN;
+            AZStd::string NotificationEndpointARN;
 
             PushNotificationRegistrationModel() :
                 PlayFabBaseModel(),
@@ -6932,9 +6932,9 @@ namespace PlayFab
         struct LinkedPlatformAccountModel : public PlayFabBaseModel
         {
             Boxed<LoginIdentityProvider> Platform;
-            Aws::String PlatformUserId;
-            Aws::String Username;
-            Aws::String Email;
+            AZStd::string PlatformUserId;
+            AZStd::string Username;
+            AZStd::string Email;
 
             LinkedPlatformAccountModel() :
                 PlayFabBaseModel(),
@@ -6988,9 +6988,9 @@ namespace PlayFab
 
         struct ValueToDateModel : public PlayFabBaseModel
         {
-            Aws::String Currency;
+            AZStd::string Currency;
             Uint32 TotalValue;
-            Aws::String TotalValueAsDecimal;
+            AZStd::string TotalValueAsDecimal;
 
             ValueToDateModel() :
                 PlayFabBaseModel(),
@@ -7039,7 +7039,7 @@ namespace PlayFab
 
         struct VirtualCurrencyBalanceModel : public PlayFabBaseModel
         {
-            Aws::String Currency;
+            AZStd::string Currency;
             Int32 TotalValue;
 
             VirtualCurrencyBalanceModel() :
@@ -7084,7 +7084,7 @@ namespace PlayFab
 
         struct StatisticModel : public PlayFabBaseModel
         {
-            Aws::String Name;
+            AZStd::string Name;
             Int32 Version;
             Int32 Value;
 
@@ -7135,16 +7135,16 @@ namespace PlayFab
 
         struct PlayerProfileModel : public PlayFabBaseModel
         {
-            Aws::String PublisherId;
-            Aws::String TitleId;
-            Aws::String PlayerId;
+            AZStd::string PublisherId;
+            AZStd::string TitleId;
+            AZStd::string PlayerId;
             OptionalTime Created;
             Boxed<LoginIdentityProvider> Origination;
             OptionalTime LastLogin;
             OptionalTime BannedUntil;
             std::list<LocationModel> Locations;
-            Aws::String DisplayName;
-            Aws::String AvatarUrl;
+            AZStd::string DisplayName;
+            AZStd::string AvatarUrl;
             std::list<TagModel> Tags;
             std::list<PushNotificationRegistrationModel> PushNotificationRegistrations;
             std::list<LinkedPlatformAccountModel> LinkedAccounts;
@@ -7372,8 +7372,8 @@ namespace PlayFab
 
         struct PlayerLeaderboardEntry : public PlayFabBaseModel
         {
-            Aws::String PlayFabId;
-            Aws::String DisplayName;
+            AZStd::string PlayFabId;
+            AZStd::string DisplayName;
             Int32 StatValue;
             Int32 Position;
             PlayerProfileModel* Profile;
@@ -7499,7 +7499,7 @@ namespace PlayFab
 
         struct GetFriendLeaderboardRequest : public PlayFabBaseModel
         {
-            Aws::String StatisticName;
+            AZStd::string StatisticName;
             Int32 StartPosition;
             OptionalInt32 MaxResultsCount;
             OptionalBool IncludeSteamFriends;
@@ -7677,9 +7677,9 @@ namespace PlayFab
 
         struct GetLeaderboardAroundCharacterRequest : public PlayFabBaseModel
         {
-            Aws::String StatisticName;
-            Aws::String CharacterId;
-            Aws::String CharacterType;
+            AZStd::string StatisticName;
+            AZStd::string CharacterId;
+            AZStd::string CharacterType;
             OptionalInt32 MaxResultsCount;
 
             GetLeaderboardAroundCharacterRequest() :
@@ -7785,8 +7785,8 @@ namespace PlayFab
 
         struct GetLeaderboardAroundPlayerRequest : public PlayFabBaseModel
         {
-            Aws::String PlayFabId;
-            Aws::String StatisticName;
+            AZStd::string PlayFabId;
+            AZStd::string StatisticName;
             OptionalInt32 MaxResultsCount;
             OptionalInt32 Version;
             OptionalBool UseSpecificVersion;
@@ -7918,7 +7918,7 @@ namespace PlayFab
 
         struct GetLeaderboardForUsersCharactersRequest : public PlayFabBaseModel
         {
-            Aws::String StatisticName;
+            AZStd::string StatisticName;
             Int32 MaxResultsCount;
 
             GetLeaderboardForUsersCharactersRequest() :
@@ -8014,7 +8014,7 @@ namespace PlayFab
 
         struct GetLeaderboardRequest : public PlayFabBaseModel
         {
-            Aws::String StatisticName;
+            AZStd::string StatisticName;
             Int32 StartPosition;
             OptionalInt32 MaxResultsCount;
             OptionalInt32 Version;
@@ -8147,7 +8147,7 @@ namespace PlayFab
 
         struct GetPhotonAuthenticationTokenRequest : public PlayFabBaseModel
         {
-            Aws::String PhotonApplicationId;
+            AZStd::string PhotonApplicationId;
 
             GetPhotonAuthenticationTokenRequest() :
                 PlayFabBaseModel(),
@@ -8186,7 +8186,7 @@ namespace PlayFab
 
         struct GetPhotonAuthenticationTokenResult : public PlayFabBaseModel
         {
-            Aws::String PhotonCustomAuthenticationToken;
+            AZStd::string PhotonCustomAuthenticationToken;
 
             GetPhotonAuthenticationTokenResult() :
                 PlayFabBaseModel(),
@@ -8229,15 +8229,15 @@ namespace PlayFab
             bool GetUserInventory;
             bool GetUserVirtualCurrency;
             bool GetUserData;
-            std::list<Aws::String> UserDataKeys;
+            std::list<AZStd::string> UserDataKeys;
             bool GetUserReadOnlyData;
-            std::list<Aws::String> UserReadOnlyDataKeys;
+            std::list<AZStd::string> UserReadOnlyDataKeys;
             bool GetCharacterInventories;
             bool GetCharacterList;
             bool GetTitleData;
-            std::list<Aws::String> TitleDataKeys;
+            std::list<AZStd::string> TitleDataKeys;
             bool GetPlayerStatistics;
-            std::list<Aws::String> PlayerStatisticNames;
+            std::list<AZStd::string> PlayerStatisticNames;
             bool GetPlayerProfile;
             PlayerProfileViewConstraints* ProfileConstraints;
 
@@ -8299,7 +8299,7 @@ namespace PlayFab
                 if (!UserDataKeys.empty()) {
                     writer.String("UserDataKeys");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = UserDataKeys.begin(); iter != UserDataKeys.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = UserDataKeys.begin(); iter != UserDataKeys.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -8308,7 +8308,7 @@ namespace PlayFab
                 if (!UserReadOnlyDataKeys.empty()) {
                     writer.String("UserReadOnlyDataKeys");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = UserReadOnlyDataKeys.begin(); iter != UserReadOnlyDataKeys.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = UserReadOnlyDataKeys.begin(); iter != UserReadOnlyDataKeys.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -8319,7 +8319,7 @@ namespace PlayFab
                 if (!TitleDataKeys.empty()) {
                     writer.String("TitleDataKeys");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = TitleDataKeys.begin(); iter != TitleDataKeys.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = TitleDataKeys.begin(); iter != TitleDataKeys.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -8328,7 +8328,7 @@ namespace PlayFab
                 if (!PlayerStatisticNames.empty()) {
                     writer.String("PlayerStatisticNames");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = PlayerStatisticNames.begin(); iter != PlayerStatisticNames.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = PlayerStatisticNames.begin(); iter != PlayerStatisticNames.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -8397,7 +8397,7 @@ namespace PlayFab
 
         struct GetPlayerCombinedInfoRequest : public PlayFabBaseModel
         {
-            Aws::String PlayFabId;
+            AZStd::string PlayFabId;
             GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
             GetPlayerCombinedInfoRequest() :
@@ -8442,7 +8442,7 @@ namespace PlayFab
 
         struct StatisticValue : public PlayFabBaseModel
         {
-            Aws::String StatisticName;
+            AZStd::string StatisticName;
             Int32 Value;
             Uint32 Version;
 
@@ -8495,15 +8495,15 @@ namespace PlayFab
         {
             UserAccountInfo* AccountInfo;
             std::list<ItemInstance> UserInventory;
-            std::map<Aws::String, Int32> UserVirtualCurrency;
-            std::map<Aws::String, VirtualCurrencyRechargeTime> UserVirtualCurrencyRechargeTimes;
-            std::map<Aws::String, UserDataRecord> UserData;
+            std::map<AZStd::string, Int32> UserVirtualCurrency;
+            std::map<AZStd::string, VirtualCurrencyRechargeTime> UserVirtualCurrencyRechargeTimes;
+            std::map<AZStd::string, UserDataRecord> UserData;
             Uint32 UserDataVersion;
-            std::map<Aws::String, UserDataRecord> UserReadOnlyData;
+            std::map<AZStd::string, UserDataRecord> UserReadOnlyData;
             Uint32 UserReadOnlyDataVersion;
             std::list<CharacterResult> CharacterList;
             std::list<CharacterInventory> CharacterInventories;
-            std::map<Aws::String, Aws::String> TitleData;
+            std::map<AZStd::string, AZStd::string> TitleData;
             std::list<StatisticValue> PlayerStatistics;
             PlayerProfileModel* PlayerProfile;
 
@@ -8567,7 +8567,7 @@ namespace PlayFab
                 if (!UserVirtualCurrency.empty()) {
                     writer.String("UserVirtualCurrency");
                     writer.StartObject();
-                    for (std::map<Aws::String, Int32>::iterator iter = UserVirtualCurrency.begin(); iter != UserVirtualCurrency.end(); ++iter) {
+                    for (std::map<AZStd::string, Int32>::iterator iter = UserVirtualCurrency.begin(); iter != UserVirtualCurrency.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Int(iter->second);
                     }
                     writer.EndObject();
@@ -8575,7 +8575,7 @@ namespace PlayFab
                 if (!UserVirtualCurrencyRechargeTimes.empty()) {
                     writer.String("UserVirtualCurrencyRechargeTimes");
                     writer.StartObject();
-                    for (std::map<Aws::String, VirtualCurrencyRechargeTime>::iterator iter = UserVirtualCurrencyRechargeTimes.begin(); iter != UserVirtualCurrencyRechargeTimes.end(); ++iter) {
+                    for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = UserVirtualCurrencyRechargeTimes.begin(); iter != UserVirtualCurrencyRechargeTimes.end(); ++iter) {
                         writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
@@ -8583,7 +8583,7 @@ namespace PlayFab
                 if (!UserData.empty()) {
                     writer.String("UserData");
                     writer.StartObject();
-                    for (std::map<Aws::String, UserDataRecord>::iterator iter = UserData.begin(); iter != UserData.end(); ++iter) {
+                    for (std::map<AZStd::string, UserDataRecord>::iterator iter = UserData.begin(); iter != UserData.end(); ++iter) {
                         writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
@@ -8592,7 +8592,7 @@ namespace PlayFab
                 if (!UserReadOnlyData.empty()) {
                     writer.String("UserReadOnlyData");
                     writer.StartObject();
-                    for (std::map<Aws::String, UserDataRecord>::iterator iter = UserReadOnlyData.begin(); iter != UserReadOnlyData.end(); ++iter) {
+                    for (std::map<AZStd::string, UserDataRecord>::iterator iter = UserReadOnlyData.begin(); iter != UserReadOnlyData.end(); ++iter) {
                         writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
@@ -8617,7 +8617,7 @@ namespace PlayFab
                 if (!TitleData.empty()) {
                     writer.String("TitleData");
                     writer.StartObject();
-                    for (std::map<Aws::String, Aws::String>::iterator iter = TitleData.begin(); iter != TitleData.end(); ++iter) {
+                    for (std::map<AZStd::string, AZStd::string>::iterator iter = TitleData.begin(); iter != TitleData.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
@@ -8709,7 +8709,7 @@ namespace PlayFab
 
         struct GetPlayerCombinedInfoResult : public PlayFabBaseModel
         {
-            Aws::String PlayFabId;
+            AZStd::string PlayFabId;
             GetPlayerCombinedInfoResultPayload* InfoResultPayload;
 
             GetPlayerCombinedInfoResult() :
@@ -8755,7 +8755,7 @@ namespace PlayFab
 
         struct GetPlayerProfileRequest : public PlayFabBaseModel
         {
-            Aws::String PlayFabId;
+            AZStd::string PlayFabId;
             PlayerProfileViewConstraints* ProfileConstraints;
 
             GetPlayerProfileRequest() :
@@ -8874,9 +8874,9 @@ namespace PlayFab
 
         struct GetSegmentResult : public PlayFabBaseModel
         {
-            Aws::String Id;
-            Aws::String Name;
-            Aws::String ABTestParent;
+            AZStd::string Id;
+            AZStd::string Name;
+            AZStd::string ABTestParent;
 
             GetSegmentResult() :
                 PlayFabBaseModel(),
@@ -8976,7 +8976,7 @@ namespace PlayFab
 
         struct StatisticNameVersion : public PlayFabBaseModel
         {
-            Aws::String StatisticName;
+            AZStd::string StatisticName;
             Uint32 Version;
 
             StatisticNameVersion() :
@@ -9021,7 +9021,7 @@ namespace PlayFab
 
         struct GetPlayerStatisticsRequest : public PlayFabBaseModel
         {
-            std::list<Aws::String> StatisticNames;
+            std::list<AZStd::string> StatisticNames;
             std::list<StatisticNameVersion> StatisticNameVersions;
 
             GetPlayerStatisticsRequest() :
@@ -9051,7 +9051,7 @@ namespace PlayFab
                 if (!StatisticNames.empty()) {
                     writer.String("StatisticNames");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = StatisticNames.begin(); iter != StatisticNames.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = StatisticNames.begin(); iter != StatisticNames.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -9141,7 +9141,7 @@ namespace PlayFab
 
         struct GetPlayerStatisticVersionsRequest : public PlayFabBaseModel
         {
-            Aws::String StatisticName;
+            AZStd::string StatisticName;
 
             GetPlayerStatisticVersionsRequest() :
                 PlayFabBaseModel(),
@@ -9180,7 +9180,7 @@ namespace PlayFab
 
         struct PlayerStatisticVersion : public PlayFabBaseModel
         {
-            Aws::String StatisticName;
+            AZStd::string StatisticName;
             Uint32 Version;
             OptionalTime ScheduledActivationTime;
             time_t ActivationTime;
@@ -9300,8 +9300,8 @@ namespace PlayFab
 
         struct GetPlayerTagsRequest : public PlayFabBaseModel
         {
-            Aws::String PlayFabId;
-            Aws::String Namespace;
+            AZStd::string PlayFabId;
+            AZStd::string Namespace;
 
             GetPlayerTagsRequest() :
                 PlayFabBaseModel(),
@@ -9345,8 +9345,8 @@ namespace PlayFab
 
         struct GetPlayerTagsResult : public PlayFabBaseModel
         {
-            Aws::String PlayFabId;
-            std::list<Aws::String> Tags;
+            AZStd::string PlayFabId;
+            std::list<AZStd::string> Tags;
 
             GetPlayerTagsResult() :
                 PlayFabBaseModel(),
@@ -9375,7 +9375,7 @@ namespace PlayFab
                 writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
                 writer.String("Tags");
                 writer.StartArray();
-                for (std::list<Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                for (std::list<AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -9509,7 +9509,7 @@ namespace PlayFab
 
         struct GetPlayFabIDsFromFacebookIDsRequest : public PlayFabBaseModel
         {
-            std::list<Aws::String> FacebookIDs;
+            std::list<AZStd::string> FacebookIDs;
 
             GetPlayFabIDsFromFacebookIDsRequest() :
                 PlayFabBaseModel(),
@@ -9535,7 +9535,7 @@ namespace PlayFab
                 writer.StartObject();
                 writer.String("FacebookIDs");
                 writer.StartArray();
-                for (std::list<Aws::String>::iterator iter = FacebookIDs.begin(); iter != FacebookIDs.end(); iter++) {
+                for (std::list<AZStd::string>::iterator iter = FacebookIDs.begin(); iter != FacebookIDs.end(); iter++) {
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -9610,7 +9610,7 @@ namespace PlayFab
 
         struct GetPlayFabIDsFromGameCenterIDsRequest : public PlayFabBaseModel
         {
-            std::list<Aws::String> GameCenterIDs;
+            std::list<AZStd::string> GameCenterIDs;
 
             GetPlayFabIDsFromGameCenterIDsRequest() :
                 PlayFabBaseModel(),
@@ -9636,7 +9636,7 @@ namespace PlayFab
                 writer.StartObject();
                 writer.String("GameCenterIDs");
                 writer.StartArray();
-                for (std::list<Aws::String>::iterator iter = GameCenterIDs.begin(); iter != GameCenterIDs.end(); iter++) {
+                for (std::list<AZStd::string>::iterator iter = GameCenterIDs.begin(); iter != GameCenterIDs.end(); iter++) {
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -9812,7 +9812,7 @@ namespace PlayFab
 
         struct GetPlayFabIDsFromGoogleIDsRequest : public PlayFabBaseModel
         {
-            std::list<Aws::String> GoogleIDs;
+            std::list<AZStd::string> GoogleIDs;
 
             GetPlayFabIDsFromGoogleIDsRequest() :
                 PlayFabBaseModel(),
@@ -9838,7 +9838,7 @@ namespace PlayFab
                 writer.StartObject();
                 writer.String("GoogleIDs");
                 writer.StartArray();
-                for (std::list<Aws::String>::iterator iter = GoogleIDs.begin(); iter != GoogleIDs.end(); iter++) {
+                for (std::list<AZStd::string>::iterator iter = GoogleIDs.begin(); iter != GoogleIDs.end(); iter++) {
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -9862,8 +9862,8 @@ namespace PlayFab
 
         struct GooglePlayFabIdPair : public PlayFabBaseModel
         {
-            Aws::String GoogleId;
-            Aws::String PlayFabId;
+            AZStd::string GoogleId;
+            AZStd::string PlayFabId;
 
             GooglePlayFabIdPair() :
                 PlayFabBaseModel(),
@@ -9958,7 +9958,7 @@ namespace PlayFab
 
         struct GetPlayFabIDsFromKongregateIDsRequest : public PlayFabBaseModel
         {
-            std::list<Aws::String> KongregateIDs;
+            std::list<AZStd::string> KongregateIDs;
 
             GetPlayFabIDsFromKongregateIDsRequest() :
                 PlayFabBaseModel(),
@@ -9984,7 +9984,7 @@ namespace PlayFab
                 writer.StartObject();
                 writer.String("KongregateIDs");
                 writer.StartArray();
-                for (std::list<Aws::String>::iterator iter = KongregateIDs.begin(); iter != KongregateIDs.end(); iter++) {
+                for (std::list<AZStd::string>::iterator iter = KongregateIDs.begin(); iter != KongregateIDs.end(); iter++) {
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -10008,8 +10008,8 @@ namespace PlayFab
 
         struct KongregatePlayFabIdPair : public PlayFabBaseModel
         {
-            Aws::String KongregateId;
-            Aws::String PlayFabId;
+            AZStd::string KongregateId;
+            AZStd::string PlayFabId;
 
             KongregatePlayFabIdPair() :
                 PlayFabBaseModel(),
@@ -10104,7 +10104,7 @@ namespace PlayFab
 
         struct GetPlayFabIDsFromSteamIDsRequest : public PlayFabBaseModel
         {
-            std::list<Aws::String> SteamStringIDs;
+            std::list<AZStd::string> SteamStringIDs;
 
             GetPlayFabIDsFromSteamIDsRequest() :
                 PlayFabBaseModel(),
@@ -10131,7 +10131,7 @@ namespace PlayFab
                 if (!SteamStringIDs.empty()) {
                     writer.String("SteamStringIDs");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = SteamStringIDs.begin(); iter != SteamStringIDs.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = SteamStringIDs.begin(); iter != SteamStringIDs.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -10155,8 +10155,8 @@ namespace PlayFab
 
         struct SteamPlayFabIdPair : public PlayFabBaseModel
         {
-            Aws::String SteamStringId;
-            Aws::String PlayFabId;
+            AZStd::string SteamStringId;
+            AZStd::string PlayFabId;
 
             SteamPlayFabIdPair() :
                 PlayFabBaseModel(),
@@ -10251,7 +10251,7 @@ namespace PlayFab
 
         struct GetPlayFabIDsFromTwitchIDsRequest : public PlayFabBaseModel
         {
-            std::list<Aws::String> TwitchIds;
+            std::list<AZStd::string> TwitchIds;
 
             GetPlayFabIDsFromTwitchIDsRequest() :
                 PlayFabBaseModel(),
@@ -10277,7 +10277,7 @@ namespace PlayFab
                 writer.StartObject();
                 writer.String("TwitchIds");
                 writer.StartArray();
-                for (std::list<Aws::String>::iterator iter = TwitchIds.begin(); iter != TwitchIds.end(); iter++) {
+                for (std::list<AZStd::string>::iterator iter = TwitchIds.begin(); iter != TwitchIds.end(); iter++) {
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -10301,8 +10301,8 @@ namespace PlayFab
 
         struct TwitchPlayFabIdPair : public PlayFabBaseModel
         {
-            Aws::String TwitchId;
-            Aws::String PlayFabId;
+            AZStd::string TwitchId;
+            AZStd::string PlayFabId;
 
             TwitchPlayFabIdPair() :
                 PlayFabBaseModel(),
@@ -10397,7 +10397,7 @@ namespace PlayFab
 
         struct GetPublisherDataRequest : public PlayFabBaseModel
         {
-            std::list<Aws::String> Keys;
+            std::list<AZStd::string> Keys;
 
             GetPublisherDataRequest() :
                 PlayFabBaseModel(),
@@ -10423,7 +10423,7 @@ namespace PlayFab
                 writer.StartObject();
                 writer.String("Keys");
                 writer.StartArray();
-                for (std::list<Aws::String>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                for (std::list<AZStd::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -10447,7 +10447,7 @@ namespace PlayFab
 
         struct GetPublisherDataResult : public PlayFabBaseModel
         {
-            std::map<Aws::String, Aws::String> Data;
+            std::map<AZStd::string, AZStd::string> Data;
 
             GetPublisherDataResult() :
                 PlayFabBaseModel(),
@@ -10474,7 +10474,7 @@ namespace PlayFab
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
@@ -10497,7 +10497,7 @@ namespace PlayFab
 
         struct GetPurchaseRequest : public PlayFabBaseModel
         {
-            Aws::String OrderId;
+            AZStd::string OrderId;
 
             GetPurchaseRequest() :
                 PlayFabBaseModel(),
@@ -10536,10 +10536,10 @@ namespace PlayFab
 
         struct GetPurchaseResult : public PlayFabBaseModel
         {
-            Aws::String OrderId;
-            Aws::String PaymentProvider;
-            Aws::String TransactionId;
-            Aws::String TransactionStatus;
+            AZStd::string OrderId;
+            AZStd::string PaymentProvider;
+            AZStd::string TransactionId;
+            AZStd::string TransactionStatus;
             time_t PurchaseDate;
 
             GetPurchaseResult() :
@@ -10599,8 +10599,8 @@ namespace PlayFab
 
         struct GetSharedGroupDataRequest : public PlayFabBaseModel
         {
-            Aws::String SharedGroupId;
-            std::list<Aws::String> Keys;
+            AZStd::string SharedGroupId;
+            std::list<AZStd::string> Keys;
             OptionalBool GetMembers;
 
             GetSharedGroupDataRequest() :
@@ -10633,7 +10633,7 @@ namespace PlayFab
                 if (!Keys.empty()) {
                     writer.String("Keys");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -10662,8 +10662,8 @@ namespace PlayFab
 
         struct SharedGroupDataRecord : public PlayFabBaseModel
         {
-            Aws::String Value;
-            Aws::String LastUpdatedBy;
+            AZStd::string Value;
+            AZStd::string LastUpdatedBy;
             time_t LastUpdated;
             Boxed<UserDataPermission> Permission;
 
@@ -10719,8 +10719,8 @@ namespace PlayFab
 
         struct GetSharedGroupDataResult : public PlayFabBaseModel
         {
-            std::map<Aws::String, SharedGroupDataRecord> Data;
-            std::list<Aws::String> Members;
+            std::map<AZStd::string, SharedGroupDataRecord> Data;
+            std::list<AZStd::string> Members;
 
             GetSharedGroupDataResult() :
                 PlayFabBaseModel(),
@@ -10749,7 +10749,7 @@ namespace PlayFab
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<Aws::String, SharedGroupDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (std::map<AZStd::string, SharedGroupDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
@@ -10757,7 +10757,7 @@ namespace PlayFab
                 if (!Members.empty()) {
                     writer.String("Members");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = Members.begin(); iter != Members.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = Members.begin(); iter != Members.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -10787,8 +10787,8 @@ namespace PlayFab
 
         struct GetStoreItemsRequest : public PlayFabBaseModel
         {
-            Aws::String CatalogVersion;
-            Aws::String StoreId;
+            AZStd::string CatalogVersion;
+            AZStd::string StoreId;
 
             GetStoreItemsRequest() :
                 PlayFabBaseModel(),
@@ -10832,9 +10832,9 @@ namespace PlayFab
 
         struct StoreItem : public PlayFabBaseModel
         {
-            Aws::String ItemId;
-            std::map<Aws::String, Uint32> VirtualCurrencyPrices;
-            std::map<Aws::String, Uint32> RealCurrencyPrices;
+            AZStd::string ItemId;
+            std::map<AZStd::string, Uint32> VirtualCurrencyPrices;
+            std::map<AZStd::string, Uint32> RealCurrencyPrices;
             MultitypeVar CustomData;
             OptionalUint32 DisplayPosition;
 
@@ -10872,7 +10872,7 @@ namespace PlayFab
                 if (!VirtualCurrencyPrices.empty()) {
                     writer.String("VirtualCurrencyPrices");
                     writer.StartObject();
-                    for (std::map<Aws::String, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
+                    for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Uint(iter->second);
                     }
                     writer.EndObject();
@@ -10880,7 +10880,7 @@ namespace PlayFab
                 if (!RealCurrencyPrices.empty()) {
                     writer.String("RealCurrencyPrices");
                     writer.StartObject();
-                    for (std::map<Aws::String, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
+                    for (std::map<AZStd::string, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Uint(iter->second);
                     }
                     writer.EndObject();
@@ -10939,7 +10939,7 @@ namespace PlayFab
 
         inline SourceType readSourceTypeFromValue(const rapidjson::Value& obj)
         {
-            static std::map<Aws::String, SourceType> _SourceTypeMap;
+            static std::map<AZStd::string, SourceType> _SourceTypeMap;
             if (_SourceTypeMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -10960,8 +10960,8 @@ namespace PlayFab
 
         struct StoreMarketingModel : public PlayFabBaseModel
         {
-            Aws::String DisplayName;
-            Aws::String Description;
+            AZStd::string DisplayName;
+            AZStd::string Description;
             MultitypeVar Metadata;
 
             StoreMarketingModel() :
@@ -11013,8 +11013,8 @@ namespace PlayFab
         {
             std::list<StoreItem> Store;
             Boxed<SourceType> Source;
-            Aws::String CatalogVersion;
-            Aws::String StoreId;
+            AZStd::string CatalogVersion;
+            AZStd::string StoreId;
             StoreMarketingModel* MarketingData;
 
             GetStoreItemsResult() :
@@ -11159,7 +11159,7 @@ namespace PlayFab
 
         struct GetTitleDataRequest : public PlayFabBaseModel
         {
-            std::list<Aws::String> Keys;
+            std::list<AZStd::string> Keys;
 
             GetTitleDataRequest() :
                 PlayFabBaseModel(),
@@ -11186,7 +11186,7 @@ namespace PlayFab
                 if (!Keys.empty()) {
                     writer.String("Keys");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -11210,7 +11210,7 @@ namespace PlayFab
 
         struct GetTitleDataResult : public PlayFabBaseModel
         {
-            std::map<Aws::String, Aws::String> Data;
+            std::map<AZStd::string, AZStd::string> Data;
 
             GetTitleDataResult() :
                 PlayFabBaseModel(),
@@ -11237,7 +11237,7 @@ namespace PlayFab
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
@@ -11300,9 +11300,9 @@ namespace PlayFab
         struct TitleNewsItem : public PlayFabBaseModel
         {
             time_t Timestamp;
-            Aws::String NewsId;
-            Aws::String Title;
-            Aws::String Body;
+            AZStd::string NewsId;
+            AZStd::string Title;
+            AZStd::string Body;
 
             TitleNewsItem() :
                 PlayFabBaseModel(),
@@ -11407,8 +11407,8 @@ namespace PlayFab
 
         struct GetTradeStatusRequest : public PlayFabBaseModel
         {
-            Aws::String OfferingPlayerId;
-            Aws::String TradeId;
+            AZStd::string OfferingPlayerId;
+            AZStd::string TradeId;
 
             GetTradeStatusRequest() :
                 PlayFabBaseModel(),
@@ -11492,8 +11492,8 @@ namespace PlayFab
 
         struct GetUserDataRequest : public PlayFabBaseModel
         {
-            std::list<Aws::String> Keys;
-            Aws::String PlayFabId;
+            std::list<AZStd::string> Keys;
+            AZStd::string PlayFabId;
             OptionalUint32 IfChangedFromDataVersion;
 
             GetUserDataRequest() :
@@ -11525,7 +11525,7 @@ namespace PlayFab
                 if (!Keys.empty()) {
                     writer.String("Keys");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -11555,7 +11555,7 @@ namespace PlayFab
 
         struct GetUserDataResult : public PlayFabBaseModel
         {
-            std::map<Aws::String, UserDataRecord> Data;
+            std::map<AZStd::string, UserDataRecord> Data;
             Uint32 DataVersion;
 
             GetUserDataResult() :
@@ -11585,7 +11585,7 @@ namespace PlayFab
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<Aws::String, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (std::map<AZStd::string, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
@@ -11645,8 +11645,8 @@ namespace PlayFab
         struct GetUserInventoryResult : public PlayFabBaseModel
         {
             std::list<ItemInstance> Inventory;
-            std::map<Aws::String, Int32> VirtualCurrency;
-            std::map<Aws::String, VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
+            std::map<AZStd::string, Int32> VirtualCurrency;
+            std::map<AZStd::string, VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
 
             GetUserInventoryResult() :
                 PlayFabBaseModel(),
@@ -11685,7 +11685,7 @@ namespace PlayFab
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
-                    for (std::map<Aws::String, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                    for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Int(iter->second);
                     }
                     writer.EndObject();
@@ -11693,7 +11693,7 @@ namespace PlayFab
                 if (!VirtualCurrencyRechargeTimes.empty()) {
                     writer.String("VirtualCurrencyRechargeTimes");
                     writer.StartObject();
-                    for (std::map<Aws::String, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
+                    for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
                         writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
@@ -11729,8 +11729,8 @@ namespace PlayFab
 
         struct GetWindowsHelloChallengeRequest : public PlayFabBaseModel
         {
-            Aws::String TitleId;
-            Aws::String PublicKeyHint;
+            AZStd::string TitleId;
+            AZStd::string PublicKeyHint;
 
             GetWindowsHelloChallengeRequest() :
                 PlayFabBaseModel(),
@@ -11774,7 +11774,7 @@ namespace PlayFab
 
         struct GetWindowsHelloChallengeResponse : public PlayFabBaseModel
         {
-            Aws::String Challenge;
+            AZStd::string Challenge;
 
             GetWindowsHelloChallengeResponse() :
                 PlayFabBaseModel(),
@@ -11813,9 +11813,9 @@ namespace PlayFab
 
         struct GrantCharacterToUserRequest : public PlayFabBaseModel
         {
-            Aws::String CatalogVersion;
-            Aws::String ItemId;
-            Aws::String CharacterName;
+            AZStd::string CatalogVersion;
+            AZStd::string ItemId;
+            AZStd::string CharacterName;
 
             GrantCharacterToUserRequest() :
                 PlayFabBaseModel(),
@@ -11864,8 +11864,8 @@ namespace PlayFab
 
         struct GrantCharacterToUserResult : public PlayFabBaseModel
         {
-            Aws::String CharacterId;
-            Aws::String CharacterType;
+            AZStd::string CharacterId;
+            AZStd::string CharacterType;
             bool Result;
 
             GrantCharacterToUserResult() :
@@ -11915,10 +11915,10 @@ namespace PlayFab
 
         struct ItemPurchaseRequest : public PlayFabBaseModel
         {
-            Aws::String ItemId;
+            AZStd::string ItemId;
             Uint32 Quantity;
-            Aws::String Annotation;
-            std::list<Aws::String> UpgradeFromItems;
+            AZStd::string Annotation;
+            std::list<AZStd::string> UpgradeFromItems;
 
             ItemPurchaseRequest() :
                 PlayFabBaseModel(),
@@ -11954,7 +11954,7 @@ namespace PlayFab
                 if (!UpgradeFromItems.empty()) {
                     writer.String("UpgradeFromItems");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = UpgradeFromItems.begin(); iter != UpgradeFromItems.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = UpgradeFromItems.begin(); iter != UpgradeFromItems.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -11984,9 +11984,9 @@ namespace PlayFab
 
         struct LinkAndroidDeviceIDRequest : public PlayFabBaseModel
         {
-            Aws::String AndroidDeviceId;
-            Aws::String OS;
-            Aws::String AndroidDevice;
+            AZStd::string AndroidDeviceId;
+            AZStd::string OS;
+            AZStd::string AndroidDevice;
             OptionalBool ForceLink;
 
             LinkAndroidDeviceIDRequest() :
@@ -12074,7 +12074,7 @@ namespace PlayFab
 
         struct LinkCustomIDRequest : public PlayFabBaseModel
         {
-            Aws::String CustomId;
+            AZStd::string CustomId;
             OptionalBool ForceLink;
 
             LinkCustomIDRequest() :
@@ -12152,7 +12152,7 @@ namespace PlayFab
 
         struct LinkFacebookAccountRequest : public PlayFabBaseModel
         {
-            Aws::String AccessToken;
+            AZStd::string AccessToken;
             OptionalBool ForceLink;
 
             LinkFacebookAccountRequest() :
@@ -12230,7 +12230,7 @@ namespace PlayFab
 
         struct LinkGameCenterAccountRequest : public PlayFabBaseModel
         {
-            Aws::String GameCenterId;
+            AZStd::string GameCenterId;
             OptionalBool ForceLink;
 
             LinkGameCenterAccountRequest() :
@@ -12308,7 +12308,7 @@ namespace PlayFab
 
         struct LinkGoogleAccountRequest : public PlayFabBaseModel
         {
-            Aws::String ServerAuthCode;
+            AZStd::string ServerAuthCode;
             OptionalBool ForceLink;
 
             LinkGoogleAccountRequest() :
@@ -12386,9 +12386,9 @@ namespace PlayFab
 
         struct LinkIOSDeviceIDRequest : public PlayFabBaseModel
         {
-            Aws::String DeviceId;
-            Aws::String OS;
-            Aws::String DeviceModel;
+            AZStd::string DeviceId;
+            AZStd::string OS;
+            AZStd::string DeviceModel;
             OptionalBool ForceLink;
 
             LinkIOSDeviceIDRequest() :
@@ -12476,8 +12476,8 @@ namespace PlayFab
 
         struct LinkKongregateAccountRequest : public PlayFabBaseModel
         {
-            Aws::String KongregateId;
-            Aws::String AuthTicket;
+            AZStd::string KongregateId;
+            AZStd::string AuthTicket;
             OptionalBool ForceLink;
 
             LinkKongregateAccountRequest() :
@@ -12560,7 +12560,7 @@ namespace PlayFab
 
         struct LinkSteamAccountRequest : public PlayFabBaseModel
         {
-            Aws::String SteamTicket;
+            AZStd::string SteamTicket;
             OptionalBool ForceLink;
 
             LinkSteamAccountRequest() :
@@ -12638,7 +12638,7 @@ namespace PlayFab
 
         struct LinkTwitchAccountRequest : public PlayFabBaseModel
         {
-            Aws::String AccessToken;
+            AZStd::string AccessToken;
             OptionalBool ForceLink;
 
             LinkTwitchAccountRequest() :
@@ -12716,9 +12716,9 @@ namespace PlayFab
 
         struct LinkWindowsHelloAccountRequest : public PlayFabBaseModel
         {
-            Aws::String UserName;
-            Aws::String PublicKey;
-            Aws::String DeviceName;
+            AZStd::string UserName;
+            AZStd::string PublicKey;
+            AZStd::string DeviceName;
             OptionalBool ForceLink;
 
             LinkWindowsHelloAccountRequest() :
@@ -12806,7 +12806,7 @@ namespace PlayFab
 
         struct ListUsersCharactersRequest : public PlayFabBaseModel
         {
-            Aws::String PlayFabId;
+            AZStd::string PlayFabId;
 
             ListUsersCharactersRequest() :
                 PlayFabBaseModel(),
@@ -12935,8 +12935,8 @@ namespace PlayFab
 
         struct LoginResult : public PlayFabBaseModel
         {
-            Aws::String SessionTicket;
-            Aws::String PlayFabId;
+            AZStd::string SessionTicket;
+            AZStd::string PlayFabId;
             bool NewlyCreated;
             UserSettings* SettingsForUser;
             OptionalTime LastLoginTime;
@@ -13006,13 +13006,13 @@ namespace PlayFab
 
         struct LoginWithAndroidDeviceIDRequest : public PlayFabBaseModel
         {
-            Aws::String AndroidDeviceId;
-            Aws::String OS;
-            Aws::String AndroidDevice;
+            AZStd::string AndroidDeviceId;
+            AZStd::string OS;
+            AZStd::string AndroidDevice;
             OptionalBool CreateAccount;
-            Aws::String TitleId;
-            Aws::String EncryptedRequest;
-            Aws::String PlayerSecret;
+            AZStd::string TitleId;
+            AZStd::string EncryptedRequest;
+            AZStd::string PlayerSecret;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithAndroidDeviceIDRequest() :
@@ -13088,11 +13088,11 @@ namespace PlayFab
 
         struct LoginWithCustomIDRequest : public PlayFabBaseModel
         {
-            Aws::String CustomId;
+            AZStd::string CustomId;
             OptionalBool CreateAccount;
-            Aws::String TitleId;
-            Aws::String EncryptedRequest;
-            Aws::String PlayerSecret;
+            AZStd::string TitleId;
+            AZStd::string EncryptedRequest;
+            AZStd::string PlayerSecret;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithCustomIDRequest() :
@@ -13158,9 +13158,9 @@ namespace PlayFab
 
         struct LoginWithEmailAddressRequest : public PlayFabBaseModel
         {
-            Aws::String TitleId;
-            Aws::String Email;
-            Aws::String Password;
+            AZStd::string TitleId;
+            AZStd::string Email;
+            AZStd::string Password;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithEmailAddressRequest() :
@@ -13216,11 +13216,11 @@ namespace PlayFab
 
         struct LoginWithFacebookRequest : public PlayFabBaseModel
         {
-            Aws::String AccessToken;
+            AZStd::string AccessToken;
             OptionalBool CreateAccount;
-            Aws::String TitleId;
-            Aws::String EncryptedRequest;
-            Aws::String PlayerSecret;
+            AZStd::string TitleId;
+            AZStd::string EncryptedRequest;
+            AZStd::string PlayerSecret;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithFacebookRequest() :
@@ -13286,11 +13286,11 @@ namespace PlayFab
 
         struct LoginWithGameCenterRequest : public PlayFabBaseModel
         {
-            Aws::String PlayerId;
+            AZStd::string PlayerId;
             OptionalBool CreateAccount;
-            Aws::String TitleId;
-            Aws::String EncryptedRequest;
-            Aws::String PlayerSecret;
+            AZStd::string TitleId;
+            AZStd::string EncryptedRequest;
+            AZStd::string PlayerSecret;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithGameCenterRequest() :
@@ -13356,11 +13356,11 @@ namespace PlayFab
 
         struct LoginWithGoogleAccountRequest : public PlayFabBaseModel
         {
-            Aws::String ServerAuthCode;
+            AZStd::string ServerAuthCode;
             OptionalBool CreateAccount;
-            Aws::String TitleId;
-            Aws::String EncryptedRequest;
-            Aws::String PlayerSecret;
+            AZStd::string TitleId;
+            AZStd::string EncryptedRequest;
+            AZStd::string PlayerSecret;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithGoogleAccountRequest() :
@@ -13426,13 +13426,13 @@ namespace PlayFab
 
         struct LoginWithIOSDeviceIDRequest : public PlayFabBaseModel
         {
-            Aws::String DeviceId;
-            Aws::String OS;
-            Aws::String DeviceModel;
+            AZStd::string DeviceId;
+            AZStd::string OS;
+            AZStd::string DeviceModel;
             OptionalBool CreateAccount;
-            Aws::String TitleId;
-            Aws::String EncryptedRequest;
-            Aws::String PlayerSecret;
+            AZStd::string TitleId;
+            AZStd::string EncryptedRequest;
+            AZStd::string PlayerSecret;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithIOSDeviceIDRequest() :
@@ -13508,13 +13508,13 @@ namespace PlayFab
 
         struct LoginWithKongregateRequest : public PlayFabBaseModel
         {
-            Aws::String KongregateId;
-            Aws::String AuthTicket;
+            AZStd::string KongregateId;
+            AZStd::string AuthTicket;
             OptionalBool CreateAccount;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
-            Aws::String TitleId;
-            Aws::String EncryptedRequest;
-            Aws::String PlayerSecret;
+            AZStd::string TitleId;
+            AZStd::string EncryptedRequest;
+            AZStd::string PlayerSecret;
 
             LoginWithKongregateRequest() :
                 PlayFabBaseModel(),
@@ -13584,9 +13584,9 @@ namespace PlayFab
 
         struct LoginWithPlayFabRequest : public PlayFabBaseModel
         {
-            Aws::String TitleId;
-            Aws::String Username;
-            Aws::String Password;
+            AZStd::string TitleId;
+            AZStd::string Username;
+            AZStd::string Password;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithPlayFabRequest() :
@@ -13642,11 +13642,11 @@ namespace PlayFab
 
         struct LoginWithSteamRequest : public PlayFabBaseModel
         {
-            Aws::String SteamTicket;
+            AZStd::string SteamTicket;
             OptionalBool CreateAccount;
-            Aws::String TitleId;
-            Aws::String EncryptedRequest;
-            Aws::String PlayerSecret;
+            AZStd::string TitleId;
+            AZStd::string EncryptedRequest;
+            AZStd::string PlayerSecret;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithSteamRequest() :
@@ -13712,11 +13712,11 @@ namespace PlayFab
 
         struct LoginWithTwitchRequest : public PlayFabBaseModel
         {
-            Aws::String AccessToken;
+            AZStd::string AccessToken;
             OptionalBool CreateAccount;
-            Aws::String TitleId;
-            Aws::String EncryptedRequest;
-            Aws::String PlayerSecret;
+            AZStd::string TitleId;
+            AZStd::string EncryptedRequest;
+            AZStd::string PlayerSecret;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithTwitchRequest() :
@@ -13782,9 +13782,9 @@ namespace PlayFab
 
         struct LoginWithWindowsHelloRequest : public PlayFabBaseModel
         {
-            Aws::String TitleId;
-            Aws::String ChallengeSignature;
-            Aws::String PublicKeyHint;
+            AZStd::string TitleId;
+            AZStd::string ChallengeSignature;
+            AZStd::string PublicKeyHint;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithWindowsHelloRequest() :
@@ -13840,12 +13840,12 @@ namespace PlayFab
 
         struct MatchmakeRequest : public PlayFabBaseModel
         {
-            Aws::String BuildVersion;
+            AZStd::string BuildVersion;
             Boxed<Region> pfRegion;
-            Aws::String GameMode;
-            Aws::String LobbyId;
-            Aws::String StatisticName;
-            Aws::String CharacterId;
+            AZStd::string GameMode;
+            AZStd::string LobbyId;
+            AZStd::string StatisticName;
+            AZStd::string CharacterId;
             OptionalBool StartNewIfNoneFound;
             CollectionFilter* TagFilter;
 
@@ -13944,7 +13944,7 @@ namespace PlayFab
 
         inline MatchmakeStatus readMatchmakeStatusFromValue(const rapidjson::Value& obj)
         {
-            static std::map<Aws::String, MatchmakeStatus> _MatchmakeStatusMap;
+            static std::map<AZStd::string, MatchmakeStatus> _MatchmakeStatusMap;
             if (_MatchmakeStatusMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -13965,11 +13965,11 @@ namespace PlayFab
 
         struct MatchmakeResult : public PlayFabBaseModel
         {
-            Aws::String LobbyID;
-            Aws::String ServerHostname;
+            AZStd::string LobbyID;
+            AZStd::string ServerHostname;
             OptionalInt32 ServerPort;
-            Aws::String Ticket;
-            Aws::String Expires;
+            AZStd::string Ticket;
+            AZStd::string Expires;
             OptionalInt32 PollWaitTimeMS;
             Boxed<MatchmakeStatus> Status;
 
@@ -14040,8 +14040,8 @@ namespace PlayFab
 
         struct ModifyUserVirtualCurrencyResult : public PlayFabBaseModel
         {
-            Aws::String PlayFabId;
-            Aws::String VirtualCurrency;
+            AZStd::string PlayFabId;
+            AZStd::string VirtualCurrency;
             Int32 BalanceChange;
             Int32 Balance;
 
@@ -14097,8 +14097,8 @@ namespace PlayFab
 
         struct NameIdentifier : public PlayFabBaseModel
         {
-            Aws::String Name;
-            Aws::String Id;
+            AZStd::string Name;
+            AZStd::string Id;
 
             NameIdentifier() :
                 PlayFabBaseModel(),
@@ -14142,9 +14142,9 @@ namespace PlayFab
 
         struct OpenTradeRequest : public PlayFabBaseModel
         {
-            std::list<Aws::String> OfferedInventoryInstanceIds;
-            std::list<Aws::String> RequestedCatalogItemIds;
-            std::list<Aws::String> AllowedPlayerIds;
+            std::list<AZStd::string> OfferedInventoryInstanceIds;
+            std::list<AZStd::string> RequestedCatalogItemIds;
+            std::list<AZStd::string> AllowedPlayerIds;
 
             OpenTradeRequest() :
                 PlayFabBaseModel(),
@@ -14175,7 +14175,7 @@ namespace PlayFab
                 if (!OfferedInventoryInstanceIds.empty()) {
                     writer.String("OfferedInventoryInstanceIds");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = OfferedInventoryInstanceIds.begin(); iter != OfferedInventoryInstanceIds.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = OfferedInventoryInstanceIds.begin(); iter != OfferedInventoryInstanceIds.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -14183,7 +14183,7 @@ namespace PlayFab
                 if (!RequestedCatalogItemIds.empty()) {
                     writer.String("RequestedCatalogItemIds");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = RequestedCatalogItemIds.begin(); iter != RequestedCatalogItemIds.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = RequestedCatalogItemIds.begin(); iter != RequestedCatalogItemIds.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -14191,7 +14191,7 @@ namespace PlayFab
                 if (!AllowedPlayerIds.empty()) {
                     writer.String("AllowedPlayerIds");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = AllowedPlayerIds.begin(); iter != AllowedPlayerIds.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = AllowedPlayerIds.begin(); iter != AllowedPlayerIds.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -14269,10 +14269,10 @@ namespace PlayFab
 
         struct PayForPurchaseRequest : public PlayFabBaseModel
         {
-            Aws::String OrderId;
-            Aws::String ProviderName;
-            Aws::String Currency;
-            Aws::String ProviderTransactionId;
+            AZStd::string OrderId;
+            AZStd::string ProviderName;
+            AZStd::string Currency;
+            AZStd::string ProviderTransactionId;
 
             PayForPurchaseRequest() :
                 PlayFabBaseModel(),
@@ -14378,7 +14378,7 @@ namespace PlayFab
 
         inline TransactionStatus readTransactionStatusFromValue(const rapidjson::Value& obj)
         {
-            static std::map<Aws::String, TransactionStatus> _TransactionStatusMap;
+            static std::map<AZStd::string, TransactionStatus> _TransactionStatusMap;
             if (_TransactionStatusMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -14414,16 +14414,16 @@ namespace PlayFab
 
         struct PayForPurchaseResult : public PlayFabBaseModel
         {
-            Aws::String OrderId;
+            AZStd::string OrderId;
             Boxed<TransactionStatus> Status;
-            std::map<Aws::String, Int32> VCAmount;
-            Aws::String PurchaseCurrency;
+            std::map<AZStd::string, Int32> VCAmount;
+            AZStd::string PurchaseCurrency;
             Uint32 PurchasePrice;
             Uint32 CreditApplied;
-            Aws::String ProviderData;
-            Aws::String PurchaseConfirmationPageURL;
-            std::map<Aws::String, Int32> VirtualCurrency;
-            Aws::String ProviderToken;
+            AZStd::string ProviderData;
+            AZStd::string PurchaseConfirmationPageURL;
+            std::map<AZStd::string, Int32> VirtualCurrency;
+            AZStd::string ProviderToken;
 
             PayForPurchaseResult() :
                 PlayFabBaseModel(),
@@ -14470,7 +14470,7 @@ namespace PlayFab
                 if (!VCAmount.empty()) {
                     writer.String("VCAmount");
                     writer.StartObject();
-                    for (std::map<Aws::String, Int32>::iterator iter = VCAmount.begin(); iter != VCAmount.end(); ++iter) {
+                    for (std::map<AZStd::string, Int32>::iterator iter = VCAmount.begin(); iter != VCAmount.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Int(iter->second);
                     }
                     writer.EndObject();
@@ -14483,7 +14483,7 @@ namespace PlayFab
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
-                    for (std::map<Aws::String, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                    for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Int(iter->second);
                     }
                     writer.EndObject();
@@ -14529,8 +14529,8 @@ namespace PlayFab
 
         struct PaymentOption : public PlayFabBaseModel
         {
-            Aws::String Currency;
-            Aws::String ProviderName;
+            AZStd::string Currency;
+            AZStd::string ProviderName;
             Uint32 Price;
             Uint32 StoreCredit;
 
@@ -14586,12 +14586,12 @@ namespace PlayFab
 
         struct PurchaseItemRequest : public PlayFabBaseModel
         {
-            Aws::String ItemId;
-            Aws::String VirtualCurrency;
+            AZStd::string ItemId;
+            AZStd::string VirtualCurrency;
             Int32 Price;
-            Aws::String CatalogVersion;
-            Aws::String StoreId;
-            Aws::String CharacterId;
+            AZStd::string CatalogVersion;
+            AZStd::string StoreId;
+            AZStd::string CharacterId;
 
             PurchaseItemRequest() :
                 PlayFabBaseModel(),
@@ -14706,9 +14706,9 @@ namespace PlayFab
 
         struct RedeemCouponRequest : public PlayFabBaseModel
         {
-            Aws::String CouponCode;
-            Aws::String CatalogVersion;
-            Aws::String CharacterId;
+            AZStd::string CouponCode;
+            AZStd::string CatalogVersion;
+            AZStd::string CharacterId;
 
             RedeemCouponRequest() :
                 PlayFabBaseModel(),
@@ -14808,9 +14808,9 @@ namespace PlayFab
 
         struct RegisterForIOSPushNotificationRequest : public PlayFabBaseModel
         {
-            Aws::String DeviceToken;
+            AZStd::string DeviceToken;
             OptionalBool SendPushNotificationConfirmation;
-            Aws::String ConfirmationMessage;
+            AZStd::string ConfirmationMessage;
 
             RegisterForIOSPushNotificationRequest() :
                 PlayFabBaseModel(),
@@ -14892,14 +14892,14 @@ namespace PlayFab
 
         struct RegisterPlayFabUserRequest : public PlayFabBaseModel
         {
-            Aws::String Username;
-            Aws::String Email;
-            Aws::String Password;
+            AZStd::string Username;
+            AZStd::string Email;
+            AZStd::string Password;
             OptionalBool RequireBothUsernameAndEmail;
-            Aws::String DisplayName;
-            Aws::String TitleId;
-            Aws::String EncryptedRequest;
-            Aws::String PlayerSecret;
+            AZStd::string DisplayName;
+            AZStd::string TitleId;
+            AZStd::string EncryptedRequest;
+            AZStd::string PlayerSecret;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             RegisterPlayFabUserRequest() :
@@ -14980,9 +14980,9 @@ namespace PlayFab
 
         struct RegisterPlayFabUserResult : public PlayFabBaseModel
         {
-            Aws::String PlayFabId;
-            Aws::String SessionTicket;
-            Aws::String Username;
+            AZStd::string PlayFabId;
+            AZStd::string SessionTicket;
+            AZStd::string Username;
             UserSettings* SettingsForUser;
 
             RegisterPlayFabUserResult() :
@@ -15038,12 +15038,12 @@ namespace PlayFab
 
         struct RegisterWithWindowsHelloRequest : public PlayFabBaseModel
         {
-            Aws::String UserName;
-            Aws::String PublicKey;
-            Aws::String DeviceName;
-            Aws::String TitleId;
-            Aws::String EncryptedRequest;
-            Aws::String PlayerSecret;
+            AZStd::string UserName;
+            AZStd::string PublicKey;
+            AZStd::string DeviceName;
+            AZStd::string TitleId;
+            AZStd::string EncryptedRequest;
+            AZStd::string PlayerSecret;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             RegisterWithWindowsHelloRequest() :
@@ -15114,7 +15114,7 @@ namespace PlayFab
 
         struct RemoveFriendRequest : public PlayFabBaseModel
         {
-            Aws::String FriendPlayFabId;
+            AZStd::string FriendPlayFabId;
 
             RemoveFriendRequest() :
                 PlayFabBaseModel(),
@@ -15258,8 +15258,8 @@ namespace PlayFab
 
         struct RemoveSharedGroupMembersRequest : public PlayFabBaseModel
         {
-            Aws::String SharedGroupId;
-            std::list<Aws::String> PlayFabIds;
+            AZStd::string SharedGroupId;
+            std::list<AZStd::string> PlayFabIds;
 
             RemoveSharedGroupMembersRequest() :
                 PlayFabBaseModel(),
@@ -15288,7 +15288,7 @@ namespace PlayFab
                 writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
                 writer.String("PlayFabIds");
                 writer.StartArray();
-                for (std::list<Aws::String>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
+                for (std::list<AZStd::string>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -15347,8 +15347,8 @@ namespace PlayFab
 
         struct ReportPlayerClientRequest : public PlayFabBaseModel
         {
-            Aws::String ReporteeId;
-            Aws::String Comment;
+            AZStd::string ReporteeId;
+            AZStd::string Comment;
 
             ReportPlayerClientRequest() :
                 PlayFabBaseModel(),
@@ -15437,7 +15437,7 @@ namespace PlayFab
 
         struct RestoreIOSPurchasesRequest : public PlayFabBaseModel
         {
-            Aws::String ReceiptData;
+            AZStd::string ReceiptData;
 
             RestoreIOSPurchasesRequest() :
                 PlayFabBaseModel(),
@@ -15509,8 +15509,8 @@ namespace PlayFab
 
         struct SendAccountRecoveryEmailRequest : public PlayFabBaseModel
         {
-            Aws::String Email;
-            Aws::String TitleId;
+            AZStd::string Email;
+            AZStd::string TitleId;
 
             SendAccountRecoveryEmailRequest() :
                 PlayFabBaseModel(),
@@ -15587,8 +15587,8 @@ namespace PlayFab
 
         struct SetFriendTagsRequest : public PlayFabBaseModel
         {
-            Aws::String FriendPlayFabId;
-            std::list<Aws::String> Tags;
+            AZStd::string FriendPlayFabId;
+            std::list<AZStd::string> Tags;
 
             SetFriendTagsRequest() :
                 PlayFabBaseModel(),
@@ -15617,7 +15617,7 @@ namespace PlayFab
                 writer.String("FriendPlayFabId"); writer.String(FriendPlayFabId.c_str());
                 writer.String("Tags");
                 writer.StartArray();
-                for (std::list<Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                for (std::list<AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -15676,12 +15676,12 @@ namespace PlayFab
 
         struct StartGameRequest : public PlayFabBaseModel
         {
-            Aws::String BuildVersion;
+            AZStd::string BuildVersion;
             Region pfRegion;
-            Aws::String GameMode;
-            Aws::String StatisticName;
-            Aws::String CharacterId;
-            Aws::String CustomCommandLineData;
+            AZStd::string GameMode;
+            AZStd::string StatisticName;
+            AZStd::string CharacterId;
+            AZStd::string CustomCommandLineData;
 
             StartGameRequest() :
                 PlayFabBaseModel(),
@@ -15745,12 +15745,12 @@ namespace PlayFab
 
         struct StartGameResult : public PlayFabBaseModel
         {
-            Aws::String LobbyID;
-            Aws::String ServerHostname;
+            AZStd::string LobbyID;
+            AZStd::string ServerHostname;
             OptionalInt32 ServerPort;
-            Aws::String Ticket;
-            Aws::String Expires;
-            Aws::String Password;
+            AZStd::string Ticket;
+            AZStd::string Expires;
+            AZStd::string Password;
 
             StartGameResult() :
                 PlayFabBaseModel(),
@@ -15814,8 +15814,8 @@ namespace PlayFab
 
         struct StartPurchaseRequest : public PlayFabBaseModel
         {
-            Aws::String CatalogVersion;
-            Aws::String StoreId;
+            AZStd::string CatalogVersion;
+            AZStd::string StoreId;
             std::list<ItemPurchaseRequest> Items;
 
             StartPurchaseRequest() :
@@ -15876,10 +15876,10 @@ namespace PlayFab
 
         struct StartPurchaseResult : public PlayFabBaseModel
         {
-            Aws::String OrderId;
+            AZStd::string OrderId;
             std::list<CartItem> Contents;
             std::list<PaymentOption> PaymentOptions;
-            std::map<Aws::String, Int32> VirtualCurrencyBalances;
+            std::map<AZStd::string, Int32> VirtualCurrencyBalances;
 
             StartPurchaseResult() :
                 PlayFabBaseModel(),
@@ -15929,7 +15929,7 @@ namespace PlayFab
                 if (!VirtualCurrencyBalances.empty()) {
                     writer.String("VirtualCurrencyBalances");
                     writer.StartObject();
-                    for (std::map<Aws::String, Int32>::iterator iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); ++iter) {
+                    for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Int(iter->second);
                     }
                     writer.EndObject();
@@ -15968,7 +15968,7 @@ namespace PlayFab
 
         struct StatisticUpdate : public PlayFabBaseModel
         {
-            Aws::String StatisticName;
+            AZStd::string StatisticName;
             OptionalUint32 Version;
             Int32 Value;
 
@@ -16019,7 +16019,7 @@ namespace PlayFab
 
         struct SubtractUserVirtualCurrencyRequest : public PlayFabBaseModel
         {
-            Aws::String VirtualCurrency;
+            AZStd::string VirtualCurrency;
             Int32 Amount;
 
             SubtractUserVirtualCurrencyRequest() :
@@ -16064,7 +16064,7 @@ namespace PlayFab
 
         struct UnlinkAndroidDeviceIDRequest : public PlayFabBaseModel
         {
-            Aws::String AndroidDeviceId;
+            AZStd::string AndroidDeviceId;
 
             UnlinkAndroidDeviceIDRequest() :
                 PlayFabBaseModel(),
@@ -16136,7 +16136,7 @@ namespace PlayFab
 
         struct UnlinkCustomIDRequest : public PlayFabBaseModel
         {
-            Aws::String CustomId;
+            AZStd::string CustomId;
 
             UnlinkCustomIDRequest() :
                 PlayFabBaseModel(),
@@ -16406,7 +16406,7 @@ namespace PlayFab
 
         struct UnlinkIOSDeviceIDRequest : public PlayFabBaseModel
         {
-            Aws::String DeviceId;
+            AZStd::string DeviceId;
 
             UnlinkIOSDeviceIDRequest() :
                 PlayFabBaseModel(),
@@ -16676,7 +16676,7 @@ namespace PlayFab
 
         struct UnlinkWindowsHelloAccountRequest : public PlayFabBaseModel
         {
-            Aws::String PublicKeyHint;
+            AZStd::string PublicKeyHint;
 
             UnlinkWindowsHelloAccountRequest() :
                 PlayFabBaseModel(),
@@ -16748,10 +16748,10 @@ namespace PlayFab
 
         struct UnlockContainerInstanceRequest : public PlayFabBaseModel
         {
-            Aws::String CharacterId;
-            Aws::String ContainerItemInstanceId;
-            Aws::String KeyItemInstanceId;
-            Aws::String CatalogVersion;
+            AZStd::string CharacterId;
+            AZStd::string ContainerItemInstanceId;
+            AZStd::string KeyItemInstanceId;
+            AZStd::string CatalogVersion;
 
             UnlockContainerInstanceRequest() :
                 PlayFabBaseModel(),
@@ -16805,9 +16805,9 @@ namespace PlayFab
 
         struct UnlockContainerItemRequest : public PlayFabBaseModel
         {
-            Aws::String ContainerItemId;
-            Aws::String CatalogVersion;
-            Aws::String CharacterId;
+            AZStd::string ContainerItemId;
+            AZStd::string CatalogVersion;
+            AZStd::string CharacterId;
 
             UnlockContainerItemRequest() :
                 PlayFabBaseModel(),
@@ -16856,10 +16856,10 @@ namespace PlayFab
 
         struct UnlockContainerItemResult : public PlayFabBaseModel
         {
-            Aws::String UnlockedItemInstanceId;
-            Aws::String UnlockedWithItemInstanceId;
+            AZStd::string UnlockedItemInstanceId;
+            AZStd::string UnlockedWithItemInstanceId;
             std::list<ItemInstance> GrantedItems;
-            std::map<Aws::String, Uint32> VirtualCurrency;
+            std::map<AZStd::string, Uint32> VirtualCurrency;
 
             UnlockContainerItemResult() :
                 PlayFabBaseModel(),
@@ -16902,7 +16902,7 @@ namespace PlayFab
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
-                    for (std::map<Aws::String, Uint32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                    for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Uint(iter->second);
                     }
                     writer.EndObject();
@@ -16936,7 +16936,7 @@ namespace PlayFab
 
         struct UpdateAvatarUrlRequest : public PlayFabBaseModel
         {
-            Aws::String ImageUrl;
+            AZStd::string ImageUrl;
 
             UpdateAvatarUrlRequest() :
                 PlayFabBaseModel(),
@@ -16975,9 +16975,9 @@ namespace PlayFab
 
         struct UpdateCharacterDataRequest : public PlayFabBaseModel
         {
-            Aws::String CharacterId;
-            std::map<Aws::String, Aws::String> Data;
-            std::list<Aws::String> KeysToRemove;
+            AZStd::string CharacterId;
+            std::map<AZStd::string, AZStd::string> Data;
+            std::list<AZStd::string> KeysToRemove;
             Boxed<UserDataPermission> Permission;
 
             UpdateCharacterDataRequest() :
@@ -17012,7 +17012,7 @@ namespace PlayFab
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
@@ -17020,7 +17020,7 @@ namespace PlayFab
                 if (!KeysToRemove.empty()) {
                     writer.String("KeysToRemove");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -17094,8 +17094,8 @@ namespace PlayFab
 
         struct UpdateCharacterStatisticsRequest : public PlayFabBaseModel
         {
-            Aws::String CharacterId;
-            std::map<Aws::String, Int32> CharacterStatistics;
+            AZStd::string CharacterId;
+            std::map<AZStd::string, Int32> CharacterStatistics;
 
             UpdateCharacterStatisticsRequest() :
                 PlayFabBaseModel(),
@@ -17125,7 +17125,7 @@ namespace PlayFab
                 if (!CharacterStatistics.empty()) {
                     writer.String("CharacterStatistics");
                     writer.StartObject();
-                    for (std::map<Aws::String, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
+                    for (std::map<AZStd::string, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.Int(iter->second);
                     }
                     writer.EndObject();
@@ -17266,9 +17266,9 @@ namespace PlayFab
 
         struct UpdateSharedGroupDataRequest : public PlayFabBaseModel
         {
-            Aws::String SharedGroupId;
-            std::map<Aws::String, Aws::String> Data;
-            std::list<Aws::String> KeysToRemove;
+            AZStd::string SharedGroupId;
+            std::map<AZStd::string, AZStd::string> Data;
+            std::list<AZStd::string> KeysToRemove;
             Boxed<UserDataPermission> Permission;
 
             UpdateSharedGroupDataRequest() :
@@ -17303,7 +17303,7 @@ namespace PlayFab
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
@@ -17311,7 +17311,7 @@ namespace PlayFab
                 if (!KeysToRemove.empty()) {
                     writer.String("KeysToRemove");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -17379,8 +17379,8 @@ namespace PlayFab
 
         struct UpdateUserDataRequest : public PlayFabBaseModel
         {
-            std::map<Aws::String, Aws::String> Data;
-            std::list<Aws::String> KeysToRemove;
+            std::map<AZStd::string, AZStd::string> Data;
+            std::list<AZStd::string> KeysToRemove;
             Boxed<UserDataPermission> Permission;
 
             UpdateUserDataRequest() :
@@ -17412,7 +17412,7 @@ namespace PlayFab
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
@@ -17420,7 +17420,7 @@ namespace PlayFab
                 if (!KeysToRemove.empty()) {
                     writer.String("KeysToRemove");
                     writer.StartArray();
-                    for (std::list<Aws::String>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+                    for (std::list<AZStd::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -17492,7 +17492,7 @@ namespace PlayFab
 
         struct UpdateUserTitleDisplayNameRequest : public PlayFabBaseModel
         {
-            Aws::String DisplayName;
+            AZStd::string DisplayName;
 
             UpdateUserTitleDisplayNameRequest() :
                 PlayFabBaseModel(),
@@ -17531,7 +17531,7 @@ namespace PlayFab
 
         struct UpdateUserTitleDisplayNameResult : public PlayFabBaseModel
         {
-            Aws::String DisplayName;
+            AZStd::string DisplayName;
 
             UpdateUserTitleDisplayNameResult() :
                 PlayFabBaseModel(),
@@ -17570,10 +17570,10 @@ namespace PlayFab
 
         struct ValidateAmazonReceiptRequest : public PlayFabBaseModel
         {
-            Aws::String ReceiptId;
-            Aws::String UserId;
-            Aws::String CatalogVersion;
-            Aws::String CurrencyCode;
+            AZStd::string ReceiptId;
+            AZStd::string UserId;
+            AZStd::string CatalogVersion;
+            AZStd::string CurrencyCode;
             Int32 PurchasePrice;
 
             ValidateAmazonReceiptRequest() :
@@ -17666,9 +17666,9 @@ namespace PlayFab
 
         struct ValidateGooglePlayPurchaseRequest : public PlayFabBaseModel
         {
-            Aws::String ReceiptJson;
-            Aws::String Signature;
-            Aws::String CurrencyCode;
+            AZStd::string ReceiptJson;
+            AZStd::string Signature;
+            AZStd::string CurrencyCode;
             OptionalUint32 PurchasePrice;
 
             ValidateGooglePlayPurchaseRequest() :
@@ -17756,8 +17756,8 @@ namespace PlayFab
 
         struct ValidateIOSReceiptRequest : public PlayFabBaseModel
         {
-            Aws::String ReceiptData;
-            Aws::String CurrencyCode;
+            AZStd::string ReceiptData;
+            AZStd::string CurrencyCode;
             Int32 PurchasePrice;
 
             ValidateIOSReceiptRequest() :
@@ -17840,9 +17840,9 @@ namespace PlayFab
 
         struct ValidateWindowsReceiptRequest : public PlayFabBaseModel
         {
-            Aws::String Receipt;
-            Aws::String CatalogVersion;
-            Aws::String CurrencyCode;
+            AZStd::string Receipt;
+            AZStd::string CatalogVersion;
+            AZStd::string CurrencyCode;
             Uint32 PurchasePrice;
 
             ValidateWindowsReceiptRequest() :
@@ -17930,10 +17930,10 @@ namespace PlayFab
 
         struct WriteClientCharacterEventRequest : public PlayFabBaseModel
         {
-            Aws::String CharacterId;
-            Aws::String EventName;
+            AZStd::string CharacterId;
+            AZStd::string EventName;
             OptionalTime Timestamp;
-            std::map<Aws::String, MultitypeVar> Body;
+            std::map<AZStd::string, MultitypeVar> Body;
 
             WriteClientCharacterEventRequest() :
                 PlayFabBaseModel(),
@@ -17969,7 +17969,7 @@ namespace PlayFab
                 if (!Body.empty()) {
                     writer.String("Body");
                     writer.StartObject();
-                    for (std::map<Aws::String, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
+                    for (std::map<AZStd::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
                         writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
@@ -17998,9 +17998,9 @@ namespace PlayFab
 
         struct WriteClientPlayerEventRequest : public PlayFabBaseModel
         {
-            Aws::String EventName;
+            AZStd::string EventName;
             OptionalTime Timestamp;
-            std::map<Aws::String, MultitypeVar> Body;
+            std::map<AZStd::string, MultitypeVar> Body;
 
             WriteClientPlayerEventRequest() :
                 PlayFabBaseModel(),
@@ -18033,7 +18033,7 @@ namespace PlayFab
                 if (!Body.empty()) {
                     writer.String("Body");
                     writer.StartObject();
-                    for (std::map<Aws::String, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
+                    for (std::map<AZStd::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
                         writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
@@ -18060,7 +18060,7 @@ namespace PlayFab
 
         struct WriteEventResponse : public PlayFabBaseModel
         {
-            Aws::String EventId;
+            AZStd::string EventId;
 
             WriteEventResponse() :
                 PlayFabBaseModel(),
@@ -18099,9 +18099,9 @@ namespace PlayFab
 
         struct WriteTitleEventRequest : public PlayFabBaseModel
         {
-            Aws::String EventName;
+            AZStd::string EventName;
             OptionalTime Timestamp;
-            std::map<Aws::String, MultitypeVar> Body;
+            std::map<AZStd::string, MultitypeVar> Body;
 
             WriteTitleEventRequest() :
                 PlayFabBaseModel(),
@@ -18134,7 +18134,7 @@ namespace PlayFab
                 if (!Body.empty()) {
                     writer.String("Body");
                     writer.StartObject();
-                    for (std::map<Aws::String, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
+                    for (std::map<AZStd::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
                         writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
                     }
                     writer.EndObject();

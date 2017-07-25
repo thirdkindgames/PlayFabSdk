@@ -8,7 +8,6 @@
 #include <AZCore/JSON/rapidjson.h>
 #include <AZCore/JSON/writer.h>
 #include <AzCore/JSON/document.h>
-#include <aws/core/utils/memory/stl/AWSString.h>
 #include <rapidjson/stringbuffer.h>
 
 #ifdef GetObject // wingdi.h is extremely impollite and #defined a common function name, breaking RapidJson.  How rude.
@@ -17,7 +16,7 @@
 
 using namespace rapidjson;
 
-namespace PlayFab
+namespace PlayFabClientSdk
 {
     typedef rapidjson::Writer< rapidjson::GenericStringBuffer< rapidjson::UTF8<> > > PFStringJsonWriter;
     template<typename ResType> using ProcessApiCallback = void(*)(const ResType& result, void* customData);
@@ -76,7 +75,7 @@ namespace PlayFab
         virtual void writeJSON(PFStringJsonWriter& writer) = 0;
         virtual bool readFromValue(const rapidjson::Value& obj) = 0;
 
-        Aws::String toJSONString();
+        AZStd::string toJSONString();
 
         static bool DecodeRequest(PlayFabRequest* request);
     };
@@ -93,7 +92,7 @@ namespace PlayFab
     {
     private:
         MultitypeVarTypes mType;
-        Aws::String mString;
+        AZStd::string mString;
         bool mBool;
         double mNumber;
 
@@ -107,7 +106,7 @@ namespace PlayFab
         MultitypeVar(Int32 val) : mType(MultitypeNumber), mString(), mBool(), mNumber(val) {}
         MultitypeVar(float val) : mType(MultitypeNumber), mString(), mBool(), mNumber(val) {}
         MultitypeVar(double val) : mType(MultitypeNumber), mString(), mBool(), mNumber(val) {}
-        MultitypeVar(Aws::String val) : mType(MultitypeString), mString(val), mBool(), mNumber() {}
+        MultitypeVar(AZStd::string val) : mType(MultitypeString), mString(val), mBool(), mNumber() {}
 
         MultitypeVar(const rapidjson::Value& obj)
         {
@@ -126,7 +125,7 @@ namespace PlayFab
         MultitypeVar& operator=(Int32 val) { mNumber = val; mType = MultitypeNumber; return *this; }
         MultitypeVar& operator=(float val) { mNumber = val; mType = MultitypeNumber; return *this; }
         MultitypeVar& operator=(double val) { mNumber = val; mType = MultitypeNumber; return *this; }
-        MultitypeVar& operator=(Aws::String val) { mString = val; mType = MultitypeString; return *this; }
+        MultitypeVar& operator=(AZStd::string val) { mString = val; mType = MultitypeString; return *this; }
 
         operator bool() const { return mBool; }
         operator Uint16() const { return (Uint16)mNumber; }
@@ -135,7 +134,7 @@ namespace PlayFab
         operator Int32() const { return (Int32)mNumber; }
         operator float() const { return (float)mNumber; }
         operator double() const { return mNumber; }
-        operator Aws::String() const { return mString; }
+        operator AZStd::string() const { return mString; }
 
         ~MultitypeVar() {}
         void writeJSON(PFStringJsonWriter& writer) override;
@@ -145,7 +144,7 @@ namespace PlayFab
     void writeDatetime(time_t datetime, PFStringJsonWriter& writer);
     time_t readDatetime(const rapidjson::Value& obj);
 
-    inline Aws::String PlayFabBaseModel::toJSONString()
+    inline AZStd::string PlayFabBaseModel::toJSONString()
     {
         GenericStringBuffer< UTF8<> > buffer;
         PFStringJsonWriter writer(buffer);
@@ -201,16 +200,16 @@ namespace PlayFab
         return true;
     }
 
-    inline void PlayFab::writeDatetime(time_t datetime, PFStringJsonWriter& writer)
+    inline void PlayFabClientSdk::writeDatetime(time_t datetime, PFStringJsonWriter& writer)
     {
         char buff[40];
         strftime(buff, 40, "%Y-%m-%dT%H:%M:%S.000Z", gmtime(&datetime));
         writer.String(buff);
     }
 
-    inline time_t PlayFab::readDatetime(const rapidjson::Value& obj)
+    inline time_t PlayFabClientSdk::readDatetime(const rapidjson::Value& obj)
     {
-        Aws::String enumStr = obj.GetString();
+        AZStd::string enumStr = obj.GetString();
 
         tm timeStruct = {};
         unsigned int milliseconds = 0; // milliseconds are truncated in a standard time_t structure

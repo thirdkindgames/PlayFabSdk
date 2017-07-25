@@ -3,15 +3,15 @@
     "Uuid": "a283c61c3bb84efbb6bfbd04c9b2f0d0",
     "Name": "PlayFabClientTest",
     "DisplayName": "PlayFabClientTest",
-    "Version": "0.1.0",
+    "Version": "0.0.170710",
     "LinkType": "Dynamic",
     "Summary": "Tests for the PlayFab Client SDK",
     "Tags": ["Untagged"],
     "IconPath": "preview.png",
     "Dependencies": [
         {
-            "Uuid": "ca11198cd2904c539c29d22409fbb628",
-            "VersionConstraints": [ ">=0.0.160302" ],
+            "Uuid": "59aceeb4fcdc4556859a00fdef51702b",
+            "VersionConstraints": [ ">=0.0.170710" ],
             "_comment": "PlayFab Lumberyard Gem"
         }
     ]
