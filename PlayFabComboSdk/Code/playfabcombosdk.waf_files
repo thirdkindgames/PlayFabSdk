@@ -1,18 +1,46 @@
 {
     "none": {
-        "Source": [
+        "Root": [
             "Source/StdAfx.cpp",
             "Source/StdAfx.h"
-        ]
-    },
-    "auto": {
-        "Include": [
-            "Include/PlayFabComboSdk/PlayFabComboSdkBus.h"
         ],
-        "Source": [
-            "Source/PlayFabComboSdkModule.cpp",
-            "Source/PlayFabComboSdkSystemComponent.cpp",
-            "Source/PlayFabComboSdkSystemComponent.h"
+        "Interface": [
+            "Include/PlayFabComboSdk/PlayFabAdminDataModels.h",
+            "Include/PlayFabComboSdk/PlayFabCombo_AdminBus.h",
+            "Include/PlayFabComboSdk/PlayFabMatchmakerDataModels.h",
+            "Include/PlayFabComboSdk/PlayFabCombo_MatchmakerBus.h",
+            "Include/PlayFabComboSdk/PlayFabServerDataModels.h",
+            "Include/PlayFabComboSdk/PlayFabCombo_ServerBus.h",
+            "Include/PlayFabComboSdk/PlayFabClientDataModels.h",
+            "Include/PlayFabComboSdk/PlayFabCombo_ClientBus.h",
+            "Include/PlayFabComboSdk/PlayFabBaseModel.h",
+            "Include/PlayFabComboSdk/PlayFabError.h",
+            "Include/PlayFabComboSdk/PlayFabHttp.h"
+        ],
+        "Implementation": [
+            "Source/PlayFabAdminApi.h",
+            "Source/PlayFabAdminApi.cpp",
+            "Source/PlayFabCombo_AdminSysComponent.h",
+            "Source/PlayFabCombo_AdminSysComponent.cpp",
+            "Source/PlayFabAdminSdkModule.cpp",
+            "Source/PlayFabMatchmakerApi.h",
+            "Source/PlayFabMatchmakerApi.cpp",
+            "Source/PlayFabCombo_MatchmakerSysComponent.h",
+            "Source/PlayFabCombo_MatchmakerSysComponent.cpp",
+            "Source/PlayFabMatchmakerSdkModule.cpp",
+            "Source/PlayFabServerApi.h",
+            "Source/PlayFabServerApi.cpp",
+            "Source/PlayFabCombo_ServerSysComponent.h",
+            "Source/PlayFabCombo_ServerSysComponent.cpp",
+            "Source/PlayFabServerSdkModule.cpp",
+            "Source/PlayFabClientApi.h",
+            "Source/PlayFabClientApi.cpp",
+            "Source/PlayFabCombo_ClientSysComponent.h",
+            "Source/PlayFabCombo_ClientSysComponent.cpp",
+            "Source/PlayFabClientSdkModule.cpp",
+            "Source/PlayFabHttp.cpp",
+            "Source/PlayFabSettings.h",
+            "Source/PlayFabSettings.cpp"
         ]
     }
 }

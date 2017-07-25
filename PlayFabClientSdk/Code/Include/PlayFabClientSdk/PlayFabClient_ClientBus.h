@@ -22,6 +22,7 @@ namespace PlayFabClientSdk
 
         // ------------ Generated API call wrappers
         virtual void GetPhotonAuthenticationToken(GetPhotonAuthenticationTokenRequest& request, ProcessApiCallback<GetPhotonAuthenticationTokenResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
+        virtual void GetTitlePublicKey(GetTitlePublicKeyRequest& request, ProcessApiCallback<GetTitlePublicKeyResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void GetWindowsHelloChallenge(GetWindowsHelloChallengeRequest& request, ProcessApiCallback<GetWindowsHelloChallengeResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void LoginWithAndroidDeviceID(LoginWithAndroidDeviceIDRequest& request, ProcessApiCallback<LoginResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void LoginWithCustomID(LoginWithCustomIDRequest& request, ProcessApiCallback<LoginResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
@@ -37,6 +38,7 @@ namespace PlayFabClientSdk
         virtual void LoginWithWindowsHello(LoginWithWindowsHelloRequest& request, ProcessApiCallback<LoginResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void RegisterPlayFabUser(RegisterPlayFabUserRequest& request, ProcessApiCallback<RegisterPlayFabUserResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void RegisterWithWindowsHello(RegisterWithWindowsHelloRequest& request, ProcessApiCallback<LoginResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
+        virtual void SetPlayerSecret(SetPlayerSecretRequest& request, ProcessApiCallback<SetPlayerSecretResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void AddGenericID(AddGenericIDRequest& request, ProcessApiCallback<AddGenericIDResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void AddUsernamePassword(AddUsernamePasswordRequest& request, ProcessApiCallback<AddUsernamePasswordResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void GetAccountInfo(GetAccountInfoRequest& request, ProcessApiCallback<GetAccountInfoResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
@@ -110,15 +112,10 @@ namespace PlayFabClientSdk
         virtual void GetFriendsList(GetFriendsListRequest& request, ProcessApiCallback<GetFriendsListResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void RemoveFriend(RemoveFriendRequest& request, ProcessApiCallback<RemoveFriendResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void SetFriendTags(SetFriendTagsRequest& request, ProcessApiCallback<SetFriendTagsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
-        virtual void RegisterForIOSPushNotification(RegisterForIOSPushNotificationRequest& request, ProcessApiCallback<RegisterForIOSPushNotificationResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
-        virtual void RestoreIOSPurchases(RestoreIOSPurchasesRequest& request, ProcessApiCallback<RestoreIOSPurchasesResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
-        virtual void ValidateIOSReceipt(ValidateIOSReceiptRequest& request, ProcessApiCallback<ValidateIOSReceiptResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void GetCurrentGames(CurrentGamesRequest& request, ProcessApiCallback<CurrentGamesResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void GetGameServerRegions(GameServerRegionsRequest& request, ProcessApiCallback<GameServerRegionsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void Matchmake(MatchmakeRequest& request, ProcessApiCallback<MatchmakeResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void StartGame(StartGameRequest& request, ProcessApiCallback<StartGameResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
-        virtual void AndroidDevicePushNotificationRegistration(AndroidDevicePushNotificationRegistrationRequest& request, ProcessApiCallback<AndroidDevicePushNotificationRegistrationResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
-        virtual void ValidateGooglePlayPurchase(ValidateGooglePlayPurchaseRequest& request, ProcessApiCallback<ValidateGooglePlayPurchaseResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void WriteCharacterEvent(WriteClientCharacterEventRequest& request, ProcessApiCallback<WriteEventResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void WritePlayerEvent(WriteClientPlayerEventRequest& request, ProcessApiCallback<WriteEventResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void WriteTitleEvent(WriteTitleEventRequest& request, ProcessApiCallback<WriteEventResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
@@ -139,7 +136,6 @@ namespace PlayFabClientSdk
         virtual void GetCharacterData(GetCharacterDataRequest& request, ProcessApiCallback<GetCharacterDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void GetCharacterReadOnlyData(GetCharacterDataRequest& request, ProcessApiCallback<GetCharacterDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void UpdateCharacterData(UpdateCharacterDataRequest& request, ProcessApiCallback<UpdateCharacterDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
-        virtual void ValidateAmazonIAPReceipt(ValidateAmazonReceiptRequest& request, ProcessApiCallback<ValidateAmazonReceiptResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void AcceptTrade(AcceptTradeRequest& request, ProcessApiCallback<AcceptTradeResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void CancelTrade(CancelTradeRequest& request, ProcessApiCallback<CancelTradeResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void GetPlayerTrades(GetPlayerTradesRequest& request, ProcessApiCallback<GetPlayerTradesResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
@@ -148,6 +144,12 @@ namespace PlayFabClientSdk
         virtual void AttributeInstall(AttributeInstallRequest& request, ProcessApiCallback<AttributeInstallResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void GetPlayerSegments(ProcessApiCallback<GetPlayerSegmentsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void GetPlayerTags(GetPlayerTagsRequest& request, ProcessApiCallback<GetPlayerTagsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
+        virtual void AndroidDevicePushNotificationRegistration(AndroidDevicePushNotificationRegistrationRequest& request, ProcessApiCallback<AndroidDevicePushNotificationRegistrationResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
+        virtual void RegisterForIOSPushNotification(RegisterForIOSPushNotificationRequest& request, ProcessApiCallback<RegisterForIOSPushNotificationResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
+        virtual void RestoreIOSPurchases(RestoreIOSPurchasesRequest& request, ProcessApiCallback<RestoreIOSPurchasesResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
+        virtual void ValidateAmazonIAPReceipt(ValidateAmazonReceiptRequest& request, ProcessApiCallback<ValidateAmazonReceiptResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
+        virtual void ValidateGooglePlayPurchase(ValidateGooglePlayPurchaseRequest& request, ProcessApiCallback<ValidateGooglePlayPurchaseResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
+        virtual void ValidateIOSReceipt(ValidateIOSReceiptRequest& request, ProcessApiCallback<ValidateIOSReceiptResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
         virtual void ValidateWindowsStoreReceipt(ValidateWindowsReceiptRequest& request, ProcessApiCallback<ValidateWindowsReceiptResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
     };
 

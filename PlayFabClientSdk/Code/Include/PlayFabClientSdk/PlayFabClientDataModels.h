@@ -41,8 +41,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("OfferingPlayerId"); writer.String(OfferingPlayerId.c_str());
-                writer.String("TradeId"); writer.String(TradeId.c_str());
+                writer.String("OfferingPlayerId");
+                writer.String(OfferingPlayerId.c_str());
+                writer.String("TradeId");
+                writer.String(TradeId.c_str());
                 if (!AcceptedInventoryInstanceIds.empty()) {
                     writer.String("AcceptedInventoryInstanceIds");
                     writer.StartArray();
@@ -183,9 +185,18 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Status.notNull()) { writer.String("Status"); writeTradeStatusEnumJSON(Status, writer); }
-                if (TradeId.length() > 0) { writer.String("TradeId"); writer.String(TradeId.c_str()); }
-                if (OfferingPlayerId.length() > 0) { writer.String("OfferingPlayerId"); writer.String(OfferingPlayerId.c_str()); }
+                if (Status.notNull()) {
+                    writer.String("Status");
+                    writeTradeStatusEnumJSON(Status, writer);
+                }
+                if (TradeId.length() > 0) {
+                    writer.String("TradeId");
+                    writer.String(TradeId.c_str());
+                }
+                if (OfferingPlayerId.length() > 0) {
+                    writer.String("OfferingPlayerId");
+                    writer.String(OfferingPlayerId.c_str());
+                }
                 if (!OfferedInventoryInstanceIds.empty()) {
                     writer.String("OfferedInventoryInstanceIds");
                     writer.StartArray();
@@ -218,7 +229,10 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                if (AcceptedPlayerId.length() > 0) { writer.String("AcceptedPlayerId"); writer.String(AcceptedPlayerId.c_str()); }
+                if (AcceptedPlayerId.length() > 0) {
+                    writer.String("AcceptedPlayerId");
+                    writer.String(AcceptedPlayerId.c_str());
+                }
                 if (!AcceptedInventoryInstanceIds.empty()) {
                     writer.String("AcceptedInventoryInstanceIds");
                     writer.StartArray();
@@ -227,10 +241,22 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                if (OpenedAt.notNull()) { writer.String("OpenedAt"); writeDatetime(OpenedAt, writer); }
-                if (FilledAt.notNull()) { writer.String("FilledAt"); writeDatetime(FilledAt, writer); }
-                if (CancelledAt.notNull()) { writer.String("CancelledAt"); writeDatetime(CancelledAt, writer); }
-                if (InvalidatedAt.notNull()) { writer.String("InvalidatedAt"); writeDatetime(InvalidatedAt, writer); }
+                if (OpenedAt.notNull()) {
+                    writer.String("OpenedAt");
+                    writeDatetime(OpenedAt, writer);
+                }
+                if (FilledAt.notNull()) {
+                    writer.String("FilledAt");
+                    writeDatetime(FilledAt, writer);
+                }
+                if (CancelledAt.notNull()) {
+                    writer.String("CancelledAt");
+                    writeDatetime(CancelledAt, writer);
+                }
+                if (InvalidatedAt.notNull()) {
+                    writer.String("InvalidatedAt");
+                    writeDatetime(InvalidatedAt, writer);
+                }
                 writer.EndObject();
             }
 
@@ -319,7 +345,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Trade != nullptr) { writer.String("Trade"); Trade->writeJSON(writer); }
+                if (Trade != nullptr) {
+                    writer.String("Trade");
+                    Trade->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -364,9 +393,16 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Platform.length() > 0) { writer.String("Platform"); writer.String(Platform.c_str()); }
-                if (CampaignId.length() > 0) { writer.String("CampaignId"); writer.String(CampaignId.c_str()); }
-                writer.String("AttributedAt"); writeDatetime(AttributedAt, writer);
+                if (Platform.length() > 0) {
+                    writer.String("Platform");
+                    writer.String(Platform.c_str());
+                }
+                if (CampaignId.length() > 0) {
+                    writer.String("CampaignId");
+                    writer.String(CampaignId.c_str());
+                }
+                writer.String("AttributedAt");
+                writeDatetime(AttributedAt, writer);
                 writer.EndObject();
             }
 
@@ -418,10 +454,22 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (FriendPlayFabId.length() > 0) { writer.String("FriendPlayFabId"); writer.String(FriendPlayFabId.c_str()); }
-                if (FriendUsername.length() > 0) { writer.String("FriendUsername"); writer.String(FriendUsername.c_str()); }
-                if (FriendEmail.length() > 0) { writer.String("FriendEmail"); writer.String(FriendEmail.c_str()); }
-                if (FriendTitleDisplayName.length() > 0) { writer.String("FriendTitleDisplayName"); writer.String(FriendTitleDisplayName.c_str()); }
+                if (FriendPlayFabId.length() > 0) {
+                    writer.String("FriendPlayFabId");
+                    writer.String(FriendPlayFabId.c_str());
+                }
+                if (FriendUsername.length() > 0) {
+                    writer.String("FriendUsername");
+                    writer.String(FriendUsername.c_str());
+                }
+                if (FriendEmail.length() > 0) {
+                    writer.String("FriendEmail");
+                    writer.String(FriendEmail.c_str());
+                }
+                if (FriendTitleDisplayName.length() > 0) {
+                    writer.String("FriendTitleDisplayName");
+                    writer.String(FriendTitleDisplayName.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -466,7 +514,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("Created"); writer.Bool(Created);
+                writer.String("Created");
+                writer.Bool(Created);
                 writer.EndObject();
             }
 
@@ -508,8 +557,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("ServiceName"); writer.String(ServiceName.c_str());
-                writer.String("UserId"); writer.String(UserId.c_str());
+                writer.String("ServiceName");
+                writer.String(ServiceName.c_str());
+                writer.String("UserId");
+                writer.String(UserId.c_str());
                 writer.EndObject();
             }
 
@@ -550,7 +601,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("GenericId"); GenericId.writeJSON(writer);
+                writer.String("GenericId");
+                GenericId.writeJSON(writer);
                 writer.EndObject();
             }
 
@@ -625,14 +677,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
+                writer.String("SharedGroupId");
+                writer.String(SharedGroupId.c_str());
                 writer.String("PlayFabIds");
                 writer.StartArray();
                 for (std::list<AZStd::string>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
-
                 writer.EndObject();
             }
 
@@ -717,9 +769,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("Username"); writer.String(Username.c_str());
-                writer.String("Email"); writer.String(Email.c_str());
-                writer.String("Password"); writer.String(Password.c_str());
+                writer.String("Username");
+                writer.String(Username.c_str());
+                writer.String("Email");
+                writer.String(Email.c_str());
+                writer.String("Password");
+                writer.String(Password.c_str());
                 writer.EndObject();
             }
 
@@ -762,7 +817,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Username.length() > 0) { writer.String("Username"); writer.String(Username.c_str()); }
+                if (Username.length() > 0) {
+                    writer.String("Username");
+                    writer.String(Username.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -804,8 +862,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("VirtualCurrency"); writer.String(VirtualCurrency.c_str());
-                writer.String("Amount"); writer.Int(Amount);
+                writer.String("VirtualCurrency");
+                writer.String(VirtualCurrency.c_str());
+                writer.String("Amount");
+                writer.Int(Amount);
                 writer.EndObject();
             }
 
@@ -852,9 +912,16 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("DeviceToken"); writer.String(DeviceToken.c_str());
-                if (SendPushNotificationConfirmation.notNull()) { writer.String("SendPushNotificationConfirmation"); writer.Bool(SendPushNotificationConfirmation); }
-                if (ConfirmationMessage.length() > 0) { writer.String("ConfirmationMessage"); writer.String(ConfirmationMessage.c_str()); }
+                writer.String("DeviceToken");
+                writer.String(DeviceToken.c_str());
+                if (SendPushNotificationConfirmation.notNull()) {
+                    writer.String("SendPushNotificationConfirmation");
+                    writer.Bool(SendPushNotificationConfirmation);
+                }
+                if (ConfirmationMessage.length() > 0) {
+                    writer.String("ConfirmationMessage");
+                    writer.String(ConfirmationMessage.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -933,8 +1000,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Idfa.length() > 0) { writer.String("Idfa"); writer.String(Idfa.c_str()); }
-                if (Adid.length() > 0) { writer.String("Adid"); writer.String(Adid.c_str()); }
+                if (Idfa.length() > 0) {
+                    writer.String("Idfa");
+                    writer.String(Idfa.c_str());
+                }
+                if (Adid.length() > 0) {
+                    writer.String("Adid");
+                    writer.String(Adid.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -1008,7 +1081,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("TradeId"); writer.String(TradeId.c_str());
+                writer.String("TradeId");
+                writer.String(TradeId.c_str());
                 writer.EndObject();
             }
 
@@ -1048,7 +1122,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Trade != nullptr) { writer.String("Trade"); Trade->writeJSON(writer); }
+                if (Trade != nullptr) {
+                    writer.String("Trade");
+                    Trade->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -1108,16 +1185,32 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (ItemId.length() > 0) { writer.String("ItemId"); writer.String(ItemId.c_str()); }
-                if (ItemClass.length() > 0) { writer.String("ItemClass"); writer.String(ItemClass.c_str()); }
-                if (ItemInstanceId.length() > 0) { writer.String("ItemInstanceId"); writer.String(ItemInstanceId.c_str()); }
-                if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
-                if (Description.length() > 0) { writer.String("Description"); writer.String(Description.c_str()); }
+                if (ItemId.length() > 0) {
+                    writer.String("ItemId");
+                    writer.String(ItemId.c_str());
+                }
+                if (ItemClass.length() > 0) {
+                    writer.String("ItemClass");
+                    writer.String(ItemClass.c_str());
+                }
+                if (ItemInstanceId.length() > 0) {
+                    writer.String("ItemInstanceId");
+                    writer.String(ItemInstanceId.c_str());
+                }
+                if (DisplayName.length() > 0) {
+                    writer.String("DisplayName");
+                    writer.String(DisplayName.c_str());
+                }
+                if (Description.length() > 0) {
+                    writer.String("Description");
+                    writer.String(Description.c_str());
+                }
                 if (!VirtualCurrencyPrices.empty()) {
                     writer.String("VirtualCurrencyPrices");
                     writer.StartObject();
                     for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Uint(iter->second);
                     }
                     writer.EndObject();
                 }
@@ -1125,7 +1218,8 @@ namespace PlayFabClientSdk
                     writer.String("RealCurrencyPrices");
                     writer.StartObject();
                     for (std::map<AZStd::string, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Uint(iter->second);
                     }
                     writer.EndObject();
                 }
@@ -1133,7 +1227,8 @@ namespace PlayFabClientSdk
                     writer.String("VCAmount");
                     writer.StartObject();
                     for (std::map<AZStd::string, Uint32>::iterator iter = VCAmount.begin(); iter != VCAmount.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Uint(iter->second);
                     }
                     writer.EndObject();
                 }
@@ -1207,9 +1302,18 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (UsageCount.notNull()) { writer.String("UsageCount"); writer.Uint(UsageCount); }
-                if (UsagePeriod.notNull()) { writer.String("UsagePeriod"); writer.Uint(UsagePeriod); }
-                if (UsagePeriodGroup.length() > 0) { writer.String("UsagePeriodGroup"); writer.String(UsagePeriodGroup.c_str()); }
+                if (UsageCount.notNull()) {
+                    writer.String("UsageCount");
+                    writer.Uint(UsageCount);
+                }
+                if (UsagePeriod.notNull()) {
+                    writer.String("UsagePeriod");
+                    writer.Uint(UsagePeriod);
+                }
+                if (UsagePeriodGroup.length() > 0) {
+                    writer.String("UsagePeriodGroup");
+                    writer.String(UsagePeriodGroup.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -1261,7 +1365,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (KeyItemId.length() > 0) { writer.String("KeyItemId"); writer.String(KeyItemId.c_str()); }
+                if (KeyItemId.length() > 0) {
+                    writer.String("KeyItemId");
+                    writer.String(KeyItemId.c_str());
+                }
                 if (!ItemContents.empty()) {
                     writer.String("ItemContents");
                     writer.StartArray();
@@ -1282,7 +1389,8 @@ namespace PlayFabClientSdk
                     writer.String("VirtualCurrencyContents");
                     writer.StartObject();
                     for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrencyContents.begin(); iter != VirtualCurrencyContents.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Uint(iter->second);
                     }
                     writer.EndObject();
                 }
@@ -1370,7 +1478,8 @@ namespace PlayFabClientSdk
                     writer.String("BundledVirtualCurrencies");
                     writer.StartObject();
                     for (std::map<AZStd::string, Uint32>::iterator iter = BundledVirtualCurrencies.begin(); iter != BundledVirtualCurrencies.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Uint(iter->second);
                     }
                     writer.EndObject();
                 }
@@ -1484,16 +1593,30 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("ItemId"); writer.String(ItemId.c_str());
-                if (ItemClass.length() > 0) { writer.String("ItemClass"); writer.String(ItemClass.c_str()); }
-                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
-                if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
-                if (Description.length() > 0) { writer.String("Description"); writer.String(Description.c_str()); }
+                writer.String("ItemId");
+                writer.String(ItemId.c_str());
+                if (ItemClass.length() > 0) {
+                    writer.String("ItemClass");
+                    writer.String(ItemClass.c_str());
+                }
+                if (CatalogVersion.length() > 0) {
+                    writer.String("CatalogVersion");
+                    writer.String(CatalogVersion.c_str());
+                }
+                if (DisplayName.length() > 0) {
+                    writer.String("DisplayName");
+                    writer.String(DisplayName.c_str());
+                }
+                if (Description.length() > 0) {
+                    writer.String("Description");
+                    writer.String(Description.c_str());
+                }
                 if (!VirtualCurrencyPrices.empty()) {
                     writer.String("VirtualCurrencyPrices");
                     writer.StartObject();
                     for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Uint(iter->second);
                     }
                     writer.EndObject();
                 }
@@ -1501,7 +1624,8 @@ namespace PlayFabClientSdk
                     writer.String("RealCurrencyPrices");
                     writer.StartObject();
                     for (std::map<AZStd::string, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Uint(iter->second);
                     }
                     writer.EndObject();
                 }
@@ -1513,16 +1637,36 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                if (CustomData.length() > 0) { writer.String("CustomData"); writer.String(CustomData.c_str()); }
-                if (Consumable != nullptr) { writer.String("Consumable"); Consumable->writeJSON(writer); }
-                if (Container != nullptr) { writer.String("Container"); Container->writeJSON(writer); }
-                if (Bundle != nullptr) { writer.String("Bundle"); Bundle->writeJSON(writer); }
-                writer.String("CanBecomeCharacter"); writer.Bool(CanBecomeCharacter);
-                writer.String("IsStackable"); writer.Bool(IsStackable);
-                writer.String("IsTradable"); writer.Bool(IsTradable);
-                if (ItemImageUrl.length() > 0) { writer.String("ItemImageUrl"); writer.String(ItemImageUrl.c_str()); }
-                writer.String("IsLimitedEdition"); writer.Bool(IsLimitedEdition);
-                writer.String("InitialLimitedEditionCount"); writer.Int(InitialLimitedEditionCount);
+                if (CustomData.length() > 0) {
+                    writer.String("CustomData");
+                    writer.String(CustomData.c_str());
+                }
+                if (Consumable != nullptr) {
+                    writer.String("Consumable");
+                    Consumable->writeJSON(writer);
+                }
+                if (Container != nullptr) {
+                    writer.String("Container");
+                    Container->writeJSON(writer);
+                }
+                if (Bundle != nullptr) {
+                    writer.String("Bundle");
+                    Bundle->writeJSON(writer);
+                }
+                writer.String("CanBecomeCharacter");
+                writer.Bool(CanBecomeCharacter);
+                writer.String("IsStackable");
+                writer.Bool(IsStackable);
+                writer.String("IsTradable");
+                writer.Bool(IsTradable);
+                if (ItemImageUrl.length() > 0) {
+                    writer.String("ItemImageUrl");
+                    writer.String(ItemImageUrl.c_str());
+                }
+                writer.String("IsLimitedEdition");
+                writer.Bool(IsLimitedEdition);
+                writer.String("InitialLimitedEditionCount");
+                writer.Int(InitialLimitedEditionCount);
                 writer.EndObject();
             }
 
@@ -1650,19 +1794,56 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (ItemId.length() > 0) { writer.String("ItemId"); writer.String(ItemId.c_str()); }
-                if (ItemInstanceId.length() > 0) { writer.String("ItemInstanceId"); writer.String(ItemInstanceId.c_str()); }
-                if (ItemClass.length() > 0) { writer.String("ItemClass"); writer.String(ItemClass.c_str()); }
-                if (PurchaseDate.notNull()) { writer.String("PurchaseDate"); writeDatetime(PurchaseDate, writer); }
-                if (Expiration.notNull()) { writer.String("Expiration"); writeDatetime(Expiration, writer); }
-                if (RemainingUses.notNull()) { writer.String("RemainingUses"); writer.Int(RemainingUses); }
-                if (UsesIncrementedBy.notNull()) { writer.String("UsesIncrementedBy"); writer.Int(UsesIncrementedBy); }
-                if (Annotation.length() > 0) { writer.String("Annotation"); writer.String(Annotation.c_str()); }
-                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
-                if (BundleParent.length() > 0) { writer.String("BundleParent"); writer.String(BundleParent.c_str()); }
-                if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
-                if (UnitCurrency.length() > 0) { writer.String("UnitCurrency"); writer.String(UnitCurrency.c_str()); }
-                writer.String("UnitPrice"); writer.Uint(UnitPrice);
+                if (ItemId.length() > 0) {
+                    writer.String("ItemId");
+                    writer.String(ItemId.c_str());
+                }
+                if (ItemInstanceId.length() > 0) {
+                    writer.String("ItemInstanceId");
+                    writer.String(ItemInstanceId.c_str());
+                }
+                if (ItemClass.length() > 0) {
+                    writer.String("ItemClass");
+                    writer.String(ItemClass.c_str());
+                }
+                if (PurchaseDate.notNull()) {
+                    writer.String("PurchaseDate");
+                    writeDatetime(PurchaseDate, writer);
+                }
+                if (Expiration.notNull()) {
+                    writer.String("Expiration");
+                    writeDatetime(Expiration, writer);
+                }
+                if (RemainingUses.notNull()) {
+                    writer.String("RemainingUses");
+                    writer.Int(RemainingUses);
+                }
+                if (UsesIncrementedBy.notNull()) {
+                    writer.String("UsesIncrementedBy");
+                    writer.Int(UsesIncrementedBy);
+                }
+                if (Annotation.length() > 0) {
+                    writer.String("Annotation");
+                    writer.String(Annotation.c_str());
+                }
+                if (CatalogVersion.length() > 0) {
+                    writer.String("CatalogVersion");
+                    writer.String(CatalogVersion.c_str());
+                }
+                if (BundleParent.length() > 0) {
+                    writer.String("BundleParent");
+                    writer.String(BundleParent.c_str());
+                }
+                if (DisplayName.length() > 0) {
+                    writer.String("DisplayName");
+                    writer.String(DisplayName.c_str());
+                }
+                if (UnitCurrency.length() > 0) {
+                    writer.String("UnitCurrency");
+                    writer.String(UnitCurrency.c_str());
+                }
+                writer.String("UnitPrice");
+                writer.Uint(UnitPrice);
                 if (!BundleContents.empty()) {
                     writer.String("BundleContents");
                     writer.StartArray();
@@ -1675,7 +1856,8 @@ namespace PlayFabClientSdk
                     writer.String("CustomData");
                     writer.StartObject();
                     for (std::map<AZStd::string, AZStd::string>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                        writer.String(iter->first.c_str());
+                        writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
                 }
@@ -1757,7 +1939,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
+                if (CharacterId.length() > 0) {
+                    writer.String("CharacterId");
+                    writer.String(CharacterId.c_str());
+                }
                 if (!Inventory.empty()) {
                     writer.String("Inventory");
                     writer.StartArray();
@@ -1829,13 +2014,30 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
-                if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
-                if (CharacterName.length() > 0) { writer.String("CharacterName"); writer.String(CharacterName.c_str()); }
-                if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
-                if (CharacterType.length() > 0) { writer.String("CharacterType"); writer.String(CharacterType.c_str()); }
-                writer.String("StatValue"); writer.Int(StatValue);
-                writer.String("Position"); writer.Int(Position);
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
+                if (CharacterId.length() > 0) {
+                    writer.String("CharacterId");
+                    writer.String(CharacterId.c_str());
+                }
+                if (CharacterName.length() > 0) {
+                    writer.String("CharacterName");
+                    writer.String(CharacterName.c_str());
+                }
+                if (DisplayName.length() > 0) {
+                    writer.String("DisplayName");
+                    writer.String(DisplayName.c_str());
+                }
+                if (CharacterType.length() > 0) {
+                    writer.String("CharacterType");
+                    writer.String(CharacterType.c_str());
+                }
+                writer.String("StatValue");
+                writer.Int(StatValue);
+                writer.String("Position");
+                writer.Int(Position);
                 writer.EndObject();
             }
 
@@ -1892,9 +2094,18 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
-                if (CharacterName.length() > 0) { writer.String("CharacterName"); writer.String(CharacterName.c_str()); }
-                if (CharacterType.length() > 0) { writer.String("CharacterType"); writer.String(CharacterType.c_str()); }
+                if (CharacterId.length() > 0) {
+                    writer.String("CharacterId");
+                    writer.String(CharacterId.c_str());
+                }
+                if (CharacterName.length() > 0) {
+                    writer.String("CharacterName");
+                    writer.String(CharacterName.c_str());
+                }
+                if (CharacterType.length() > 0) {
+                    writer.String("CharacterType");
+                    writer.String(CharacterType.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -1978,7 +2189,8 @@ namespace PlayFabClientSdk
                     writer.String("Data");
                     writer.StartObject();
                     for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                        writer.String(iter->first.c_str());
+                        writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
                 }
@@ -2093,7 +2305,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("OrderId"); writer.String(OrderId.c_str());
+                writer.String("OrderId");
+                writer.String(OrderId.c_str());
                 writer.EndObject();
             }
 
@@ -2138,8 +2351,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (OrderId.length() > 0) { writer.String("OrderId"); writer.String(OrderId.c_str()); }
-                writer.String("PurchaseDate"); writeDatetime(PurchaseDate, writer);
+                if (OrderId.length() > 0) {
+                    writer.String("OrderId");
+                    writer.String(OrderId.c_str());
+                }
+                writer.String("PurchaseDate");
+                writeDatetime(PurchaseDate, writer);
                 if (!Items.empty()) {
                     writer.String("Items");
                     writer.StartArray();
@@ -2201,9 +2418,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("ItemInstanceId"); writer.String(ItemInstanceId.c_str());
-                writer.String("ConsumeCount"); writer.Int(ConsumeCount);
-                if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
+                writer.String("ItemInstanceId");
+                writer.String(ItemInstanceId.c_str());
+                writer.String("ConsumeCount");
+                writer.Int(ConsumeCount);
+                if (CharacterId.length() > 0) {
+                    writer.String("CharacterId");
+                    writer.String(CharacterId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -2249,8 +2471,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (ItemInstanceId.length() > 0) { writer.String("ItemInstanceId"); writer.String(ItemInstanceId.c_str()); }
-                writer.String("RemainingUses"); writer.Int(RemainingUses);
+                if (ItemInstanceId.length() > 0) {
+                    writer.String("ItemInstanceId");
+                    writer.String(ItemInstanceId.c_str());
+                }
+                writer.String("RemainingUses");
+                writer.Int(RemainingUses);
                 writer.EndObject();
             }
 
@@ -3115,7 +3341,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (SharedGroupId.length() > 0) { writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str()); }
+                if (SharedGroupId.length() > 0) {
+                    writer.String("SharedGroupId");
+                    writer.String(SharedGroupId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -3154,7 +3383,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (SharedGroupId.length() > 0) { writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str()); }
+                if (SharedGroupId.length() > 0) {
+                    writer.String("SharedGroupId");
+                    writer.String(SharedGroupId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -3769,11 +4001,26 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (pfRegion.notNull()) { writer.String("Region"); writeRegionEnumJSON(pfRegion, writer); }
-                if (BuildVersion.length() > 0) { writer.String("BuildVersion"); writer.String(BuildVersion.c_str()); }
-                if (GameMode.length() > 0) { writer.String("GameMode"); writer.String(GameMode.c_str()); }
-                if (StatisticName.length() > 0) { writer.String("StatisticName"); writer.String(StatisticName.c_str()); }
-                if (TagFilter != nullptr) { writer.String("TagFilter"); TagFilter->writeJSON(writer); }
+                if (pfRegion.notNull()) {
+                    writer.String("Region");
+                    writeRegionEnumJSON(pfRegion, writer);
+                }
+                if (BuildVersion.length() > 0) {
+                    writer.String("BuildVersion");
+                    writer.String(BuildVersion.c_str());
+                }
+                if (GameMode.length() > 0) {
+                    writer.String("GameMode");
+                    writer.String(GameMode.c_str());
+                }
+                if (StatisticName.length() > 0) {
+                    writer.String("StatisticName");
+                    writer.String(StatisticName.c_str());
+                }
+                if (TagFilter != nullptr) {
+                    writer.String("TagFilter");
+                    TagFilter->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -3893,12 +4140,30 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (pfRegion.notNull()) { writer.String("Region"); writeRegionEnumJSON(pfRegion, writer); }
-                if (LobbyID.length() > 0) { writer.String("LobbyID"); writer.String(LobbyID.c_str()); }
-                if (BuildVersion.length() > 0) { writer.String("BuildVersion"); writer.String(BuildVersion.c_str()); }
-                if (GameMode.length() > 0) { writer.String("GameMode"); writer.String(GameMode.c_str()); }
-                if (StatisticName.length() > 0) { writer.String("StatisticName"); writer.String(StatisticName.c_str()); }
-                if (MaxPlayers.notNull()) { writer.String("MaxPlayers"); writer.Int(MaxPlayers); }
+                if (pfRegion.notNull()) {
+                    writer.String("Region");
+                    writeRegionEnumJSON(pfRegion, writer);
+                }
+                if (LobbyID.length() > 0) {
+                    writer.String("LobbyID");
+                    writer.String(LobbyID.c_str());
+                }
+                if (BuildVersion.length() > 0) {
+                    writer.String("BuildVersion");
+                    writer.String(BuildVersion.c_str());
+                }
+                if (GameMode.length() > 0) {
+                    writer.String("GameMode");
+                    writer.String(GameMode.c_str());
+                }
+                if (StatisticName.length() > 0) {
+                    writer.String("StatisticName");
+                    writer.String(StatisticName.c_str());
+                }
+                if (MaxPlayers.notNull()) {
+                    writer.String("MaxPlayers");
+                    writer.Int(MaxPlayers);
+                }
                 if (!PlayerUserIds.empty()) {
                     writer.String("PlayerUserIds");
                     writer.StartArray();
@@ -3907,20 +4172,37 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                writer.String("RunTime"); writer.Uint(RunTime);
-                if (GameServerState.notNull()) { writer.String("GameServerState"); writeGameInstanceStateEnumJSON(GameServerState, writer); }
-                if (GameServerData.length() > 0) { writer.String("GameServerData"); writer.String(GameServerData.c_str()); }
+                writer.String("RunTime");
+                writer.Uint(RunTime);
+                if (GameServerState.notNull()) {
+                    writer.String("GameServerState");
+                    writeGameInstanceStateEnumJSON(GameServerState, writer);
+                }
+                if (GameServerData.length() > 0) {
+                    writer.String("GameServerData");
+                    writer.String(GameServerData.c_str());
+                }
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartObject();
                     for (std::map<AZStd::string, AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                        writer.String(iter->first.c_str());
+                        writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
                 }
-                if (LastHeartbeat.notNull()) { writer.String("LastHeartbeat"); writeDatetime(LastHeartbeat, writer); }
-                if (ServerHostname.length() > 0) { writer.String("ServerHostname"); writer.String(ServerHostname.c_str()); }
-                if (ServerPort.notNull()) { writer.String("ServerPort"); writer.Int(ServerPort); }
+                if (LastHeartbeat.notNull()) {
+                    writer.String("LastHeartbeat");
+                    writeDatetime(LastHeartbeat, writer);
+                }
+                if (ServerHostname.length() > 0) {
+                    writer.String("ServerHostname");
+                    writer.String(ServerHostname.c_str());
+                }
+                if (ServerPort.notNull()) {
+                    writer.String("ServerPort");
+                    writer.Int(ServerPort);
+                }
                 writer.EndObject();
             }
 
@@ -4008,8 +4290,10 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                writer.String("PlayerCount"); writer.Int(PlayerCount);
-                writer.String("GameCount"); writer.Int(GameCount);
+                writer.String("PlayerCount");
+                writer.Int(PlayerCount);
+                writer.String("GameCount");
+                writer.Int(GameCount);
                 writer.EndObject();
             }
 
@@ -4102,11 +4386,24 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("FunctionName"); writer.String(FunctionName.c_str());
-                if (FunctionParameter.notNull()) { writer.String("FunctionParameter"); FunctionParameter.writeJSON(writer); }
-                if (RevisionSelection.notNull()) { writer.String("RevisionSelection"); writeCloudScriptRevisionOptionEnumJSON(RevisionSelection, writer); }
-                if (SpecificRevision.notNull()) { writer.String("SpecificRevision"); writer.Int(SpecificRevision); }
-                if (GeneratePlayStreamEvent.notNull()) { writer.String("GeneratePlayStreamEvent"); writer.Bool(GeneratePlayStreamEvent); }
+                writer.String("FunctionName");
+                writer.String(FunctionName.c_str());
+                if (FunctionParameter.notNull()) {
+                    writer.String("FunctionParameter");
+                    FunctionParameter.writeJSON(writer);
+                }
+                if (RevisionSelection.notNull()) {
+                    writer.String("RevisionSelection");
+                    writeCloudScriptRevisionOptionEnumJSON(RevisionSelection, writer);
+                }
+                if (SpecificRevision.notNull()) {
+                    writer.String("SpecificRevision");
+                    writer.Int(SpecificRevision);
+                }
+                if (GeneratePlayStreamEvent.notNull()) {
+                    writer.String("GeneratePlayStreamEvent");
+                    writer.Bool(GeneratePlayStreamEvent);
+                }
                 writer.EndObject();
             }
 
@@ -4159,9 +4456,18 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Level.length() > 0) { writer.String("Level"); writer.String(Level.c_str()); }
-                if (Message.length() > 0) { writer.String("Message"); writer.String(Message.c_str()); }
-                if (Data.notNull()) { writer.String("Data"); Data.writeJSON(writer); }
+                if (Level.length() > 0) {
+                    writer.String("Level");
+                    writer.String(Level.c_str());
+                }
+                if (Message.length() > 0) {
+                    writer.String("Message");
+                    writer.String(Message.c_str());
+                }
+                if (Data.notNull()) {
+                    writer.String("Data");
+                    Data.writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -4210,9 +4516,18 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Error.length() > 0) { writer.String("Error"); writer.String(Error.c_str()); }
-                if (Message.length() > 0) { writer.String("Message"); writer.String(Message.c_str()); }
-                if (StackTrace.length() > 0) { writer.String("StackTrace"); writer.String(StackTrace.c_str()); }
+                if (Error.length() > 0) {
+                    writer.String("Error");
+                    writer.String(Error.c_str());
+                }
+                if (Message.length() > 0) {
+                    writer.String("Message");
+                    writer.String(Message.c_str());
+                }
+                if (StackTrace.length() > 0) {
+                    writer.String("StackTrace");
+                    writer.String(StackTrace.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -4289,10 +4604,20 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (FunctionName.length() > 0) { writer.String("FunctionName"); writer.String(FunctionName.c_str()); }
-                writer.String("Revision"); writer.Int(Revision);
-                if (FunctionResult.notNull()) { writer.String("FunctionResult"); FunctionResult.writeJSON(writer); }
-                if (FunctionResultTooLarge.notNull()) { writer.String("FunctionResultTooLarge"); writer.Bool(FunctionResultTooLarge); }
+                if (FunctionName.length() > 0) {
+                    writer.String("FunctionName");
+                    writer.String(FunctionName.c_str());
+                }
+                writer.String("Revision");
+                writer.Int(Revision);
+                if (FunctionResult.notNull()) {
+                    writer.String("FunctionResult");
+                    FunctionResult.writeJSON(writer);
+                }
+                if (FunctionResultTooLarge.notNull()) {
+                    writer.String("FunctionResultTooLarge");
+                    writer.Bool(FunctionResultTooLarge);
+                }
                 if (!Logs.empty()) {
                     writer.String("Logs");
                     writer.StartArray();
@@ -4301,13 +4626,24 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                if (LogsTooLarge.notNull()) { writer.String("LogsTooLarge"); writer.Bool(LogsTooLarge); }
-                writer.String("ExecutionTimeSeconds"); writer.Double(ExecutionTimeSeconds);
-                writer.String("ProcessorTimeSeconds"); writer.Double(ProcessorTimeSeconds);
-                writer.String("MemoryConsumedBytes"); writer.Uint(MemoryConsumedBytes);
-                writer.String("APIRequestsIssued"); writer.Int(APIRequestsIssued);
-                writer.String("HttpRequestsIssued"); writer.Int(HttpRequestsIssued);
-                if (Error != nullptr) { writer.String("Error"); Error->writeJSON(writer); }
+                if (LogsTooLarge.notNull()) {
+                    writer.String("LogsTooLarge");
+                    writer.Bool(LogsTooLarge);
+                }
+                writer.String("ExecutionTimeSeconds");
+                writer.Double(ExecutionTimeSeconds);
+                writer.String("ProcessorTimeSeconds");
+                writer.Double(ProcessorTimeSeconds);
+                writer.String("MemoryConsumedBytes");
+                writer.Uint(MemoryConsumedBytes);
+                writer.String("APIRequestsIssued");
+                writer.Int(APIRequestsIssued);
+                writer.String("HttpRequestsIssued");
+                writer.Int(HttpRequestsIssued);
+                if (Error != nullptr) {
+                    writer.String("Error");
+                    Error->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -4376,8 +4712,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (FacebookId.length() > 0) { writer.String("FacebookId"); writer.String(FacebookId.c_str()); }
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
+                if (FacebookId.length() > 0) {
+                    writer.String("FacebookId");
+                    writer.String(FacebookId.c_str());
+                }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -4421,8 +4763,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (FacebookId.length() > 0) { writer.String("FacebookId"); writer.String(FacebookId.c_str()); }
-                if (FullName.length() > 0) { writer.String("FullName"); writer.String(FullName.c_str()); }
+                if (FacebookId.length() > 0) {
+                    writer.String("FacebookId");
+                    writer.String(FacebookId.c_str());
+                }
+                if (FullName.length() > 0) {
+                    writer.String("FullName");
+                    writer.String(FullName.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -4515,10 +4863,22 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (SteamId.length() > 0) { writer.String("SteamId"); writer.String(SteamId.c_str()); }
-                if (SteamCountry.length() > 0) { writer.String("SteamCountry"); writer.String(SteamCountry.c_str()); }
-                if (SteamCurrency.notNull()) { writer.String("SteamCurrency"); writeCurrencyEnumJSON(SteamCurrency, writer); }
-                if (SteamActivationStatus.notNull()) { writer.String("SteamActivationStatus"); writeTitleActivationStatusEnumJSON(SteamActivationStatus, writer); }
+                if (SteamId.length() > 0) {
+                    writer.String("SteamId");
+                    writer.String(SteamId.c_str());
+                }
+                if (SteamCountry.length() > 0) {
+                    writer.String("SteamCountry");
+                    writer.String(SteamCountry.c_str());
+                }
+                if (SteamCurrency.notNull()) {
+                    writer.String("SteamCurrency");
+                    writeCurrencyEnumJSON(SteamCurrency, writer);
+                }
+                if (SteamActivationStatus.notNull()) {
+                    writer.String("SteamActivationStatus");
+                    writeTitleActivationStatusEnumJSON(SteamActivationStatus, writer);
+                }
                 writer.EndObject();
             }
 
@@ -4563,7 +4923,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (GameCenterId.length() > 0) { writer.String("GameCenterId"); writer.String(GameCenterId.c_str()); }
+                if (GameCenterId.length() > 0) {
+                    writer.String("GameCenterId");
+                    writer.String(GameCenterId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -4626,9 +4989,18 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (FriendPlayFabId.length() > 0) { writer.String("FriendPlayFabId"); writer.String(FriendPlayFabId.c_str()); }
-                if (Username.length() > 0) { writer.String("Username"); writer.String(Username.c_str()); }
-                if (TitleDisplayName.length() > 0) { writer.String("TitleDisplayName"); writer.String(TitleDisplayName.c_str()); }
+                if (FriendPlayFabId.length() > 0) {
+                    writer.String("FriendPlayFabId");
+                    writer.String(FriendPlayFabId.c_str());
+                }
+                if (Username.length() > 0) {
+                    writer.String("Username");
+                    writer.String(Username.c_str());
+                }
+                if (TitleDisplayName.length() > 0) {
+                    writer.String("TitleDisplayName");
+                    writer.String(TitleDisplayName.c_str());
+                }
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartArray();
@@ -4637,10 +5009,22 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                if (CurrentMatchmakerLobbyId.length() > 0) { writer.String("CurrentMatchmakerLobbyId"); writer.String(CurrentMatchmakerLobbyId.c_str()); }
-                if (FacebookInfo != nullptr) { writer.String("FacebookInfo"); FacebookInfo->writeJSON(writer); }
-                if (SteamInfo != nullptr) { writer.String("SteamInfo"); SteamInfo->writeJSON(writer); }
-                if (GameCenterInfo != nullptr) { writer.String("GameCenterInfo"); GameCenterInfo->writeJSON(writer); }
+                if (CurrentMatchmakerLobbyId.length() > 0) {
+                    writer.String("CurrentMatchmakerLobbyId");
+                    writer.String(CurrentMatchmakerLobbyId.c_str());
+                }
+                if (FacebookInfo != nullptr) {
+                    writer.String("FacebookInfo");
+                    FacebookInfo->writeJSON(writer);
+                }
+                if (SteamInfo != nullptr) {
+                    writer.String("SteamInfo");
+                    SteamInfo->writeJSON(writer);
+                }
+                if (GameCenterInfo != nullptr) {
+                    writer.String("GameCenterInfo");
+                    GameCenterInfo->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -4701,8 +5085,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (GameCenterId.length() > 0) { writer.String("GameCenterId"); writer.String(GameCenterId.c_str()); }
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
+                if (GameCenterId.length() > 0) {
+                    writer.String("GameCenterId");
+                    writer.String(GameCenterId.c_str());
+                }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -4746,8 +5136,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("BuildVersion"); writer.String(BuildVersion.c_str());
-                if (TitleId.length() > 0) { writer.String("TitleId"); writer.String(TitleId.c_str()); }
+                writer.String("BuildVersion");
+                writer.String(BuildVersion.c_str());
+                if (TitleId.length() > 0) {
+                    writer.String("TitleId");
+                    writer.String(TitleId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -4797,10 +5191,20 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (pfRegion.notNull()) { writer.String("Region"); writeRegionEnumJSON(pfRegion, writer); }
-                if (Name.length() > 0) { writer.String("Name"); writer.String(Name.c_str()); }
-                writer.String("Available"); writer.Bool(Available);
-                if (PingUrl.length() > 0) { writer.String("PingUrl"); writer.String(PingUrl.c_str()); }
+                if (pfRegion.notNull()) {
+                    writer.String("Region");
+                    writeRegionEnumJSON(pfRegion, writer);
+                }
+                if (Name.length() > 0) {
+                    writer.String("Name");
+                    writer.String(Name.c_str());
+                }
+                writer.String("Available");
+                writer.Bool(Available);
+                if (PingUrl.length() > 0) {
+                    writer.String("PingUrl");
+                    writer.String(PingUrl.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -4900,8 +5304,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (GenericId != nullptr) { writer.String("GenericId"); GenericId->writeJSON(writer); }
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
+                if (GenericId != nullptr) {
+                    writer.String("GenericId");
+                    GenericId->writeJSON(writer);
+                }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -4951,10 +5361,22 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
-                if (Username.length() > 0) { writer.String("Username"); writer.String(Username.c_str()); }
-                if (Email.length() > 0) { writer.String("Email"); writer.String(Email.c_str()); }
-                if (TitleDisplayName.length() > 0) { writer.String("TitleDisplayName"); writer.String(TitleDisplayName.c_str()); }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
+                if (Username.length() > 0) {
+                    writer.String("Username");
+                    writer.String(Username.c_str());
+                }
+                if (Email.length() > 0) {
+                    writer.String("Email");
+                    writer.String(Email.c_str());
+                }
+                if (TitleDisplayName.length() > 0) {
+                    writer.String("TitleDisplayName");
+                    writer.String(TitleDisplayName.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -5099,13 +5521,32 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
-                if (Origination.notNull()) { writer.String("Origination"); writeUserOriginationEnumJSON(Origination, writer); }
-                writer.String("Created"); writeDatetime(Created, writer);
-                if (LastLogin.notNull()) { writer.String("LastLogin"); writeDatetime(LastLogin, writer); }
-                if (FirstLogin.notNull()) { writer.String("FirstLogin"); writeDatetime(FirstLogin, writer); }
-                if (isBanned.notNull()) { writer.String("isBanned"); writer.Bool(isBanned); }
-                if (AvatarUrl.length() > 0) { writer.String("AvatarUrl"); writer.String(AvatarUrl.c_str()); }
+                if (DisplayName.length() > 0) {
+                    writer.String("DisplayName");
+                    writer.String(DisplayName.c_str());
+                }
+                if (Origination.notNull()) {
+                    writer.String("Origination");
+                    writeUserOriginationEnumJSON(Origination, writer);
+                }
+                writer.String("Created");
+                writeDatetime(Created, writer);
+                if (LastLogin.notNull()) {
+                    writer.String("LastLogin");
+                    writeDatetime(LastLogin, writer);
+                }
+                if (FirstLogin.notNull()) {
+                    writer.String("FirstLogin");
+                    writeDatetime(FirstLogin, writer);
+                }
+                if (isBanned.notNull()) {
+                    writer.String("isBanned");
+                    writer.Bool(isBanned);
+                }
+                if (AvatarUrl.length() > 0) {
+                    writer.String("AvatarUrl");
+                    writer.String(AvatarUrl.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -5156,7 +5597,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Email.length() > 0) { writer.String("Email"); writer.String(Email.c_str()); }
+                if (Email.length() > 0) {
+                    writer.String("Email");
+                    writer.String(Email.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -5195,7 +5639,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (IosDeviceId.length() > 0) { writer.String("IosDeviceId"); writer.String(IosDeviceId.c_str()); }
+                if (IosDeviceId.length() > 0) {
+                    writer.String("IosDeviceId");
+                    writer.String(IosDeviceId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -5234,7 +5681,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (AndroidDeviceId.length() > 0) { writer.String("AndroidDeviceId"); writer.String(AndroidDeviceId.c_str()); }
+                if (AndroidDeviceId.length() > 0) {
+                    writer.String("AndroidDeviceId");
+                    writer.String(AndroidDeviceId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -5276,8 +5726,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (KongregateId.length() > 0) { writer.String("KongregateId"); writer.String(KongregateId.c_str()); }
-                if (KongregateName.length() > 0) { writer.String("KongregateName"); writer.String(KongregateName.c_str()); }
+                if (KongregateId.length() > 0) {
+                    writer.String("KongregateId");
+                    writer.String(KongregateId.c_str());
+                }
+                if (KongregateName.length() > 0) {
+                    writer.String("KongregateName");
+                    writer.String(KongregateName.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -5321,8 +5777,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (TwitchId.length() > 0) { writer.String("TwitchId"); writer.String(TwitchId.c_str()); }
-                if (TwitchUserName.length() > 0) { writer.String("TwitchUserName"); writer.String(TwitchUserName.c_str()); }
+                if (TwitchId.length() > 0) {
+                    writer.String("TwitchId");
+                    writer.String(TwitchId.c_str());
+                }
+                if (TwitchUserName.length() > 0) {
+                    writer.String("TwitchUserName");
+                    writer.String(TwitchUserName.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -5366,8 +5828,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PsnAccountId.length() > 0) { writer.String("PsnAccountId"); writer.String(PsnAccountId.c_str()); }
-                if (PsnOnlineId.length() > 0) { writer.String("PsnOnlineId"); writer.String(PsnOnlineId.c_str()); }
+                if (PsnAccountId.length() > 0) {
+                    writer.String("PsnAccountId");
+                    writer.String(PsnAccountId.c_str());
+                }
+                if (PsnOnlineId.length() > 0) {
+                    writer.String("PsnOnlineId");
+                    writer.String(PsnOnlineId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -5417,10 +5885,22 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (GoogleId.length() > 0) { writer.String("GoogleId"); writer.String(GoogleId.c_str()); }
-                if (GoogleEmail.length() > 0) { writer.String("GoogleEmail"); writer.String(GoogleEmail.c_str()); }
-                if (GoogleLocale.length() > 0) { writer.String("GoogleLocale"); writer.String(GoogleLocale.c_str()); }
-                if (GoogleGender.length() > 0) { writer.String("GoogleGender"); writer.String(GoogleGender.c_str()); }
+                if (GoogleId.length() > 0) {
+                    writer.String("GoogleId");
+                    writer.String(GoogleId.c_str());
+                }
+                if (GoogleEmail.length() > 0) {
+                    writer.String("GoogleEmail");
+                    writer.String(GoogleEmail.c_str());
+                }
+                if (GoogleLocale.length() > 0) {
+                    writer.String("GoogleLocale");
+                    writer.String(GoogleLocale.c_str());
+                }
+                if (GoogleGender.length() > 0) {
+                    writer.String("GoogleGender");
+                    writer.String(GoogleGender.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -5465,7 +5945,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (XboxUserId.length() > 0) { writer.String("XboxUserId"); writer.String(XboxUserId.c_str()); }
+                if (XboxUserId.length() > 0) {
+                    writer.String("XboxUserId");
+                    writer.String(XboxUserId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -5504,7 +5987,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (CustomId.length() > 0) { writer.String("CustomId"); writer.String(CustomId.c_str()); }
+                if (CustomId.length() > 0) {
+                    writer.String("CustomId");
+                    writer.String(CustomId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -5601,22 +6087,68 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
-                writer.String("Created"); writeDatetime(Created, writer);
-                if (Username.length() > 0) { writer.String("Username"); writer.String(Username.c_str()); }
-                if (TitleInfo != nullptr) { writer.String("TitleInfo"); TitleInfo->writeJSON(writer); }
-                if (PrivateInfo != nullptr) { writer.String("PrivateInfo"); PrivateInfo->writeJSON(writer); }
-                if (FacebookInfo != nullptr) { writer.String("FacebookInfo"); FacebookInfo->writeJSON(writer); }
-                if (SteamInfo != nullptr) { writer.String("SteamInfo"); SteamInfo->writeJSON(writer); }
-                if (GameCenterInfo != nullptr) { writer.String("GameCenterInfo"); GameCenterInfo->writeJSON(writer); }
-                if (IosDeviceInfo != nullptr) { writer.String("IosDeviceInfo"); IosDeviceInfo->writeJSON(writer); }
-                if (AndroidDeviceInfo != nullptr) { writer.String("AndroidDeviceInfo"); AndroidDeviceInfo->writeJSON(writer); }
-                if (KongregateInfo != nullptr) { writer.String("KongregateInfo"); KongregateInfo->writeJSON(writer); }
-                if (TwitchInfo != nullptr) { writer.String("TwitchInfo"); TwitchInfo->writeJSON(writer); }
-                if (PsnInfo != nullptr) { writer.String("PsnInfo"); PsnInfo->writeJSON(writer); }
-                if (GoogleInfo != nullptr) { writer.String("GoogleInfo"); GoogleInfo->writeJSON(writer); }
-                if (XboxInfo != nullptr) { writer.String("XboxInfo"); XboxInfo->writeJSON(writer); }
-                if (CustomIdInfo != nullptr) { writer.String("CustomIdInfo"); CustomIdInfo->writeJSON(writer); }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
+                writer.String("Created");
+                writeDatetime(Created, writer);
+                if (Username.length() > 0) {
+                    writer.String("Username");
+                    writer.String(Username.c_str());
+                }
+                if (TitleInfo != nullptr) {
+                    writer.String("TitleInfo");
+                    TitleInfo->writeJSON(writer);
+                }
+                if (PrivateInfo != nullptr) {
+                    writer.String("PrivateInfo");
+                    PrivateInfo->writeJSON(writer);
+                }
+                if (FacebookInfo != nullptr) {
+                    writer.String("FacebookInfo");
+                    FacebookInfo->writeJSON(writer);
+                }
+                if (SteamInfo != nullptr) {
+                    writer.String("SteamInfo");
+                    SteamInfo->writeJSON(writer);
+                }
+                if (GameCenterInfo != nullptr) {
+                    writer.String("GameCenterInfo");
+                    GameCenterInfo->writeJSON(writer);
+                }
+                if (IosDeviceInfo != nullptr) {
+                    writer.String("IosDeviceInfo");
+                    IosDeviceInfo->writeJSON(writer);
+                }
+                if (AndroidDeviceInfo != nullptr) {
+                    writer.String("AndroidDeviceInfo");
+                    AndroidDeviceInfo->writeJSON(writer);
+                }
+                if (KongregateInfo != nullptr) {
+                    writer.String("KongregateInfo");
+                    KongregateInfo->writeJSON(writer);
+                }
+                if (TwitchInfo != nullptr) {
+                    writer.String("TwitchInfo");
+                    TwitchInfo->writeJSON(writer);
+                }
+                if (PsnInfo != nullptr) {
+                    writer.String("PsnInfo");
+                    PsnInfo->writeJSON(writer);
+                }
+                if (GoogleInfo != nullptr) {
+                    writer.String("GoogleInfo");
+                    GoogleInfo->writeJSON(writer);
+                }
+                if (XboxInfo != nullptr) {
+                    writer.String("XboxInfo");
+                    XboxInfo->writeJSON(writer);
+                }
+                if (CustomIdInfo != nullptr) {
+                    writer.String("CustomIdInfo");
+                    CustomIdInfo->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -5686,7 +6218,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (AccountInfo != nullptr) { writer.String("AccountInfo"); AccountInfo->writeJSON(writer); }
+                if (AccountInfo != nullptr) {
+                    writer.String("AccountInfo");
+                    AccountInfo->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -5725,7 +6260,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
+                if (CatalogVersion.length() > 0) {
+                    writer.String("CatalogVersion");
+                    writer.String(CatalogVersion.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -5824,8 +6362,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
-                writer.String("CharacterId"); writer.String(CharacterId.c_str());
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
+                writer.String("CharacterId");
+                writer.String(CharacterId.c_str());
                 if (!Keys.empty()) {
                     writer.String("Keys");
                     writer.StartArray();
@@ -5834,7 +6376,10 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                if (IfChangedFromDataVersion.notNull()) { writer.String("IfChangedFromDataVersion"); writer.Uint(IfChangedFromDataVersion); }
+                if (IfChangedFromDataVersion.notNull()) {
+                    writer.String("IfChangedFromDataVersion");
+                    writer.Uint(IfChangedFromDataVersion);
+                }
                 writer.EndObject();
             }
 
@@ -5924,9 +6469,16 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Value.length() > 0) { writer.String("Value"); writer.String(Value.c_str()); }
-                writer.String("LastUpdated"); writeDatetime(LastUpdated, writer);
-                if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
+                if (Value.length() > 0) {
+                    writer.String("Value");
+                    writer.String(Value.c_str());
+                }
+                writer.String("LastUpdated");
+                writeDatetime(LastUpdated, writer);
+                if (Permission.notNull()) {
+                    writer.String("Permission");
+                    writeUserDataPermissionEnumJSON(Permission, writer);
+                }
                 writer.EndObject();
             }
 
@@ -5975,16 +6527,21 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
+                if (CharacterId.length() > 0) {
+                    writer.String("CharacterId");
+                    writer.String(CharacterId.c_str());
+                }
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
                     for (std::map<AZStd::string, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                        writer.String(iter->first.c_str());
+                        iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
                 }
-                writer.String("DataVersion"); writer.Uint(DataVersion);
+                writer.String("DataVersion");
+                writer.Uint(DataVersion);
                 writer.EndObject();
             }
 
@@ -6034,8 +6591,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("CharacterId"); writer.String(CharacterId.c_str());
-                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
+                writer.String("CharacterId");
+                writer.String(CharacterId.c_str());
+                if (CatalogVersion.length() > 0) {
+                    writer.String("CatalogVersion");
+                    writer.String(CatalogVersion.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -6082,9 +6643,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("SecondsToRecharge"); writer.Int(SecondsToRecharge);
-                writer.String("RechargeTime"); writeDatetime(RechargeTime, writer);
-                writer.String("RechargeMax"); writer.Int(RechargeMax);
+                writer.String("SecondsToRecharge");
+                writer.Int(SecondsToRecharge);
+                writer.String("RechargeTime");
+                writeDatetime(RechargeTime, writer);
+                writer.String("RechargeMax");
+                writer.Int(RechargeMax);
                 writer.EndObject();
             }
 
@@ -6136,7 +6700,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
+                if (CharacterId.length() > 0) {
+                    writer.String("CharacterId");
+                    writer.String(CharacterId.c_str());
+                }
                 if (!Inventory.empty()) {
                     writer.String("Inventory");
                     writer.StartArray();
@@ -6149,7 +6716,8 @@ namespace PlayFabClientSdk
                     writer.String("VirtualCurrency");
                     writer.StartObject();
                     for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Int(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Int(iter->second);
                     }
                     writer.EndObject();
                 }
@@ -6157,7 +6725,8 @@ namespace PlayFabClientSdk
                     writer.String("VirtualCurrencyRechargeTimes");
                     writer.StartObject();
                     for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
-                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                        writer.String(iter->first.c_str());
+                        iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
                 }
@@ -6227,10 +6796,18 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (CharacterType.length() > 0) { writer.String("CharacterType"); writer.String(CharacterType.c_str()); }
-                writer.String("StatisticName"); writer.String(StatisticName.c_str());
-                writer.String("StartPosition"); writer.Int(StartPosition);
-                if (MaxResultsCount.notNull()) { writer.String("MaxResultsCount"); writer.Int(MaxResultsCount); }
+                if (CharacterType.length() > 0) {
+                    writer.String("CharacterType");
+                    writer.String(CharacterType.c_str());
+                }
+                writer.String("StatisticName");
+                writer.String(StatisticName.c_str());
+                writer.String("StartPosition");
+                writer.Int(StartPosition);
+                if (MaxResultsCount.notNull()) {
+                    writer.String("MaxResultsCount");
+                    writer.Int(MaxResultsCount);
+                }
                 writer.EndObject();
             }
 
@@ -6326,7 +6903,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("CharacterId"); writer.String(CharacterId.c_str());
+                writer.String("CharacterId");
+                writer.String(CharacterId.c_str());
                 writer.EndObject();
             }
 
@@ -6369,7 +6947,8 @@ namespace PlayFabClientSdk
                     writer.String("CharacterStatistics");
                     writer.StartObject();
                     for (std::map<AZStd::string, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Int(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Int(iter->second);
                     }
                     writer.EndObject();
                 }
@@ -6421,9 +7000,16 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("Key"); writer.String(Key.c_str());
-                if (HttpMethod.length() > 0) { writer.String("HttpMethod"); writer.String(HttpMethod.c_str()); }
-                if (ThruCDN.notNull()) { writer.String("ThruCDN"); writer.Bool(ThruCDN); }
+                writer.String("Key");
+                writer.String(Key.c_str());
+                if (HttpMethod.length() > 0) {
+                    writer.String("HttpMethod");
+                    writer.String(HttpMethod.c_str());
+                }
+                if (ThruCDN.notNull()) {
+                    writer.String("ThruCDN");
+                    writer.Bool(ThruCDN);
+                }
                 writer.EndObject();
             }
 
@@ -6466,7 +7052,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (URL.length() > 0) { writer.String("URL"); writer.String(URL.c_str()); }
+                if (URL.length() > 0) {
+                    writer.String("URL");
+                    writer.String(URL.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -6544,20 +7133,34 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("ShowDisplayName"); writer.Bool(ShowDisplayName);
-                writer.String("ShowCreated"); writer.Bool(ShowCreated);
-                writer.String("ShowOrigination"); writer.Bool(ShowOrigination);
-                writer.String("ShowLastLogin"); writer.Bool(ShowLastLogin);
-                writer.String("ShowBannedUntil"); writer.Bool(ShowBannedUntil);
-                writer.String("ShowStatistics"); writer.Bool(ShowStatistics);
-                writer.String("ShowCampaignAttributions"); writer.Bool(ShowCampaignAttributions);
-                writer.String("ShowPushNotificationRegistrations"); writer.Bool(ShowPushNotificationRegistrations);
-                writer.String("ShowLinkedAccounts"); writer.Bool(ShowLinkedAccounts);
-                writer.String("ShowTotalValueToDateInUsd"); writer.Bool(ShowTotalValueToDateInUsd);
-                writer.String("ShowValuesToDate"); writer.Bool(ShowValuesToDate);
-                writer.String("ShowTags"); writer.Bool(ShowTags);
-                writer.String("ShowLocations"); writer.Bool(ShowLocations);
-                writer.String("ShowAvatarUrl"); writer.Bool(ShowAvatarUrl);
+                writer.String("ShowDisplayName");
+                writer.Bool(ShowDisplayName);
+                writer.String("ShowCreated");
+                writer.Bool(ShowCreated);
+                writer.String("ShowOrigination");
+                writer.Bool(ShowOrigination);
+                writer.String("ShowLastLogin");
+                writer.Bool(ShowLastLogin);
+                writer.String("ShowBannedUntil");
+                writer.Bool(ShowBannedUntil);
+                writer.String("ShowStatistics");
+                writer.Bool(ShowStatistics);
+                writer.String("ShowCampaignAttributions");
+                writer.Bool(ShowCampaignAttributions);
+                writer.String("ShowPushNotificationRegistrations");
+                writer.Bool(ShowPushNotificationRegistrations);
+                writer.String("ShowLinkedAccounts");
+                writer.Bool(ShowLinkedAccounts);
+                writer.String("ShowTotalValueToDateInUsd");
+                writer.Bool(ShowTotalValueToDateInUsd);
+                writer.String("ShowValuesToDate");
+                writer.Bool(ShowValuesToDate);
+                writer.String("ShowTags");
+                writer.Bool(ShowTags);
+                writer.String("ShowLocations");
+                writer.Bool(ShowLocations);
+                writer.String("ShowAvatarUrl");
+                writer.Bool(ShowAvatarUrl);
                 writer.EndObject();
             }
 
@@ -6604,7 +7207,6 @@ namespace PlayFabClientSdk
             OptionalBool IncludeSteamFriends;
             OptionalBool IncludeFacebookFriends;
             OptionalInt32 Version;
-            OptionalBool UseSpecificVersion;
             PlayerProfileViewConstraints* ProfileConstraints;
 
             GetFriendLeaderboardAroundPlayerRequest() :
@@ -6615,7 +7217,6 @@ namespace PlayFabClientSdk
                 IncludeSteamFriends(),
                 IncludeFacebookFriends(),
                 Version(),
-                UseSpecificVersion(),
                 ProfileConstraints(nullptr)
             {}
 
@@ -6627,7 +7228,6 @@ namespace PlayFabClientSdk
                 IncludeSteamFriends(src.IncludeSteamFriends),
                 IncludeFacebookFriends(src.IncludeFacebookFriends),
                 Version(src.Version),
-                UseSpecificVersion(src.UseSpecificVersion),
                 ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
             {}
 
@@ -6644,14 +7244,32 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("StatisticName"); writer.String(StatisticName.c_str());
-                if (MaxResultsCount.notNull()) { writer.String("MaxResultsCount"); writer.Int(MaxResultsCount); }
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
-                if (IncludeSteamFriends.notNull()) { writer.String("IncludeSteamFriends"); writer.Bool(IncludeSteamFriends); }
-                if (IncludeFacebookFriends.notNull()) { writer.String("IncludeFacebookFriends"); writer.Bool(IncludeFacebookFriends); }
-                if (Version.notNull()) { writer.String("Version"); writer.Int(Version); }
-                if (UseSpecificVersion.notNull()) { writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion); }
-                if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
+                writer.String("StatisticName");
+                writer.String(StatisticName.c_str());
+                if (MaxResultsCount.notNull()) {
+                    writer.String("MaxResultsCount");
+                    writer.Int(MaxResultsCount);
+                }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
+                if (IncludeSteamFriends.notNull()) {
+                    writer.String("IncludeSteamFriends");
+                    writer.Bool(IncludeSteamFriends);
+                }
+                if (IncludeFacebookFriends.notNull()) {
+                    writer.String("IncludeFacebookFriends");
+                    writer.Bool(IncludeFacebookFriends);
+                }
+                if (Version.notNull()) {
+                    writer.String("Version");
+                    writer.Int(Version);
+                }
+                if (ProfileConstraints != nullptr) {
+                    writer.String("ProfileConstraints");
+                    ProfileConstraints->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -6669,8 +7287,6 @@ namespace PlayFabClientSdk
                 if (IncludeFacebookFriends_member != obj.MemberEnd() && !IncludeFacebookFriends_member->value.IsNull()) IncludeFacebookFriends = IncludeFacebookFriends_member->value.GetBool();
                 const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
-                const Value::ConstMemberIterator UseSpecificVersion_member = obj.FindMember("UseSpecificVersion");
-                if (UseSpecificVersion_member != obj.MemberEnd() && !UseSpecificVersion_member->value.IsNull()) UseSpecificVersion = UseSpecificVersion_member->value.GetBool();
                 const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
                 if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
 
@@ -6786,11 +7402,26 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (pfContinentCode.notNull()) { writer.String("ContinentCode"); writeContinentCodeEnumJSON(pfContinentCode, writer); }
-                if (pfCountryCode.notNull()) { writer.String("CountryCode"); writeCountryCodeEnumJSON(pfCountryCode, writer); }
-                if (City.length() > 0) { writer.String("City"); writer.String(City.c_str()); }
-                if (Latitude.notNull()) { writer.String("Latitude"); writer.Double(Latitude); }
-                if (Longitude.notNull()) { writer.String("Longitude"); writer.Double(Longitude); }
+                if (pfContinentCode.notNull()) {
+                    writer.String("ContinentCode");
+                    writeContinentCodeEnumJSON(pfContinentCode, writer);
+                }
+                if (pfCountryCode.notNull()) {
+                    writer.String("CountryCode");
+                    writeCountryCodeEnumJSON(pfCountryCode, writer);
+                }
+                if (City.length() > 0) {
+                    writer.String("City");
+                    writer.String(City.c_str());
+                }
+                if (Latitude.notNull()) {
+                    writer.String("Latitude");
+                    writer.Double(Latitude);
+                }
+                if (Longitude.notNull()) {
+                    writer.String("Longitude");
+                    writer.Double(Longitude);
+                }
                 writer.EndObject();
             }
 
@@ -6837,7 +7468,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (TagValue.length() > 0) { writer.String("TagValue"); writer.String(TagValue.c_str()); }
+                if (TagValue.length() > 0) {
+                    writer.String("TagValue");
+                    writer.String(TagValue.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -6913,8 +7547,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Platform.notNull()) { writer.String("Platform"); writePushNotificationPlatformEnumJSON(Platform, writer); }
-                if (NotificationEndpointARN.length() > 0) { writer.String("NotificationEndpointARN"); writer.String(NotificationEndpointARN.c_str()); }
+                if (Platform.notNull()) {
+                    writer.String("Platform");
+                    writePushNotificationPlatformEnumJSON(Platform, writer);
+                }
+                if (NotificationEndpointARN.length() > 0) {
+                    writer.String("NotificationEndpointARN");
+                    writer.String(NotificationEndpointARN.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -6964,10 +7604,22 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Platform.notNull()) { writer.String("Platform"); writeLoginIdentityProviderEnumJSON(Platform, writer); }
-                if (PlatformUserId.length() > 0) { writer.String("PlatformUserId"); writer.String(PlatformUserId.c_str()); }
-                if (Username.length() > 0) { writer.String("Username"); writer.String(Username.c_str()); }
-                if (Email.length() > 0) { writer.String("Email"); writer.String(Email.c_str()); }
+                if (Platform.notNull()) {
+                    writer.String("Platform");
+                    writeLoginIdentityProviderEnumJSON(Platform, writer);
+                }
+                if (PlatformUserId.length() > 0) {
+                    writer.String("PlatformUserId");
+                    writer.String(PlatformUserId.c_str());
+                }
+                if (Username.length() > 0) {
+                    writer.String("Username");
+                    writer.String(Username.c_str());
+                }
+                if (Email.length() > 0) {
+                    writer.String("Email");
+                    writer.String(Email.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -7018,9 +7670,16 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Currency.length() > 0) { writer.String("Currency"); writer.String(Currency.c_str()); }
-                writer.String("TotalValue"); writer.Uint(TotalValue);
-                if (TotalValueAsDecimal.length() > 0) { writer.String("TotalValueAsDecimal"); writer.String(TotalValueAsDecimal.c_str()); }
+                if (Currency.length() > 0) {
+                    writer.String("Currency");
+                    writer.String(Currency.c_str());
+                }
+                writer.String("TotalValue");
+                writer.Uint(TotalValue);
+                if (TotalValueAsDecimal.length() > 0) {
+                    writer.String("TotalValueAsDecimal");
+                    writer.String(TotalValueAsDecimal.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -7066,8 +7725,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Currency.length() > 0) { writer.String("Currency"); writer.String(Currency.c_str()); }
-                writer.String("TotalValue"); writer.Int(TotalValue);
+                if (Currency.length() > 0) {
+                    writer.String("Currency");
+                    writer.String(Currency.c_str());
+                }
+                writer.String("TotalValue");
+                writer.Int(TotalValue);
                 writer.EndObject();
             }
 
@@ -7114,9 +7777,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Name.length() > 0) { writer.String("Name"); writer.String(Name.c_str()); }
-                writer.String("Version"); writer.Int(Version);
-                writer.String("Value"); writer.Int(Value);
+                if (Name.length() > 0) {
+                    writer.String("Name");
+                    writer.String(Name.c_str());
+                }
+                writer.String("Version");
+                writer.Int(Version);
+                writer.String("Value");
+                writer.Int(Value);
                 writer.EndObject();
             }
 
@@ -7210,13 +7878,34 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PublisherId.length() > 0) { writer.String("PublisherId"); writer.String(PublisherId.c_str()); }
-                if (TitleId.length() > 0) { writer.String("TitleId"); writer.String(TitleId.c_str()); }
-                if (PlayerId.length() > 0) { writer.String("PlayerId"); writer.String(PlayerId.c_str()); }
-                if (Created.notNull()) { writer.String("Created"); writeDatetime(Created, writer); }
-                if (Origination.notNull()) { writer.String("Origination"); writeLoginIdentityProviderEnumJSON(Origination, writer); }
-                if (LastLogin.notNull()) { writer.String("LastLogin"); writeDatetime(LastLogin, writer); }
-                if (BannedUntil.notNull()) { writer.String("BannedUntil"); writeDatetime(BannedUntil, writer); }
+                if (PublisherId.length() > 0) {
+                    writer.String("PublisherId");
+                    writer.String(PublisherId.c_str());
+                }
+                if (TitleId.length() > 0) {
+                    writer.String("TitleId");
+                    writer.String(TitleId.c_str());
+                }
+                if (PlayerId.length() > 0) {
+                    writer.String("PlayerId");
+                    writer.String(PlayerId.c_str());
+                }
+                if (Created.notNull()) {
+                    writer.String("Created");
+                    writeDatetime(Created, writer);
+                }
+                if (Origination.notNull()) {
+                    writer.String("Origination");
+                    writeLoginIdentityProviderEnumJSON(Origination, writer);
+                }
+                if (LastLogin.notNull()) {
+                    writer.String("LastLogin");
+                    writeDatetime(LastLogin, writer);
+                }
+                if (BannedUntil.notNull()) {
+                    writer.String("BannedUntil");
+                    writeDatetime(BannedUntil, writer);
+                }
                 if (!Locations.empty()) {
                     writer.String("Locations");
                     writer.StartArray();
@@ -7225,8 +7914,14 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
-                if (AvatarUrl.length() > 0) { writer.String("AvatarUrl"); writer.String(AvatarUrl.c_str()); }
+                if (DisplayName.length() > 0) {
+                    writer.String("DisplayName");
+                    writer.String(DisplayName.c_str());
+                }
+                if (AvatarUrl.length() > 0) {
+                    writer.String("AvatarUrl");
+                    writer.String(AvatarUrl.c_str());
+                }
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartArray();
@@ -7259,7 +7954,10 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                if (TotalValueToDateInUSD.notNull()) { writer.String("TotalValueToDateInUSD"); writer.Uint(TotalValueToDateInUSD); }
+                if (TotalValueToDateInUSD.notNull()) {
+                    writer.String("TotalValueToDateInUSD");
+                    writer.Uint(TotalValueToDateInUSD);
+                }
                 if (!ValuesToDate.empty()) {
                     writer.String("ValuesToDate");
                     writer.StartArray();
@@ -7409,11 +8107,22 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
-                if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
-                writer.String("StatValue"); writer.Int(StatValue);
-                writer.String("Position"); writer.Int(Position);
-                if (Profile != nullptr) { writer.String("Profile"); Profile->writeJSON(writer); }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
+                if (DisplayName.length() > 0) {
+                    writer.String("DisplayName");
+                    writer.String(DisplayName.c_str());
+                }
+                writer.String("StatValue");
+                writer.Int(StatValue);
+                writer.String("Position");
+                writer.Int(Position);
+                if (Profile != nullptr) {
+                    writer.String("Profile");
+                    Profile->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -7474,8 +8183,12 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                writer.String("Version"); writer.Int(Version);
-                if (NextReset.notNull()) { writer.String("NextReset"); writeDatetime(NextReset, writer); }
+                writer.String("Version");
+                writer.Int(Version);
+                if (NextReset.notNull()) {
+                    writer.String("NextReset");
+                    writeDatetime(NextReset, writer);
+                }
                 writer.EndObject();
             }
 
@@ -7505,7 +8218,6 @@ namespace PlayFabClientSdk
             OptionalBool IncludeSteamFriends;
             OptionalBool IncludeFacebookFriends;
             OptionalInt32 Version;
-            OptionalBool UseSpecificVersion;
             PlayerProfileViewConstraints* ProfileConstraints;
 
             GetFriendLeaderboardRequest() :
@@ -7516,7 +8228,6 @@ namespace PlayFabClientSdk
                 IncludeSteamFriends(),
                 IncludeFacebookFriends(),
                 Version(),
-                UseSpecificVersion(),
                 ProfileConstraints(nullptr)
             {}
 
@@ -7528,7 +8239,6 @@ namespace PlayFabClientSdk
                 IncludeSteamFriends(src.IncludeSteamFriends),
                 IncludeFacebookFriends(src.IncludeFacebookFriends),
                 Version(src.Version),
-                UseSpecificVersion(src.UseSpecificVersion),
                 ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
             {}
 
@@ -7545,14 +8255,30 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("StatisticName"); writer.String(StatisticName.c_str());
-                writer.String("StartPosition"); writer.Int(StartPosition);
-                if (MaxResultsCount.notNull()) { writer.String("MaxResultsCount"); writer.Int(MaxResultsCount); }
-                if (IncludeSteamFriends.notNull()) { writer.String("IncludeSteamFriends"); writer.Bool(IncludeSteamFriends); }
-                if (IncludeFacebookFriends.notNull()) { writer.String("IncludeFacebookFriends"); writer.Bool(IncludeFacebookFriends); }
-                if (Version.notNull()) { writer.String("Version"); writer.Int(Version); }
-                if (UseSpecificVersion.notNull()) { writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion); }
-                if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
+                writer.String("StatisticName");
+                writer.String(StatisticName.c_str());
+                writer.String("StartPosition");
+                writer.Int(StartPosition);
+                if (MaxResultsCount.notNull()) {
+                    writer.String("MaxResultsCount");
+                    writer.Int(MaxResultsCount);
+                }
+                if (IncludeSteamFriends.notNull()) {
+                    writer.String("IncludeSteamFriends");
+                    writer.Bool(IncludeSteamFriends);
+                }
+                if (IncludeFacebookFriends.notNull()) {
+                    writer.String("IncludeFacebookFriends");
+                    writer.Bool(IncludeFacebookFriends);
+                }
+                if (Version.notNull()) {
+                    writer.String("Version");
+                    writer.Int(Version);
+                }
+                if (ProfileConstraints != nullptr) {
+                    writer.String("ProfileConstraints");
+                    ProfileConstraints->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -7570,8 +8296,6 @@ namespace PlayFabClientSdk
                 if (IncludeFacebookFriends_member != obj.MemberEnd() && !IncludeFacebookFriends_member->value.IsNull()) IncludeFacebookFriends = IncludeFacebookFriends_member->value.GetBool();
                 const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
-                const Value::ConstMemberIterator UseSpecificVersion_member = obj.FindMember("UseSpecificVersion");
-                if (UseSpecificVersion_member != obj.MemberEnd() && !UseSpecificVersion_member->value.IsNull()) UseSpecificVersion = UseSpecificVersion_member->value.GetBool();
                 const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
                 if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
 
@@ -7608,8 +8332,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (IncludeSteamFriends.notNull()) { writer.String("IncludeSteamFriends"); writer.Bool(IncludeSteamFriends); }
-                if (IncludeFacebookFriends.notNull()) { writer.String("IncludeFacebookFriends"); writer.Bool(IncludeFacebookFriends); }
+                if (IncludeSteamFriends.notNull()) {
+                    writer.String("IncludeSteamFriends");
+                    writer.Bool(IncludeSteamFriends);
+                }
+                if (IncludeFacebookFriends.notNull()) {
+                    writer.String("IncludeFacebookFriends");
+                    writer.Bool(IncludeFacebookFriends);
+                }
                 writer.EndObject();
             }
 
@@ -7710,10 +8440,18 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("StatisticName"); writer.String(StatisticName.c_str());
-                writer.String("CharacterId"); writer.String(CharacterId.c_str());
-                if (CharacterType.length() > 0) { writer.String("CharacterType"); writer.String(CharacterType.c_str()); }
-                if (MaxResultsCount.notNull()) { writer.String("MaxResultsCount"); writer.Int(MaxResultsCount); }
+                writer.String("StatisticName");
+                writer.String(StatisticName.c_str());
+                writer.String("CharacterId");
+                writer.String(CharacterId.c_str());
+                if (CharacterType.length() > 0) {
+                    writer.String("CharacterType");
+                    writer.String(CharacterType.c_str());
+                }
+                if (MaxResultsCount.notNull()) {
+                    writer.String("MaxResultsCount");
+                    writer.Int(MaxResultsCount);
+                }
                 writer.EndObject();
             }
 
@@ -7789,7 +8527,6 @@ namespace PlayFabClientSdk
             AZStd::string StatisticName;
             OptionalInt32 MaxResultsCount;
             OptionalInt32 Version;
-            OptionalBool UseSpecificVersion;
             PlayerProfileViewConstraints* ProfileConstraints;
 
             GetLeaderboardAroundPlayerRequest() :
@@ -7798,7 +8535,6 @@ namespace PlayFabClientSdk
                 StatisticName(),
                 MaxResultsCount(),
                 Version(),
-                UseSpecificVersion(),
                 ProfileConstraints(nullptr)
             {}
 
@@ -7808,7 +8544,6 @@ namespace PlayFabClientSdk
                 StatisticName(src.StatisticName),
                 MaxResultsCount(src.MaxResultsCount),
                 Version(src.Version),
-                UseSpecificVersion(src.UseSpecificVersion),
                 ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
             {}
 
@@ -7825,12 +8560,24 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
-                writer.String("StatisticName"); writer.String(StatisticName.c_str());
-                if (MaxResultsCount.notNull()) { writer.String("MaxResultsCount"); writer.Int(MaxResultsCount); }
-                if (Version.notNull()) { writer.String("Version"); writer.Int(Version); }
-                if (UseSpecificVersion.notNull()) { writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion); }
-                if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
+                writer.String("StatisticName");
+                writer.String(StatisticName.c_str());
+                if (MaxResultsCount.notNull()) {
+                    writer.String("MaxResultsCount");
+                    writer.Int(MaxResultsCount);
+                }
+                if (Version.notNull()) {
+                    writer.String("Version");
+                    writer.Int(Version);
+                }
+                if (ProfileConstraints != nullptr) {
+                    writer.String("ProfileConstraints");
+                    ProfileConstraints->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -7844,8 +8591,6 @@ namespace PlayFabClientSdk
                 if (MaxResultsCount_member != obj.MemberEnd() && !MaxResultsCount_member->value.IsNull()) MaxResultsCount = MaxResultsCount_member->value.GetInt();
                 const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
-                const Value::ConstMemberIterator UseSpecificVersion_member = obj.FindMember("UseSpecificVersion");
-                if (UseSpecificVersion_member != obj.MemberEnd() && !UseSpecificVersion_member->value.IsNull()) UseSpecificVersion = UseSpecificVersion_member->value.GetBool();
                 const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
                 if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
 
@@ -7893,8 +8638,12 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                writer.String("Version"); writer.Int(Version);
-                if (NextReset.notNull()) { writer.String("NextReset"); writeDatetime(NextReset, writer); }
+                writer.String("Version");
+                writer.Int(Version);
+                if (NextReset.notNull()) {
+                    writer.String("NextReset");
+                    writeDatetime(NextReset, writer);
+                }
                 writer.EndObject();
             }
 
@@ -7945,8 +8694,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("StatisticName"); writer.String(StatisticName.c_str());
-                writer.String("MaxResultsCount"); writer.Int(MaxResultsCount);
+                writer.String("StatisticName");
+                writer.String(StatisticName.c_str());
+                writer.String("MaxResultsCount");
+                writer.Int(MaxResultsCount);
                 writer.EndObject();
             }
 
@@ -8018,7 +8769,6 @@ namespace PlayFabClientSdk
             Int32 StartPosition;
             OptionalInt32 MaxResultsCount;
             OptionalInt32 Version;
-            OptionalBool UseSpecificVersion;
             PlayerProfileViewConstraints* ProfileConstraints;
 
             GetLeaderboardRequest() :
@@ -8027,7 +8777,6 @@ namespace PlayFabClientSdk
                 StartPosition(0),
                 MaxResultsCount(),
                 Version(),
-                UseSpecificVersion(),
                 ProfileConstraints(nullptr)
             {}
 
@@ -8037,7 +8786,6 @@ namespace PlayFabClientSdk
                 StartPosition(src.StartPosition),
                 MaxResultsCount(src.MaxResultsCount),
                 Version(src.Version),
-                UseSpecificVersion(src.UseSpecificVersion),
                 ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
             {}
 
@@ -8054,12 +8802,22 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("StatisticName"); writer.String(StatisticName.c_str());
-                writer.String("StartPosition"); writer.Int(StartPosition);
-                if (MaxResultsCount.notNull()) { writer.String("MaxResultsCount"); writer.Int(MaxResultsCount); }
-                if (Version.notNull()) { writer.String("Version"); writer.Int(Version); }
-                if (UseSpecificVersion.notNull()) { writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion); }
-                if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
+                writer.String("StatisticName");
+                writer.String(StatisticName.c_str());
+                writer.String("StartPosition");
+                writer.Int(StartPosition);
+                if (MaxResultsCount.notNull()) {
+                    writer.String("MaxResultsCount");
+                    writer.Int(MaxResultsCount);
+                }
+                if (Version.notNull()) {
+                    writer.String("Version");
+                    writer.Int(Version);
+                }
+                if (ProfileConstraints != nullptr) {
+                    writer.String("ProfileConstraints");
+                    ProfileConstraints->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -8073,8 +8831,6 @@ namespace PlayFabClientSdk
                 if (MaxResultsCount_member != obj.MemberEnd() && !MaxResultsCount_member->value.IsNull()) MaxResultsCount = MaxResultsCount_member->value.GetInt();
                 const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
-                const Value::ConstMemberIterator UseSpecificVersion_member = obj.FindMember("UseSpecificVersion");
-                if (UseSpecificVersion_member != obj.MemberEnd() && !UseSpecificVersion_member->value.IsNull()) UseSpecificVersion = UseSpecificVersion_member->value.GetBool();
                 const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
                 if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
 
@@ -8122,8 +8878,12 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                writer.String("Version"); writer.Int(Version);
-                if (NextReset.notNull()) { writer.String("NextReset"); writeDatetime(NextReset, writer); }
+                writer.String("Version");
+                writer.Int(Version);
+                if (NextReset.notNull()) {
+                    writer.String("NextReset");
+                    writeDatetime(NextReset, writer);
+                }
                 writer.EndObject();
             }
 
@@ -8171,7 +8931,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("PhotonApplicationId"); writer.String(PhotonApplicationId.c_str());
+                writer.String("PhotonApplicationId");
+                writer.String(PhotonApplicationId.c_str());
                 writer.EndObject();
             }
 
@@ -8210,7 +8971,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PhotonCustomAuthenticationToken.length() > 0) { writer.String("PhotonCustomAuthenticationToken"); writer.String(PhotonCustomAuthenticationToken.c_str()); }
+                if (PhotonCustomAuthenticationToken.length() > 0) {
+                    writer.String("PhotonCustomAuthenticationToken");
+                    writer.String(PhotonCustomAuthenticationToken.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -8292,10 +9056,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("GetUserAccountInfo"); writer.Bool(GetUserAccountInfo);
-                writer.String("GetUserInventory"); writer.Bool(GetUserInventory);
-                writer.String("GetUserVirtualCurrency"); writer.Bool(GetUserVirtualCurrency);
-                writer.String("GetUserData"); writer.Bool(GetUserData);
+                writer.String("GetUserAccountInfo");
+                writer.Bool(GetUserAccountInfo);
+                writer.String("GetUserInventory");
+                writer.Bool(GetUserInventory);
+                writer.String("GetUserVirtualCurrency");
+                writer.Bool(GetUserVirtualCurrency);
+                writer.String("GetUserData");
+                writer.Bool(GetUserData);
                 if (!UserDataKeys.empty()) {
                     writer.String("UserDataKeys");
                     writer.StartArray();
@@ -8304,7 +9072,8 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                writer.String("GetUserReadOnlyData"); writer.Bool(GetUserReadOnlyData);
+                writer.String("GetUserReadOnlyData");
+                writer.Bool(GetUserReadOnlyData);
                 if (!UserReadOnlyDataKeys.empty()) {
                     writer.String("UserReadOnlyDataKeys");
                     writer.StartArray();
@@ -8313,9 +9082,12 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                writer.String("GetCharacterInventories"); writer.Bool(GetCharacterInventories);
-                writer.String("GetCharacterList"); writer.Bool(GetCharacterList);
-                writer.String("GetTitleData"); writer.Bool(GetTitleData);
+                writer.String("GetCharacterInventories");
+                writer.Bool(GetCharacterInventories);
+                writer.String("GetCharacterList");
+                writer.Bool(GetCharacterList);
+                writer.String("GetTitleData");
+                writer.Bool(GetTitleData);
                 if (!TitleDataKeys.empty()) {
                     writer.String("TitleDataKeys");
                     writer.StartArray();
@@ -8324,7 +9096,8 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                writer.String("GetPlayerStatistics"); writer.Bool(GetPlayerStatistics);
+                writer.String("GetPlayerStatistics");
+                writer.Bool(GetPlayerStatistics);
                 if (!PlayerStatisticNames.empty()) {
                     writer.String("PlayerStatisticNames");
                     writer.StartArray();
@@ -8333,8 +9106,12 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                writer.String("GetPlayerProfile"); writer.Bool(GetPlayerProfile);
-                if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
+                writer.String("GetPlayerProfile");
+                writer.Bool(GetPlayerProfile);
+                if (ProfileConstraints != nullptr) {
+                    writer.String("ProfileConstraints");
+                    ProfileConstraints->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -8424,8 +9201,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
-                writer.String("InfoRequestParameters"); InfoRequestParameters.writeJSON(writer);
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
+                writer.String("InfoRequestParameters");
+                InfoRequestParameters.writeJSON(writer);
                 writer.EndObject();
             }
 
@@ -8472,9 +9253,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (StatisticName.length() > 0) { writer.String("StatisticName"); writer.String(StatisticName.c_str()); }
-                writer.String("Value"); writer.Int(Value);
-                writer.String("Version"); writer.Uint(Version);
+                if (StatisticName.length() > 0) {
+                    writer.String("StatisticName");
+                    writer.String(StatisticName.c_str());
+                }
+                writer.String("Value");
+                writer.Int(Value);
+                writer.String("Version");
+                writer.Uint(Version);
                 writer.EndObject();
             }
 
@@ -8555,7 +9341,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (AccountInfo != nullptr) { writer.String("AccountInfo"); AccountInfo->writeJSON(writer); }
+                if (AccountInfo != nullptr) {
+                    writer.String("AccountInfo");
+                    AccountInfo->writeJSON(writer);
+                }
                 if (!UserInventory.empty()) {
                     writer.String("UserInventory");
                     writer.StartArray();
@@ -8568,7 +9357,8 @@ namespace PlayFabClientSdk
                     writer.String("UserVirtualCurrency");
                     writer.StartObject();
                     for (std::map<AZStd::string, Int32>::iterator iter = UserVirtualCurrency.begin(); iter != UserVirtualCurrency.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Int(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Int(iter->second);
                     }
                     writer.EndObject();
                 }
@@ -8576,7 +9366,8 @@ namespace PlayFabClientSdk
                     writer.String("UserVirtualCurrencyRechargeTimes");
                     writer.StartObject();
                     for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = UserVirtualCurrencyRechargeTimes.begin(); iter != UserVirtualCurrencyRechargeTimes.end(); ++iter) {
-                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                        writer.String(iter->first.c_str());
+                        iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
                 }
@@ -8584,20 +9375,24 @@ namespace PlayFabClientSdk
                     writer.String("UserData");
                     writer.StartObject();
                     for (std::map<AZStd::string, UserDataRecord>::iterator iter = UserData.begin(); iter != UserData.end(); ++iter) {
-                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                        writer.String(iter->first.c_str());
+                        iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
                 }
-                writer.String("UserDataVersion"); writer.Uint(UserDataVersion);
+                writer.String("UserDataVersion");
+                writer.Uint(UserDataVersion);
                 if (!UserReadOnlyData.empty()) {
                     writer.String("UserReadOnlyData");
                     writer.StartObject();
                     for (std::map<AZStd::string, UserDataRecord>::iterator iter = UserReadOnlyData.begin(); iter != UserReadOnlyData.end(); ++iter) {
-                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                        writer.String(iter->first.c_str());
+                        iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
                 }
-                writer.String("UserReadOnlyDataVersion"); writer.Uint(UserReadOnlyDataVersion);
+                writer.String("UserReadOnlyDataVersion");
+                writer.Uint(UserReadOnlyDataVersion);
                 if (!CharacterList.empty()) {
                     writer.String("CharacterList");
                     writer.StartArray();
@@ -8618,7 +9413,8 @@ namespace PlayFabClientSdk
                     writer.String("TitleData");
                     writer.StartObject();
                     for (std::map<AZStd::string, AZStd::string>::iterator iter = TitleData.begin(); iter != TitleData.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                        writer.String(iter->first.c_str());
+                        writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
                 }
@@ -8630,7 +9426,10 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                if (PlayerProfile != nullptr) { writer.String("PlayerProfile"); PlayerProfile->writeJSON(writer); }
+                if (PlayerProfile != nullptr) {
+                    writer.String("PlayerProfile");
+                    PlayerProfile->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -8737,8 +9536,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
-                if (InfoResultPayload != nullptr) { writer.String("InfoResultPayload"); InfoResultPayload->writeJSON(writer); }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
+                if (InfoResultPayload != nullptr) {
+                    writer.String("InfoResultPayload");
+                    InfoResultPayload->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -8783,8 +9588,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
-                if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
+                writer.String("PlayFabId");
+                writer.String(PlayFabId.c_str());
+                if (ProfileConstraints != nullptr) {
+                    writer.String("ProfileConstraints");
+                    ProfileConstraints->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -8826,7 +9635,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PlayerProfile != nullptr) { writer.String("PlayerProfile"); PlayerProfile->writeJSON(writer); }
+                if (PlayerProfile != nullptr) {
+                    writer.String("PlayerProfile");
+                    PlayerProfile->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -8904,9 +9716,16 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("Id"); writer.String(Id.c_str());
-                if (Name.length() > 0) { writer.String("Name"); writer.String(Name.c_str()); }
-                if (ABTestParent.length() > 0) { writer.String("ABTestParent"); writer.String(ABTestParent.c_str()); }
+                writer.String("Id");
+                writer.String(Id.c_str());
+                if (Name.length() > 0) {
+                    writer.String("Name");
+                    writer.String(Name.c_str());
+                }
+                if (ABTestParent.length() > 0) {
+                    writer.String("ABTestParent");
+                    writer.String(ABTestParent.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -9003,8 +9822,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("StatisticName"); writer.String(StatisticName.c_str());
-                writer.String("Version"); writer.Uint(Version);
+                writer.String("StatisticName");
+                writer.String(StatisticName.c_str());
+                writer.String("Version");
+                writer.Uint(Version);
                 writer.EndObject();
             }
 
@@ -9165,7 +9986,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (StatisticName.length() > 0) { writer.String("StatisticName"); writer.String(StatisticName.c_str()); }
+                if (StatisticName.length() > 0) {
+                    writer.String("StatisticName");
+                    writer.String(StatisticName.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -9219,12 +10043,26 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (StatisticName.length() > 0) { writer.String("StatisticName"); writer.String(StatisticName.c_str()); }
-                writer.String("Version"); writer.Uint(Version);
-                if (ScheduledActivationTime.notNull()) { writer.String("ScheduledActivationTime"); writeDatetime(ScheduledActivationTime, writer); }
-                writer.String("ActivationTime"); writeDatetime(ActivationTime, writer);
-                if (ScheduledDeactivationTime.notNull()) { writer.String("ScheduledDeactivationTime"); writeDatetime(ScheduledDeactivationTime, writer); }
-                if (DeactivationTime.notNull()) { writer.String("DeactivationTime"); writeDatetime(DeactivationTime, writer); }
+                if (StatisticName.length() > 0) {
+                    writer.String("StatisticName");
+                    writer.String(StatisticName.c_str());
+                }
+                writer.String("Version");
+                writer.Uint(Version);
+                if (ScheduledActivationTime.notNull()) {
+                    writer.String("ScheduledActivationTime");
+                    writeDatetime(ScheduledActivationTime, writer);
+                }
+                writer.String("ActivationTime");
+                writeDatetime(ActivationTime, writer);
+                if (ScheduledDeactivationTime.notNull()) {
+                    writer.String("ScheduledDeactivationTime");
+                    writeDatetime(ScheduledDeactivationTime, writer);
+                }
+                if (DeactivationTime.notNull()) {
+                    writer.String("DeactivationTime");
+                    writeDatetime(DeactivationTime, writer);
+                }
                 writer.EndObject();
             }
 
@@ -9327,8 +10165,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
-                if (Namespace.length() > 0) { writer.String("Namespace"); writer.String(Namespace.c_str()); }
+                writer.String("PlayFabId");
+                writer.String(PlayFabId.c_str());
+                if (Namespace.length() > 0) {
+                    writer.String("Namespace");
+                    writer.String(Namespace.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -9372,14 +10214,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
+                writer.String("PlayFabId");
+                writer.String(PlayFabId.c_str());
                 writer.String("Tags");
                 writer.StartArray();
                 for (std::list<AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
-
                 writer.EndObject();
             }
 
@@ -9425,7 +10267,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (StatusFilter.notNull()) { writer.String("StatusFilter"); writeTradeStatusEnumJSON(StatusFilter, writer); }
+                if (StatusFilter.notNull()) {
+                    writer.String("StatusFilter");
+                    writeTradeStatusEnumJSON(StatusFilter, writer);
+                }
                 writer.EndObject();
             }
 
@@ -9539,7 +10384,6 @@ namespace PlayFabClientSdk
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
-
                 writer.EndObject();
             }
 
@@ -9640,7 +10484,6 @@ namespace PlayFabClientSdk
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
-
                 writer.EndObject();
             }
 
@@ -9741,7 +10584,6 @@ namespace PlayFabClientSdk
                     iter->writeJSON(writer);
                 }
                 writer.EndArray();
-
                 writer.EndObject();
             }
 
@@ -9842,7 +10684,6 @@ namespace PlayFabClientSdk
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
-
                 writer.EndObject();
             }
 
@@ -9889,8 +10730,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (GoogleId.length() > 0) { writer.String("GoogleId"); writer.String(GoogleId.c_str()); }
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
+                if (GoogleId.length() > 0) {
+                    writer.String("GoogleId");
+                    writer.String(GoogleId.c_str());
+                }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -9988,7 +10835,6 @@ namespace PlayFabClientSdk
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
-
                 writer.EndObject();
             }
 
@@ -10035,8 +10881,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (KongregateId.length() > 0) { writer.String("KongregateId"); writer.String(KongregateId.c_str()); }
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
+                if (KongregateId.length() > 0) {
+                    writer.String("KongregateId");
+                    writer.String(KongregateId.c_str());
+                }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -10182,8 +11034,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (SteamStringId.length() > 0) { writer.String("SteamStringId"); writer.String(SteamStringId.c_str()); }
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
+                if (SteamStringId.length() > 0) {
+                    writer.String("SteamStringId");
+                    writer.String(SteamStringId.c_str());
+                }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -10281,7 +11139,6 @@ namespace PlayFabClientSdk
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
-
                 writer.EndObject();
             }
 
@@ -10328,8 +11185,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (TwitchId.length() > 0) { writer.String("TwitchId"); writer.String(TwitchId.c_str()); }
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
+                if (TwitchId.length() > 0) {
+                    writer.String("TwitchId");
+                    writer.String(TwitchId.c_str());
+                }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -10427,7 +11290,6 @@ namespace PlayFabClientSdk
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
-
                 writer.EndObject();
             }
 
@@ -10475,7 +11337,8 @@ namespace PlayFabClientSdk
                     writer.String("Data");
                     writer.StartObject();
                     for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                        writer.String(iter->first.c_str());
+                        writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
                 }
@@ -10521,7 +11384,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("OrderId"); writer.String(OrderId.c_str());
+                writer.String("OrderId");
+                writer.String(OrderId.c_str());
                 writer.EndObject();
             }
 
@@ -10572,11 +11436,24 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (OrderId.length() > 0) { writer.String("OrderId"); writer.String(OrderId.c_str()); }
-                if (PaymentProvider.length() > 0) { writer.String("PaymentProvider"); writer.String(PaymentProvider.c_str()); }
-                if (TransactionId.length() > 0) { writer.String("TransactionId"); writer.String(TransactionId.c_str()); }
-                if (TransactionStatus.length() > 0) { writer.String("TransactionStatus"); writer.String(TransactionStatus.c_str()); }
-                writer.String("PurchaseDate"); writeDatetime(PurchaseDate, writer);
+                if (OrderId.length() > 0) {
+                    writer.String("OrderId");
+                    writer.String(OrderId.c_str());
+                }
+                if (PaymentProvider.length() > 0) {
+                    writer.String("PaymentProvider");
+                    writer.String(PaymentProvider.c_str());
+                }
+                if (TransactionId.length() > 0) {
+                    writer.String("TransactionId");
+                    writer.String(TransactionId.c_str());
+                }
+                if (TransactionStatus.length() > 0) {
+                    writer.String("TransactionStatus");
+                    writer.String(TransactionStatus.c_str());
+                }
+                writer.String("PurchaseDate");
+                writeDatetime(PurchaseDate, writer);
                 writer.EndObject();
             }
 
@@ -10629,7 +11506,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
+                writer.String("SharedGroupId");
+                writer.String(SharedGroupId.c_str());
                 if (!Keys.empty()) {
                     writer.String("Keys");
                     writer.StartArray();
@@ -10638,7 +11516,10 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                if (GetMembers.notNull()) { writer.String("GetMembers"); writer.Bool(GetMembers); }
+                if (GetMembers.notNull()) {
+                    writer.String("GetMembers");
+                    writer.Bool(GetMembers);
+                }
                 writer.EndObject();
             }
 
@@ -10695,10 +11576,20 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Value.length() > 0) { writer.String("Value"); writer.String(Value.c_str()); }
-                if (LastUpdatedBy.length() > 0) { writer.String("LastUpdatedBy"); writer.String(LastUpdatedBy.c_str()); }
-                writer.String("LastUpdated"); writeDatetime(LastUpdated, writer);
-                if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
+                if (Value.length() > 0) {
+                    writer.String("Value");
+                    writer.String(Value.c_str());
+                }
+                if (LastUpdatedBy.length() > 0) {
+                    writer.String("LastUpdatedBy");
+                    writer.String(LastUpdatedBy.c_str());
+                }
+                writer.String("LastUpdated");
+                writeDatetime(LastUpdated, writer);
+                if (Permission.notNull()) {
+                    writer.String("Permission");
+                    writeUserDataPermissionEnumJSON(Permission, writer);
+                }
                 writer.EndObject();
             }
 
@@ -10750,7 +11641,8 @@ namespace PlayFabClientSdk
                     writer.String("Data");
                     writer.StartObject();
                     for (std::map<AZStd::string, SharedGroupDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                        writer.String(iter->first.c_str());
+                        iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
                 }
@@ -10814,8 +11706,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
-                writer.String("StoreId"); writer.String(StoreId.c_str());
+                if (CatalogVersion.length() > 0) {
+                    writer.String("CatalogVersion");
+                    writer.String(CatalogVersion.c_str());
+                }
+                writer.String("StoreId");
+                writer.String(StoreId.c_str());
                 writer.EndObject();
             }
 
@@ -10868,12 +11764,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("ItemId"); writer.String(ItemId.c_str());
+                writer.String("ItemId");
+                writer.String(ItemId.c_str());
                 if (!VirtualCurrencyPrices.empty()) {
                     writer.String("VirtualCurrencyPrices");
                     writer.StartObject();
                     for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Uint(iter->second);
                     }
                     writer.EndObject();
                 }
@@ -10881,12 +11779,19 @@ namespace PlayFabClientSdk
                     writer.String("RealCurrencyPrices");
                     writer.StartObject();
                     for (std::map<AZStd::string, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Uint(iter->second);
                     }
                     writer.EndObject();
                 }
-                if (CustomData.notNull()) { writer.String("CustomData"); CustomData.writeJSON(writer); }
-                if (DisplayPosition.notNull()) { writer.String("DisplayPosition"); writer.Uint(DisplayPosition); }
+                if (CustomData.notNull()) {
+                    writer.String("CustomData");
+                    CustomData.writeJSON(writer);
+                }
+                if (DisplayPosition.notNull()) {
+                    writer.String("DisplayPosition");
+                    writer.Uint(DisplayPosition);
+                }
                 writer.EndObject();
             }
 
@@ -10990,9 +11895,18 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
-                if (Description.length() > 0) { writer.String("Description"); writer.String(Description.c_str()); }
-                if (Metadata.notNull()) { writer.String("Metadata"); Metadata.writeJSON(writer); }
+                if (DisplayName.length() > 0) {
+                    writer.String("DisplayName");
+                    writer.String(DisplayName.c_str());
+                }
+                if (Description.length() > 0) {
+                    writer.String("Description");
+                    writer.String(Description.c_str());
+                }
+                if (Metadata.notNull()) {
+                    writer.String("Metadata");
+                    Metadata.writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -11056,10 +11970,22 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                if (Source.notNull()) { writer.String("Source"); writeSourceTypeEnumJSON(Source, writer); }
-                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
-                if (StoreId.length() > 0) { writer.String("StoreId"); writer.String(StoreId.c_str()); }
-                if (MarketingData != nullptr) { writer.String("MarketingData"); MarketingData->writeJSON(writer); }
+                if (Source.notNull()) {
+                    writer.String("Source");
+                    writeSourceTypeEnumJSON(Source, writer);
+                }
+                if (CatalogVersion.length() > 0) {
+                    writer.String("CatalogVersion");
+                    writer.String(CatalogVersion.c_str());
+                }
+                if (StoreId.length() > 0) {
+                    writer.String("StoreId");
+                    writer.String(StoreId.c_str());
+                }
+                if (MarketingData != nullptr) {
+                    writer.String("MarketingData");
+                    MarketingData->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -11144,7 +12070,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("Time"); writeDatetime(Time, writer);
+                writer.String("Time");
+                writeDatetime(Time, writer);
                 writer.EndObject();
             }
 
@@ -11238,7 +12165,8 @@ namespace PlayFabClientSdk
                     writer.String("Data");
                     writer.StartObject();
                     for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                        writer.String(iter->first.c_str());
+                        writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
                 }
@@ -11284,7 +12212,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Count.notNull()) { writer.String("Count"); writer.Int(Count); }
+                if (Count.notNull()) {
+                    writer.String("Count");
+                    writer.Int(Count);
+                }
                 writer.EndObject();
             }
 
@@ -11332,10 +12263,20 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("Timestamp"); writeDatetime(Timestamp, writer);
-                if (NewsId.length() > 0) { writer.String("NewsId"); writer.String(NewsId.c_str()); }
-                if (Title.length() > 0) { writer.String("Title"); writer.String(Title.c_str()); }
-                if (Body.length() > 0) { writer.String("Body"); writer.String(Body.c_str()); }
+                writer.String("Timestamp");
+                writeDatetime(Timestamp, writer);
+                if (NewsId.length() > 0) {
+                    writer.String("NewsId");
+                    writer.String(NewsId.c_str());
+                }
+                if (Title.length() > 0) {
+                    writer.String("Title");
+                    writer.String(Title.c_str());
+                }
+                if (Body.length() > 0) {
+                    writer.String("Body");
+                    writer.String(Body.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -11405,6 +12346,95 @@ namespace PlayFabClientSdk
             }
         };
 
+        struct GetTitlePublicKeyRequest : public PlayFabBaseModel
+        {
+            AZStd::string TitleId;
+            AZStd::string TitleSharedSecret;
+
+            GetTitlePublicKeyRequest() :
+                PlayFabBaseModel(),
+                TitleId(),
+                TitleSharedSecret()
+            {}
+
+            GetTitlePublicKeyRequest(const GetTitlePublicKeyRequest& src) :
+                PlayFabBaseModel(),
+                TitleId(src.TitleId),
+                TitleSharedSecret(src.TitleSharedSecret)
+            {}
+
+            GetTitlePublicKeyRequest(const rapidjson::Value& obj) : GetTitlePublicKeyRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetTitlePublicKeyRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                writer.String("TitleSharedSecret");
+                writer.String(TitleSharedSecret.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
+                if (TitleId_member != obj.MemberEnd() && !TitleId_member->value.IsNull()) TitleId = TitleId_member->value.GetString();
+                const Value::ConstMemberIterator TitleSharedSecret_member = obj.FindMember("TitleSharedSecret");
+                if (TitleSharedSecret_member != obj.MemberEnd() && !TitleSharedSecret_member->value.IsNull()) TitleSharedSecret = TitleSharedSecret_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct GetTitlePublicKeyResult : public PlayFabBaseModel
+        {
+            AZStd::string RSAPublicKey;
+
+            GetTitlePublicKeyResult() :
+                PlayFabBaseModel(),
+                RSAPublicKey()
+            {}
+
+            GetTitlePublicKeyResult(const GetTitlePublicKeyResult& src) :
+                PlayFabBaseModel(),
+                RSAPublicKey(src.RSAPublicKey)
+            {}
+
+            GetTitlePublicKeyResult(const rapidjson::Value& obj) : GetTitlePublicKeyResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetTitlePublicKeyResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (RSAPublicKey.length() > 0) {
+                    writer.String("RSAPublicKey");
+                    writer.String(RSAPublicKey.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator RSAPublicKey_member = obj.FindMember("RSAPublicKey");
+                if (RSAPublicKey_member != obj.MemberEnd() && !RSAPublicKey_member->value.IsNull()) RSAPublicKey = RSAPublicKey_member->value.GetString();
+
+                return true;
+            }
+        };
+
         struct GetTradeStatusRequest : public PlayFabBaseModel
         {
             AZStd::string OfferingPlayerId;
@@ -11434,8 +12464,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("OfferingPlayerId"); writer.String(OfferingPlayerId.c_str());
-                writer.String("TradeId"); writer.String(TradeId.c_str());
+                writer.String("OfferingPlayerId");
+                writer.String(OfferingPlayerId.c_str());
+                writer.String("TradeId");
+                writer.String(TradeId.c_str());
                 writer.EndObject();
             }
 
@@ -11477,7 +12509,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Trade != nullptr) { writer.String("Trade"); Trade->writeJSON(writer); }
+                if (Trade != nullptr) {
+                    writer.String("Trade");
+                    Trade->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -11530,8 +12565,14 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
-                if (IfChangedFromDataVersion.notNull()) { writer.String("IfChangedFromDataVersion"); writer.Uint(IfChangedFromDataVersion); }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
+                if (IfChangedFromDataVersion.notNull()) {
+                    writer.String("IfChangedFromDataVersion");
+                    writer.Uint(IfChangedFromDataVersion);
+                }
                 writer.EndObject();
             }
 
@@ -11586,11 +12627,13 @@ namespace PlayFabClientSdk
                     writer.String("Data");
                     writer.StartObject();
                     for (std::map<AZStd::string, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                        writer.String(iter->first.c_str());
+                        iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
                 }
-                writer.String("DataVersion"); writer.Uint(DataVersion);
+                writer.String("DataVersion");
+                writer.Uint(DataVersion);
                 writer.EndObject();
             }
 
@@ -11686,7 +12729,8 @@ namespace PlayFabClientSdk
                     writer.String("VirtualCurrency");
                     writer.StartObject();
                     for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Int(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Int(iter->second);
                     }
                     writer.EndObject();
                 }
@@ -11694,7 +12738,8 @@ namespace PlayFabClientSdk
                     writer.String("VirtualCurrencyRechargeTimes");
                     writer.StartObject();
                     for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
-                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                        writer.String(iter->first.c_str());
+                        iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
                 }
@@ -11756,8 +12801,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("TitleId"); writer.String(TitleId.c_str());
-                writer.String("PublicKeyHint"); writer.String(PublicKeyHint.c_str());
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                writer.String("PublicKeyHint");
+                writer.String(PublicKeyHint.c_str());
                 writer.EndObject();
             }
 
@@ -11798,7 +12845,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Challenge.length() > 0) { writer.String("Challenge"); writer.String(Challenge.c_str()); }
+                if (Challenge.length() > 0) {
+                    writer.String("Challenge");
+                    writer.String(Challenge.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -11843,9 +12893,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
-                writer.String("ItemId"); writer.String(ItemId.c_str());
-                writer.String("CharacterName"); writer.String(CharacterName.c_str());
+                if (CatalogVersion.length() > 0) {
+                    writer.String("CatalogVersion");
+                    writer.String(CatalogVersion.c_str());
+                }
+                writer.String("ItemId");
+                writer.String(ItemId.c_str());
+                writer.String("CharacterName");
+                writer.String(CharacterName.c_str());
                 writer.EndObject();
             }
 
@@ -11894,9 +12949,16 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
-                if (CharacterType.length() > 0) { writer.String("CharacterType"); writer.String(CharacterType.c_str()); }
-                writer.String("Result"); writer.Bool(Result);
+                if (CharacterId.length() > 0) {
+                    writer.String("CharacterId");
+                    writer.String(CharacterId.c_str());
+                }
+                if (CharacterType.length() > 0) {
+                    writer.String("CharacterType");
+                    writer.String(CharacterType.c_str());
+                }
+                writer.String("Result");
+                writer.Bool(Result);
                 writer.EndObject();
             }
 
@@ -11948,9 +13010,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("ItemId"); writer.String(ItemId.c_str());
-                writer.String("Quantity"); writer.Uint(Quantity);
-                if (Annotation.length() > 0) { writer.String("Annotation"); writer.String(Annotation.c_str()); }
+                writer.String("ItemId");
+                writer.String(ItemId.c_str());
+                writer.String("Quantity");
+                writer.Uint(Quantity);
+                if (Annotation.length() > 0) {
+                    writer.String("Annotation");
+                    writer.String(Annotation.c_str());
+                }
                 if (!UpgradeFromItems.empty()) {
                     writer.String("UpgradeFromItems");
                     writer.StartArray();
@@ -12017,10 +13084,20 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("AndroidDeviceId"); writer.String(AndroidDeviceId.c_str());
-                if (OS.length() > 0) { writer.String("OS"); writer.String(OS.c_str()); }
-                if (AndroidDevice.length() > 0) { writer.String("AndroidDevice"); writer.String(AndroidDevice.c_str()); }
-                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
+                writer.String("AndroidDeviceId");
+                writer.String(AndroidDeviceId.c_str());
+                if (OS.length() > 0) {
+                    writer.String("OS");
+                    writer.String(OS.c_str());
+                }
+                if (AndroidDevice.length() > 0) {
+                    writer.String("AndroidDevice");
+                    writer.String(AndroidDevice.c_str());
+                }
+                if (ForceLink.notNull()) {
+                    writer.String("ForceLink");
+                    writer.Bool(ForceLink);
+                }
                 writer.EndObject();
             }
 
@@ -12101,8 +13178,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("CustomId"); writer.String(CustomId.c_str());
-                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
+                writer.String("CustomId");
+                writer.String(CustomId.c_str());
+                if (ForceLink.notNull()) {
+                    writer.String("ForceLink");
+                    writer.Bool(ForceLink);
+                }
                 writer.EndObject();
             }
 
@@ -12179,8 +13260,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("AccessToken"); writer.String(AccessToken.c_str());
-                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
+                writer.String("AccessToken");
+                writer.String(AccessToken.c_str());
+                if (ForceLink.notNull()) {
+                    writer.String("ForceLink");
+                    writer.Bool(ForceLink);
+                }
                 writer.EndObject();
             }
 
@@ -12257,8 +13342,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("GameCenterId"); writer.String(GameCenterId.c_str());
-                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
+                writer.String("GameCenterId");
+                writer.String(GameCenterId.c_str());
+                if (ForceLink.notNull()) {
+                    writer.String("ForceLink");
+                    writer.Bool(ForceLink);
+                }
                 writer.EndObject();
             }
 
@@ -12335,8 +13424,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (ServerAuthCode.length() > 0) { writer.String("ServerAuthCode"); writer.String(ServerAuthCode.c_str()); }
-                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
+                if (ServerAuthCode.length() > 0) {
+                    writer.String("ServerAuthCode");
+                    writer.String(ServerAuthCode.c_str());
+                }
+                if (ForceLink.notNull()) {
+                    writer.String("ForceLink");
+                    writer.Bool(ForceLink);
+                }
                 writer.EndObject();
             }
 
@@ -12419,10 +13514,20 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("DeviceId"); writer.String(DeviceId.c_str());
-                if (OS.length() > 0) { writer.String("OS"); writer.String(OS.c_str()); }
-                if (DeviceModel.length() > 0) { writer.String("DeviceModel"); writer.String(DeviceModel.c_str()); }
-                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
+                writer.String("DeviceId");
+                writer.String(DeviceId.c_str());
+                if (OS.length() > 0) {
+                    writer.String("OS");
+                    writer.String(OS.c_str());
+                }
+                if (DeviceModel.length() > 0) {
+                    writer.String("DeviceModel");
+                    writer.String(DeviceModel.c_str());
+                }
+                if (ForceLink.notNull()) {
+                    writer.String("ForceLink");
+                    writer.Bool(ForceLink);
+                }
                 writer.EndObject();
             }
 
@@ -12506,9 +13611,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("KongregateId"); writer.String(KongregateId.c_str());
-                writer.String("AuthTicket"); writer.String(AuthTicket.c_str());
-                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
+                writer.String("KongregateId");
+                writer.String(KongregateId.c_str());
+                writer.String("AuthTicket");
+                writer.String(AuthTicket.c_str());
+                if (ForceLink.notNull()) {
+                    writer.String("ForceLink");
+                    writer.Bool(ForceLink);
+                }
                 writer.EndObject();
             }
 
@@ -12587,8 +13697,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("SteamTicket"); writer.String(SteamTicket.c_str());
-                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
+                writer.String("SteamTicket");
+                writer.String(SteamTicket.c_str());
+                if (ForceLink.notNull()) {
+                    writer.String("ForceLink");
+                    writer.Bool(ForceLink);
+                }
                 writer.EndObject();
             }
 
@@ -12665,8 +13779,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("AccessToken"); writer.String(AccessToken.c_str());
-                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
+                writer.String("AccessToken");
+                writer.String(AccessToken.c_str());
+                if (ForceLink.notNull()) {
+                    writer.String("ForceLink");
+                    writer.Bool(ForceLink);
+                }
                 writer.EndObject();
             }
 
@@ -12749,10 +13867,18 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("UserName"); writer.String(UserName.c_str());
-                writer.String("PublicKey"); writer.String(PublicKey.c_str());
-                if (DeviceName.length() > 0) { writer.String("DeviceName"); writer.String(DeviceName.c_str()); }
-                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
+                writer.String("UserName");
+                writer.String(UserName.c_str());
+                writer.String("PublicKey");
+                writer.String(PublicKey.c_str());
+                if (DeviceName.length() > 0) {
+                    writer.String("DeviceName");
+                    writer.String(DeviceName.c_str());
+                }
+                if (ForceLink.notNull()) {
+                    writer.String("ForceLink");
+                    writer.Bool(ForceLink);
+                }
                 writer.EndObject();
             }
 
@@ -12830,7 +13956,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -12920,7 +14049,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("NeedsAttribution"); writer.Bool(NeedsAttribution);
+                writer.String("NeedsAttribution");
+                writer.Bool(NeedsAttribution);
                 writer.EndObject();
             }
 
@@ -12976,12 +14106,28 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (SessionTicket.length() > 0) { writer.String("SessionTicket"); writer.String(SessionTicket.c_str()); }
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
-                writer.String("NewlyCreated"); writer.Bool(NewlyCreated);
-                if (SettingsForUser != nullptr) { writer.String("SettingsForUser"); SettingsForUser->writeJSON(writer); }
-                if (LastLoginTime.notNull()) { writer.String("LastLoginTime"); writeDatetime(LastLoginTime, writer); }
-                if (InfoResultPayload != nullptr) { writer.String("InfoResultPayload"); InfoResultPayload->writeJSON(writer); }
+                if (SessionTicket.length() > 0) {
+                    writer.String("SessionTicket");
+                    writer.String(SessionTicket.c_str());
+                }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
+                writer.String("NewlyCreated");
+                writer.Bool(NewlyCreated);
+                if (SettingsForUser != nullptr) {
+                    writer.String("SettingsForUser");
+                    SettingsForUser->writeJSON(writer);
+                }
+                if (LastLoginTime.notNull()) {
+                    writer.String("LastLoginTime");
+                    writeDatetime(LastLoginTime, writer);
+                }
+                if (InfoResultPayload != nullptr) {
+                    writer.String("InfoResultPayload");
+                    InfoResultPayload->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -13052,14 +14198,36 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (AndroidDeviceId.length() > 0) { writer.String("AndroidDeviceId"); writer.String(AndroidDeviceId.c_str()); }
-                if (OS.length() > 0) { writer.String("OS"); writer.String(OS.c_str()); }
-                if (AndroidDevice.length() > 0) { writer.String("AndroidDevice"); writer.String(AndroidDevice.c_str()); }
-                if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
-                writer.String("TitleId"); writer.String(TitleId.c_str());
-                if (EncryptedRequest.length() > 0) { writer.String("EncryptedRequest"); writer.String(EncryptedRequest.c_str()); }
-                if (PlayerSecret.length() > 0) { writer.String("PlayerSecret"); writer.String(PlayerSecret.c_str()); }
-                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
+                if (AndroidDeviceId.length() > 0) {
+                    writer.String("AndroidDeviceId");
+                    writer.String(AndroidDeviceId.c_str());
+                }
+                if (OS.length() > 0) {
+                    writer.String("OS");
+                    writer.String(OS.c_str());
+                }
+                if (AndroidDevice.length() > 0) {
+                    writer.String("AndroidDevice");
+                    writer.String(AndroidDevice.c_str());
+                }
+                if (CreateAccount.notNull()) {
+                    writer.String("CreateAccount");
+                    writer.Bool(CreateAccount);
+                }
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                if (EncryptedRequest.length() > 0) {
+                    writer.String("EncryptedRequest");
+                    writer.String(EncryptedRequest.c_str());
+                }
+                if (PlayerSecret.length() > 0) {
+                    writer.String("PlayerSecret");
+                    writer.String(PlayerSecret.c_str());
+                }
+                if (InfoRequestParameters != nullptr) {
+                    writer.String("InfoRequestParameters");
+                    InfoRequestParameters->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -13128,12 +14296,28 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (CustomId.length() > 0) { writer.String("CustomId"); writer.String(CustomId.c_str()); }
-                if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
-                writer.String("TitleId"); writer.String(TitleId.c_str());
-                if (EncryptedRequest.length() > 0) { writer.String("EncryptedRequest"); writer.String(EncryptedRequest.c_str()); }
-                if (PlayerSecret.length() > 0) { writer.String("PlayerSecret"); writer.String(PlayerSecret.c_str()); }
-                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
+                if (CustomId.length() > 0) {
+                    writer.String("CustomId");
+                    writer.String(CustomId.c_str());
+                }
+                if (CreateAccount.notNull()) {
+                    writer.String("CreateAccount");
+                    writer.Bool(CreateAccount);
+                }
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                if (EncryptedRequest.length() > 0) {
+                    writer.String("EncryptedRequest");
+                    writer.String(EncryptedRequest.c_str());
+                }
+                if (PlayerSecret.length() > 0) {
+                    writer.String("PlayerSecret");
+                    writer.String(PlayerSecret.c_str());
+                }
+                if (InfoRequestParameters != nullptr) {
+                    writer.String("InfoRequestParameters");
+                    InfoRequestParameters->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -13192,10 +14376,16 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("TitleId"); writer.String(TitleId.c_str());
-                writer.String("Email"); writer.String(Email.c_str());
-                writer.String("Password"); writer.String(Password.c_str());
-                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                writer.String("Email");
+                writer.String(Email.c_str());
+                writer.String("Password");
+                writer.String(Password.c_str());
+                if (InfoRequestParameters != nullptr) {
+                    writer.String("InfoRequestParameters");
+                    InfoRequestParameters->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -13256,12 +14446,26 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("AccessToken"); writer.String(AccessToken.c_str());
-                if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
-                writer.String("TitleId"); writer.String(TitleId.c_str());
-                if (EncryptedRequest.length() > 0) { writer.String("EncryptedRequest"); writer.String(EncryptedRequest.c_str()); }
-                if (PlayerSecret.length() > 0) { writer.String("PlayerSecret"); writer.String(PlayerSecret.c_str()); }
-                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
+                writer.String("AccessToken");
+                writer.String(AccessToken.c_str());
+                if (CreateAccount.notNull()) {
+                    writer.String("CreateAccount");
+                    writer.Bool(CreateAccount);
+                }
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                if (EncryptedRequest.length() > 0) {
+                    writer.String("EncryptedRequest");
+                    writer.String(EncryptedRequest.c_str());
+                }
+                if (PlayerSecret.length() > 0) {
+                    writer.String("PlayerSecret");
+                    writer.String(PlayerSecret.c_str());
+                }
+                if (InfoRequestParameters != nullptr) {
+                    writer.String("InfoRequestParameters");
+                    InfoRequestParameters->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -13326,12 +14530,28 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PlayerId.length() > 0) { writer.String("PlayerId"); writer.String(PlayerId.c_str()); }
-                if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
-                writer.String("TitleId"); writer.String(TitleId.c_str());
-                if (EncryptedRequest.length() > 0) { writer.String("EncryptedRequest"); writer.String(EncryptedRequest.c_str()); }
-                if (PlayerSecret.length() > 0) { writer.String("PlayerSecret"); writer.String(PlayerSecret.c_str()); }
-                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
+                if (PlayerId.length() > 0) {
+                    writer.String("PlayerId");
+                    writer.String(PlayerId.c_str());
+                }
+                if (CreateAccount.notNull()) {
+                    writer.String("CreateAccount");
+                    writer.Bool(CreateAccount);
+                }
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                if (EncryptedRequest.length() > 0) {
+                    writer.String("EncryptedRequest");
+                    writer.String(EncryptedRequest.c_str());
+                }
+                if (PlayerSecret.length() > 0) {
+                    writer.String("PlayerSecret");
+                    writer.String(PlayerSecret.c_str());
+                }
+                if (InfoRequestParameters != nullptr) {
+                    writer.String("InfoRequestParameters");
+                    InfoRequestParameters->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -13396,12 +14616,28 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (ServerAuthCode.length() > 0) { writer.String("ServerAuthCode"); writer.String(ServerAuthCode.c_str()); }
-                if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
-                writer.String("TitleId"); writer.String(TitleId.c_str());
-                if (EncryptedRequest.length() > 0) { writer.String("EncryptedRequest"); writer.String(EncryptedRequest.c_str()); }
-                if (PlayerSecret.length() > 0) { writer.String("PlayerSecret"); writer.String(PlayerSecret.c_str()); }
-                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
+                if (ServerAuthCode.length() > 0) {
+                    writer.String("ServerAuthCode");
+                    writer.String(ServerAuthCode.c_str());
+                }
+                if (CreateAccount.notNull()) {
+                    writer.String("CreateAccount");
+                    writer.Bool(CreateAccount);
+                }
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                if (EncryptedRequest.length() > 0) {
+                    writer.String("EncryptedRequest");
+                    writer.String(EncryptedRequest.c_str());
+                }
+                if (PlayerSecret.length() > 0) {
+                    writer.String("PlayerSecret");
+                    writer.String(PlayerSecret.c_str());
+                }
+                if (InfoRequestParameters != nullptr) {
+                    writer.String("InfoRequestParameters");
+                    InfoRequestParameters->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -13472,14 +14708,36 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (DeviceId.length() > 0) { writer.String("DeviceId"); writer.String(DeviceId.c_str()); }
-                if (OS.length() > 0) { writer.String("OS"); writer.String(OS.c_str()); }
-                if (DeviceModel.length() > 0) { writer.String("DeviceModel"); writer.String(DeviceModel.c_str()); }
-                if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
-                writer.String("TitleId"); writer.String(TitleId.c_str());
-                if (EncryptedRequest.length() > 0) { writer.String("EncryptedRequest"); writer.String(EncryptedRequest.c_str()); }
-                if (PlayerSecret.length() > 0) { writer.String("PlayerSecret"); writer.String(PlayerSecret.c_str()); }
-                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
+                if (DeviceId.length() > 0) {
+                    writer.String("DeviceId");
+                    writer.String(DeviceId.c_str());
+                }
+                if (OS.length() > 0) {
+                    writer.String("OS");
+                    writer.String(OS.c_str());
+                }
+                if (DeviceModel.length() > 0) {
+                    writer.String("DeviceModel");
+                    writer.String(DeviceModel.c_str());
+                }
+                if (CreateAccount.notNull()) {
+                    writer.String("CreateAccount");
+                    writer.Bool(CreateAccount);
+                }
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                if (EncryptedRequest.length() > 0) {
+                    writer.String("EncryptedRequest");
+                    writer.String(EncryptedRequest.c_str());
+                }
+                if (PlayerSecret.length() > 0) {
+                    writer.String("PlayerSecret");
+                    writer.String(PlayerSecret.c_str());
+                }
+                if (InfoRequestParameters != nullptr) {
+                    writer.String("InfoRequestParameters");
+                    InfoRequestParameters->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -13551,13 +14809,32 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (KongregateId.length() > 0) { writer.String("KongregateId"); writer.String(KongregateId.c_str()); }
-                if (AuthTicket.length() > 0) { writer.String("AuthTicket"); writer.String(AuthTicket.c_str()); }
-                if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
-                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
-                writer.String("TitleId"); writer.String(TitleId.c_str());
-                if (EncryptedRequest.length() > 0) { writer.String("EncryptedRequest"); writer.String(EncryptedRequest.c_str()); }
-                if (PlayerSecret.length() > 0) { writer.String("PlayerSecret"); writer.String(PlayerSecret.c_str()); }
+                if (KongregateId.length() > 0) {
+                    writer.String("KongregateId");
+                    writer.String(KongregateId.c_str());
+                }
+                if (AuthTicket.length() > 0) {
+                    writer.String("AuthTicket");
+                    writer.String(AuthTicket.c_str());
+                }
+                if (CreateAccount.notNull()) {
+                    writer.String("CreateAccount");
+                    writer.Bool(CreateAccount);
+                }
+                if (InfoRequestParameters != nullptr) {
+                    writer.String("InfoRequestParameters");
+                    InfoRequestParameters->writeJSON(writer);
+                }
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                if (EncryptedRequest.length() > 0) {
+                    writer.String("EncryptedRequest");
+                    writer.String(EncryptedRequest.c_str());
+                }
+                if (PlayerSecret.length() > 0) {
+                    writer.String("PlayerSecret");
+                    writer.String(PlayerSecret.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -13618,10 +14895,16 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("TitleId"); writer.String(TitleId.c_str());
-                writer.String("Username"); writer.String(Username.c_str());
-                writer.String("Password"); writer.String(Password.c_str());
-                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                writer.String("Username");
+                writer.String(Username.c_str());
+                writer.String("Password");
+                writer.String(Password.c_str());
+                if (InfoRequestParameters != nullptr) {
+                    writer.String("InfoRequestParameters");
+                    InfoRequestParameters->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -13682,12 +14965,28 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (SteamTicket.length() > 0) { writer.String("SteamTicket"); writer.String(SteamTicket.c_str()); }
-                if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
-                writer.String("TitleId"); writer.String(TitleId.c_str());
-                if (EncryptedRequest.length() > 0) { writer.String("EncryptedRequest"); writer.String(EncryptedRequest.c_str()); }
-                if (PlayerSecret.length() > 0) { writer.String("PlayerSecret"); writer.String(PlayerSecret.c_str()); }
-                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
+                if (SteamTicket.length() > 0) {
+                    writer.String("SteamTicket");
+                    writer.String(SteamTicket.c_str());
+                }
+                if (CreateAccount.notNull()) {
+                    writer.String("CreateAccount");
+                    writer.Bool(CreateAccount);
+                }
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                if (EncryptedRequest.length() > 0) {
+                    writer.String("EncryptedRequest");
+                    writer.String(EncryptedRequest.c_str());
+                }
+                if (PlayerSecret.length() > 0) {
+                    writer.String("PlayerSecret");
+                    writer.String(PlayerSecret.c_str());
+                }
+                if (InfoRequestParameters != nullptr) {
+                    writer.String("InfoRequestParameters");
+                    InfoRequestParameters->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -13752,12 +15051,28 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (AccessToken.length() > 0) { writer.String("AccessToken"); writer.String(AccessToken.c_str()); }
-                if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
-                writer.String("TitleId"); writer.String(TitleId.c_str());
-                if (EncryptedRequest.length() > 0) { writer.String("EncryptedRequest"); writer.String(EncryptedRequest.c_str()); }
-                if (PlayerSecret.length() > 0) { writer.String("PlayerSecret"); writer.String(PlayerSecret.c_str()); }
-                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
+                if (AccessToken.length() > 0) {
+                    writer.String("AccessToken");
+                    writer.String(AccessToken.c_str());
+                }
+                if (CreateAccount.notNull()) {
+                    writer.String("CreateAccount");
+                    writer.Bool(CreateAccount);
+                }
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                if (EncryptedRequest.length() > 0) {
+                    writer.String("EncryptedRequest");
+                    writer.String(EncryptedRequest.c_str());
+                }
+                if (PlayerSecret.length() > 0) {
+                    writer.String("PlayerSecret");
+                    writer.String(PlayerSecret.c_str());
+                }
+                if (InfoRequestParameters != nullptr) {
+                    writer.String("InfoRequestParameters");
+                    InfoRequestParameters->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -13816,10 +15131,16 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("TitleId"); writer.String(TitleId.c_str());
-                writer.String("ChallengeSignature"); writer.String(ChallengeSignature.c_str());
-                writer.String("PublicKeyHint"); writer.String(PublicKeyHint.c_str());
-                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                writer.String("ChallengeSignature");
+                writer.String(ChallengeSignature.c_str());
+                writer.String("PublicKeyHint");
+                writer.String(PublicKeyHint.c_str());
+                if (InfoRequestParameters != nullptr) {
+                    writer.String("InfoRequestParameters");
+                    InfoRequestParameters->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -13886,14 +15207,38 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (BuildVersion.length() > 0) { writer.String("BuildVersion"); writer.String(BuildVersion.c_str()); }
-                if (pfRegion.notNull()) { writer.String("Region"); writeRegionEnumJSON(pfRegion, writer); }
-                if (GameMode.length() > 0) { writer.String("GameMode"); writer.String(GameMode.c_str()); }
-                if (LobbyId.length() > 0) { writer.String("LobbyId"); writer.String(LobbyId.c_str()); }
-                if (StatisticName.length() > 0) { writer.String("StatisticName"); writer.String(StatisticName.c_str()); }
-                if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
-                if (StartNewIfNoneFound.notNull()) { writer.String("StartNewIfNoneFound"); writer.Bool(StartNewIfNoneFound); }
-                if (TagFilter != nullptr) { writer.String("TagFilter"); TagFilter->writeJSON(writer); }
+                if (BuildVersion.length() > 0) {
+                    writer.String("BuildVersion");
+                    writer.String(BuildVersion.c_str());
+                }
+                if (pfRegion.notNull()) {
+                    writer.String("Region");
+                    writeRegionEnumJSON(pfRegion, writer);
+                }
+                if (GameMode.length() > 0) {
+                    writer.String("GameMode");
+                    writer.String(GameMode.c_str());
+                }
+                if (LobbyId.length() > 0) {
+                    writer.String("LobbyId");
+                    writer.String(LobbyId.c_str());
+                }
+                if (StatisticName.length() > 0) {
+                    writer.String("StatisticName");
+                    writer.String(StatisticName.c_str());
+                }
+                if (CharacterId.length() > 0) {
+                    writer.String("CharacterId");
+                    writer.String(CharacterId.c_str());
+                }
+                if (StartNewIfNoneFound.notNull()) {
+                    writer.String("StartNewIfNoneFound");
+                    writer.Bool(StartNewIfNoneFound);
+                }
+                if (TagFilter != nullptr) {
+                    writer.String("TagFilter");
+                    TagFilter->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -14007,13 +15352,34 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (LobbyID.length() > 0) { writer.String("LobbyID"); writer.String(LobbyID.c_str()); }
-                if (ServerHostname.length() > 0) { writer.String("ServerHostname"); writer.String(ServerHostname.c_str()); }
-                if (ServerPort.notNull()) { writer.String("ServerPort"); writer.Int(ServerPort); }
-                if (Ticket.length() > 0) { writer.String("Ticket"); writer.String(Ticket.c_str()); }
-                if (Expires.length() > 0) { writer.String("Expires"); writer.String(Expires.c_str()); }
-                if (PollWaitTimeMS.notNull()) { writer.String("PollWaitTimeMS"); writer.Int(PollWaitTimeMS); }
-                if (Status.notNull()) { writer.String("Status"); writeMatchmakeStatusEnumJSON(Status, writer); }
+                if (LobbyID.length() > 0) {
+                    writer.String("LobbyID");
+                    writer.String(LobbyID.c_str());
+                }
+                if (ServerHostname.length() > 0) {
+                    writer.String("ServerHostname");
+                    writer.String(ServerHostname.c_str());
+                }
+                if (ServerPort.notNull()) {
+                    writer.String("ServerPort");
+                    writer.Int(ServerPort);
+                }
+                if (Ticket.length() > 0) {
+                    writer.String("Ticket");
+                    writer.String(Ticket.c_str());
+                }
+                if (Expires.length() > 0) {
+                    writer.String("Expires");
+                    writer.String(Expires.c_str());
+                }
+                if (PollWaitTimeMS.notNull()) {
+                    writer.String("PollWaitTimeMS");
+                    writer.Int(PollWaitTimeMS);
+                }
+                if (Status.notNull()) {
+                    writer.String("Status");
+                    writeMatchmakeStatusEnumJSON(Status, writer);
+                }
                 writer.EndObject();
             }
 
@@ -14073,10 +15439,18 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
-                if (VirtualCurrency.length() > 0) { writer.String("VirtualCurrency"); writer.String(VirtualCurrency.c_str()); }
-                writer.String("BalanceChange"); writer.Int(BalanceChange);
-                writer.String("Balance"); writer.Int(Balance);
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
+                if (VirtualCurrency.length() > 0) {
+                    writer.String("VirtualCurrency");
+                    writer.String(VirtualCurrency.c_str());
+                }
+                writer.String("BalanceChange");
+                writer.Int(BalanceChange);
+                writer.String("Balance");
+                writer.Int(Balance);
                 writer.EndObject();
             }
 
@@ -14124,8 +15498,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Name.length() > 0) { writer.String("Name"); writer.String(Name.c_str()); }
-                if (Id.length() > 0) { writer.String("Id"); writer.String(Id.c_str()); }
+                if (Name.length() > 0) {
+                    writer.String("Name");
+                    writer.String(Name.c_str());
+                }
+                if (Id.length() > 0) {
+                    writer.String("Id");
+                    writer.String(Id.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -14254,7 +15634,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Trade != nullptr) { writer.String("Trade"); Trade->writeJSON(writer); }
+                if (Trade != nullptr) {
+                    writer.String("Trade");
+                    Trade->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -14302,10 +15685,16 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("OrderId"); writer.String(OrderId.c_str());
-                writer.String("ProviderName"); writer.String(ProviderName.c_str());
-                writer.String("Currency"); writer.String(Currency.c_str());
-                if (ProviderTransactionId.length() > 0) { writer.String("ProviderTransactionId"); writer.String(ProviderTransactionId.c_str()); }
+                writer.String("OrderId");
+                writer.String(OrderId.c_str());
+                writer.String("ProviderName");
+                writer.String(ProviderName.c_str());
+                writer.String("Currency");
+                writer.String(Currency.c_str());
+                if (ProviderTransactionId.length() > 0) {
+                    writer.String("ProviderTransactionId");
+                    writer.String(ProviderTransactionId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -14465,30 +15854,52 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (OrderId.length() > 0) { writer.String("OrderId"); writer.String(OrderId.c_str()); }
-                if (Status.notNull()) { writer.String("Status"); writeTransactionStatusEnumJSON(Status, writer); }
+                if (OrderId.length() > 0) {
+                    writer.String("OrderId");
+                    writer.String(OrderId.c_str());
+                }
+                if (Status.notNull()) {
+                    writer.String("Status");
+                    writeTransactionStatusEnumJSON(Status, writer);
+                }
                 if (!VCAmount.empty()) {
                     writer.String("VCAmount");
                     writer.StartObject();
                     for (std::map<AZStd::string, Int32>::iterator iter = VCAmount.begin(); iter != VCAmount.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Int(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Int(iter->second);
                     }
                     writer.EndObject();
                 }
-                if (PurchaseCurrency.length() > 0) { writer.String("PurchaseCurrency"); writer.String(PurchaseCurrency.c_str()); }
-                writer.String("PurchasePrice"); writer.Uint(PurchasePrice);
-                writer.String("CreditApplied"); writer.Uint(CreditApplied);
-                if (ProviderData.length() > 0) { writer.String("ProviderData"); writer.String(ProviderData.c_str()); }
-                if (PurchaseConfirmationPageURL.length() > 0) { writer.String("PurchaseConfirmationPageURL"); writer.String(PurchaseConfirmationPageURL.c_str()); }
+                if (PurchaseCurrency.length() > 0) {
+                    writer.String("PurchaseCurrency");
+                    writer.String(PurchaseCurrency.c_str());
+                }
+                writer.String("PurchasePrice");
+                writer.Uint(PurchasePrice);
+                writer.String("CreditApplied");
+                writer.Uint(CreditApplied);
+                if (ProviderData.length() > 0) {
+                    writer.String("ProviderData");
+                    writer.String(ProviderData.c_str());
+                }
+                if (PurchaseConfirmationPageURL.length() > 0) {
+                    writer.String("PurchaseConfirmationPageURL");
+                    writer.String(PurchaseConfirmationPageURL.c_str());
+                }
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
                     for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Int(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Int(iter->second);
                     }
                     writer.EndObject();
                 }
-                if (ProviderToken.length() > 0) { writer.String("ProviderToken"); writer.String(ProviderToken.c_str()); }
+                if (ProviderToken.length() > 0) {
+                    writer.String("ProviderToken");
+                    writer.String(ProviderToken.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -14562,10 +15973,18 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Currency.length() > 0) { writer.String("Currency"); writer.String(Currency.c_str()); }
-                if (ProviderName.length() > 0) { writer.String("ProviderName"); writer.String(ProviderName.c_str()); }
-                writer.String("Price"); writer.Uint(Price);
-                writer.String("StoreCredit"); writer.Uint(StoreCredit);
+                if (Currency.length() > 0) {
+                    writer.String("Currency");
+                    writer.String(Currency.c_str());
+                }
+                if (ProviderName.length() > 0) {
+                    writer.String("ProviderName");
+                    writer.String(ProviderName.c_str());
+                }
+                writer.String("Price");
+                writer.Uint(Price);
+                writer.String("StoreCredit");
+                writer.Uint(StoreCredit);
                 writer.EndObject();
             }
 
@@ -14625,12 +16044,24 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("ItemId"); writer.String(ItemId.c_str());
-                writer.String("VirtualCurrency"); writer.String(VirtualCurrency.c_str());
-                writer.String("Price"); writer.Int(Price);
-                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
-                if (StoreId.length() > 0) { writer.String("StoreId"); writer.String(StoreId.c_str()); }
-                if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
+                writer.String("ItemId");
+                writer.String(ItemId.c_str());
+                writer.String("VirtualCurrency");
+                writer.String(VirtualCurrency.c_str());
+                writer.String("Price");
+                writer.Int(Price);
+                if (CatalogVersion.length() > 0) {
+                    writer.String("CatalogVersion");
+                    writer.String(CatalogVersion.c_str());
+                }
+                if (StoreId.length() > 0) {
+                    writer.String("StoreId");
+                    writer.String(StoreId.c_str());
+                }
+                if (CharacterId.length() > 0) {
+                    writer.String("CharacterId");
+                    writer.String(CharacterId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -14736,9 +16167,16 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("CouponCode"); writer.String(CouponCode.c_str());
-                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
-                if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
+                writer.String("CouponCode");
+                writer.String(CouponCode.c_str());
+                if (CatalogVersion.length() > 0) {
+                    writer.String("CatalogVersion");
+                    writer.String(CatalogVersion.c_str());
+                }
+                if (CharacterId.length() > 0) {
+                    writer.String("CharacterId");
+                    writer.String(CharacterId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -14838,9 +16276,16 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("DeviceToken"); writer.String(DeviceToken.c_str());
-                if (SendPushNotificationConfirmation.notNull()) { writer.String("SendPushNotificationConfirmation"); writer.Bool(SendPushNotificationConfirmation); }
-                if (ConfirmationMessage.length() > 0) { writer.String("ConfirmationMessage"); writer.String(ConfirmationMessage.c_str()); }
+                writer.String("DeviceToken");
+                writer.String(DeviceToken.c_str());
+                if (SendPushNotificationConfirmation.notNull()) {
+                    writer.String("SendPushNotificationConfirmation");
+                    writer.Bool(SendPushNotificationConfirmation);
+                }
+                if (ConfirmationMessage.length() > 0) {
+                    writer.String("ConfirmationMessage");
+                    writer.String(ConfirmationMessage.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -14941,15 +16386,40 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Username.length() > 0) { writer.String("Username"); writer.String(Username.c_str()); }
-                if (Email.length() > 0) { writer.String("Email"); writer.String(Email.c_str()); }
-                if (Password.length() > 0) { writer.String("Password"); writer.String(Password.c_str()); }
-                if (RequireBothUsernameAndEmail.notNull()) { writer.String("RequireBothUsernameAndEmail"); writer.Bool(RequireBothUsernameAndEmail); }
-                if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
-                writer.String("TitleId"); writer.String(TitleId.c_str());
-                if (EncryptedRequest.length() > 0) { writer.String("EncryptedRequest"); writer.String(EncryptedRequest.c_str()); }
-                if (PlayerSecret.length() > 0) { writer.String("PlayerSecret"); writer.String(PlayerSecret.c_str()); }
-                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
+                if (Username.length() > 0) {
+                    writer.String("Username");
+                    writer.String(Username.c_str());
+                }
+                if (Email.length() > 0) {
+                    writer.String("Email");
+                    writer.String(Email.c_str());
+                }
+                if (Password.length() > 0) {
+                    writer.String("Password");
+                    writer.String(Password.c_str());
+                }
+                if (RequireBothUsernameAndEmail.notNull()) {
+                    writer.String("RequireBothUsernameAndEmail");
+                    writer.Bool(RequireBothUsernameAndEmail);
+                }
+                if (DisplayName.length() > 0) {
+                    writer.String("DisplayName");
+                    writer.String(DisplayName.c_str());
+                }
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                if (EncryptedRequest.length() > 0) {
+                    writer.String("EncryptedRequest");
+                    writer.String(EncryptedRequest.c_str());
+                }
+                if (PlayerSecret.length() > 0) {
+                    writer.String("PlayerSecret");
+                    writer.String(PlayerSecret.c_str());
+                }
+                if (InfoRequestParameters != nullptr) {
+                    writer.String("InfoRequestParameters");
+                    InfoRequestParameters->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -15014,10 +16484,22 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
-                if (SessionTicket.length() > 0) { writer.String("SessionTicket"); writer.String(SessionTicket.c_str()); }
-                if (Username.length() > 0) { writer.String("Username"); writer.String(Username.c_str()); }
-                if (SettingsForUser != nullptr) { writer.String("SettingsForUser"); SettingsForUser->writeJSON(writer); }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
+                if (SessionTicket.length() > 0) {
+                    writer.String("SessionTicket");
+                    writer.String(SessionTicket.c_str());
+                }
+                if (Username.length() > 0) {
+                    writer.String("Username");
+                    writer.String(Username.c_str());
+                }
+                if (SettingsForUser != nullptr) {
+                    writer.String("SettingsForUser");
+                    SettingsForUser->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -15081,13 +16563,32 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (UserName.length() > 0) { writer.String("UserName"); writer.String(UserName.c_str()); }
-                if (PublicKey.length() > 0) { writer.String("PublicKey"); writer.String(PublicKey.c_str()); }
-                if (DeviceName.length() > 0) { writer.String("DeviceName"); writer.String(DeviceName.c_str()); }
-                writer.String("TitleId"); writer.String(TitleId.c_str());
-                if (EncryptedRequest.length() > 0) { writer.String("EncryptedRequest"); writer.String(EncryptedRequest.c_str()); }
-                if (PlayerSecret.length() > 0) { writer.String("PlayerSecret"); writer.String(PlayerSecret.c_str()); }
-                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
+                if (UserName.length() > 0) {
+                    writer.String("UserName");
+                    writer.String(UserName.c_str());
+                }
+                if (PublicKey.length() > 0) {
+                    writer.String("PublicKey");
+                    writer.String(PublicKey.c_str());
+                }
+                if (DeviceName.length() > 0) {
+                    writer.String("DeviceName");
+                    writer.String(DeviceName.c_str());
+                }
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                if (EncryptedRequest.length() > 0) {
+                    writer.String("EncryptedRequest");
+                    writer.String(EncryptedRequest.c_str());
+                }
+                if (PlayerSecret.length() > 0) {
+                    writer.String("PlayerSecret");
+                    writer.String(PlayerSecret.c_str());
+                }
+                if (InfoRequestParameters != nullptr) {
+                    writer.String("InfoRequestParameters");
+                    InfoRequestParameters->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -15138,7 +16639,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("FriendPlayFabId"); writer.String(FriendPlayFabId.c_str());
+                writer.String("FriendPlayFabId");
+                writer.String(FriendPlayFabId.c_str());
                 writer.EndObject();
             }
 
@@ -15210,7 +16712,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("GenericId"); GenericId.writeJSON(writer);
+                writer.String("GenericId");
+                GenericId.writeJSON(writer);
                 writer.EndObject();
             }
 
@@ -15285,14 +16788,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
+                writer.String("SharedGroupId");
+                writer.String(SharedGroupId.c_str());
                 writer.String("PlayFabIds");
                 writer.StartArray();
                 for (std::list<AZStd::string>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
-
                 writer.EndObject();
             }
 
@@ -15374,8 +16877,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("ReporteeId"); writer.String(ReporteeId.c_str());
-                if (Comment.length() > 0) { writer.String("Comment"); writer.String(Comment.c_str()); }
+                writer.String("ReporteeId");
+                writer.String(ReporteeId.c_str());
+                if (Comment.length() > 0) {
+                    writer.String("Comment");
+                    writer.String(Comment.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -15419,8 +16926,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Updated.notNull()) { writer.String("Updated"); writer.Bool(Updated); }
-                writer.String("SubmissionsRemaining"); writer.Int(SubmissionsRemaining);
+                if (Updated.notNull()) {
+                    writer.String("Updated");
+                    writer.Bool(Updated);
+                }
+                writer.String("SubmissionsRemaining");
+                writer.Int(SubmissionsRemaining);
                 writer.EndObject();
             }
 
@@ -15461,7 +16972,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("ReceiptData"); writer.String(ReceiptData.c_str());
+                writer.String("ReceiptData");
+                writer.String(ReceiptData.c_str());
                 writer.EndObject();
             }
 
@@ -15536,8 +17048,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("Email"); writer.String(Email.c_str());
-                writer.String("TitleId"); writer.String(TitleId.c_str());
+                writer.String("Email");
+                writer.String(Email.c_str());
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
                 writer.EndObject();
             }
 
@@ -15614,14 +17128,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("FriendPlayFabId"); writer.String(FriendPlayFabId.c_str());
+                writer.String("FriendPlayFabId");
+                writer.String(FriendPlayFabId.c_str());
                 writer.String("Tags");
                 writer.StartArray();
                 for (std::list<AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
-
                 writer.EndObject();
             }
 
@@ -15658,6 +17172,90 @@ namespace PlayFabClientSdk
             }
 
             ~SetFriendTagsResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
+        struct SetPlayerSecretRequest : public PlayFabBaseModel
+        {
+            AZStd::string PlayerSecret;
+            AZStd::string EncryptedRequest;
+
+            SetPlayerSecretRequest() :
+                PlayFabBaseModel(),
+                PlayerSecret(),
+                EncryptedRequest()
+            {}
+
+            SetPlayerSecretRequest(const SetPlayerSecretRequest& src) :
+                PlayFabBaseModel(),
+                PlayerSecret(src.PlayerSecret),
+                EncryptedRequest(src.EncryptedRequest)
+            {}
+
+            SetPlayerSecretRequest(const rapidjson::Value& obj) : SetPlayerSecretRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~SetPlayerSecretRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (PlayerSecret.length() > 0) {
+                    writer.String("PlayerSecret");
+                    writer.String(PlayerSecret.c_str());
+                }
+                if (EncryptedRequest.length() > 0) {
+                    writer.String("EncryptedRequest");
+                    writer.String(EncryptedRequest.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayerSecret_member = obj.FindMember("PlayerSecret");
+                if (PlayerSecret_member != obj.MemberEnd() && !PlayerSecret_member->value.IsNull()) PlayerSecret = PlayerSecret_member->value.GetString();
+                const Value::ConstMemberIterator EncryptedRequest_member = obj.FindMember("EncryptedRequest");
+                if (EncryptedRequest_member != obj.MemberEnd() && !EncryptedRequest_member->value.IsNull()) EncryptedRequest = EncryptedRequest_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct SetPlayerSecretResult : public PlayFabBaseModel
+        {
+
+            SetPlayerSecretResult() :
+                PlayFabBaseModel()
+            {}
+
+            SetPlayerSecretResult(const SetPlayerSecretResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            SetPlayerSecretResult(const rapidjson::Value& obj) : SetPlayerSecretResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~SetPlayerSecretResult()
             {
             }
 
@@ -15715,12 +17313,24 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("BuildVersion"); writer.String(BuildVersion.c_str());
-                writer.String("Region"); writeRegionEnumJSON(pfRegion, writer);
-                writer.String("GameMode"); writer.String(GameMode.c_str());
-                if (StatisticName.length() > 0) { writer.String("StatisticName"); writer.String(StatisticName.c_str()); }
-                if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
-                if (CustomCommandLineData.length() > 0) { writer.String("CustomCommandLineData"); writer.String(CustomCommandLineData.c_str()); }
+                writer.String("BuildVersion");
+                writer.String(BuildVersion.c_str());
+                writer.String("Region");
+                writeRegionEnumJSON(pfRegion, writer);
+                writer.String("GameMode");
+                writer.String(GameMode.c_str());
+                if (StatisticName.length() > 0) {
+                    writer.String("StatisticName");
+                    writer.String(StatisticName.c_str());
+                }
+                if (CharacterId.length() > 0) {
+                    writer.String("CharacterId");
+                    writer.String(CharacterId.c_str());
+                }
+                if (CustomCommandLineData.length() > 0) {
+                    writer.String("CustomCommandLineData");
+                    writer.String(CustomCommandLineData.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -15784,12 +17394,30 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (LobbyID.length() > 0) { writer.String("LobbyID"); writer.String(LobbyID.c_str()); }
-                if (ServerHostname.length() > 0) { writer.String("ServerHostname"); writer.String(ServerHostname.c_str()); }
-                if (ServerPort.notNull()) { writer.String("ServerPort"); writer.Int(ServerPort); }
-                if (Ticket.length() > 0) { writer.String("Ticket"); writer.String(Ticket.c_str()); }
-                if (Expires.length() > 0) { writer.String("Expires"); writer.String(Expires.c_str()); }
-                if (Password.length() > 0) { writer.String("Password"); writer.String(Password.c_str()); }
+                if (LobbyID.length() > 0) {
+                    writer.String("LobbyID");
+                    writer.String(LobbyID.c_str());
+                }
+                if (ServerHostname.length() > 0) {
+                    writer.String("ServerHostname");
+                    writer.String(ServerHostname.c_str());
+                }
+                if (ServerPort.notNull()) {
+                    writer.String("ServerPort");
+                    writer.Int(ServerPort);
+                }
+                if (Ticket.length() > 0) {
+                    writer.String("Ticket");
+                    writer.String(Ticket.c_str());
+                }
+                if (Expires.length() > 0) {
+                    writer.String("Expires");
+                    writer.String(Expires.c_str());
+                }
+                if (Password.length() > 0) {
+                    writer.String("Password");
+                    writer.String(Password.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -15844,15 +17472,20 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
-                if (StoreId.length() > 0) { writer.String("StoreId"); writer.String(StoreId.c_str()); }
+                if (CatalogVersion.length() > 0) {
+                    writer.String("CatalogVersion");
+                    writer.String(CatalogVersion.c_str());
+                }
+                if (StoreId.length() > 0) {
+                    writer.String("StoreId");
+                    writer.String(StoreId.c_str());
+                }
                 writer.String("Items");
                 writer.StartArray();
                 for (std::list<ItemPurchaseRequest>::iterator iter = Items.begin(); iter != Items.end(); iter++) {
                     iter->writeJSON(writer);
                 }
                 writer.EndArray();
-
                 writer.EndObject();
             }
 
@@ -15909,7 +17542,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (OrderId.length() > 0) { writer.String("OrderId"); writer.String(OrderId.c_str()); }
+                if (OrderId.length() > 0) {
+                    writer.String("OrderId");
+                    writer.String(OrderId.c_str());
+                }
                 if (!Contents.empty()) {
                     writer.String("Contents");
                     writer.StartArray();
@@ -15930,7 +17566,8 @@ namespace PlayFabClientSdk
                     writer.String("VirtualCurrencyBalances");
                     writer.StartObject();
                     for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Int(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Int(iter->second);
                     }
                     writer.EndObject();
                 }
@@ -15998,9 +17635,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("StatisticName"); writer.String(StatisticName.c_str());
-                if (Version.notNull()) { writer.String("Version"); writer.Uint(Version); }
-                writer.String("Value"); writer.Int(Value);
+                writer.String("StatisticName");
+                writer.String(StatisticName.c_str());
+                if (Version.notNull()) {
+                    writer.String("Version");
+                    writer.Uint(Version);
+                }
+                writer.String("Value");
+                writer.Int(Value);
                 writer.EndObject();
             }
 
@@ -16046,8 +17688,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("VirtualCurrency"); writer.String(VirtualCurrency.c_str());
-                writer.String("Amount"); writer.Int(Amount);
+                writer.String("VirtualCurrency");
+                writer.String(VirtualCurrency.c_str());
+                writer.String("Amount");
+                writer.Int(Amount);
                 writer.EndObject();
             }
 
@@ -16088,7 +17732,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (AndroidDeviceId.length() > 0) { writer.String("AndroidDeviceId"); writer.String(AndroidDeviceId.c_str()); }
+                if (AndroidDeviceId.length() > 0) {
+                    writer.String("AndroidDeviceId");
+                    writer.String(AndroidDeviceId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -16160,7 +17807,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (CustomId.length() > 0) { writer.String("CustomId"); writer.String(CustomId.c_str()); }
+                if (CustomId.length() > 0) {
+                    writer.String("CustomId");
+                    writer.String(CustomId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -16430,7 +18080,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (DeviceId.length() > 0) { writer.String("DeviceId"); writer.String(DeviceId.c_str()); }
+                if (DeviceId.length() > 0) {
+                    writer.String("DeviceId");
+                    writer.String(DeviceId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -16700,7 +18353,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("PublicKeyHint"); writer.String(PublicKeyHint.c_str());
+                writer.String("PublicKeyHint");
+                writer.String(PublicKeyHint.c_str());
                 writer.EndObject();
             }
 
@@ -16781,10 +18435,20 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
-                writer.String("ContainerItemInstanceId"); writer.String(ContainerItemInstanceId.c_str());
-                if (KeyItemInstanceId.length() > 0) { writer.String("KeyItemInstanceId"); writer.String(KeyItemInstanceId.c_str()); }
-                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
+                if (CharacterId.length() > 0) {
+                    writer.String("CharacterId");
+                    writer.String(CharacterId.c_str());
+                }
+                writer.String("ContainerItemInstanceId");
+                writer.String(ContainerItemInstanceId.c_str());
+                if (KeyItemInstanceId.length() > 0) {
+                    writer.String("KeyItemInstanceId");
+                    writer.String(KeyItemInstanceId.c_str());
+                }
+                if (CatalogVersion.length() > 0) {
+                    writer.String("CatalogVersion");
+                    writer.String(CatalogVersion.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -16835,9 +18499,16 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("ContainerItemId"); writer.String(ContainerItemId.c_str());
-                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
-                if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
+                writer.String("ContainerItemId");
+                writer.String(ContainerItemId.c_str());
+                if (CatalogVersion.length() > 0) {
+                    writer.String("CatalogVersion");
+                    writer.String(CatalogVersion.c_str());
+                }
+                if (CharacterId.length() > 0) {
+                    writer.String("CharacterId");
+                    writer.String(CharacterId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -16889,8 +18560,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (UnlockedItemInstanceId.length() > 0) { writer.String("UnlockedItemInstanceId"); writer.String(UnlockedItemInstanceId.c_str()); }
-                if (UnlockedWithItemInstanceId.length() > 0) { writer.String("UnlockedWithItemInstanceId"); writer.String(UnlockedWithItemInstanceId.c_str()); }
+                if (UnlockedItemInstanceId.length() > 0) {
+                    writer.String("UnlockedItemInstanceId");
+                    writer.String(UnlockedItemInstanceId.c_str());
+                }
+                if (UnlockedWithItemInstanceId.length() > 0) {
+                    writer.String("UnlockedWithItemInstanceId");
+                    writer.String(UnlockedWithItemInstanceId.c_str());
+                }
                 if (!GrantedItems.empty()) {
                     writer.String("GrantedItems");
                     writer.StartArray();
@@ -16903,7 +18580,8 @@ namespace PlayFabClientSdk
                     writer.String("VirtualCurrency");
                     writer.StartObject();
                     for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Uint(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Uint(iter->second);
                     }
                     writer.EndObject();
                 }
@@ -16960,7 +18638,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("ImageUrl"); writer.String(ImageUrl.c_str());
+                writer.String("ImageUrl");
+                writer.String(ImageUrl.c_str());
                 writer.EndObject();
             }
 
@@ -17008,12 +18687,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("CharacterId"); writer.String(CharacterId.c_str());
+                writer.String("CharacterId");
+                writer.String(CharacterId.c_str());
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
                     for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                        writer.String(iter->first.c_str());
+                        writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
                 }
@@ -17025,7 +18706,10 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
+                if (Permission.notNull()) {
+                    writer.String("Permission");
+                    writeUserDataPermissionEnumJSON(Permission, writer);
+                }
                 writer.EndObject();
             }
 
@@ -17079,7 +18763,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("DataVersion"); writer.Uint(DataVersion);
+                writer.String("DataVersion");
+                writer.Uint(DataVersion);
                 writer.EndObject();
             }
 
@@ -17121,12 +18806,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("CharacterId"); writer.String(CharacterId.c_str());
+                writer.String("CharacterId");
+                writer.String(CharacterId.c_str());
                 if (!CharacterStatistics.empty()) {
                     writer.String("CharacterStatistics");
                     writer.StartObject();
                     for (std::map<AZStd::string, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.Int(iter->second);
+                        writer.String(iter->first.c_str());
+                        writer.Int(iter->second);
                     }
                     writer.EndObject();
                 }
@@ -17213,7 +18900,6 @@ namespace PlayFabClientSdk
                     iter->writeJSON(writer);
                 }
                 writer.EndArray();
-
                 writer.EndObject();
             }
 
@@ -17299,12 +18985,14 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
+                writer.String("SharedGroupId");
+                writer.String(SharedGroupId.c_str());
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
                     for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                        writer.String(iter->first.c_str());
+                        writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
                 }
@@ -17316,7 +19004,10 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
+                if (Permission.notNull()) {
+                    writer.String("Permission");
+                    writeUserDataPermissionEnumJSON(Permission, writer);
+                }
                 writer.EndObject();
             }
 
@@ -17413,7 +19104,8 @@ namespace PlayFabClientSdk
                     writer.String("Data");
                     writer.StartObject();
                     for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
-                        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+                        writer.String(iter->first.c_str());
+                        writer.String(iter->second.c_str());
                     }
                     writer.EndObject();
                 }
@@ -17425,7 +19117,10 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                if (Permission.notNull()) { writer.String("Permission"); writeUserDataPermissionEnumJSON(Permission, writer); }
+                if (Permission.notNull()) {
+                    writer.String("Permission");
+                    writeUserDataPermissionEnumJSON(Permission, writer);
+                }
                 writer.EndObject();
             }
 
@@ -17477,7 +19172,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("DataVersion"); writer.Uint(DataVersion);
+                writer.String("DataVersion");
+                writer.Uint(DataVersion);
                 writer.EndObject();
             }
 
@@ -17516,7 +19212,8 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("DisplayName"); writer.String(DisplayName.c_str());
+                writer.String("DisplayName");
+                writer.String(DisplayName.c_str());
                 writer.EndObject();
             }
 
@@ -17555,7 +19252,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
+                if (DisplayName.length() > 0) {
+                    writer.String("DisplayName");
+                    writer.String(DisplayName.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -17606,11 +19306,18 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("ReceiptId"); writer.String(ReceiptId.c_str());
-                writer.String("UserId"); writer.String(UserId.c_str());
-                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
-                writer.String("CurrencyCode"); writer.String(CurrencyCode.c_str());
-                writer.String("PurchasePrice"); writer.Int(PurchasePrice);
+                writer.String("ReceiptId");
+                writer.String(ReceiptId.c_str());
+                writer.String("UserId");
+                writer.String(UserId.c_str());
+                if (CatalogVersion.length() > 0) {
+                    writer.String("CatalogVersion");
+                    writer.String(CatalogVersion.c_str());
+                }
+                writer.String("CurrencyCode");
+                writer.String(CurrencyCode.c_str());
+                writer.String("PurchasePrice");
+                writer.Int(PurchasePrice);
                 writer.EndObject();
             }
 
@@ -17699,10 +19406,18 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("ReceiptJson"); writer.String(ReceiptJson.c_str());
-                writer.String("Signature"); writer.String(Signature.c_str());
-                if (CurrencyCode.length() > 0) { writer.String("CurrencyCode"); writer.String(CurrencyCode.c_str()); }
-                if (PurchasePrice.notNull()) { writer.String("PurchasePrice"); writer.Uint(PurchasePrice); }
+                writer.String("ReceiptJson");
+                writer.String(ReceiptJson.c_str());
+                writer.String("Signature");
+                writer.String(Signature.c_str());
+                if (CurrencyCode.length() > 0) {
+                    writer.String("CurrencyCode");
+                    writer.String(CurrencyCode.c_str());
+                }
+                if (PurchasePrice.notNull()) {
+                    writer.String("PurchasePrice");
+                    writer.Uint(PurchasePrice);
+                }
                 writer.EndObject();
             }
 
@@ -17786,9 +19501,12 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("ReceiptData"); writer.String(ReceiptData.c_str());
-                writer.String("CurrencyCode"); writer.String(CurrencyCode.c_str());
-                writer.String("PurchasePrice"); writer.Int(PurchasePrice);
+                writer.String("ReceiptData");
+                writer.String(ReceiptData.c_str());
+                writer.String("CurrencyCode");
+                writer.String(CurrencyCode.c_str());
+                writer.String("PurchasePrice");
+                writer.Int(PurchasePrice);
                 writer.EndObject();
             }
 
@@ -17873,10 +19591,16 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("Receipt"); writer.String(Receipt.c_str());
-                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
-                writer.String("CurrencyCode"); writer.String(CurrencyCode.c_str());
-                writer.String("PurchasePrice"); writer.Uint(PurchasePrice);
+                writer.String("Receipt");
+                writer.String(Receipt.c_str());
+                if (CatalogVersion.length() > 0) {
+                    writer.String("CatalogVersion");
+                    writer.String(CatalogVersion.c_str());
+                }
+                writer.String("CurrencyCode");
+                writer.String(CurrencyCode.c_str());
+                writer.String("PurchasePrice");
+                writer.Uint(PurchasePrice);
                 writer.EndObject();
             }
 
@@ -17963,14 +19687,20 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("CharacterId"); writer.String(CharacterId.c_str());
-                writer.String("EventName"); writer.String(EventName.c_str());
-                if (Timestamp.notNull()) { writer.String("Timestamp"); writeDatetime(Timestamp, writer); }
+                writer.String("CharacterId");
+                writer.String(CharacterId.c_str());
+                writer.String("EventName");
+                writer.String(EventName.c_str());
+                if (Timestamp.notNull()) {
+                    writer.String("Timestamp");
+                    writeDatetime(Timestamp, writer);
+                }
                 if (!Body.empty()) {
                     writer.String("Body");
                     writer.StartObject();
                     for (std::map<AZStd::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
-                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                        writer.String(iter->first.c_str());
+                        iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
                 }
@@ -18028,13 +19758,18 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("EventName"); writer.String(EventName.c_str());
-                if (Timestamp.notNull()) { writer.String("Timestamp"); writeDatetime(Timestamp, writer); }
+                writer.String("EventName");
+                writer.String(EventName.c_str());
+                if (Timestamp.notNull()) {
+                    writer.String("Timestamp");
+                    writeDatetime(Timestamp, writer);
+                }
                 if (!Body.empty()) {
                     writer.String("Body");
                     writer.StartObject();
                     for (std::map<AZStd::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
-                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                        writer.String(iter->first.c_str());
+                        iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
                 }
@@ -18084,7 +19819,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (EventId.length() > 0) { writer.String("EventId"); writer.String(EventId.c_str()); }
+                if (EventId.length() > 0) {
+                    writer.String("EventId");
+                    writer.String(EventId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -18129,13 +19867,18 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("EventName"); writer.String(EventName.c_str());
-                if (Timestamp.notNull()) { writer.String("Timestamp"); writeDatetime(Timestamp, writer); }
+                writer.String("EventName");
+                writer.String(EventName.c_str());
+                if (Timestamp.notNull()) {
+                    writer.String("Timestamp");
+                    writeDatetime(Timestamp, writer);
+                }
                 if (!Body.empty()) {
                     writer.String("Body");
                     writer.StartObject();
                     for (std::map<AZStd::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
-                        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+                        writer.String(iter->first.c_str());
+                        iter->second.writeJSON(writer);
                     }
                     writer.EndObject();
                 }

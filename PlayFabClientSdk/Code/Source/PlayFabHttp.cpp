@@ -1,7 +1,6 @@
 #include "StdAfx.h"
 #include <PlayFabClientSdk/PlayFabHttp.h>
 #include "PlayFabSettings.h"
-#include "PlayFabClientApi.h"
 
 #include <aws/core/http/HttpClient.h>
 #include <aws/core/http/HttpRequest.h>
