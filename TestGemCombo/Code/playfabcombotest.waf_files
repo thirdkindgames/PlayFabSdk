@@ -10,6 +10,7 @@
             "Include/PlayFabComboTest/PlayFabComboTestBus.h"
         ],
         "Source": [
+            "Source/PlayFabComboApiTestNode.cpp",
             "Source/PlayFabComboTestModule.cpp",
             "Source/PlayFabComboTestSystemComponent.cpp",
             "Source/PlayFabComboTestSystemComponent.h"

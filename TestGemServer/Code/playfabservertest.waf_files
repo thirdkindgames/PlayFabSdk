@@ -10,6 +10,7 @@
             "Include/PlayFabServerTest/PlayFabServerTestBus.h"
         ],
         "Source": [
+            "Source/PlayFabServerApiTestNode.cpp",
             "Source/PlayFabServerTestModule.cpp",
             "Source/PlayFabServerTestSystemComponent.cpp",
             "Source/PlayFabServerTestSystemComponent.h"

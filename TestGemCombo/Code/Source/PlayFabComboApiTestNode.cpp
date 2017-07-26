@@ -2,12 +2,12 @@
 
 #include <fstream>
 #include <FlowBaseNode.h>
-#include <PlayFabClientSdk/PlayFabClient_ClientBus.h>
+#include <PlayFabClientSdk/PlayFabCombo_ClientBus.h>
 #include <PlayFabClientSdk/PlayFabClientDataModels.h>
 #include <PlayFabClientSdk/PlayFabError.h>
 #include <AzCore/JSON/document.h>
 
-using namespace PlayFabClientSdk;
+using namespace PlayFabComboSdk;
 using namespace rapidjson;
 
 enum PlayFabApiTestActiveState
@@ -106,7 +106,7 @@ public:
     static bool TickTestSuite()
     {
         int numPending;
-        PlayFabClient_ClientRequestBus::BroadcastResult(numPending, &PlayFabClient_ClientBus::GetPendingCalls);
+        PlayFabCombo_ClientRequestBus::BroadcastResult(numPending, &PlayFabCombo_ClientBus::GetPendingCalls);
         if (numPending > 0)
             return false;
 
@@ -212,6 +212,7 @@ private:
 
             // POPULATE THIS SECTION WITH REAL INFORMATION
             // playFabSettings->titleId = ""; // The titleId for your title, found in the "Settings" section of PlayFab Game Manager
+            // playFabSettings->developerSecretKey = ""; // The titleId for your title, found in the "Settings" section of PlayFab Game Manager
             userName = ""; // This is an arbitrary user name, which will be utilized for this test
             userEmail = ""; // This is the email for the user
             userPassword = ""; // This is the password for the user
@@ -221,6 +222,7 @@ private:
         // Verify all the inputs won't cause crashes in the tests
         return static_cast<bool>(titleInput)
             // && !playFabSettings->titleId.empty()
+            // && !playFabSettings->developerSecretKey.empty()
             && !userName.empty()
             && !userEmail.empty()
             && !userPassword.empty()
@@ -237,6 +239,8 @@ private:
         auto end = testInputs.MemberEnd();
         auto each = testInputs.FindMember("titleId");
         // if (each != end) playFabSettings->titleId = each->value.GetString();
+        each = testInputs.FindMember("developerSecretKey");
+        // if (each != end) playFabSettings->developerSecretKey = each->value.GetString();
 
         each = testInputs.FindMember("userName");
         if (each != end) userName = each->value.GetString();
@@ -292,7 +296,7 @@ private:
         ClientModels::LoginWithEmailAddressRequest request;
         request.Email = userEmail;
         request.Password = userPassword + "INVALID";
-        EBUS_EVENT(PlayFabClient_ClientRequestBus, LoginWithEmailAddress, request, InvalidLoginSuccess, InvalidLoginFail, &testContext);
+        EBUS_EVENT(PlayFabCombo_ClientRequestBus, LoginWithEmailAddress, request, InvalidLoginSuccess, InvalidLoginFail, &testContext);
     }
     static void InvalidLoginSuccess(const ClientModels::LoginResult& result, void* customData)
     {
@@ -319,7 +323,7 @@ private:
         request.Username = userName;
         request.Email = "x";
         request.Password = "x";
-        EBUS_EVENT(PlayFabClient_ClientRequestBus, RegisterPlayFabUser, request, InvalidRegistrationSuccess, InvalidRegistrationFail, &testContext);
+        EBUS_EVENT(PlayFabCombo_ClientRequestBus, RegisterPlayFabUser, request, InvalidRegistrationSuccess, InvalidRegistrationFail, &testContext);
     }
     static void InvalidRegistrationSuccess(const ClientModels::RegisterPlayFabUserResult& result, void* customData)
     {
@@ -357,7 +361,7 @@ private:
         ClientModels::LoginWithEmailAddressRequest request;
         request.Email = userEmail;
         request.Password = userPassword;
-        EBUS_EVENT(PlayFabClient_ClientRequestBus, LoginWithEmailAddress, request, OnLoginOrRegister, OnSharedError, &testContext);
+        EBUS_EVENT(PlayFabCombo_ClientRequestBus, LoginWithEmailAddress, request, OnLoginOrRegister, OnSharedError, &testContext);
     }
     static void OnLoginOrRegister(const ClientModels::LoginResult& result, void* customData)
     {
@@ -378,7 +382,7 @@ private:
         ClientModels::LoginWithEmailAddressRequest request;
         request.Email = userEmail;
         request.Password = userPassword;
-        EBUS_EVENT(PlayFabClient_ClientRequestBus, LoginWithEmailAddress, request, OnLoginWithAdvertisingId, OnSharedError, &testContext);
+        EBUS_EVENT(PlayFabCombo_ClientRequestBus, LoginWithEmailAddress, request, OnLoginWithAdvertisingId, OnSharedError, &testContext);
     }
     static void OnLoginWithAdvertisingId(const ClientModels::LoginResult& result, void* customData)
     {
@@ -397,7 +401,7 @@ private:
     static void UserDataApi(PfTestContext& testContext)
     {
         bool isLoggedIn = false;
-        PlayFabClient_ClientRequestBus::BroadcastResult(isLoggedIn, &PlayFabClient_ClientBus::IsClientLoggedIn);
+        PlayFabCombo_ClientRequestBus::BroadcastResult(isLoggedIn, &PlayFabCombo_ClientBus::IsClientLoggedIn);
         if (!isLoggedIn)
         {
             EndTest(testContext, SKIPPED, "Earlier tests failed to log in");
@@ -405,7 +409,7 @@ private:
         }
 
         ClientModels::GetUserDataRequest request;
-        EBUS_EVENT(PlayFabClient_ClientRequestBus, GetUserData, request, OnUserDataApiGet1, OnSharedError, &testContext);
+        EBUS_EVENT(PlayFabCombo_ClientRequestBus, GetUserData, request, OnUserDataApiGet1, OnSharedError, &testContext);
     }
     static void OnUserDataApiGet1(const ClientModels::GetUserDataResult& result, void* customData)
     {
@@ -423,12 +427,12 @@ private:
         temp.append(buffer);
 
         updateRequest.Data[TEST_DATA_KEY] = temp;
-        EBUS_EVENT(PlayFabClient_ClientRequestBus, UpdateUserData, updateRequest, OnUserDataApiUpdate, OnSharedError, customData);
+        EBUS_EVENT(PlayFabCombo_ClientRequestBus, UpdateUserData, updateRequest, OnUserDataApiUpdate, OnSharedError, customData);
     }
     static void OnUserDataApiUpdate(const ClientModels::UpdateUserDataResult& result, void* customData)
     {
         ClientModels::GetUserDataRequest request;
-        EBUS_EVENT(PlayFabClient_ClientRequestBus, GetUserData, request, OnUserDataApiGet2, OnSharedError, customData);
+        EBUS_EVENT(PlayFabCombo_ClientRequestBus, GetUserData, request, OnUserDataApiGet2, OnSharedError, customData);
     }
     static void OnUserDataApiGet2(const ClientModels::GetUserDataResult& result, void* customData)
     {
@@ -462,7 +466,7 @@ private:
     static void PlayerStatisticsApi(PfTestContext& testContext)
     {
         bool isLoggedIn = false;
-        PlayFabClient_ClientRequestBus::BroadcastResult(isLoggedIn, &PlayFabClient_ClientBus::IsClientLoggedIn);
+        PlayFabCombo_ClientRequestBus::BroadcastResult(isLoggedIn, &PlayFabCombo_ClientBus::IsClientLoggedIn);
         if (!isLoggedIn)
         {
             EndTest(testContext, SKIPPED, "Earlier tests failed to log in");
@@ -470,7 +474,7 @@ private:
         }
 
         ClientModels::GetPlayerStatisticsRequest getRequest;
-        EBUS_EVENT(PlayFabClient_ClientRequestBus, GetPlayerStatistics, getRequest, OnPlayerStatisticsApiGet1, OnSharedError, &testContext);
+        EBUS_EVENT(PlayFabCombo_ClientRequestBus, GetPlayerStatistics, getRequest, OnPlayerStatisticsApiGet1, OnSharedError, &testContext);
     }
     static void OnPlayerStatisticsApiGet1(const ClientModels::GetPlayerStatisticsResult& result, void* customData)
     {
@@ -486,12 +490,12 @@ private:
         newStat.StatisticName = TEST_STAT_NAME;
         newStat.Value = testMessageInt;
         updateRequest.Statistics.push_back(newStat);
-        EBUS_EVENT(PlayFabClient_ClientRequestBus, UpdatePlayerStatistics, updateRequest, OnPlayerStatisticsApiUpdate, OnSharedError, customData);
+        EBUS_EVENT(PlayFabCombo_ClientRequestBus, UpdatePlayerStatistics, updateRequest, OnPlayerStatisticsApiUpdate, OnSharedError, customData);
     }
     static void OnPlayerStatisticsApiUpdate(const ClientModels::UpdatePlayerStatisticsResult& result, void* customData)
     {
         ClientModels::GetPlayerStatisticsRequest getRequest;
-        EBUS_EVENT(PlayFabClient_ClientRequestBus, GetPlayerStatistics, getRequest, OnPlayerStatisticsApiGet2, OnSharedError, customData);
+        EBUS_EVENT(PlayFabCombo_ClientRequestBus, GetPlayerStatistics, getRequest, OnPlayerStatisticsApiGet2, OnSharedError, customData);
     }
     static void OnPlayerStatisticsApiGet2(const ClientModels::GetPlayerStatisticsResult& result, void* customData)
     {
@@ -517,7 +521,7 @@ private:
     static void UserCharacter(PfTestContext& testContext)
     {
         ClientModels::ListUsersCharactersRequest request;
-        EBUS_EVENT(PlayFabClient_ClientRequestBus, GetAllUsersCharacters, request, OnUserCharacter, OnSharedError, &testContext);
+        EBUS_EVENT(PlayFabCombo_ClientRequestBus, GetAllUsersCharacters, request, OnUserCharacter, OnSharedError, &testContext);
     }
     static void OnUserCharacter(const ClientModels::ListUsersCharactersResult& result, void* customData)
     {
@@ -534,7 +538,7 @@ private:
     }
 
     /// <summary>
-    /// CLIENT API
+    /// CLIENT AND SERVER API
     /// Test that leaderboard results can be requested
     /// Parameter types tested: List of contained-classes
     /// </summary>
@@ -544,9 +548,21 @@ private:
         ClientModels::GetLeaderboardRequest clientRequest;
         clientRequest.MaxResultsCount = 3;
         clientRequest.StatisticName = TEST_STAT_NAME;
-        EBUS_EVENT(PlayFabClient_ClientRequestBus, GetLeaderboard, clientRequest, OnClientLeaderBoard, OnSharedError, &testContext);
+        EBUS_EVENT(PlayFabCombo_ClientRequestBus, GetLeaderboard, clientRequest, OnClientLeaderBoard, OnSharedError, &testContext);
+        ServerModels::GetLeaderboardRequest serverRequest;
+        serverRequest.MaxResultsCount = 3;
+        serverRequest.StatisticName = TEST_STAT_NAME;
+        EBUS_EVENT(PlayFabCombo_ServerRequestBus, GetLeaderboard, serverRequest, OnServerLeaderBoard, OnSharedError, &testContext);
     }
     static void OnClientLeaderBoard(const ClientModels::GetLeaderboardResult& result, void* customData)
+    {
+        PfTestContext* testContext = reinterpret_cast<PfTestContext*>(customData);
+        if (result.Leaderboard.size() > 0)
+            EndTest(*testContext, PASSED, "");
+        else
+            EndTest(*testContext, FAILED, "Leaderboard entry not found.");
+    }
+    static void OnServerLeaderBoard(const ServerModels::GetLeaderboardResult& result, void* customData)
     {
         PfTestContext* testContext = reinterpret_cast<PfTestContext*>(customData);
         if (result.Leaderboard.size() > 0)
@@ -563,7 +579,7 @@ private:
     static void AccountInfo(PfTestContext& testContext)
     {
         ClientModels::GetAccountInfoRequest request;
-        EBUS_EVENT(PlayFabClient_ClientRequestBus, GetAccountInfo, request, OnAccountInfo, OnSharedError, &testContext);
+        EBUS_EVENT(PlayFabCombo_ClientRequestBus, GetAccountInfo, request, OnAccountInfo, OnSharedError, &testContext);
     }
     static void OnAccountInfo(const ClientModels::GetAccountInfoResult& result, void* customData)
     {
@@ -586,7 +602,7 @@ private:
     {
         ClientModels::ExecuteCloudScriptRequest request;
         request.FunctionName = "helloWorld";
-        EBUS_EVENT(PlayFabClient_ClientRequestBus, ExecuteCloudScript, request, OnHelloWorldCloudScript, OnSharedError, &testContext);
+        EBUS_EVENT(PlayFabCombo_ClientRequestBus, ExecuteCloudScript, request, OnHelloWorldCloudScript, OnSharedError, &testContext);
     }
     static void OnHelloWorldCloudScript(const ClientModels::ExecuteCloudScriptResult& result, void* customData)
     {
@@ -610,7 +626,7 @@ private:
         request.Timestamp = time(nullptr);
         request.Body["Subject"] = "My First Post";
         request.Body["Body"] = "My awesome post.";
-        EBUS_EVENT(PlayFabClient_ClientRequestBus, WritePlayerEvent, request, OnWritePlayerEvent, OnSharedError, &testContext);
+        EBUS_EVENT(PlayFabCombo_ClientRequestBus, WritePlayerEvent, request, OnWritePlayerEvent, OnSharedError, &testContext);
     }
     static void OnWritePlayerEvent(const ClientModels::WriteEventResponse& result, void* customData)
     {

@@ -5,14 +5,14 @@
     "DisplayName": "PlayFabComboTest",
     "Version": "0.0.170710",
     "LinkType": "Dynamic",
-    "Summary": "Tests for the PlayFab Combined SDK",
+    "Summary": "PlayFab test gem.  Demonstrates the usage of the API from outside the PlayFab Combo Gem, and verifies that the apis work.",
     "Tags": ["Untagged"],
     "IconPath": "preview.png",
     "Dependencies": [
         {
             "Uuid": "abf1282cbb534d908e39e0684e34cb20",
             "VersionConstraints": [ ">=0.0.170710" ],
-            "_comment": "PlayFab Lumberyard Gem"
+            "_comment": "PlayFab Combo Lumberyard Gem"
         }
     ]
 }
