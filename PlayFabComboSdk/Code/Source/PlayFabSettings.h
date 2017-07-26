@@ -7,7 +7,7 @@ namespace PlayFabComboSdk
     class PlayFabSettings
     {
     public:
-        static PlayFabSettings playFabSettings; // Global settings for all Apis
+        static PlayFabSettings *playFabSettings; // Global settings for all Apis
 
         const AZStd::string playFabSDKVersion;
         const AZStd::string playFabVersionString;

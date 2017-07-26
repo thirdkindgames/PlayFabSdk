@@ -15,7 +15,7 @@ void PlayFabMatchmakerApi::AuthUser(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Matchmaker/AuthUser"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAuthUserResult);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Matchmaker/AuthUser"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAuthUserResult);
     PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
@@ -45,7 +45,7 @@ void PlayFabMatchmakerApi::PlayerJoined(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Matchmaker/PlayerJoined"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnPlayerJoinedResult);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Matchmaker/PlayerJoined"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnPlayerJoinedResult);
     PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
@@ -75,7 +75,7 @@ void PlayFabMatchmakerApi::PlayerLeft(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Matchmaker/PlayerLeft"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnPlayerLeftResult);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Matchmaker/PlayerLeft"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnPlayerLeftResult);
     PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
@@ -105,7 +105,7 @@ void PlayFabMatchmakerApi::StartGame(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Matchmaker/StartGame"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnStartGameResult);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Matchmaker/StartGame"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnStartGameResult);
     PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
@@ -135,7 +135,7 @@ void PlayFabMatchmakerApi::UserInfo(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Matchmaker/UserInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUserInfoResult);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Matchmaker/UserInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUserInfoResult);
     PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 

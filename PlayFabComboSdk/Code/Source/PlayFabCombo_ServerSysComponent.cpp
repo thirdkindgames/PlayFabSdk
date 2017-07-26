@@ -59,6 +59,7 @@ namespace PlayFabComboSdk
     {
         // Start the http request manager thread
         PlayFabRequestManager::playFabHttp = new PlayFabRequestManager();
+        PlayFabSettings::playFabSettings = new PlayFabSettings();
 
         PlayFabCombo_ServerRequestBus::Handler::BusConnect();
     }
@@ -72,6 +73,8 @@ namespace PlayFabComboSdk
         {
             delete PlayFabRequestManager::playFabHttp;
             PlayFabRequestManager::playFabHttp = nullptr;
+            delete PlayFabSettings::playFabSettings;
+            PlayFabSettings::playFabSettings = nullptr;
         }
     }
 

@@ -3,7 +3,7 @@
 
 using namespace PlayFabComboSdk;
 
-PlayFabSettings PlayFabSettings::playFabSettings; // Global settings for all Apis
+PlayFabSettings * PlayFabSettings::playFabSettings = nullptr; // Global settings for all Apis
 
 PlayFabSettings::PlayFabSettings() :
     playFabSDKVersion("0.0.170710"),
