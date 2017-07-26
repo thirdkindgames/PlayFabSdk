@@ -67,10 +67,10 @@ namespace PlayFabClientSdk
                 auto titleIdCvar = gEnv->pConsole->GetCVar("playfab_titleid");
                 if (titleIdCvar)
                 {
-                    PlayFabSettings::playFabSettings.titleId = titleIdCvar->GetString();
+                    PlayFabSettings::playFabSettings->titleId = titleIdCvar->GetString();
                 }
 
-                PlayFabSettings::playFabSettings.globalErrorHandler = &ExampleGlobalErrorHandler;
+                PlayFabSettings::playFabSettings->globalErrorHandler = &ExampleGlobalErrorHandler;
             }
 
             break;

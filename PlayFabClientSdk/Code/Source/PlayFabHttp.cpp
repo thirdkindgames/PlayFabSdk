@@ -87,8 +87,8 @@ void PlayFabRequest::HandleErrorReport()
     }
 
     // Send the error callbacks
-    if (PlayFabSettings::playFabSettings.globalErrorHandler != nullptr)
-        PlayFabSettings::playFabSettings.globalErrorHandler(*mError, mCustomData);
+    if (PlayFabSettings::playFabSettings->globalErrorHandler != nullptr)
+        PlayFabSettings::playFabSettings->globalErrorHandler(*mError, mCustomData);
     if (mErrorCallback != nullptr)
         mErrorCallback(*mError, mCustomData);
 }
@@ -169,7 +169,7 @@ void PlayFabRequestManager::HandleRequest(PlayFabRequest* requestContainer)
     auto httpRequest = Aws::Http::CreateHttpRequest(Aws::String(requestContainer->mURI.c_str()), requestContainer->mMethod, Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
 
     httpRequest->SetContentType("application/json");
-    httpRequest->SetHeaderValue("X-PlayFabSDK", Aws::String(PlayFabSettings::playFabSettings.playFabVersionString.c_str()));
+    httpRequest->SetHeaderValue("X-PlayFabSDK", Aws::String(PlayFabSettings::playFabSettings->playFabVersionString.c_str()));
     if (requestContainer->mAuthKey.length() > 0)
         httpRequest->SetHeaderValue(Aws::String(requestContainer->mAuthKey.c_str()), Aws::String(requestContainer->mAuthValue.c_str()));
 
