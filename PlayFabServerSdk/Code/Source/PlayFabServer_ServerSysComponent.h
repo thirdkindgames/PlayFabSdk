@@ -21,6 +21,8 @@ namespace PlayFabServerSdk
         static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required);
         static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent);
 
+        int GetPendingCalls() override;
+
     protected:
         ////////////////////////////////////////////////////////////////////////
         // PlayFabServer_ServerRequestBus interface implementation

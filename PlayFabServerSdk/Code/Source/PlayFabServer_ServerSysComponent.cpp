@@ -75,6 +75,11 @@ namespace PlayFabServerSdk
         }
     }
 
+    int PlayFabServer_ServerSysComponent::GetPendingCalls()
+    {
+        return PlayFabRequestManager::playFabHttp->GetPendingCalls();
+    }
+
     // ------------ Generated API call wrappers
     void PlayFabServer_ServerSysComponent::AuthenticateSessionTicket(ServerModels::AuthenticateSessionTicketRequest& request, ProcessApiCallback<ServerModels::AuthenticateSessionTicketResult> callback, ErrorCallback errorCallback, void* customData)
     {

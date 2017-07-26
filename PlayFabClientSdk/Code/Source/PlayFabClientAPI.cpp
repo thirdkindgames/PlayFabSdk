@@ -12,11 +12,6 @@ bool PlayFabClientApi::IsClientLoggedIn()
     return mUserSessionTicket.length() != 0;
 }
 
-int PlayFabClientApi::GetPendingCalls()
-{
-    return PlayFabRequestManager::playFabHttp->GetPendingCalls();
-}
-
 void PlayFabClientApi::MultiStepClientLogin(bool needsAttribution)
 {
     if (needsAttribution && !PlayFabSettings::playFabSettings.disableAdvertising && PlayFabSettings::playFabSettings.advertisingIdType.length() > 0 && PlayFabSettings::playFabSettings.advertisingIdValue.length() > 0)

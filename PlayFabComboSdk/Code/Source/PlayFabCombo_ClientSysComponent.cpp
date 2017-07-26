@@ -75,15 +75,15 @@ namespace PlayFabComboSdk
         }
     }
 
+    int PlayFabCombo_ClientSysComponent::GetPendingCalls()
+    {
+        return PlayFabRequestManager::playFabHttp->GetPendingCalls();
+    }
+
     // Client-Specific
     bool PlayFabCombo_ClientSysComponent::IsClientLoggedIn()
     {
         return PlayFabClientApi::IsClientLoggedIn();
-    }
-
-    int PlayFabCombo_ClientSysComponent::GetPendingCalls()
-    {
-        return PlayFabClientApi::GetPendingCalls();
     }
 
     // ------------ Generated API call wrappers

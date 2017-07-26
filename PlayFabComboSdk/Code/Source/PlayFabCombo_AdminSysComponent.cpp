@@ -75,6 +75,11 @@ namespace PlayFabComboSdk
         }
     }
 
+    int PlayFabCombo_AdminSysComponent::GetPendingCalls()
+    {
+        return PlayFabRequestManager::playFabHttp->GetPendingCalls();
+    }
+
     // ------------ Generated API call wrappers
     void PlayFabCombo_AdminSysComponent::CreatePlayerSharedSecret(AdminModels::CreatePlayerSharedSecretRequest& request, ProcessApiCallback<AdminModels::CreatePlayerSharedSecretResult> callback, ErrorCallback errorCallback, void* customData)
     {

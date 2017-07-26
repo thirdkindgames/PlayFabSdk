@@ -21,13 +21,14 @@ namespace PlayFabClientSdk
         static void GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required);
         static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent);
 
+        int GetPendingCalls() override;
+
     protected:
         ////////////////////////////////////////////////////////////////////////
         // PlayFabClient_ClientRequestBus interface implementation
 
         // Public, Client-Specific
         bool IsClientLoggedIn() override;
-        int GetPendingCalls() override;
 
         // ------------ Generated Api calls
         void GetPhotonAuthenticationToken(ClientModels::GetPhotonAuthenticationTokenRequest& request, ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) override;

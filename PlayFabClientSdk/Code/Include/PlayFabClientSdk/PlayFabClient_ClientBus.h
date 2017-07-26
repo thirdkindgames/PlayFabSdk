@@ -15,8 +15,9 @@ namespace PlayFabClientSdk
         static const AZ::EBusHandlerPolicy HandlerPolicy = AZ::EBusHandlerPolicy::Single;
         static const AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::Single;
 
-        virtual bool IsClientLoggedIn() = 0;
         virtual int GetPendingCalls() = 0;
+
+        virtual bool IsClientLoggedIn() = 0;
 
         // ------------ Generated API call wrappers
         virtual void GetPhotonAuthenticationToken(ClientModels::GetPhotonAuthenticationTokenRequest& request, ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;

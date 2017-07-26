@@ -75,6 +75,11 @@ namespace PlayFabServerSdk
         }
     }
 
+    int PlayFabServer_MatchmakerSysComponent::GetPendingCalls()
+    {
+        return PlayFabRequestManager::playFabHttp->GetPendingCalls();
+    }
+
     // ------------ Generated API call wrappers
     void PlayFabServer_MatchmakerSysComponent::AuthUser(MatchmakerModels::AuthUserRequest& request, ProcessApiCallback<MatchmakerModels::AuthUserResponse> callback, ErrorCallback errorCallback, void* customData)
     {

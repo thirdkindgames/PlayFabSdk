@@ -2,9 +2,11 @@
 
 #include <fstream>
 #include <FlowBaseNode.h>
-#include <PlayFabClientSdk/PlayFabCombo_ClientBus.h>
-#include <PlayFabClientSdk/PlayFabClientDataModels.h>
-#include <PlayFabClientSdk/PlayFabError.h>
+#include <PlayFabComboSdk/PlayFabCombo_ClientBus.h>
+#include <PlayFabComboSdk/PlayFabCombo_ServerBus.h>
+#include <PlayFabComboSdk/PlayFabClientDataModels.h>
+#include <PlayFabComboSdk/PlayFabServerDataModels.h>
+#include <PlayFabComboSdk/PlayFabError.h>
 #include <AzCore/JSON/document.h>
 
 using namespace PlayFabComboSdk;

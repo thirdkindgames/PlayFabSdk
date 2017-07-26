@@ -12,7 +12,6 @@ namespace PlayFabClientSdk
 
         // Public, Client-Specific
         static bool IsClientLoggedIn();
-        static int GetPendingCalls();
 
         // ------------ Generated Api calls
         static void GetPhotonAuthenticationToken(ClientModels::GetPhotonAuthenticationTokenRequest& request, ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);

@@ -2,12 +2,12 @@
 
 #include <fstream>
 #include <FlowBaseNode.h>
-#include <PlayFabClientSdk/PlayFabCombo_ClientBus.h>
-#include <PlayFabClientSdk/PlayFabClientDataModels.h>
-#include <PlayFabClientSdk/PlayFabError.h>
+#include <PlayFabServerSdk/PlayFabServer_ServerBus.h>
+#include <PlayFabServerSdk/PlayFabServerDataModels.h>
+#include <PlayFabServerSdk/PlayFabError.h>
 #include <AzCore/JSON/document.h>
 
-using namespace PlayFabComboSdk;
+using namespace PlayFabServerSdk;
 using namespace rapidjson;
 
 enum PlayFabApiTestActiveState
@@ -93,7 +93,7 @@ public:
     static bool TickTestSuite()
     {
         int numPending;
-        PlayFabCombo_ClientRequestBus::BroadcastResult(numPending, &PlayFabCombo_ClientBus::GetPendingCalls);
+        PlayFabServer_ServerRequestBus::BroadcastResult(numPending, &PlayFabServer_ServerBus::GetPendingCalls);
         if (numPending > 0)
             return false;
 
@@ -276,9 +276,9 @@ private:
     static void GetCatalog(PfTestContext& testContext)
     {
         ServerModels::GetCatalogItemsRequest request;
-        serverApi->GetCatalogItems(request, InvalidLoginSuccess, OnSharedError, &testContext);
+        EBUS_EVENT(PlayFabServer_ServerRequestBus, GetCatalogItems, request, GetCatalogSuccess, OnSharedError, &testContext);
     }
-    static void InvalidLoginSuccess(const ServerModels::GetCatalogItemsResult& result, void* customData)
+    static void GetCatalogSuccess(const ServerModels::GetCatalogItemsResult& result, void* customData)
     {
         PfTestContext* testContext = reinterpret_cast<PfTestContext*>(customData);
         EndTest(*testContext, PASSED, "");
@@ -349,7 +349,7 @@ public:
             break;
             //case eFE_FinalActivate:
         }
-        // PlayFabClientTest::PlayFabApiTestGem::lastDebugMessage = PlayFabApiTests::GenerateSummary(); // TODO PAUL: SET ON SCREEN FEEDBACK HERE
+        // PlayFabServerTest::PlayFabApiTestGem::lastDebugMessage = PlayFabApiTests::GenerateSummary(); // TODO PAUL: SET ON SCREEN FEEDBACK HERE
     }
 };
 
