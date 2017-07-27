@@ -33,5 +33,7 @@ namespace PlayFabComboTest
         void Activate() override;
         void Deactivate() override;
         ////////////////////////////////////////////////////////////////////////
+
+        void LoginOrRegister();
     };
 }

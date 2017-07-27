@@ -33,5 +33,7 @@ namespace PlayFabClientTest
         void Activate() override;
         void Deactivate() override;
         ////////////////////////////////////////////////////////////////////////
+
+        void LoginOrRegister();
     };
 }

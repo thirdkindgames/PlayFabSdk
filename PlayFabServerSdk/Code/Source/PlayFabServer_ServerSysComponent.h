@@ -22,6 +22,7 @@ namespace PlayFabServerSdk
         static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent);
 
         int GetPendingCalls() override;
+        void SetTitleId(AZStd::string newTitleId) override;
 
     protected:
         ////////////////////////////////////////////////////////////////////////

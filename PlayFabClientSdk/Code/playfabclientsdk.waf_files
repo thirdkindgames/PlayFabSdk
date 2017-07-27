@@ -13,7 +13,7 @@
         ],
         "Implementation": [
             "Source/PlayFabClientApi.h",
-            "Source/PlayFabClientApi.cpp",
+            "Source/PlayFabClientAPI.cpp",
             "Source/PlayFabClient_ClientSysComponent.h",
             "Source/PlayFabClient_ClientSysComponent.cpp",
             "Source/PlayFabClientSdkModule.cpp",

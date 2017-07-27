@@ -46,7 +46,7 @@ void PlayFabRequest::HandleErrorReport()
     mError = new PlayFabError;
 
     if (mResponseSize != 0 // Not a null response
-        && mResponseJson->GetParseError() == NULL) // Proper json response
+        && mResponseJson->GetParseError() == kParseErrorNone) // Proper json response
     {
         // If we have a proper json response, try to parse that json into our error-result format
         auto end = mResponseJson->MemberEnd();
@@ -184,9 +184,9 @@ void PlayFabRequestManager::HandleResponse(PlayFabRequest* requestContainer)
 {
     requestContainer->mHttpCode = requestContainer->httpResponse->GetResponseCode();
     Aws::IOStream& responseStream = requestContainer->httpResponse->GetResponseBody();
-    responseStream.seekg(0, SEEK_END);
+    responseStream.seekg(0, std::ios_base::end);
     requestContainer->mResponseSize = responseStream.tellg();
-    responseStream.seekg(0, SEEK_SET);
+    responseStream.seekg(0, std::ios_base::beg);
     requestContainer->mResponseText = new char[requestContainer->mResponseSize + 1];
     responseStream.read(requestContainer->mResponseText, requestContainer->mResponseSize);
     requestContainer->mResponseText[requestContainer->mResponseSize] = '\0';

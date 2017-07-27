@@ -650,16 +650,16 @@ AZStd::string PlayFabApiTests::playFabId;
 int PlayFabApiTests::testMessageInt;
 time_t PlayFabApiTests::testMessageTime;
 
-class CFlowNode_PlayFabApiTests : public CFlowBaseNode<eNCT_Instanced>
+class CFlowNode_PlayFabComboApiTests : public CFlowBaseNode<eNCT_Instanced>
 {
 public:
-    CFlowNode_PlayFabApiTests(SActivationInfo* pActInfo)
+    CFlowNode_PlayFabComboApiTests(SActivationInfo* pActInfo)
     {
     }
 
     IFlowNodePtr Clone(SActivationInfo *pActInfo) override
     {
-        return new CFlowNode_PlayFabApiTests(pActInfo);
+        return new CFlowNode_PlayFabComboApiTests(pActInfo);
     }
 
     void GetMemoryUsage(ICrySizer* s) const override
@@ -678,7 +678,7 @@ public:
             OutputPortConfig<AZStd::string>("Summary", _HELP("A summary of the tests (once complete)")),
             { 0 }
         };
-        config.sDescription = _HELP("PlayFab gem test node");
+        config.sDescription = _HELP("PlayFab Combo gem test node");
         config.pInputPorts = in_config;
         config.pOutputPorts = out_config;
         config.SetCategory(EFLN_APPROVED);
@@ -705,4 +705,4 @@ public:
     }
 };
 
-REGISTER_FLOW_NODE("PlayFab:PlayFabApiTests", CFlowNode_PlayFabApiTests);
+REGISTER_FLOW_NODE("PlayFab:PlayFabComboApiTests", CFlowNode_PlayFabComboApiTests);

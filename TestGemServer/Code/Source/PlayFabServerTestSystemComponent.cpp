@@ -55,10 +55,18 @@ namespace PlayFabServerTest
     void PlayFabServerTestSystemComponent::Activate()
     {
         PlayFabServerTestRequestBus::Handler::BusConnect();
+
+        LoginOrRegister();
     }
 
     void PlayFabServerTestSystemComponent::Deactivate()
     {
         PlayFabServerTestRequestBus::Handler::BusDisconnect();
+    }
+
+
+    void PlayFabServerTestSystemComponent::LoginOrRegister()
+    {
+
     }
 }

@@ -6,6 +6,9 @@
 
 #include "PlayFabComboTestSystemComponent.h"
 
+#include <PlayFabComboSdk/PlayFabCombo_ClientBus.h>
+using namespace PlayFabComboSdk;
+
 namespace PlayFabComboTest
 {
     void PlayFabComboTestSystemComponent::Reflect(AZ::ReflectContext* context)
@@ -55,10 +58,34 @@ namespace PlayFabComboTest
     void PlayFabComboTestSystemComponent::Activate()
     {
         PlayFabComboTestRequestBus::Handler::BusConnect();
+
+        LoginOrRegister();
     }
 
     void PlayFabComboTestSystemComponent::Deactivate()
     {
         PlayFabComboTestRequestBus::Handler::BusDisconnect();
+    }
+
+
+    void OnLoginOrRegister(const ClientModels::LoginResult& result, void* customData)
+    {
+        auto playFabId = result.PlayFabId;
+    }
+    void OnSharedError(const PlayFabError& error, void* customData)
+    {
+        auto playFabId = "failed to log in";
+    }
+
+    void PlayFabComboTestSystemComponent::LoginOrRegister()
+    {
+
+        PlayFabCombo_ClientRequestBus::Broadcast(&PlayFabCombo_ClientBus::SetTitleId, AZStd::string("6195"));
+
+        ClientModels::LoginWithCustomIDRequest request;
+        request.CustomId = "GettingStartedGuide";
+        request.CreateAccount = true;
+        EBUS_EVENT(PlayFabCombo_ClientRequestBus, LoginWithCustomID, request, OnLoginOrRegister, OnSharedError, nullptr);
+
     }
 }

@@ -83,6 +83,11 @@ namespace PlayFabServerSdk
         return PlayFabRequestManager::playFabHttp->GetPendingCalls();
     }
 
+    void PlayFabServer_AdminSysComponent::SetTitleId(AZStd::string newTitleId)
+    {
+        PlayFabSettings::playFabSettings->titleId = newTitleId;
+    }
+
     // ------------ Generated API call wrappers
     void PlayFabServer_AdminSysComponent::CreatePlayerSharedSecret(AdminModels::CreatePlayerSharedSecretRequest& request, ProcessApiCallback<AdminModels::CreatePlayerSharedSecretResult> callback, ErrorCallback errorCallback, void* customData)
     {

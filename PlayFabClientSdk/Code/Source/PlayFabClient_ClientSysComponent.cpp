@@ -83,6 +83,11 @@ namespace PlayFabClientSdk
         return PlayFabRequestManager::playFabHttp->GetPendingCalls();
     }
 
+    void PlayFabClient_ClientSysComponent::SetTitleId(AZStd::string newTitleId)
+    {
+        PlayFabSettings::playFabSettings->titleId = newTitleId;
+    }
+
     // Client-Specific
     bool PlayFabClient_ClientSysComponent::IsClientLoggedIn()
     {
