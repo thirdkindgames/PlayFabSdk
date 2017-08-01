@@ -9,6 +9,7 @@
 #include "PlayFabSettings.h"
 #include <PlayFabServerSdk/PlayFabError.h>
 
+#include <FlowSystem/Nodes/FlowBaseNode.h>
 #include <IGem.h>
 
 namespace PlayFabServerSdk
@@ -67,6 +68,9 @@ namespace PlayFabServerSdk
         {
             switch (event)
             {
+            case ESYSTEM_EVENT_FLOW_SYSTEM_REGISTER_EXTERNAL_NODES:
+                RegisterExternalFlowNodes();
+                break;
             case ESYSTEM_EVENT_GAME_POST_INIT:
             {
                 // Initialise the settings
@@ -87,7 +91,6 @@ namespace PlayFabServerSdk
                 // Set a default error handler
                 PlayFabSettings::playFabSettings->globalErrorHandler = &ExampleGlobalErrorHandler;
             }
-
             break;
 
             case ESYSTEM_EVENT_FULL_SHUTDOWN:
