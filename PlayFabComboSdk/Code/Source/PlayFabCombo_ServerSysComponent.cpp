@@ -57,25 +57,12 @@ namespace PlayFabComboSdk
 
     void PlayFabCombo_ServerSysComponent::Activate()
     {
-        // Start the http request manager thread
-        PlayFabRequestManager::playFabHttp = new PlayFabRequestManager();
-        PlayFabSettings::playFabSettings = new PlayFabSettings();
-
         PlayFabCombo_ServerRequestBus::Handler::BusConnect();
     }
 
     void PlayFabCombo_ServerSysComponent::Deactivate()
     {
         PlayFabCombo_ServerRequestBus::Handler::BusDisconnect();
-
-        // Shut down the http handler thread
-        if (PlayFabRequestManager::playFabHttp)
-        {
-            delete PlayFabRequestManager::playFabHttp;
-            PlayFabRequestManager::playFabHttp = nullptr;
-            delete PlayFabSettings::playFabSettings;
-            PlayFabSettings::playFabSettings = nullptr;
-        }
     }
 
     int PlayFabCombo_ServerSysComponent::GetPendingCalls()

@@ -7,7 +7,7 @@
 
 namespace PlayFabComboSdk
 {
-    class PlayFabCombo_ClientBus
+    class PlayFabCombo_ClientRequests
         : public AZ::EBusTraits
     {
 
@@ -153,5 +153,5 @@ namespace PlayFabComboSdk
         virtual void ValidateWindowsStoreReceipt(ClientModels::ValidateWindowsReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateWindowsReceiptResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
     };
 
-    using PlayFabCombo_ClientRequestBus = AZ::EBus<PlayFabCombo_ClientBus>;
+    using PlayFabCombo_ClientRequestBus = AZ::EBus<PlayFabCombo_ClientRequests>;
 } // namespace PlayFabComboSdk

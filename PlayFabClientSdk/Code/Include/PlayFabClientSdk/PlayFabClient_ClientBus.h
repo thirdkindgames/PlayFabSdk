@@ -7,7 +7,7 @@
 
 namespace PlayFabClientSdk
 {
-    class PlayFabClient_ClientBus
+    class PlayFabClient_ClientRequests
         : public AZ::EBusTraits
     {
 
@@ -153,5 +153,5 @@ namespace PlayFabClientSdk
         virtual void ValidateWindowsStoreReceipt(ClientModels::ValidateWindowsReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateWindowsReceiptResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
     };
 
-    using PlayFabClient_ClientRequestBus = AZ::EBus<PlayFabClient_ClientBus>;
+    using PlayFabClient_ClientRequestBus = AZ::EBus<PlayFabClient_ClientRequests>;
 } // namespace PlayFabClientSdk

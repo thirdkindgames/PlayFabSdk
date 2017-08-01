@@ -93,7 +93,7 @@ public:
     static bool TickTestSuite()
     {
         int numPending;
-        PlayFabServer_ServerRequestBus::BroadcastResult(numPending, &PlayFabServer_ServerBus::GetPendingCalls);
+        PlayFabServer_ServerRequestBus::BroadcastResult(numPending, &PlayFabServer_ServerRequests::GetPendingCalls);
         if (numPending > 0)
             return false;
 

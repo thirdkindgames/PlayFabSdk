@@ -144,6 +144,15 @@ namespace PlayFabServerSdk
     void writeDatetime(time_t datetime, PFStringJsonWriter& writer);
     time_t readDatetime(const rapidjson::Value& obj);
 
+    // #THIRD_KIND_PLAYFAB_SHUTDOWN_FIXES: Changed to string literals for the value lookups. Don't use AWS::String in statics, because it results in the destructor being called after the AWS allocator has been destroyed, which results in a shutdown crash.
+    struct StringCompare
+    {
+        bool operator () (const char *a, const char *b) const
+        {
+            return strcmp(a, b)<0;
+        }
+    };
+
     inline AZStd::string PlayFabBaseModel::toJSONString()
     {
         GenericStringBuffer< UTF8<> > buffer;

@@ -108,7 +108,7 @@ public:
     static bool TickTestSuite()
     {
         int numPending;
-        PlayFabCombo_ClientRequestBus::BroadcastResult(numPending, &PlayFabCombo_ClientBus::GetPendingCalls);
+        PlayFabCombo_ClientRequestBus::BroadcastResult(numPending, &PlayFabCombo_ClientRequests::GetPendingCalls);
         if (numPending > 0)
             return false;
 
@@ -403,7 +403,7 @@ private:
     static void UserDataApi(PfTestContext& testContext)
     {
         bool isLoggedIn = false;
-        PlayFabCombo_ClientRequestBus::BroadcastResult(isLoggedIn, &PlayFabCombo_ClientBus::IsClientLoggedIn);
+        PlayFabCombo_ClientRequestBus::BroadcastResult(isLoggedIn, &PlayFabCombo_ClientRequests::IsClientLoggedIn);
         if (!isLoggedIn)
         {
             EndTest(testContext, SKIPPED, "Earlier tests failed to log in");
@@ -468,7 +468,7 @@ private:
     static void PlayerStatisticsApi(PfTestContext& testContext)
     {
         bool isLoggedIn = false;
-        PlayFabCombo_ClientRequestBus::BroadcastResult(isLoggedIn, &PlayFabCombo_ClientBus::IsClientLoggedIn);
+        PlayFabCombo_ClientRequestBus::BroadcastResult(isLoggedIn, &PlayFabCombo_ClientRequests::IsClientLoggedIn);
         if (!isLoggedIn)
         {
             EndTest(testContext, SKIPPED, "Earlier tests failed to log in");

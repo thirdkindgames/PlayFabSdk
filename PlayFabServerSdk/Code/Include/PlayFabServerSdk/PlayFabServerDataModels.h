@@ -86,7 +86,7 @@ namespace PlayFabServerSdk
 
         inline TaskInstanceStatus readTaskInstanceStatusFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, TaskInstanceStatus> _TaskInstanceStatusMap;
+            static std::map<const char *, TaskInstanceStatus, PlayFabServerSdk::StringCompare> _TaskInstanceStatusMap;
             if (_TaskInstanceStatusMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -812,7 +812,7 @@ namespace PlayFabServerSdk
 
         inline UserOrigination readUserOriginationFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, UserOrigination> _UserOriginationMap;
+            static std::map<const char *, UserOrigination, PlayFabServerSdk::StringCompare> _UserOriginationMap;
             if (_UserOriginationMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -1369,7 +1369,7 @@ namespace PlayFabServerSdk
 
         inline Currency readCurrencyFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, Currency> _CurrencyMap;
+            static std::map<const char *, Currency, PlayFabServerSdk::StringCompare> _CurrencyMap;
             if (_CurrencyMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -1569,7 +1569,7 @@ namespace PlayFabServerSdk
 
         inline TitleActivationStatus readTitleActivationStatusFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, TitleActivationStatus> _TitleActivationStatusMap;
+            static std::map<const char *, TitleActivationStatus, PlayFabServerSdk::StringCompare> _TitleActivationStatusMap;
             if (_TitleActivationStatusMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -3625,7 +3625,7 @@ namespace PlayFabServerSdk
 
         inline CloudScriptRevisionOption readCloudScriptRevisionOptionFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, CloudScriptRevisionOption> _CloudScriptRevisionOptionMap;
+            static std::map<const char *, CloudScriptRevisionOption, PlayFabServerSdk::StringCompare> _CloudScriptRevisionOptionMap;
             if (_CloudScriptRevisionOptionMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -3782,7 +3782,7 @@ namespace PlayFabServerSdk
 
         inline ContinentCode readContinentCodeFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, ContinentCode> _ContinentCodeMap;
+            static std::map<const char *, ContinentCode, PlayFabServerSdk::StringCompare> _ContinentCodeMap;
             if (_ContinentCodeMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -4315,7 +4315,7 @@ namespace PlayFabServerSdk
 
         inline CountryCode readCountryCodeFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, CountryCode> _CountryCodeMap;
+            static std::map<const char *, CountryCode, PlayFabServerSdk::StringCompare> _CountryCodeMap;
             if (_CountryCodeMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -5603,7 +5603,7 @@ namespace PlayFabServerSdk
 
         inline GameInstanceState readGameInstanceStateFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, GameInstanceState> _GameInstanceStateMap;
+            static std::map<const char *, GameInstanceState, PlayFabServerSdk::StringCompare> _GameInstanceStateMap;
             if (_GameInstanceStateMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -6077,7 +6077,7 @@ namespace PlayFabServerSdk
 
         inline UserDataPermission readUserDataPermissionFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, UserDataPermission> _UserDataPermissionMap;
+            static std::map<const char *, UserDataPermission, PlayFabServerSdk::StringCompare> _UserDataPermissionMap;
             if (_UserDataPermissionMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -7353,7 +7353,7 @@ namespace PlayFabServerSdk
 
         inline LoginIdentityProvider readLoginIdentityProviderFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, LoginIdentityProvider> _LoginIdentityProviderMap;
+            static std::map<const char *, LoginIdentityProvider, PlayFabServerSdk::StringCompare> _LoginIdentityProviderMap;
             if (_LoginIdentityProviderMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -7519,7 +7519,7 @@ namespace PlayFabServerSdk
 
         inline PushNotificationPlatform readPushNotificationPlatformFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, PushNotificationPlatform> _PushNotificationPlatformMap;
+            static std::map<const char *, PushNotificationPlatform, PlayFabServerSdk::StringCompare> _PushNotificationPlatformMap;
             if (_PushNotificationPlatformMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -10796,7 +10796,7 @@ namespace PlayFabServerSdk
 
         inline ResultTableNodeType readResultTableNodeTypeFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, ResultTableNodeType> _ResultTableNodeTypeMap;
+            static std::map<const char *, ResultTableNodeType, PlayFabServerSdk::StringCompare> _ResultTableNodeTypeMap;
             if (_ResultTableNodeTypeMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -13383,7 +13383,7 @@ namespace PlayFabServerSdk
 
         inline PlayerConnectionState readPlayerConnectionStateFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, PlayerConnectionState> _PlayerConnectionStateMap;
+            static std::map<const char *, PlayerConnectionState, PlayFabServerSdk::StringCompare> _PlayerConnectionStateMap;
             if (_PlayerConnectionStateMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -13849,7 +13849,7 @@ namespace PlayFabServerSdk
 
         inline Region readRegionFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, Region> _RegionMap;
+            static std::map<const char *, Region, PlayFabServerSdk::StringCompare> _RegionMap;
             if (_RegionMap.size() == 0)
             {
                 // Auto-generate the map on the first use

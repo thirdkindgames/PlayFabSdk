@@ -173,7 +173,7 @@ namespace PlayFabComboSdk
 
         inline TaskInstanceStatus readTaskInstanceStatusFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, TaskInstanceStatus> _TaskInstanceStatusMap;
+            static std::map<const char *, TaskInstanceStatus, PlayFabComboSdk::StringCompare> _TaskInstanceStatusMap;
             if (_TaskInstanceStatusMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -597,7 +597,7 @@ namespace PlayFabComboSdk
 
         inline Region readRegionFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, Region> _RegionMap;
+            static std::map<const char *, Region, PlayFabComboSdk::StringCompare> _RegionMap;
             if (_RegionMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -741,7 +741,7 @@ namespace PlayFabComboSdk
 
         inline GameBuildStatus readGameBuildStatusFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, GameBuildStatus> _GameBuildStatusMap;
+            static std::map<const char *, GameBuildStatus, PlayFabComboSdk::StringCompare> _GameBuildStatusMap;
             if (_GameBuildStatusMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -1085,7 +1085,7 @@ namespace PlayFabComboSdk
 
         inline Conditionals readConditionalsFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, Conditionals> _ConditionalsMap;
+            static std::map<const char *, Conditionals, PlayFabComboSdk::StringCompare> _ConditionalsMap;
             if (_ConditionalsMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -2521,7 +2521,7 @@ namespace PlayFabComboSdk
 
         inline ContinentCode readContinentCodeFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, ContinentCode> _ContinentCodeMap;
+            static std::map<const char *, ContinentCode, PlayFabComboSdk::StringCompare> _ContinentCodeMap;
             if (_ContinentCodeMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -3054,7 +3054,7 @@ namespace PlayFabComboSdk
 
         inline CountryCode readCountryCodeFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, CountryCode> _CountryCodeMap;
+            static std::map<const char *, CountryCode, PlayFabComboSdk::StringCompare> _CountryCodeMap;
             if (_CountryCodeMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -3569,7 +3569,7 @@ namespace PlayFabComboSdk
 
         inline StatisticResetIntervalOption readStatisticResetIntervalOptionFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, StatisticResetIntervalOption> _StatisticResetIntervalOptionMap;
+            static std::map<const char *, StatisticResetIntervalOption, PlayFabComboSdk::StringCompare> _StatisticResetIntervalOptionMap;
             if (_StatisticResetIntervalOptionMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -3610,7 +3610,7 @@ namespace PlayFabComboSdk
 
         inline StatisticAggregationMethod readStatisticAggregationMethodFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, StatisticAggregationMethod> _StatisticAggregationMethodMap;
+            static std::map<const char *, StatisticAggregationMethod, PlayFabComboSdk::StringCompare> _StatisticAggregationMethodMap;
             if (_StatisticAggregationMethodMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -4176,7 +4176,7 @@ namespace PlayFabComboSdk
 
         inline Currency readCurrencyFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, Currency> _CurrencyMap;
+            static std::map<const char *, Currency, PlayFabComboSdk::StringCompare> _CurrencyMap;
             if (_CurrencyMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -4699,7 +4699,7 @@ namespace PlayFabComboSdk
 
         inline EffectType readEffectTypeFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, EffectType> _EffectTypeMap;
+            static std::map<const char *, EffectType, PlayFabComboSdk::StringCompare> _EffectTypeMap;
             if (_EffectTypeMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -6359,7 +6359,7 @@ namespace PlayFabComboSdk
 
         inline LoginIdentityProvider readLoginIdentityProviderFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, LoginIdentityProvider> _LoginIdentityProviderMap;
+            static std::map<const char *, LoginIdentityProvider, PlayFabComboSdk::StringCompare> _LoginIdentityProviderMap;
             if (_LoginIdentityProviderMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -6479,7 +6479,7 @@ namespace PlayFabComboSdk
 
         inline PushNotificationPlatform readPushNotificationPlatformFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, PushNotificationPlatform> _PushNotificationPlatformMap;
+            static std::map<const char *, PushNotificationPlatform, PlayFabComboSdk::StringCompare> _PushNotificationPlatformMap;
             if (_PushNotificationPlatformMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -7222,7 +7222,7 @@ namespace PlayFabComboSdk
 
         inline StatisticVersionStatus readStatisticVersionStatusFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, StatisticVersionStatus> _StatisticVersionStatusMap;
+            static std::map<const char *, StatisticVersionStatus, PlayFabComboSdk::StringCompare> _StatisticVersionStatusMap;
             if (_StatisticVersionStatusMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -7840,7 +7840,7 @@ namespace PlayFabComboSdk
 
         inline ResultTableNodeType readResultTableNodeTypeFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, ResultTableNodeType> _ResultTableNodeTypeMap;
+            static std::map<const char *, ResultTableNodeType, PlayFabComboSdk::StringCompare> _ResultTableNodeTypeMap;
             if (_ResultTableNodeTypeMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -8432,7 +8432,7 @@ namespace PlayFabComboSdk
 
         inline SourceType readSourceTypeFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, SourceType> _SourceTypeMap;
+            static std::map<const char *, SourceType, PlayFabComboSdk::StringCompare> _SourceTypeMap;
             if (_SourceTypeMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -8727,7 +8727,7 @@ namespace PlayFabComboSdk
 
         inline ScheduledTaskType readScheduledTaskTypeFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, ScheduledTaskType> _ScheduledTaskTypeMap;
+            static std::map<const char *, ScheduledTaskType, PlayFabComboSdk::StringCompare> _ScheduledTaskTypeMap;
             if (_ScheduledTaskTypeMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -9389,7 +9389,7 @@ namespace PlayFabComboSdk
 
         inline UserDataPermission readUserDataPermissionFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, UserDataPermission> _UserDataPermissionMap;
+            static std::map<const char *, UserDataPermission, PlayFabComboSdk::StringCompare> _UserDataPermissionMap;
             if (_UserDataPermissionMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -10695,7 +10695,7 @@ namespace PlayFabComboSdk
 
         inline UserOrigination readUserOriginationFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, UserOrigination> _UserOriginationMap;
+            static std::map<const char *, UserOrigination, PlayFabComboSdk::StringCompare> _UserOriginationMap;
             if (_UserOriginationMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -10938,7 +10938,7 @@ namespace PlayFabComboSdk
 
         inline TitleActivationStatus readTitleActivationStatusFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, TitleActivationStatus> _TitleActivationStatusMap;
+            static std::map<const char *, TitleActivationStatus, PlayFabComboSdk::StringCompare> _TitleActivationStatusMap;
             if (_TitleActivationStatusMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -12097,7 +12097,7 @@ namespace PlayFabComboSdk
 
         inline PushSetupPlatform readPushSetupPlatformFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, PushSetupPlatform> _PushSetupPlatformMap;
+            static std::map<const char *, PushSetupPlatform, PlayFabComboSdk::StringCompare> _PushSetupPlatformMap;
             if (_PushSetupPlatformMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -12732,7 +12732,7 @@ namespace PlayFabComboSdk
 
         inline ResolutionOutcome readResolutionOutcomeFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, ResolutionOutcome> _ResolutionOutcomeMap;
+            static std::map<const char *, ResolutionOutcome, PlayFabComboSdk::StringCompare> _ResolutionOutcomeMap;
             if (_ResolutionOutcomeMap.size() == 0)
             {
                 // Auto-generate the map on the first use
@@ -13752,7 +13752,7 @@ namespace PlayFabComboSdk
 
         inline StatisticVersionArchivalStatus readStatisticVersionArchivalStatusFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, StatisticVersionArchivalStatus> _StatisticVersionArchivalStatusMap;
+            static std::map<const char *, StatisticVersionArchivalStatus, PlayFabComboSdk::StringCompare> _StatisticVersionArchivalStatusMap;
             if (_StatisticVersionArchivalStatusMap.size() == 0)
             {
                 // Auto-generate the map on the first use

@@ -8,10 +8,14 @@
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/http/HttpClientFactory.h>
-#include <AZCore/std/parallel/lock.h>
+#include <AzCore/std/parallel/lock.h>
 
 using namespace PlayFabComboSdk;
 using namespace rapidjson;
+
+// #THIRD_KIND_PLAYFAB_HTTP_DEBUGGING: Added debug logging and delay to http request manager
+//#define PLAYFAB_DEBUG_HTTP_LOG              // Enable to log requests and responses to the tty
+//#define PLAYFAB_DEBUG_DELAY_RESPONSE 5000   // Enable to introduce an artificial delay on responses (time in milliseconds)
 
 ///////////////////// PlayFabRequest /////////////////////
 PlayFabRequest::PlayFabRequest(const AZStd::string& URI, Aws::Http::HttpMethod method, const AZStd::string& authKey, const AZStd::string& authValue, const AZStd::string& requestJsonBody, void* customData, void* mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback)
@@ -23,7 +27,7 @@ PlayFabRequest::PlayFabRequest(const AZStd::string& URI, Aws::Http::HttpMethod m
     , mCustomData(customData)
     , mResponseText(nullptr)
     , mResponseSize(0)
-    , mResponseJson(new rapidjson::Document)
+    , mResponseJson(nullptr)
     , mError(nullptr)
     , mHttpCode(Aws::Http::HttpResponseCode::BAD_REQUEST)
     , mInternalCallback(internalCallback)
@@ -38,7 +42,8 @@ PlayFabRequest::~PlayFabRequest()
         delete mResponseText;
     if (mError != nullptr)
         delete mError;
-    delete mResponseJson;
+    if (mResponseJson != nullptr)
+        delete mResponseJson;
 }
 
 void PlayFabRequest::HandleErrorReport()
@@ -167,6 +172,10 @@ void PlayFabRequestManager::HandleRequest(PlayFabRequest* requestContainer)
     std::shared_ptr<Aws::Http::HttpClient> httpClient = Aws::Http::CreateHttpClient(Aws::Client::ClientConfiguration());
 
     auto httpRequest = Aws::Http::CreateHttpRequest(Aws::String(requestContainer->mURI.c_str()), requestContainer->mMethod, Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
+    // #THIRD_KIND_PLAYFAB_HTTP_DEBUGGING: Added debug logging and delay to http request manager
+#if defined (PLAYFAB_DEBUG_HTTP_LOG)
+    AZ_TracePrintf("PlayFab", "*** PlayFab Request - %s %s", Aws::Http::HttpMethodMapper::GetNameForHttpMethod(requestContainer->mMethod), requestContainer->mURI.c_str());
+#endif
 
     httpRequest->SetContentType("application/json");
     httpRequest->SetHeaderValue("X-PlayFabSDK", Aws::String(PlayFabSettings::playFabSettings->playFabVersionString.c_str()));
@@ -182,6 +191,14 @@ void PlayFabRequestManager::HandleRequest(PlayFabRequest* requestContainer)
 
 void PlayFabRequestManager::HandleResponse(PlayFabRequest* requestContainer)
 {
+    if (!requestContainer || !requestContainer->httpResponse)
+        return;
+
+    // #THIRD_KIND_PLAYFAB_HTTP_DEBUGGING: Added debug logging and delay to http request manager
+#if defined (PLAYFAB_DEBUG_DELAY_RESPONSE)
+    CrySleep(PLAYFAB_DEBUG_DELAY_RESPONSE);
+#endif
+
     requestContainer->mHttpCode = requestContainer->httpResponse->GetResponseCode();
     Aws::IOStream& responseStream = requestContainer->httpResponse->GetResponseBody();
     responseStream.seekg(0, std::ios_base::end);
@@ -192,5 +209,8 @@ void PlayFabRequestManager::HandleResponse(PlayFabRequest* requestContainer)
     requestContainer->mResponseText[requestContainer->mResponseSize] = '\0';
     requestContainer->mResponseJson = new rapidjson::Document;
     requestContainer->mResponseJson->Parse<0>(requestContainer->mResponseText);
+#if defined (PLAYFAB_DEBUG_HTTP_LOG)
+    AZ_TracePrintf("PlayFab", "*** PlayFab Response - %s %s, Response: %s", Aws::Http::HttpMethodMapper::GetNameForHttpMethod(requestContainer->mMethod), requestContainer->mURI.c_str(), requestContainer->mResponseText);
+#endif
     requestContainer->mInternalCallback(requestContainer);
 }

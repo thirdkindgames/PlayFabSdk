@@ -7,7 +7,7 @@
 
 namespace PlayFabComboSdk
 {
-    class PlayFabCombo_AdminBus
+    class PlayFabCombo_AdminRequests
         : public AZ::EBusTraits
     {
 
@@ -118,5 +118,5 @@ namespace PlayFabComboSdk
         virtual void UpdateTask(AdminModels::UpdateTaskRequest& request, ProcessApiCallback<AdminModels::EmptyResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
     };
 
-    using PlayFabCombo_AdminRequestBus = AZ::EBus<PlayFabCombo_AdminBus>;
+    using PlayFabCombo_AdminRequestBus = AZ::EBus<PlayFabCombo_AdminRequests>;
 } // namespace PlayFabComboSdk

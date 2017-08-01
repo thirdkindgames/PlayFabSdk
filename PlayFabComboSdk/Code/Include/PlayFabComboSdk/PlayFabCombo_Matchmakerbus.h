@@ -7,7 +7,7 @@
 
 namespace PlayFabComboSdk
 {
-    class PlayFabCombo_MatchmakerBus
+    class PlayFabCombo_MatchmakerRequests
         : public AZ::EBusTraits
     {
 
@@ -26,5 +26,5 @@ namespace PlayFabComboSdk
         virtual void UserInfo(MatchmakerModels::UserInfoRequest& request, ProcessApiCallback<MatchmakerModels::UserInfoResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
     };
 
-    using PlayFabCombo_MatchmakerRequestBus = AZ::EBus<PlayFabCombo_MatchmakerBus>;
+    using PlayFabCombo_MatchmakerRequestBus = AZ::EBus<PlayFabCombo_MatchmakerRequests>;
 } // namespace PlayFabComboSdk

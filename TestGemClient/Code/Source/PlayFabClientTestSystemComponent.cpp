@@ -80,7 +80,7 @@ namespace PlayFabClientTest
     void PlayFabClientTestSystemComponent::LoginOrRegister()
     {
 
-        PlayFabClient_ClientRequestBus::Broadcast(&PlayFabClient_ClientBus::SetTitleId, AZStd::string("6195"));
+        PlayFabClient_ClientRequestBus::Broadcast(&PlayFabClient_ClientRequests::SetTitleId, AZStd::string("6195"));
 
         ClientModels::LoginWithCustomIDRequest request;
         request.CustomId = "GettingStartedGuide";
