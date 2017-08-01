@@ -57,25 +57,12 @@ namespace PlayFabClientSdk
 
     void PlayFabClient_ClientSysComponent::Activate()
     {
-        // Start the http request manager thread
-        PlayFabRequestManager::playFabHttp = new PlayFabRequestManager();
-        PlayFabSettings::playFabSettings = new PlayFabSettings();
-
         PlayFabClient_ClientRequestBus::Handler::BusConnect();
     }
 
     void PlayFabClient_ClientSysComponent::Deactivate()
     {
         PlayFabClient_ClientRequestBus::Handler::BusDisconnect();
-
-        // Shut down the http handler thread
-        if (PlayFabRequestManager::playFabHttp)
-        {
-            delete PlayFabRequestManager::playFabHttp;
-            PlayFabRequestManager::playFabHttp = nullptr;
-            delete PlayFabSettings::playFabSettings;
-            PlayFabSettings::playFabSettings = nullptr;
-        }
     }
 
     int PlayFabClient_ClientSysComponent::GetPendingCalls()

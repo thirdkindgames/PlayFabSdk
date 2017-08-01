@@ -7,6 +7,7 @@
 #include "PlayFabSettings.h"
 #include <PlayFabClientSdk/PlayFabError.h>
 
+#include <FlowSystem/Nodes/FlowBaseNode.h>
 #include <IGem.h>
 
 namespace PlayFabClientSdk
@@ -22,10 +23,10 @@ namespace PlayFabClientSdk
         if (!error.ErrorDetails.empty())
         {
             AZ_TracePrintf("PlayFab", " Additional Info:\n")
-                for (auto& details : error.ErrorDetails)
-                {
-                    AZ_TracePrintf("PlayFab", "  %s: %s\n", details.first.c_str(), details.second.c_str());
-                }
+            for (auto& details : error.ErrorDetails)
+            {
+                AZ_TracePrintf("PlayFab", "  %s: %s\n", details.first.c_str(), details.second.c_str());
+            }
         }
         AZ_TracePrintf("PlayFab", "==================================================================\n");
     }
@@ -61,24 +62,34 @@ namespace PlayFabClientSdk
         {
             switch (event)
             {
+            case ESYSTEM_EVENT_FLOW_SYSTEM_REGISTER_EXTERNAL_NODES:
+                RegisterExternalFlowNodes();
+                break;
             case ESYSTEM_EVENT_GAME_POST_INIT:
             {
-                // Set the game title id
-                auto titleIdCvar = gEnv->pConsole->GetCVar("playfab_titleid");
-                if (titleIdCvar)
-                {
-                    PlayFabSettings::playFabSettings->titleId = titleIdCvar->GetString();
-                }
+                // Initialise the settings
+                PlayFabSettings::playFabSettings = new PlayFabSettings();
+                // Start the http request manager thread
+                PlayFabRequestManager::playFabHttp = new PlayFabRequestManager();
 
+                // Set the game title id
+                auto titleIdCvar = gEnv->pConsole->GetCVar("playfab_title_id");
+                if (titleIdCvar)
+                    PlayFabSettings::playFabSettings->titleId = titleIdCvar->GetString();
+
+                // Set a default error handler
                 PlayFabSettings::playFabSettings->globalErrorHandler = &ExampleGlobalErrorHandler;
             }
-
             break;
 
             case ESYSTEM_EVENT_FULL_SHUTDOWN:
             case ESYSTEM_EVENT_FAST_SHUTDOWN:
-                // Put your shutdown code here
-                // Other Gems may have been shutdown already, but none will have destructed
+                // Shut down the http handler thread
+                SAFE_DELETE(PlayFabRequestManager::playFabHttp);
+
+                // Destroy the settings
+                SAFE_DELETE(PlayFabSettings::playFabSettings);
+
                 break;
             }
         }

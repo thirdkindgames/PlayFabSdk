@@ -57,25 +57,12 @@ namespace PlayFabServerSdk
 
     void PlayFabServer_ServerSysComponent::Activate()
     {
-        // Start the http request manager thread
-        PlayFabRequestManager::playFabHttp = new PlayFabRequestManager();
-        PlayFabSettings::playFabSettings = new PlayFabSettings();
-
         PlayFabServer_ServerRequestBus::Handler::BusConnect();
     }
 
     void PlayFabServer_ServerSysComponent::Deactivate()
     {
         PlayFabServer_ServerRequestBus::Handler::BusDisconnect();
-
-        // Shut down the http handler thread
-        if (PlayFabRequestManager::playFabHttp)
-        {
-            delete PlayFabRequestManager::playFabHttp;
-            PlayFabRequestManager::playFabHttp = nullptr;
-            delete PlayFabSettings::playFabSettings;
-            PlayFabSettings::playFabSettings = nullptr;
-        }
     }
 
     int PlayFabServer_ServerSysComponent::GetPendingCalls()

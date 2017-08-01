@@ -20,14 +20,13 @@ namespace PlayFabClientSdk
         PlayFabRequest(const AZStd::string& URI, Aws::Http::HttpMethod method, const AZStd::string& authKey, const AZStd::string& authValue, const AZStd::string& requestJsonBody, void* customData, void* mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback);
         ~PlayFabRequest();
 
-        // #THIRD_KIND_PLAYFAB_REQUEST_CALLBACK_LINUX: dbowen (2017/06/26) - Allow conversion of ProcessApiCallback<T> to void*. Fixes no matching constructor for initialization of 'PlayFab::PlayFabRequest'. no known conversion from 'ProcessApiCallback<XXX>' (aka 'void (*)(const XXX &, void *)') to 'void *'
+        // #THIRD_KIND_PLAYFAB_REQUEST_CALLBACK_LINUX: Allow conversion of ProcessApiCallback<T> to void*. Fixes no matching constructor for initialization of 'PlayFabClientSdk::PlayFabRequest'. no known conversion from 'ProcessApiCallback<XXX>' (aka 'void (*)(const XXX &, void *)') to 'void *'
         template < typename T >
-        inline PlayFabRequest(const Aws::String& URI, Aws::Http::HttpMethod method, bool usePlayFabAuthToken, const Aws::String& requestJsonBody, void* customData, T mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback)
-            : PlayFabRequest(URI, method, usePlayFabAuthToken, requestJsonBody, customData, (void*)mResultCallback, mErrorCallback, internalCallback)
+        inline PlayFabRequest(const AZStd::string& URI, Aws::Http::HttpMethod method, const AZStd::string& authKey, const AZStd::string& authValue, const AZStd::string& requestJsonBody, void* customData, T mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback)
+            : PlayFabRequest(URI, method, authKey, authValue, requestJsonBody, customData, (void*)mResultCallback, mErrorCallback, internalCallback)
         {
             static_assert(sizeof(T) <= sizeof(void*), "Size of function pointer is larger than void*, bad cast will occur.");
         }
-        // #THIRD_KIND_PLAYFAB_REQUEST_CALLBACK_LINUX: dbowen (2017/06/26) - End of fix. 
 
         void HandleErrorReport(); // Call this when the response information describes an error (this parses that information into mError, and activates the error callback)
 

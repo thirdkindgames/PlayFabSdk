@@ -7,7 +7,7 @@
 
 namespace PlayFabServerSdk
 {
-    class PlayFabServer_MatchmakerBus
+    class PlayFabServer_MatchmakerRequests
         : public AZ::EBusTraits
     {
 
@@ -26,5 +26,5 @@ namespace PlayFabServerSdk
         virtual void UserInfo(MatchmakerModels::UserInfoRequest& request, ProcessApiCallback<MatchmakerModels::UserInfoResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
     };
 
-    using PlayFabServer_MatchmakerRequestBus = AZ::EBus<PlayFabServer_MatchmakerBus>;
+    using PlayFabServer_MatchmakerRequestBus = AZ::EBus<PlayFabServer_MatchmakerRequests>;
 } // namespace PlayFabServerSdk

@@ -80,7 +80,7 @@ namespace PlayFabComboTest
     void PlayFabComboTestSystemComponent::LoginOrRegister()
     {
 
-        PlayFabCombo_ClientRequestBus::Broadcast(&PlayFabCombo_ClientBus::SetTitleId, AZStd::string("6195"));
+        PlayFabCombo_ClientRequestBus::Broadcast(&PlayFabCombo_ClientRequests::SetTitleId, AZStd::string("6195"));
 
         ClientModels::LoginWithCustomIDRequest request;
         request.CustomId = "GettingStartedGuide";

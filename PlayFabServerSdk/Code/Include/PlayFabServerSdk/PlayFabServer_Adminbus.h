@@ -7,7 +7,7 @@
 
 namespace PlayFabServerSdk
 {
-    class PlayFabServer_AdminBus
+    class PlayFabServer_AdminRequests
         : public AZ::EBusTraits
     {
 
@@ -118,5 +118,5 @@ namespace PlayFabServerSdk
         virtual void UpdateTask(AdminModels::UpdateTaskRequest& request, ProcessApiCallback<AdminModels::EmptyResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
     };
 
-    using PlayFabServer_AdminRequestBus = AZ::EBus<PlayFabServer_AdminBus>;
+    using PlayFabServer_AdminRequestBus = AZ::EBus<PlayFabServer_AdminRequests>;
 } // namespace PlayFabServerSdk

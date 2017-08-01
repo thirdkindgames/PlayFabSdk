@@ -543,7 +543,7 @@ namespace PlayFabServerSdk
 
         inline Region readRegionFromValue(const rapidjson::Value& obj)
         {
-            static std::map<AZStd::string, Region> _RegionMap;
+            static std::map<const char *, Region, PlayFabServerSdk::StringCompare> _RegionMap;
             if (_RegionMap.size() == 0)
             {
                 // Auto-generate the map on the first use

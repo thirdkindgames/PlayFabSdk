@@ -57,25 +57,12 @@ namespace PlayFabServerSdk
 
     void PlayFabServer_MatchmakerSysComponent::Activate()
     {
-        // Start the http request manager thread
-        PlayFabRequestManager::playFabHttp = new PlayFabRequestManager();
-        PlayFabSettings::playFabSettings = new PlayFabSettings();
-
         PlayFabServer_MatchmakerRequestBus::Handler::BusConnect();
     }
 
     void PlayFabServer_MatchmakerSysComponent::Deactivate()
     {
         PlayFabServer_MatchmakerRequestBus::Handler::BusDisconnect();
-
-        // Shut down the http handler thread
-        if (PlayFabRequestManager::playFabHttp)
-        {
-            delete PlayFabRequestManager::playFabHttp;
-            PlayFabRequestManager::playFabHttp = nullptr;
-            delete PlayFabSettings::playFabSettings;
-            PlayFabSettings::playFabSettings = nullptr;
-        }
     }
 
     int PlayFabServer_MatchmakerSysComponent::GetPendingCalls()

@@ -7,7 +7,7 @@
 
 namespace PlayFabServerSdk
 {
-    class PlayFabServer_ServerBus
+    class PlayFabServer_ServerRequests
         : public AZ::EBusTraits
     {
 
@@ -130,5 +130,5 @@ namespace PlayFabServerSdk
         virtual void AwardSteamAchievement(ServerModels::AwardSteamAchievementRequest& request, ProcessApiCallback<ServerModels::AwardSteamAchievementResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;
     };
 
-    using PlayFabServer_ServerRequestBus = AZ::EBus<PlayFabServer_ServerBus>;
+    using PlayFabServer_ServerRequestBus = AZ::EBus<PlayFabServer_ServerRequests>;
 } // namespace PlayFabServerSdk
