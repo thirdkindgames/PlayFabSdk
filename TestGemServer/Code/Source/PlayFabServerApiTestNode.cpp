@@ -152,11 +152,8 @@ private:
     static AZStd::string _outputSummary; // Basically a temp variable so I don't reallocate this constantly
 
     // A bunch of constants loaded from testTitleData.json
-    static const std::string TEST_TITLE_DATA_LOC;
-    static AZStd::string userName;
+    static std::string TEST_TITLE_DATA_LOC;
     static AZStd::string userEmail;
-    static AZStd::string userPassword;
-    static AZStd::string characterName;
     const static AZStd::string TEST_DATA_KEY;
     const static AZStd::string TEST_STAT_NAME;
     static AZStd::string playFabId;
@@ -172,6 +169,15 @@ private:
         //  - OR -
         // Comment the "return false;" below, and
         //   Fill in all the variables under: POPULATE THIS SECTION WITH REAL INFORMATION
+
+        // Prefer to load path from environment variable, if present
+        char* envPath = nullptr;
+        size_t envPathStrLen;
+        errno_t err = _dupenv_s(&envPath, &envPathStrLen, "PF_TEST_TITLE_DATA_JSON");
+        if (err == 0 && envPath != nullptr)
+            TEST_TITLE_DATA_LOC = envPath;
+        if (envPath != nullptr)
+            free(envPath);
 
         std::ifstream titleInput;
         if (TEST_TITLE_DATA_LOC.length() > 0)
@@ -198,22 +204,16 @@ private:
             // TODO: Put the info for your title here (Fallback in case it can't read from the file)
 
             // POPULATE THIS SECTION WITH REAL INFORMATION
-            // playFabSettings->titleId = ""; // The titleId for your title, found in the "Settings" section of PlayFab Game Manager
+            PlayFabServer_ServerRequestBus::Broadcast(&PlayFabServer_ServerRequests::SetTitleId, ""); // The titleId for your title, found in the "Settings" section of PlayFab Game Manager
             // playFabSettings->developerSecretKey = ""; // The titleId for your title, found in the "Settings" section of PlayFab Game Manager
-            userName = ""; // This is an arbitrary user name, which will be utilized for this test
             userEmail = ""; // This is the email for the user
-            userPassword = ""; // This is the password for the user
-            characterName = ""; // This should be a valid character on the given user's account
         }
 
         // Verify all the inputs won't cause crashes in the tests
         return static_cast<bool>(titleInput)
             // && !playFabSettings->titleId.empty()
             // && !playFabSettings->developerSecretKey.empty()
-            && !userName.empty()
-            && !userEmail.empty()
-            && !userPassword.empty()
-            && !characterName.empty();
+            && !userEmail.empty();
     }
 
     /// <summary>
@@ -225,19 +225,12 @@ private:
         // Parse all the inputs
         auto end = testInputs.MemberEnd();
         auto each = testInputs.FindMember("titleId");
-        // if (each != end) playFabSettings->titleId = each->value.GetString();
+        if (each != end) PlayFabServer_ServerRequestBus::Broadcast(&PlayFabServer_ServerRequests::SetTitleId, each->value.GetString());
         each = testInputs.FindMember("developerSecretKey");
         // if (each != end) playFabSettings->developerSecretKey = each->value.GetString();
 
-        each = testInputs.FindMember("userName");
-        if (each != end) userName = each->value.GetString();
         each = testInputs.FindMember("userEmail");
         if (each != end) userEmail = each->value.GetString();
-        each = testInputs.FindMember("userPassword");
-        if (each != end) userPassword = each->value.GetString();
-
-        each = testInputs.FindMember("characterName");
-        if (each != end) characterName = each->value.GetString();
     }
     // Start a test, and block until the threaded response arrives
     static void StartTest(PfTestContext& testContext)
@@ -285,12 +278,9 @@ private:
     }
 };
 // C++ Static vars
-const std::string PlayFabApiTests::TEST_TITLE_DATA_LOC = "C:/depot/pf-main/tools/SDKBuildScripts/testTitleData.json";
+std::string PlayFabApiTests::TEST_TITLE_DATA_LOC = "testTitleData.json";
 AZStd::string PlayFabApiTests::_outputSummary;
-AZStd::string PlayFabApiTests::userName;
 AZStd::string PlayFabApiTests::userEmail;
-AZStd::string PlayFabApiTests::userPassword;
-AZStd::string PlayFabApiTests::characterName;
 const AZStd::string PlayFabApiTests::TEST_DATA_KEY = "testCounter";
 const AZStd::string PlayFabApiTests::TEST_STAT_NAME = "str";
 std::list<PfTestContext*> PlayFabApiTests::testContexts;
@@ -340,7 +330,8 @@ public:
             if (PlayFabApiTests::TickTestSuite())
             {
                 pActInfo->pGraph->SetRegularlyUpdated(pActInfo->myID, false);
-                //ActivateOutput(pActInfo, 0, string(PlayFabApiTests::GenerateSummary().c_str()));
+                auto finalOutput = PlayFabApiTests::GenerateSummary().c_str();
+                // ActivateOutput(pActInfo, 0, string(finalOutput));
             }
             break;
         case eFE_Activate:
@@ -349,7 +340,7 @@ public:
             break;
             //case eFE_FinalActivate:
         }
-        // PlayFabServerTest::PlayFabApiTestGem::lastDebugMessage = PlayFabApiTests::GenerateSummary(); // TODO PAUL: SET ON SCREEN FEEDBACK HERE
+        auto lastDebugMessage = PlayFabApiTests::GenerateSummary();
     }
 };
 

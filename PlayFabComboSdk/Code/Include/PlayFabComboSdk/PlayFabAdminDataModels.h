@@ -173,6 +173,10 @@ namespace PlayFabComboSdk
 
         inline TaskInstanceStatus readTaskInstanceStatusFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<TaskInstanceStatus>(obj.GetInt());
+
             static std::map<const char *, TaskInstanceStatus, PlayFabComboSdk::StringCompare> _TaskInstanceStatusMap;
             if (_TaskInstanceStatusMap.size() == 0)
             {
@@ -597,6 +601,10 @@ namespace PlayFabComboSdk
 
         inline Region readRegionFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<Region>(obj.GetInt());
+
             static std::map<const char *, Region, PlayFabComboSdk::StringCompare> _RegionMap;
             if (_RegionMap.size() == 0)
             {
@@ -741,6 +749,10 @@ namespace PlayFabComboSdk
 
         inline GameBuildStatus readGameBuildStatusFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<GameBuildStatus>(obj.GetInt());
+
             static std::map<const char *, GameBuildStatus, PlayFabComboSdk::StringCompare> _GameBuildStatusMap;
             if (_GameBuildStatusMap.size() == 0)
             {
@@ -1085,6 +1097,10 @@ namespace PlayFabComboSdk
 
         inline Conditionals readConditionalsFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<Conditionals>(obj.GetInt());
+
             static std::map<const char *, Conditionals, PlayFabComboSdk::StringCompare> _ConditionalsMap;
             if (_ConditionalsMap.size() == 0)
             {
@@ -2437,6 +2453,107 @@ namespace PlayFabComboSdk
             }
         };
 
+        enum EmailVerificationStatus
+        {
+            EmailVerificationStatusUnverified,
+            EmailVerificationStatusPending,
+            EmailVerificationStatusConfirmed
+        };
+
+        inline void writeEmailVerificationStatusEnumJSON(EmailVerificationStatus enumVal, PFStringJsonWriter& writer)
+        {
+            switch (enumVal)
+            {
+            case EmailVerificationStatusUnverified: writer.String("Unverified"); break;
+            case EmailVerificationStatusPending: writer.String("Pending"); break;
+            case EmailVerificationStatusConfirmed: writer.String("Confirmed"); break;
+
+            }
+        }
+
+        inline EmailVerificationStatus readEmailVerificationStatusFromValue(const rapidjson::Value& obj)
+        {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<EmailVerificationStatus>(obj.GetInt());
+
+            static std::map<const char *, EmailVerificationStatus, PlayFabComboSdk::StringCompare> _EmailVerificationStatusMap;
+            if (_EmailVerificationStatusMap.size() == 0)
+            {
+                // Auto-generate the map on the first use
+                _EmailVerificationStatusMap["Unverified"] = EmailVerificationStatusUnverified;
+                _EmailVerificationStatusMap["Pending"] = EmailVerificationStatusPending;
+                _EmailVerificationStatusMap["Confirmed"] = EmailVerificationStatusConfirmed;
+
+            }
+
+            auto output = _EmailVerificationStatusMap.find(obj.GetString());
+            if (output != _EmailVerificationStatusMap.end())
+                return output->second;
+
+            return EmailVerificationStatusUnverified; // Basically critical fail
+        }
+
+        struct ContactEmailInfo : public PlayFabBaseModel
+        {
+            AZStd::string Name;
+            AZStd::string EmailAddress;
+            Boxed<EmailVerificationStatus> VerificationStatus;
+
+            ContactEmailInfo() :
+                PlayFabBaseModel(),
+                Name(),
+                EmailAddress(),
+                VerificationStatus()
+            {}
+
+            ContactEmailInfo(const ContactEmailInfo& src) :
+                PlayFabBaseModel(),
+                Name(src.Name),
+                EmailAddress(src.EmailAddress),
+                VerificationStatus(src.VerificationStatus)
+            {}
+
+            ContactEmailInfo(const rapidjson::Value& obj) : ContactEmailInfo()
+            {
+                readFromValue(obj);
+            }
+
+            ~ContactEmailInfo()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (Name.length() > 0) {
+                    writer.String("Name");
+                    writer.String(Name.c_str());
+                }
+                if (EmailAddress.length() > 0) {
+                    writer.String("EmailAddress");
+                    writer.String(EmailAddress.c_str());
+                }
+                if (VerificationStatus.notNull()) {
+                    writer.String("VerificationStatus");
+                    writeEmailVerificationStatusEnumJSON(VerificationStatus, writer);
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Name_member = obj.FindMember("Name");
+                if (Name_member != obj.MemberEnd() && !Name_member->value.IsNull()) Name = Name_member->value.GetString();
+                const Value::ConstMemberIterator EmailAddress_member = obj.FindMember("EmailAddress");
+                if (EmailAddress_member != obj.MemberEnd() && !EmailAddress_member->value.IsNull()) EmailAddress = EmailAddress_member->value.GetString();
+                const Value::ConstMemberIterator VerificationStatus_member = obj.FindMember("VerificationStatus");
+                if (VerificationStatus_member != obj.MemberEnd() && !VerificationStatus_member->value.IsNull()) VerificationStatus = readEmailVerificationStatusFromValue(VerificationStatus_member->value);
+
+                return true;
+            }
+        };
+
         struct ContentInfo : public PlayFabBaseModel
         {
             AZStd::string Key;
@@ -2521,6 +2638,10 @@ namespace PlayFabComboSdk
 
         inline ContinentCode readContinentCodeFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<ContinentCode>(obj.GetInt());
+
             static std::map<const char *, ContinentCode, PlayFabComboSdk::StringCompare> _ContinentCodeMap;
             if (_ContinentCodeMap.size() == 0)
             {
@@ -3054,6 +3175,10 @@ namespace PlayFabComboSdk
 
         inline CountryCode readCountryCodeFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<CountryCode>(obj.GetInt());
+
             static std::map<const char *, CountryCode, PlayFabComboSdk::StringCompare> _CountryCodeMap;
             if (_CountryCodeMap.size() == 0)
             {
@@ -3569,6 +3694,10 @@ namespace PlayFabComboSdk
 
         inline StatisticResetIntervalOption readStatisticResetIntervalOptionFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<StatisticResetIntervalOption>(obj.GetInt());
+
             static std::map<const char *, StatisticResetIntervalOption, PlayFabComboSdk::StringCompare> _StatisticResetIntervalOptionMap;
             if (_StatisticResetIntervalOptionMap.size() == 0)
             {
@@ -3610,6 +3739,10 @@ namespace PlayFabComboSdk
 
         inline StatisticAggregationMethod readStatisticAggregationMethodFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<StatisticAggregationMethod>(obj.GetInt());
+
             static std::map<const char *, StatisticAggregationMethod, PlayFabComboSdk::StringCompare> _StatisticAggregationMethodMap;
             if (_StatisticAggregationMethodMap.size() == 0)
             {
@@ -4176,6 +4309,10 @@ namespace PlayFabComboSdk
 
         inline Currency readCurrencyFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<Currency>(obj.GetInt());
+
             static std::map<const char *, Currency, PlayFabComboSdk::StringCompare> _CurrencyMap;
             if (_CurrencyMap.size() == 0)
             {
@@ -4699,6 +4836,10 @@ namespace PlayFabComboSdk
 
         inline EffectType readEffectTypeFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<EffectType>(obj.GetInt());
+
             static std::map<const char *, EffectType, PlayFabComboSdk::StringCompare> _EffectTypeMap;
             if (_EffectTypeMap.size() == 0)
             {
@@ -6359,6 +6500,10 @@ namespace PlayFabComboSdk
 
         inline LoginIdentityProvider readLoginIdentityProviderFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<LoginIdentityProvider>(obj.GetInt());
+
             static std::map<const char *, LoginIdentityProvider, PlayFabComboSdk::StringCompare> _LoginIdentityProviderMap;
             if (_LoginIdentityProviderMap.size() == 0)
             {
@@ -6479,6 +6624,10 @@ namespace PlayFabComboSdk
 
         inline PushNotificationPlatform readPushNotificationPlatformFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<PushNotificationPlatform>(obj.GetInt());
+
             static std::map<const char *, PushNotificationPlatform, PlayFabComboSdk::StringCompare> _PushNotificationPlatformMap;
             if (_PushNotificationPlatformMap.size() == 0)
             {
@@ -6701,6 +6850,7 @@ namespace PlayFabComboSdk
             std::list<PushNotificationRegistration> PushNotificationRegistrations;
             std::list<PlayerLinkedAccount> LinkedAccounts;
             std::list<PlayerStatistic> PlayerStatistics;
+            std::list<ContactEmailInfo> ContactEmailAddresses;
 
             PlayerProfile() :
                 PlayFabBaseModel(),
@@ -6722,7 +6872,8 @@ namespace PlayFabComboSdk
                 AdCampaignAttributions(),
                 PushNotificationRegistrations(),
                 LinkedAccounts(),
-                PlayerStatistics()
+                PlayerStatistics(),
+                ContactEmailAddresses()
             {}
 
             PlayerProfile(const PlayerProfile& src) :
@@ -6745,7 +6896,8 @@ namespace PlayFabComboSdk
                 AdCampaignAttributions(src.AdCampaignAttributions),
                 PushNotificationRegistrations(src.PushNotificationRegistrations),
                 LinkedAccounts(src.LinkedAccounts),
-                PlayerStatistics(src.PlayerStatistics)
+                PlayerStatistics(src.PlayerStatistics),
+                ContactEmailAddresses(src.ContactEmailAddresses)
             {}
 
             PlayerProfile(const rapidjson::Value& obj) : PlayerProfile()
@@ -6876,6 +7028,14 @@ namespace PlayFabComboSdk
                     }
                     writer.EndArray();
                 }
+                if (!ContactEmailAddresses.empty()) {
+                    writer.String("ContactEmailAddresses");
+                    writer.StartArray();
+                    for (std::list<ContactEmailInfo>::iterator iter = ContactEmailAddresses.begin(); iter != ContactEmailAddresses.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
@@ -6958,6 +7118,13 @@ namespace PlayFabComboSdk
                     const rapidjson::Value& memberList = PlayerStatistics_member->value;
                     for (SizeType i = 0; i < memberList.Size(); i++) {
                         PlayerStatistics.push_back(PlayerStatistic(memberList[i]));
+                    }
+                }
+                const Value::ConstMemberIterator ContactEmailAddresses_member = obj.FindMember("ContactEmailAddresses");
+                if (ContactEmailAddresses_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = ContactEmailAddresses_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        ContactEmailAddresses.push_back(ContactEmailInfo(memberList[i]));
                     }
                 }
 
@@ -7222,6 +7389,10 @@ namespace PlayFabComboSdk
 
         inline StatisticVersionStatus readStatisticVersionStatusFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<StatisticVersionStatus>(obj.GetInt());
+
             static std::map<const char *, StatisticVersionStatus, PlayFabComboSdk::StringCompare> _StatisticVersionStatusMap;
             if (_StatisticVersionStatusMap.size() == 0)
             {
@@ -7840,6 +8011,10 @@ namespace PlayFabComboSdk
 
         inline ResultTableNodeType readResultTableNodeTypeFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<ResultTableNodeType>(obj.GetInt());
+
             static std::map<const char *, ResultTableNodeType, PlayFabComboSdk::StringCompare> _ResultTableNodeTypeMap;
             if (_ResultTableNodeTypeMap.size() == 0)
             {
@@ -8432,6 +8607,10 @@ namespace PlayFabComboSdk
 
         inline SourceType readSourceTypeFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<SourceType>(obj.GetInt());
+
             static std::map<const char *, SourceType, PlayFabComboSdk::StringCompare> _SourceTypeMap;
             if (_SourceTypeMap.size() == 0)
             {
@@ -8727,6 +8906,10 @@ namespace PlayFabComboSdk
 
         inline ScheduledTaskType readScheduledTaskTypeFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<ScheduledTaskType>(obj.GetInt());
+
             static std::map<const char *, ScheduledTaskType, PlayFabComboSdk::StringCompare> _ScheduledTaskTypeMap;
             if (_ScheduledTaskTypeMap.size() == 0)
             {
@@ -9389,6 +9572,10 @@ namespace PlayFabComboSdk
 
         inline UserDataPermission readUserDataPermissionFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<UserDataPermission>(obj.GetInt());
+
             static std::map<const char *, UserDataPermission, PlayFabComboSdk::StringCompare> _UserDataPermissionMap;
             if (_UserDataPermissionMap.size() == 0)
             {
@@ -10695,6 +10882,10 @@ namespace PlayFabComboSdk
 
         inline UserOrigination readUserOriginationFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<UserOrigination>(obj.GetInt());
+
             static std::map<const char *, UserOrigination, PlayFabComboSdk::StringCompare> _UserOriginationMap;
             if (_UserOriginationMap.size() == 0)
             {
@@ -10938,6 +11129,10 @@ namespace PlayFabComboSdk
 
         inline TitleActivationStatus readTitleActivationStatusFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<TitleActivationStatus>(obj.GetInt());
+
             static std::map<const char *, TitleActivationStatus, PlayFabComboSdk::StringCompare> _TitleActivationStatusMap;
             if (_TitleActivationStatusMap.size() == 0)
             {
@@ -12097,6 +12292,10 @@ namespace PlayFabComboSdk
 
         inline PushSetupPlatform readPushSetupPlatformFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<PushSetupPlatform>(obj.GetInt());
+
             static std::map<const char *, PushSetupPlatform, PlayFabComboSdk::StringCompare> _PushSetupPlatformMap;
             if (_PushSetupPlatformMap.size() == 0)
             {
@@ -12732,6 +12931,10 @@ namespace PlayFabComboSdk
 
         inline ResolutionOutcome readResolutionOutcomeFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<ResolutionOutcome>(obj.GetInt());
+
             static std::map<const char *, ResolutionOutcome, PlayFabComboSdk::StringCompare> _ResolutionOutcomeMap;
             if (_ResolutionOutcomeMap.size() == 0)
             {
@@ -13752,6 +13955,10 @@ namespace PlayFabComboSdk
 
         inline StatisticVersionArchivalStatus readStatisticVersionArchivalStatusFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<StatisticVersionArchivalStatus>(obj.GetInt());
+
             static std::map<const char *, StatisticVersionArchivalStatus, PlayFabComboSdk::StringCompare> _StatisticVersionArchivalStatusMap;
             if (_StatisticVersionArchivalStatusMap.size() == 0)
             {

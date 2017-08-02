@@ -102,6 +102,10 @@ namespace PlayFabClientSdk
 
         inline TradeStatus readTradeStatusFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<TradeStatus>(obj.GetInt());
+
             static std::map<const char *, TradeStatus, PlayFabClientSdk::StringCompare> _TradeStatusMap;
             if (_TradeStatusMap.size() == 0)
             {
@@ -2142,6 +2146,10 @@ namespace PlayFabClientSdk
 
         inline CloudScriptRevisionOption readCloudScriptRevisionOptionFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<CloudScriptRevisionOption>(obj.GetInt());
+
             static std::map<const char *, CloudScriptRevisionOption, PlayFabClientSdk::StringCompare> _CloudScriptRevisionOptionMap;
             if (_CloudScriptRevisionOptionMap.size() == 0)
             {
@@ -2519,6 +2527,10 @@ namespace PlayFabClientSdk
 
         inline ContinentCode readContinentCodeFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<ContinentCode>(obj.GetInt());
+
             static std::map<const char *, ContinentCode, PlayFabClientSdk::StringCompare> _ContinentCodeMap;
             if (_ContinentCodeMap.size() == 0)
             {
@@ -3052,6 +3064,10 @@ namespace PlayFabClientSdk
 
         inline CountryCode readCountryCodeFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<CountryCode>(obj.GetInt());
+
             static std::map<const char *, CountryCode, PlayFabClientSdk::StringCompare> _CountryCodeMap;
             if (_CountryCodeMap.size() == 0)
             {
@@ -3737,6 +3753,10 @@ namespace PlayFabClientSdk
 
         inline Currency readCurrencyFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<Currency>(obj.GetInt());
+
             static std::map<const char *, Currency, PlayFabClientSdk::StringCompare> _CurrencyMap;
             if (_CurrencyMap.size() == 0)
             {
@@ -3941,6 +3961,10 @@ namespace PlayFabClientSdk
 
         inline Region readRegionFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<Region>(obj.GetInt());
+
             static std::map<const char *, Region, PlayFabClientSdk::StringCompare> _RegionMap;
             if (_RegionMap.size() == 0)
             {
@@ -4059,6 +4083,10 @@ namespace PlayFabClientSdk
 
         inline GameInstanceState readGameInstanceStateFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<GameInstanceState>(obj.GetInt());
+
             static std::map<const char *, GameInstanceState, PlayFabClientSdk::StringCompare> _GameInstanceStateMap;
             if (_GameInstanceStateMap.size() == 0)
             {
@@ -4809,6 +4837,10 @@ namespace PlayFabClientSdk
 
         inline TitleActivationStatus readTitleActivationStatusFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<TitleActivationStatus>(obj.GetInt());
+
             static std::map<const char *, TitleActivationStatus, PlayFabClientSdk::StringCompare> _TitleActivationStatusMap;
             if (_TitleActivationStatusMap.size() == 0)
             {
@@ -5445,6 +5477,10 @@ namespace PlayFabClientSdk
 
         inline UserOrigination readUserOriginationFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<UserOrigination>(obj.GetInt());
+
             static std::map<const char *, UserOrigination, PlayFabClientSdk::StringCompare> _UserOriginationMap;
             if (_UserOriginationMap.size() == 0)
             {
@@ -6421,6 +6457,10 @@ namespace PlayFabClientSdk
 
         inline UserDataPermission readUserDataPermissionFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<UserDataPermission>(obj.GetInt());
+
             static std::map<const char *, UserDataPermission, PlayFabClientSdk::StringCompare> _UserDataPermissionMap;
             if (_UserDataPermissionMap.size() == 0)
             {
@@ -7336,6 +7376,10 @@ namespace PlayFabClientSdk
 
         inline LoginIdentityProvider readLoginIdentityProviderFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<LoginIdentityProvider>(obj.GetInt());
+
             static std::map<const char *, LoginIdentityProvider, PlayFabClientSdk::StringCompare> _LoginIdentityProviderMap;
             if (_LoginIdentityProviderMap.size() == 0)
             {
@@ -7502,6 +7546,10 @@ namespace PlayFabClientSdk
 
         inline PushNotificationPlatform readPushNotificationPlatformFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<PushNotificationPlatform>(obj.GetInt());
+
             static std::map<const char *, PushNotificationPlatform, PlayFabClientSdk::StringCompare> _PushNotificationPlatformMap;
             if (_PushNotificationPlatformMap.size() == 0)
             {
@@ -11844,6 +11892,10 @@ namespace PlayFabClientSdk
 
         inline SourceType readSourceTypeFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<SourceType>(obj.GetInt());
+
             static std::map<const char *, SourceType, PlayFabClientSdk::StringCompare> _SourceTypeMap;
             if (_SourceTypeMap.size() == 0)
             {
@@ -15289,6 +15341,10 @@ namespace PlayFabClientSdk
 
         inline MatchmakeStatus readMatchmakeStatusFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<MatchmakeStatus>(obj.GetInt());
+
             static std::map<const char *, MatchmakeStatus, PlayFabClientSdk::StringCompare> _MatchmakeStatusMap;
             if (_MatchmakeStatusMap.size() == 0)
             {
@@ -15767,6 +15823,10 @@ namespace PlayFabClientSdk
 
         inline TransactionStatus readTransactionStatusFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<TransactionStatus>(obj.GetInt());
+
             static std::map<const char *, TransactionStatus, PlayFabClientSdk::StringCompare> _TransactionStatusMap;
             if (_TransactionStatusMap.size() == 0)
             {
