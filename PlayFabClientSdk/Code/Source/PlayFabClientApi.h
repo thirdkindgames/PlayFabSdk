@@ -12,6 +12,7 @@ namespace PlayFabClientSdk
 
         // Public, Client-Specific
         static bool IsClientLoggedIn();
+        static void ForgetClientCredentials();  // #THIRD_KIND_PLAYFAB_SHUTDOWN_FIXES: - Added a logout function so that the statics can be destroyed before the system allocator.
 
         // ------------ Generated Api calls
         static void GetPhotonAuthenticationToken(ClientModels::GetPhotonAuthenticationTokenRequest& request, ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -285,6 +286,6 @@ namespace PlayFabClientSdk
         static void MultiStepClientLogin(bool needsAttribution);
 
         // As a *slight* security improvement, this is private
-        static AZStd::string mUserSessionTicket;
+        static AZStd::string* mUserSessionTicket; // #THIRD_KIND_PLAYFAB_SHUTDOWN_FIXES: - Changed static to a pointer, so it can be deleted before the system allocator is destroyed.
     };
 };
