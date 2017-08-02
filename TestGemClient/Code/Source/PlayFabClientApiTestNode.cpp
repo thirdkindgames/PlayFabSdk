@@ -136,7 +136,7 @@ public:
 
     static AZStd::string GenerateSummary()
     {
-        _outputSummary = "";
+        _outputSummary.clear();
 
         time_t now = clock();
         int numPassed = 0;
@@ -144,18 +144,18 @@ public:
         for (auto it = testContexts.begin(); it != testContexts.end(); ++it)
         {
             if (_outputSummary.length() != 0)
-                _outputSummary += '\n';
+                _outputSummary += "\n";
             _outputSummary += (*it)->GenerateSummary(now);
             if ((*it)->finishState == PASSED) numPassed++;
             else if ((*it)->finishState == FAILED) numFailed++;
         }
 
-        std::string testCountLine = "\nTotal tests: ";
-        testCountLine += std::to_string(testContexts.size());
+        AZStd::string testCountLine = "\nTotal tests: ";
+        testCountLine += AZStd::string(std::to_string(testContexts.size()).c_str());
         testCountLine += ", Passed: ";
-        testCountLine += std::to_string(numPassed);
+        testCountLine += AZStd::string(std::to_string(numPassed).c_str());
         testCountLine += ", Failed: ";
-        testCountLine += std::to_string(numFailed);
+        testCountLine += AZStd::string(std::to_string(numFailed).c_str());
 
         _outputSummary += testCountLine.c_str();
         return _outputSummary;
@@ -164,7 +164,7 @@ public:
 private:
     static AZStd::string _outputSummary; // Basically a temp variable so I don't reallocate this constantly
 
-    // A bunch of constants loaded from testTitleData.json
+                                         // A bunch of constants loaded from testTitleData.json
     static std::string TEST_TITLE_DATA_LOC;
     static AZStd::string userEmail;
     const static AZStd::string TEST_DATA_KEY;
@@ -217,7 +217,7 @@ private:
             // TODO: Put the info for your title here (Fallback in case it can't read from the file)
 
             // POPULATE THIS SECTION WITH REAL INFORMATION
-            // playFabSettings->titleId = ""; // The titleId for your title, found in the "Settings" section of PlayFab Game Manager
+            PlayFabClient_ClientRequestBus::Broadcast(&PlayFabClient_ClientRequests::SetTitleId, ""); // The titleId for your title, found in the "Settings" section of PlayFab Game Manager
             userEmail = ""; // This is the email for the user
         }
 
@@ -236,7 +236,7 @@ private:
         // Parse all the inputs
         auto end = testInputs.MemberEnd();
         auto each = testInputs.FindMember("titleId");
-        // if (each != end) playFabSettings->titleId = each->value.GetString();
+        if (each != end) PlayFabClient_ClientRequestBus::Broadcast(&PlayFabClient_ClientRequests::SetTitleId, each->value.GetString());
 
         each = testInputs.FindMember("userEmail");
         if (each != end) userEmail = each->value.GetString();
@@ -560,7 +560,6 @@ private:
             EndTest(*testContext, FAILED, "The Origination does not match expected value");
         else // Received data-format as expected
             EndTest(*testContext, PASSED, "");
-        auto output = result.AccountInfo->TitleInfo->Origination.mValue; // TODO: Basic verification of this value (range maybe?)
     }
 
     /// <summary>
@@ -656,8 +655,9 @@ public:
             if (PlayFabApiTests::TickTestSuite())
             {
                 pActInfo->pGraph->SetRegularlyUpdated(pActInfo->myID, false);
-                auto finalOutput = PlayFabApiTests::GenerateSummary().c_str();
-                ActivateOutput(pActInfo, 0, string(finalOutput));
+                auto outputSummary = PlayFabApiTests::GenerateSummary();
+                AZ_TracePrintf("PlayFab", outputSummary.c_str());
+                ActivateOutput(pActInfo, 0, string(outputSummary.c_str()));
             }
             break;
         case eFE_Activate:

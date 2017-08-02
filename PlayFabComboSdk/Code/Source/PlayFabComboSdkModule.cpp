@@ -18,21 +18,21 @@ namespace PlayFabComboSdk
 {
     static void ExampleGlobalErrorHandler(const PlayFabError& error, void* customData)
     {
-        AZ_TracePrintf("PlayFab", "==================================================================\n");
-        AZ_TracePrintf("PlayFab", "PlayFab Error\n");
-        AZ_TracePrintf("PlayFab", " HTTP Status: %s\n", error.HttpStatus.c_str());
-        AZ_TracePrintf("PlayFab", " Error: %s\n", error.ErrorName.c_str());
-        AZ_TracePrintf("PlayFab", " Description: %s\n", error.ErrorMessage.c_str());
+        AZ_TracePrintf("PlayFab", "==================================================================");
+        AZ_TracePrintf("PlayFab", "PlayFab Error");
+        AZ_TracePrintf("PlayFab", " HTTP Status: %s", error.HttpStatus.c_str());
+        AZ_TracePrintf("PlayFab", " Error: %s", error.ErrorName.c_str());
+        AZ_TracePrintf("PlayFab", " Description: %s", error.ErrorMessage.c_str());
 
         if (!error.ErrorDetails.empty())
         {
-            AZ_TracePrintf("PlayFab", " Additional Info:\n");
+            AZ_TracePrintf("PlayFab", " Additional Info:");
             for (auto& details : error.ErrorDetails)
             {
-                AZ_TracePrintf("PlayFab", "  %s: %s\n", details.first.c_str(), details.second.c_str());
+                AZ_TracePrintf("PlayFab", "  %s: %s", details.first.c_str(), details.second.c_str());
             }
         }
-        AZ_TracePrintf("PlayFab", "==================================================================\n");
+        AZ_TracePrintf("PlayFab", "==================================================================");
     }
 
     class PlayFabComboSdkModule
