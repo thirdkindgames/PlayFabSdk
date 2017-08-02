@@ -4059,6 +4059,12 @@ namespace PlayFabClientSdk
 
         inline GameInstanceState readGameInstanceStateFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: dbowen (2017/07/20) - The json response from the server for "GameServerState" may be numeric, this is the case for the "Client/GetCurrentGames" API call.
+            if (obj.IsNumber())
+            {
+                return static_cast<GameInstanceState>(obj.GetInt());
+            }
+
             static std::map<const char *, GameInstanceState, PlayFabClientSdk::StringCompare> _GameInstanceStateMap;
             if (_GameInstanceStateMap.size() == 0)
             {
