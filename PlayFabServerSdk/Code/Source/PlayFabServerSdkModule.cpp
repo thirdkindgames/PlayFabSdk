@@ -8,7 +8,6 @@
 
 #include "PlayFabSettings.h"
 #include <PlayFabServerSdk/PlayFabError.h>
-
 #include <FlowSystem/Nodes/FlowBaseNode.h>
 #include <IGem.h>
 
@@ -24,7 +23,7 @@ namespace PlayFabServerSdk
 
         if (!error.ErrorDetails.empty())
         {
-            AZ_TracePrintf("PlayFab", " Additional Info:\n")
+            AZ_TracePrintf("PlayFab", " Additional Info:\n");
             for (auto& details : error.ErrorDetails)
             {
                 AZ_TracePrintf("PlayFab", "  %s: %s\n", details.first.c_str(), details.second.c_str());
@@ -95,6 +94,8 @@ namespace PlayFabServerSdk
 
             case ESYSTEM_EVENT_FULL_SHUTDOWN:
             case ESYSTEM_EVENT_FAST_SHUTDOWN:
+                // #THIRD_KIND_PLAYFAB_SHUTDOWN_FIXES: - Changed statics to pointers, so they can be deleted before the system allocator is destroyed.
+
                 // Shut down the http handler thread
                 SAFE_DELETE(PlayFabRequestManager::playFabHttp);
 
@@ -104,7 +105,6 @@ namespace PlayFabServerSdk
                 break;
             }
         }
-
     };
 }
 
