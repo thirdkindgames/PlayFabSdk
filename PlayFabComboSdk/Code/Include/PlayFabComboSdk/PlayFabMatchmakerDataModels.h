@@ -543,6 +543,10 @@ namespace PlayFabComboSdk
 
         inline Region readRegionFromValue(const rapidjson::Value& obj)
         {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<Region>(obj.GetInt());
+
             static std::map<const char *, Region, PlayFabComboSdk::StringCompare> _RegionMap;
             if (_RegionMap.size() == 0)
             {
