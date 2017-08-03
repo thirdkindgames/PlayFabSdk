@@ -9,8 +9,8 @@ namespace PlayFabClientSdk
     public:
         static PlayFabSettings *playFabSettings; // Global settings for all Apis
 
-        const AZStd::string playFabSDKVersion;
         const AZStd::string playFabVersionString;
+        const AZStd::string buildIdentifier;
 
         bool useDevelopmentEnvironment;
         AZStd::string developmentEnvironmentURL;

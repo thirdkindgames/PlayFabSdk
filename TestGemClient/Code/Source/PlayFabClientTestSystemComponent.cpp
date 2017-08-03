@@ -7,6 +7,7 @@
 #include "PlayFabClientTestSystemComponent.h"
 
 #include <PlayFabClientSdk/PlayFabClient_ClientBus.h>
+#include <PlayFabClientSdk/PlayFabClient_SettingsBus.h>
 using namespace PlayFabClientSdk;
 
 namespace PlayFabClientTest
@@ -67,7 +68,6 @@ namespace PlayFabClientTest
         PlayFabClientTestRequestBus::Handler::BusDisconnect();
     }
 
-
     void OnLoginOrRegister(const ClientModels::LoginResult& result, void* customData)
     {
         auto playFabId = result.PlayFabId;
@@ -80,7 +80,7 @@ namespace PlayFabClientTest
     void PlayFabClientTestSystemComponent::LoginOrRegister()
     {
 
-        PlayFabClient_ClientRequestBus::Broadcast(&PlayFabClient_ClientRequests::SetTitleId, AZStd::string("6195"));
+        PlayFabClient_SettingsRequestBus::Broadcast(&PlayFabClient_SettingsRequests::SetTitleId, AZStd::string("6195"));
 
         ClientModels::LoginWithCustomIDRequest request;
         request.CustomId = "GettingStartedGuide";
