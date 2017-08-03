@@ -13,6 +13,7 @@
             "Include/PlayFabComboSdk/PlayFabCombo_ServerBus.h",
             "Include/PlayFabComboSdk/PlayFabClientDataModels.h",
             "Include/PlayFabComboSdk/PlayFabCombo_ClientBus.h",
+            "Include/PlayFabComboSdk/PlayFabCombo_SettingsBus.h",
             "Include/PlayFabComboSdk/PlayFabBaseModel.h",
             "Include/PlayFabComboSdk/PlayFabError.h",
             "Include/PlayFabComboSdk/PlayFabHttp.h"
@@ -34,6 +35,8 @@
             "Source/PlayFabClientAPI.cpp",
             "Source/PlayFabCombo_ClientSysComponent.h",
             "Source/PlayFabCombo_ClientSysComponent.cpp",
+            "Source/PlayFabCombo_SettingsSysComponent.h",
+            "Source/PlayFabCombo_SettingsSysComponent.cpp",
             "Source/PlayFabComboSdkModule.cpp",
             "Source/PlayFabHttp.cpp",
             "Source/PlayFabSettings.h",

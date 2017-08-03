@@ -3,6 +3,7 @@
 #include <fstream>
 #include <FlowBaseNode.h>
 #include <PlayFabServerSdk/PlayFabServer_ServerBus.h>
+#include <PlayFabServerSdk/PlayFabServer_SettingsBus.h>
 #include <PlayFabServerSdk/PlayFabServerDataModels.h>
 #include <PlayFabServerSdk/PlayFabError.h>
 #include <AzCore/JSON/document.h>
@@ -123,7 +124,7 @@ public:
 
     static AZStd::string GenerateSummary()
     {
-        _outputSummary = "";
+        _outputSummary.clear();
 
         time_t now = clock();
         int numPassed = 0;
@@ -131,18 +132,18 @@ public:
         for (auto it = testContexts.begin(); it != testContexts.end(); ++it)
         {
             if (_outputSummary.length() != 0)
-                _outputSummary += '\n';
+                _outputSummary += "\n";
             _outputSummary += (*it)->GenerateSummary(now);
             if ((*it)->finishState == PASSED) numPassed++;
             else if ((*it)->finishState == FAILED) numFailed++;
         }
 
-        std::string testCountLine = "\nTotal tests: ";
-        testCountLine += std::to_string(testContexts.size());
+        AZStd::string testCountLine = "\nTotal tests: ";
+        testCountLine += AZStd::string(std::to_string(testContexts.size()).c_str());
         testCountLine += ", Passed: ";
-        testCountLine += std::to_string(numPassed);
+        testCountLine += AZStd::string(std::to_string(numPassed).c_str());
         testCountLine += ", Failed: ";
-        testCountLine += std::to_string(numFailed);
+        testCountLine += AZStd::string(std::to_string(numFailed).c_str());
 
         _outputSummary += testCountLine.c_str();
         return _outputSummary;
@@ -153,6 +154,7 @@ private:
 
     // A bunch of constants loaded from testTitleData.json
     static std::string TEST_TITLE_DATA_LOC;
+    static AZStd::string buildIdentifier;
     static AZStd::string userEmail;
     const static AZStd::string TEST_DATA_KEY;
     const static AZStd::string TEST_STAT_NAME;
@@ -204,15 +206,18 @@ private:
             // TODO: Put the info for your title here (Fallback in case it can't read from the file)
 
             // POPULATE THIS SECTION WITH REAL INFORMATION
-            PlayFabServer_ServerRequestBus::Broadcast(&PlayFabServer_ServerRequests::SetTitleId, ""); // The titleId for your title, found in the "Settings" section of PlayFab Game Manager
-            // playFabSettings->developerSecretKey = ""; // The titleId for your title, found in the "Settings" section of PlayFab Game Manager
-            userEmail = ""; // This is the email for the user
+            PlayFabServer_SettingsRequestBus::Broadcast(&PlayFabServer_SettingsRequests::SetTitleId, ""); // The titleId for your title, found in the "Settings" section of PlayFab Game Manager
+            PlayFabServer_SettingsRequestBus::Broadcast(&PlayFabServer_SettingsRequests::SetDevSecretKey, ""); // The titleId for your title, found in the "Settings" section of PlayFab Game Manager
+            userEmail = ""; // This is an email for any registered user (just so we can deliberately fail to log into it)
         }
+
+        PlayFabServer_SettingsRequestBus::BroadcastResult(buildIdentifier, &PlayFabServer_SettingsRequests::GetBuildIdentifier);
 
         // Verify all the inputs won't cause crashes in the tests
         return static_cast<bool>(titleInput)
             // && !playFabSettings->titleId.empty()
             // && !playFabSettings->developerSecretKey.empty()
+            && !buildIdentifier.empty()
             && !userEmail.empty();
     }
 
@@ -225,9 +230,9 @@ private:
         // Parse all the inputs
         auto end = testInputs.MemberEnd();
         auto each = testInputs.FindMember("titleId");
-        if (each != end) PlayFabServer_ServerRequestBus::Broadcast(&PlayFabServer_ServerRequests::SetTitleId, each->value.GetString());
+        if (each != end) PlayFabServer_SettingsRequestBus::Broadcast(&PlayFabServer_SettingsRequests::SetTitleId, each->value.GetString());
         each = testInputs.FindMember("developerSecretKey");
-        // if (each != end) playFabSettings->developerSecretKey = each->value.GetString();
+        if (each != end) PlayFabServer_SettingsRequestBus::Broadcast(&PlayFabServer_SettingsRequests::SetDevSecretKey, each->value.GetString());
 
         each = testInputs.FindMember("userEmail");
         if (each != end) userEmail = each->value.GetString();
@@ -245,7 +250,7 @@ private:
     {
         time_t now = clock();
         if (testContext.activeState != READY // Not finished
-            && (now - testContext.startTime) < 3000) // Not timed out
+            && (now - testContext.startTime) < 15000) // Not timed out
             return;
 
         testContext.endTime = now;
@@ -280,6 +285,7 @@ private:
 // C++ Static vars
 std::string PlayFabApiTests::TEST_TITLE_DATA_LOC = "testTitleData.json";
 AZStd::string PlayFabApiTests::_outputSummary;
+AZStd::string PlayFabApiTests::buildIdentifier;
 AZStd::string PlayFabApiTests::userEmail;
 const AZStd::string PlayFabApiTests::TEST_DATA_KEY = "testCounter";
 const AZStd::string PlayFabApiTests::TEST_STAT_NAME = "str";
@@ -330,8 +336,9 @@ public:
             if (PlayFabApiTests::TickTestSuite())
             {
                 pActInfo->pGraph->SetRegularlyUpdated(pActInfo->myID, false);
-                auto finalOutput = PlayFabApiTests::GenerateSummary().c_str();
-                // ActivateOutput(pActInfo, 0, string(finalOutput));
+                auto outputSummary = PlayFabApiTests::GenerateSummary();
+                AZ_TracePrintf("PlayFab", outputSummary.c_str());
+                ActivateOutput(pActInfo, 0, string(outputSummary.c_str()));
             }
             break;
         case eFE_Activate:

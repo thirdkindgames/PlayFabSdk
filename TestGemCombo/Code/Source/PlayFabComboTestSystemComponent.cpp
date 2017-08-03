@@ -7,6 +7,7 @@
 #include "PlayFabComboTestSystemComponent.h"
 
 #include <PlayFabComboSdk/PlayFabCombo_ClientBus.h>
+#include <PlayFabComboSdk/PlayFabCombo_SettingsBus.h>
 using namespace PlayFabComboSdk;
 
 namespace PlayFabComboTest
@@ -67,7 +68,6 @@ namespace PlayFabComboTest
         PlayFabComboTestRequestBus::Handler::BusDisconnect();
     }
 
-
     void OnLoginOrRegister(const ClientModels::LoginResult& result, void* customData)
     {
         auto playFabId = result.PlayFabId;
@@ -80,7 +80,7 @@ namespace PlayFabComboTest
     void PlayFabComboTestSystemComponent::LoginOrRegister()
     {
 
-        PlayFabCombo_ClientRequestBus::Broadcast(&PlayFabCombo_ClientRequests::SetTitleId, AZStd::string("6195"));
+        PlayFabCombo_SettingsRequestBus::Broadcast(&PlayFabCombo_SettingsRequests::SetTitleId, AZStd::string("6195"));
 
         ClientModels::LoginWithCustomIDRequest request;
         request.CustomId = "GettingStartedGuide";

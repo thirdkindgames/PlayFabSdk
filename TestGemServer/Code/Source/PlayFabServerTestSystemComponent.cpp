@@ -64,7 +64,6 @@ namespace PlayFabServerTest
         PlayFabServerTestRequestBus::Handler::BusDisconnect();
     }
 
-
     void PlayFabServerTestSystemComponent::LoginOrRegister()
     {
 
