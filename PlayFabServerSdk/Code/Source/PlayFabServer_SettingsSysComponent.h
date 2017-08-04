@@ -3,7 +3,7 @@
 
 #include <AzCore/Component/Component.h>
 
-#include <PlayFabServerSdk//PlayFabServer_SettingsBus.h>
+#include <PlayFabServerSdk//PlayFabServer_Settingsbus.h>
 
 namespace PlayFabServerSdk
 {

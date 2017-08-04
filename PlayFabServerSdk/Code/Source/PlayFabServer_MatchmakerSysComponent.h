@@ -3,7 +3,7 @@
 
 #include <AzCore/Component/Component.h>
 
-#include <PlayFabServerSdk/PlayFabServer_MatchmakerBus.h>
+#include <PlayFabServerSdk/PlayFabServer_Matchmakerbus.h>
 
 namespace PlayFabServerSdk
 {
