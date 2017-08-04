@@ -16,7 +16,6 @@ namespace PlayFabComboSdk
         static const AZ::EBusAddressPolicy AddressPolicy = AZ::EBusAddressPolicy::Single;
 
         virtual int GetPendingCalls() = 0;
-        virtual void SetTitleId(AZStd::string newTitleId) = 0;
 
         // ------------ Generated API call wrappers
         virtual void AuthenticateSessionTicket(ServerModels::AuthenticateSessionTicketRequest& request, ProcessApiCallback<ServerModels::AuthenticateSessionTicketResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr) = 0;

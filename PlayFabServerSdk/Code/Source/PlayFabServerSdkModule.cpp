@@ -2,6 +2,7 @@
 #include "StdAfx.h"
 
 #include <platform_impl.h> // Resharper says this is unused, but it's still required in some less direct way
+#include "PlayFabServer_SettingsSysComponent.h"
 #include "PlayFabServer_AdminSysComponent.h"
 #include "PlayFabServer_MatchmakerSysComponent.h"
 #include "PlayFabServer_ServerSysComponent.h"
@@ -43,6 +44,7 @@ namespace PlayFabServerSdk
         {
             // Push results of [MyComponent]::CreateDescriptor() into m_descriptors here.
             m_descriptors.insert(m_descriptors.end(), {
+                PlayFabServer_SettingsSysComponent::CreateDescriptor(),
                 PlayFabServer_AdminSysComponent::CreateDescriptor(),
                 PlayFabServer_MatchmakerSysComponent::CreateDescriptor(),
                 PlayFabServer_ServerSysComponent::CreateDescriptor(),
@@ -56,6 +58,7 @@ namespace PlayFabServerSdk
         AZ::ComponentTypeList GetRequiredSystemComponents() const override
         {
             return AZ::ComponentTypeList{
+                azrtti_typeid<PlayFabServer_SettingsSysComponent>(),
                 azrtti_typeid<PlayFabServer_AdminSysComponent>(),
                 azrtti_typeid<PlayFabServer_MatchmakerSysComponent>(),
                 azrtti_typeid<PlayFabServer_ServerSysComponent>(),

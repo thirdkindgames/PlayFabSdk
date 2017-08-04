@@ -70,11 +70,6 @@ namespace PlayFabServerSdk
         return PlayFabRequestManager::playFabHttp->GetPendingCalls();
     }
 
-    void PlayFabServer_MatchmakerSysComponent::SetTitleId(AZStd::string newTitleId)
-    {
-        PlayFabSettings::playFabSettings->titleId = newTitleId;
-    }
-
     // ------------ Generated API call wrappers
     void PlayFabServer_MatchmakerSysComponent::AuthUser(MatchmakerModels::AuthUserRequest& request, ProcessApiCallback<MatchmakerModels::AuthUserResponse> callback, ErrorCallback errorCallback, void* customData)
     {
