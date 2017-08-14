@@ -320,7 +320,15 @@ namespace PlayFabComboSdk
         PlayFabErrorEmailTemplateMissing = 1318,
         PlayFabErrorInvalidHostForTitleId = 1319,
         PlayFabErrorEmailConfirmationTokenDoesNotExist = 1320,
-        PlayFabErrorEmailConfirmationTokenExpired = 1321
+        PlayFabErrorEmailConfirmationTokenExpired = 1321,
+        PlayFabErrorAccountDeleted = 1322,
+        PlayFabErrorPlayerSecretNotConfigured = 1323,
+        PlayFabErrorInvalidSignatureTime = 1324,
+        PlayFabErrorNoContactEmailAddressFound = 1325,
+        PlayFabErrorInvalidAuthToken = 1326,
+        PlayFabErrorAuthTokenDoesNotExist = 1327,
+        PlayFabErrorAuthTokenExpired = 1328,
+        PlayFabErrorAuthTokenAlreadyUsedToResetPassword = 1329
     };
 
     struct PlayFabError
