@@ -7,7 +7,7 @@ PlayFabSettings * PlayFabSettings::playFabSettings = nullptr; // Global settings
 
 PlayFabSettings::PlayFabSettings() :
     playFabVersionString("LumberyardSDK-0.0.170814"),
-    buildIdentifier("jbuild_lumberyardsdk_0"),
+    buildIdentifier("lumberyardsdk_manual"),
     useDevelopmentEnvironment(false),
     developmentEnvironmentURL(".playfabsandbox.com"),
     productionEnvironmentURL(".playfabapi.com"),

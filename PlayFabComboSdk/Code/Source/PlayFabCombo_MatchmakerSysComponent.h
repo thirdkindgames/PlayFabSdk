@@ -3,7 +3,7 @@
 
 #include <AzCore/Component/Component.h>
 
-#include <PlayFabComboSdk/PlayFabCombo_MatchmakerBus.h>
+#include <PlayFabComboSdk/PlayFabCombo_Matchmakerbus.h>
 
 namespace PlayFabComboSdk
 {

@@ -3,7 +3,7 @@
 
 #include <AzCore/Component/Component.h>
 
-#include <PlayFabComboSdk/PlayFabCombo_ServerBus.h>
+#include <PlayFabComboSdk/PlayFabCombo_Serverbus.h>
 
 namespace PlayFabComboSdk
 {
