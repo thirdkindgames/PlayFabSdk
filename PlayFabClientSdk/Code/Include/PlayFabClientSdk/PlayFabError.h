@@ -333,12 +333,14 @@ namespace PlayFabClientSdk
 
     struct PlayFabError
     {
+		AZ_TYPE_INFO(PlayFabError,"{1698a4aa-66ae-5201-9ed5-d44f6f6e6d69}");
+
         int HttpCode; // Http status code
         AZStd::string HttpStatus; // Http status code description
         PlayFabErrorCode ErrorCode; // Playfab error
         AZStd::string ErrorName; // PlayFab error name
         AZStd::string ErrorMessage; // PlayFab error message
-        std::map< AZStd::string, AZStd::string > ErrorDetails; // More specific details about failures (when present)
+        AZStd::unordered_map< AZStd::string, AZStd::string > ErrorDetails; // More specific details about failures (when present)
     };
 
     typedef void(*ErrorCallback)(const PlayFabError& error, void* customData);

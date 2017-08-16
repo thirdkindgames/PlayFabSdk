@@ -3,10 +3,15 @@
 
 #include <platform_impl.h> // Resharper says this is unused, but it's still required in some less direct way
 #include "PlayFabCombo_SettingsSysComponent.h"
+#include "PlayFabCombo_BehaviorContextShared.h"  // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
 #include "PlayFabCombo_AdminSysComponent.h"
+#include "PlayFabCombo_AdminBehaviorContext.h" // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
 #include "PlayFabCombo_MatchmakerSysComponent.h"
+#include "PlayFabCombo_MatchmakerBehaviorContext.h" // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
 #include "PlayFabCombo_ServerSysComponent.h"
+#include "PlayFabCombo_ServerBehaviorContext.h" // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
 #include "PlayFabCombo_ClientSysComponent.h"
+#include "PlayFabCombo_ClientBehaviorContext.h" // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
 
 #include "PlayFabSettings.h"
 #include <PlayFabComboSdk/PlayFabError.h>
@@ -48,10 +53,15 @@ namespace PlayFabComboSdk
             // Push results of [MyComponent]::CreateDescriptor() into m_descriptors here.
             m_descriptors.insert(m_descriptors.end(), {
                 PlayFabCombo_SettingsSysComponent::CreateDescriptor(),
+                PlayFabCombo_BehaviorContextShared::CreateDescriptor(),  // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
                 PlayFabCombo_AdminSysComponent::CreateDescriptor(),
+				  PlayFabCombo_AdminBehaviorContext::CreateDescriptor(),  // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
                 PlayFabCombo_MatchmakerSysComponent::CreateDescriptor(),
+				  PlayFabCombo_MatchmakerBehaviorContext::CreateDescriptor(),  // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
                 PlayFabCombo_ServerSysComponent::CreateDescriptor(),
+				  PlayFabCombo_ServerBehaviorContext::CreateDescriptor(),  // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
                 PlayFabCombo_ClientSysComponent::CreateDescriptor(),
+				  PlayFabCombo_ClientBehaviorContext::CreateDescriptor(),  // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
 
             });
         }

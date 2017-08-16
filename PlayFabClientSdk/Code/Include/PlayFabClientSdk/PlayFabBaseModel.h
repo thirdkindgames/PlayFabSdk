@@ -10,6 +10,8 @@
 #include <AzCore/JSON/document.h>
 #include <rapidjson/stringbuffer.h>
 
+#include <AzCore/RTTI/RTTI.h> // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 #ifdef GetObject // wingdi.h is extremely impollite and #defined a common function name, breaking RapidJson.  How rude.
 #undef GetObject
 #endif
@@ -90,6 +92,7 @@ namespace PlayFabClientSdk
 
     struct MultitypeVar : public PlayFabBaseModel
     {
+        AZ_TYPE_INFO(MultitypeVar,"{8e468b69-c41d-5358-aa95-eeb0bb675aa9}");
     private:
         MultitypeVarTypes mType;
         AZStd::string mString;
@@ -254,3 +257,20 @@ namespace PlayFabClientSdk
         return result;
     }
 }
+
+// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+namespace AZ
+{
+    
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabClientSdk::Boxed<bool>, "{d2c708c3-c75b-50f3-a079-1440255aef0a}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabClientSdk::Boxed<PlayFabClientSdk::Uint16>, "{cb7b5c81-164e-51fe-b5de-98445cc24e35}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabClientSdk::Boxed<PlayFabClientSdk::Int16>, "{c5fbbc5a-bdca-5988-9b7a-6c1fa38c2af7}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabClientSdk::Boxed<PlayFabClientSdk::Uint32>, "{17ecfbc6-0317-52fa-879f-34eb1577917c}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabClientSdk::Boxed<PlayFabClientSdk::Int32>, "{7b490ac1-61bd-5c1b-93da-e00d346e949f}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabClientSdk::Boxed<PlayFabClientSdk::Uint64>, "{e5aa1ece-f7c8-57dd-b643-ea29087e4d5f}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabClientSdk::Boxed<PlayFabClientSdk::Int64>, "{8d8888cd-7fb8-5d0a-8b2e-fa7701600d47}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabClientSdk::Boxed<float>, "{acee2d7e-a9ae-5875-ba08-aacbbd318743}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabClientSdk::Boxed<double>, "{f707ed28-3a2f-511e-93a8-7edf3e3eaaa1}");
+    //AZ_TYPE_INFO_SPECIALIZE(Boxed<time_t>, "{ca6641bc-d86e-582d-ad77-6efa161e5c6c}");
+}
+// #THIRD_KIND_END

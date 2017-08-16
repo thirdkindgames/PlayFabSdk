@@ -18,7 +18,7 @@ using namespace rapidjson;
 //#define PLAYFAB_DEBUG_DELAY_RESPONSE 5000   // Enable to introduce an artificial delay on responses (time in milliseconds)
 
 ///////////////////// PlayFabRequest /////////////////////
-PlayFabRequest::PlayFabRequest(const AZStd::string& URI, Aws::Http::HttpMethod method, const AZStd::string& authKey, const AZStd::string& authValue, const AZStd::string& requestJsonBody, void* customData, void* mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback)
+PlayFabRequest::PlayFabRequest(const AZStd::string& URI, Aws::Http::HttpMethod method, const AZStd::string& authKey, const AZStd::string& authValue, const AZStd::string& requestJsonBody, void* customData, void* mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback, const InternalErrorCallback& mInternalErrorCallback )
     : mURI(URI)
     , mMethod(method)
     , mAuthKey(authKey)
@@ -33,6 +33,8 @@ PlayFabRequest::PlayFabRequest(const AZStd::string& URI, Aws::Http::HttpMethod m
     , mInternalCallback(internalCallback)
     , mResultCallback(mResultCallback)
     , mErrorCallback(mErrorCallback)
+    , mInternalErrorCallback(mInternalErrorCallback) // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS: dbowen (2017/08/11)
+    , mRequestId(0)                                  // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS: dbowen (2017/08/11)
 {
 }
 
@@ -75,7 +77,7 @@ void PlayFabRequest::HandleErrorReport()
                 {
                     const Value& errorList = itr->value;
                     for (Value::ConstValueIterator erroListIter = errorList.Begin(); erroListIter != errorList.End(); ++erroListIter)
-                        mError->ErrorDetails.insert(std::pair<AZStd::string, AZStd::string>(itr->name.GetString(), erroListIter->GetString()));
+                        mError->ErrorDetails.insert(AZStd::pair<AZStd::string, AZStd::string>(itr->name.GetString(), erroListIter->GetString()));
                 }
             }
         }
@@ -96,6 +98,9 @@ void PlayFabRequest::HandleErrorReport()
         PlayFabSettings::playFabSettings->globalErrorHandler(*mError, mCustomData);
     if (mErrorCallback != nullptr)
         mErrorCallback(*mError, mCustomData);
+
+    mInternalErrorCallback(*this, *mError);   // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS: dbowen (2017/08/11)     
+
 }
 
 ///////////////////// PlayFabRequestManager /////////////////////
@@ -125,12 +130,17 @@ int PlayFabRequestManager::GetPendingCalls()
     return temp;
 }
 
-void PlayFabRequestManager::AddRequest(PlayFabRequest* requestContainer)
+int PlayFabRequestManager::AddRequest(PlayFabRequest* requestContainer)
 {
     {
         AZStd::lock_guard<AZStd::mutex> lock(m_requestMutex);
         m_requestsToHandle.push(AZStd::move(requestContainer));
     }
+
+    // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS: dbowen (2017/08/11)
+	requestContainer->mRequestId = m_requestID.fetch_inc();
+	return requestContainer->mRequestId;
+	// #THIRD_KIND_END
 }
 
 void PlayFabRequestManager::ThreadFunction()

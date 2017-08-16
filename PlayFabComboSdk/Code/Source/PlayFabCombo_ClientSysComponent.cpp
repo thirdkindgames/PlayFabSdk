@@ -58,11 +58,13 @@ namespace PlayFabComboSdk
     void PlayFabCombo_ClientSysComponent::Activate()
     {
         PlayFabCombo_ClientRequestBus::Handler::BusConnect();
+        PlayFabCombo_ClientSimpleRequestBus::Handler::BusConnect(); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
     }
 
     void PlayFabCombo_ClientSysComponent::Deactivate()
     {
         PlayFabCombo_ClientRequestBus::Handler::BusDisconnect();
+        PlayFabCombo_ClientSimpleRequestBus::Handler::BusDisconnect(); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
     }
 
     int PlayFabCombo_ClientSysComponent::GetPendingCalls()
@@ -77,524 +79,1304 @@ namespace PlayFabComboSdk
     }
 
     // ------------ Generated API call wrappers
-    void PlayFabCombo_ClientSysComponent::GetPhotonAuthenticationToken(ClientModels::GetPhotonAuthenticationTokenRequest& request, ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult> callback, ErrorCallback errorCallback, void* customData)
+    int PlayFabCombo_ClientSysComponent::GetPhotonAuthenticationToken(ClientModels::GetPhotonAuthenticationTokenRequest& request, ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetPhotonAuthenticationToken(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetPhotonAuthenticationToken(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetTitlePublicKey(ClientModels::GetTitlePublicKeyRequest& request, ProcessApiCallback<ClientModels::GetTitlePublicKeyResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPhotonAuthenticationToken(ClientModels::GetPhotonAuthenticationTokenRequest& request)
     {
-        PlayFabClientApi::GetTitlePublicKey(request, callback, errorCallback, customData);
+        return GetPhotonAuthenticationToken(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetWindowsHelloChallenge(ClientModels::GetWindowsHelloChallengeRequest& request, ProcessApiCallback<ClientModels::GetWindowsHelloChallengeResponse> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetTitlePublicKey(ClientModels::GetTitlePublicKeyRequest& request, ProcessApiCallback<ClientModels::GetTitlePublicKeyResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetWindowsHelloChallenge(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetTitlePublicKey(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::LoginWithAndroidDeviceID(ClientModels::LoginWithAndroidDeviceIDRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetTitlePublicKey(ClientModels::GetTitlePublicKeyRequest& request)
     {
-        PlayFabClientApi::LoginWithAndroidDeviceID(request, callback, errorCallback, customData);
+        return GetTitlePublicKey(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::LoginWithCustomID(ClientModels::LoginWithCustomIDRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetWindowsHelloChallenge(ClientModels::GetWindowsHelloChallengeRequest& request, ProcessApiCallback<ClientModels::GetWindowsHelloChallengeResponse> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::LoginWithCustomID(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetWindowsHelloChallenge(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::LoginWithEmailAddress(ClientModels::LoginWithEmailAddressRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetWindowsHelloChallenge(ClientModels::GetWindowsHelloChallengeRequest& request)
     {
-        PlayFabClientApi::LoginWithEmailAddress(request, callback, errorCallback, customData);
+        return GetWindowsHelloChallenge(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::LoginWithFacebook(ClientModels::LoginWithFacebookRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LoginWithAndroidDeviceID(ClientModels::LoginWithAndroidDeviceIDRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::LoginWithFacebook(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LoginWithAndroidDeviceID(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::LoginWithGameCenter(ClientModels::LoginWithGameCenterRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LoginWithAndroidDeviceID(ClientModels::LoginWithAndroidDeviceIDRequest& request)
     {
-        PlayFabClientApi::LoginWithGameCenter(request, callback, errorCallback, customData);
+        return LoginWithAndroidDeviceID(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::LoginWithGoogleAccount(ClientModels::LoginWithGoogleAccountRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LoginWithCustomID(ClientModels::LoginWithCustomIDRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::LoginWithGoogleAccount(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LoginWithCustomID(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::LoginWithIOSDeviceID(ClientModels::LoginWithIOSDeviceIDRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LoginWithCustomID(ClientModels::LoginWithCustomIDRequest& request)
     {
-        PlayFabClientApi::LoginWithIOSDeviceID(request, callback, errorCallback, customData);
+        return LoginWithCustomID(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::LoginWithKongregate(ClientModels::LoginWithKongregateRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LoginWithEmailAddress(ClientModels::LoginWithEmailAddressRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::LoginWithKongregate(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LoginWithEmailAddress(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::LoginWithPlayFab(ClientModels::LoginWithPlayFabRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LoginWithEmailAddress(ClientModels::LoginWithEmailAddressRequest& request)
     {
-        PlayFabClientApi::LoginWithPlayFab(request, callback, errorCallback, customData);
+        return LoginWithEmailAddress(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::LoginWithSteam(ClientModels::LoginWithSteamRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LoginWithFacebook(ClientModels::LoginWithFacebookRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::LoginWithSteam(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LoginWithFacebook(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::LoginWithTwitch(ClientModels::LoginWithTwitchRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LoginWithFacebook(ClientModels::LoginWithFacebookRequest& request)
     {
-        PlayFabClientApi::LoginWithTwitch(request, callback, errorCallback, customData);
+        return LoginWithFacebook(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::LoginWithWindowsHello(ClientModels::LoginWithWindowsHelloRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LoginWithGameCenter(ClientModels::LoginWithGameCenterRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::LoginWithWindowsHello(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LoginWithGameCenter(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::RegisterPlayFabUser(ClientModels::RegisterPlayFabUserRequest& request, ProcessApiCallback<ClientModels::RegisterPlayFabUserResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LoginWithGameCenter(ClientModels::LoginWithGameCenterRequest& request)
     {
-        PlayFabClientApi::RegisterPlayFabUser(request, callback, errorCallback, customData);
+        return LoginWithGameCenter(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::RegisterWithWindowsHello(ClientModels::RegisterWithWindowsHelloRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LoginWithGoogleAccount(ClientModels::LoginWithGoogleAccountRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::RegisterWithWindowsHello(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LoginWithGoogleAccount(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::SetPlayerSecret(ClientModels::SetPlayerSecretRequest& request, ProcessApiCallback<ClientModels::SetPlayerSecretResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LoginWithGoogleAccount(ClientModels::LoginWithGoogleAccountRequest& request)
     {
-        PlayFabClientApi::SetPlayerSecret(request, callback, errorCallback, customData);
+        return LoginWithGoogleAccount(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::AddGenericID(ClientModels::AddGenericIDRequest& request, ProcessApiCallback<ClientModels::AddGenericIDResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LoginWithIOSDeviceID(ClientModels::LoginWithIOSDeviceIDRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::AddGenericID(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LoginWithIOSDeviceID(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::AddUsernamePassword(ClientModels::AddUsernamePasswordRequest& request, ProcessApiCallback<ClientModels::AddUsernamePasswordResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LoginWithIOSDeviceID(ClientModels::LoginWithIOSDeviceIDRequest& request)
     {
-        PlayFabClientApi::AddUsernamePassword(request, callback, errorCallback, customData);
+        return LoginWithIOSDeviceID(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetAccountInfo(ClientModels::GetAccountInfoRequest& request, ProcessApiCallback<ClientModels::GetAccountInfoResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LoginWithKongregate(ClientModels::LoginWithKongregateRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetAccountInfo(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LoginWithKongregate(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetPlayerCombinedInfo(ClientModels::GetPlayerCombinedInfoRequest& request, ProcessApiCallback<ClientModels::GetPlayerCombinedInfoResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LoginWithKongregate(ClientModels::LoginWithKongregateRequest& request)
     {
-        PlayFabClientApi::GetPlayerCombinedInfo(request, callback, errorCallback, customData);
+        return LoginWithKongregate(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetPlayerProfile(ClientModels::GetPlayerProfileRequest& request, ProcessApiCallback<ClientModels::GetPlayerProfileResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LoginWithPlayFab(ClientModels::LoginWithPlayFabRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetPlayerProfile(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LoginWithPlayFab(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromFacebookIDs(ClientModels::GetPlayFabIDsFromFacebookIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromFacebookIDsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LoginWithPlayFab(ClientModels::LoginWithPlayFabRequest& request)
     {
-        PlayFabClientApi::GetPlayFabIDsFromFacebookIDs(request, callback, errorCallback, customData);
+        return LoginWithPlayFab(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromGameCenterIDs(ClientModels::GetPlayFabIDsFromGameCenterIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromGameCenterIDsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LoginWithSteam(ClientModels::LoginWithSteamRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetPlayFabIDsFromGameCenterIDs(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LoginWithSteam(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromGenericIDs(ClientModels::GetPlayFabIDsFromGenericIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromGenericIDsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LoginWithSteam(ClientModels::LoginWithSteamRequest& request)
     {
-        PlayFabClientApi::GetPlayFabIDsFromGenericIDs(request, callback, errorCallback, customData);
+        return LoginWithSteam(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromGoogleIDs(ClientModels::GetPlayFabIDsFromGoogleIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromGoogleIDsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LoginWithTwitch(ClientModels::LoginWithTwitchRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetPlayFabIDsFromGoogleIDs(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LoginWithTwitch(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromKongregateIDs(ClientModels::GetPlayFabIDsFromKongregateIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromKongregateIDsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LoginWithTwitch(ClientModels::LoginWithTwitchRequest& request)
     {
-        PlayFabClientApi::GetPlayFabIDsFromKongregateIDs(request, callback, errorCallback, customData);
+        return LoginWithTwitch(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromSteamIDs(ClientModels::GetPlayFabIDsFromSteamIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromSteamIDsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LoginWithWindowsHello(ClientModels::LoginWithWindowsHelloRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetPlayFabIDsFromSteamIDs(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LoginWithWindowsHello(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromTwitchIDs(ClientModels::GetPlayFabIDsFromTwitchIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromTwitchIDsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LoginWithWindowsHello(ClientModels::LoginWithWindowsHelloRequest& request)
     {
-        PlayFabClientApi::GetPlayFabIDsFromTwitchIDs(request, callback, errorCallback, customData);
+        return LoginWithWindowsHello(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::LinkAndroidDeviceID(ClientModels::LinkAndroidDeviceIDRequest& request, ProcessApiCallback<ClientModels::LinkAndroidDeviceIDResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::RegisterPlayFabUser(ClientModels::RegisterPlayFabUserRequest& request, ProcessApiCallback<ClientModels::RegisterPlayFabUserResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::LinkAndroidDeviceID(request, callback, errorCallback, customData);
+        return PlayFabClientApi::RegisterPlayFabUser(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::LinkCustomID(ClientModels::LinkCustomIDRequest& request, ProcessApiCallback<ClientModels::LinkCustomIDResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::RegisterPlayFabUser(ClientModels::RegisterPlayFabUserRequest& request)
     {
-        PlayFabClientApi::LinkCustomID(request, callback, errorCallback, customData);
+        return RegisterPlayFabUser(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::LinkFacebookAccount(ClientModels::LinkFacebookAccountRequest& request, ProcessApiCallback<ClientModels::LinkFacebookAccountResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::RegisterWithWindowsHello(ClientModels::RegisterWithWindowsHelloRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::LinkFacebookAccount(request, callback, errorCallback, customData);
+        return PlayFabClientApi::RegisterWithWindowsHello(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::LinkGameCenterAccount(ClientModels::LinkGameCenterAccountRequest& request, ProcessApiCallback<ClientModels::LinkGameCenterAccountResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::RegisterWithWindowsHello(ClientModels::RegisterWithWindowsHelloRequest& request)
     {
-        PlayFabClientApi::LinkGameCenterAccount(request, callback, errorCallback, customData);
+        return RegisterWithWindowsHello(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::LinkGoogleAccount(ClientModels::LinkGoogleAccountRequest& request, ProcessApiCallback<ClientModels::LinkGoogleAccountResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::SetPlayerSecret(ClientModels::SetPlayerSecretRequest& request, ProcessApiCallback<ClientModels::SetPlayerSecretResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::LinkGoogleAccount(request, callback, errorCallback, customData);
+        return PlayFabClientApi::SetPlayerSecret(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::LinkIOSDeviceID(ClientModels::LinkIOSDeviceIDRequest& request, ProcessApiCallback<ClientModels::LinkIOSDeviceIDResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::SetPlayerSecret(ClientModels::SetPlayerSecretRequest& request)
     {
-        PlayFabClientApi::LinkIOSDeviceID(request, callback, errorCallback, customData);
+        return SetPlayerSecret(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::LinkKongregate(ClientModels::LinkKongregateAccountRequest& request, ProcessApiCallback<ClientModels::LinkKongregateAccountResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::AddGenericID(ClientModels::AddGenericIDRequest& request, ProcessApiCallback<ClientModels::AddGenericIDResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::LinkKongregate(request, callback, errorCallback, customData);
+        return PlayFabClientApi::AddGenericID(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::LinkSteamAccount(ClientModels::LinkSteamAccountRequest& request, ProcessApiCallback<ClientModels::LinkSteamAccountResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::AddGenericID(ClientModels::AddGenericIDRequest& request)
     {
-        PlayFabClientApi::LinkSteamAccount(request, callback, errorCallback, customData);
+        return AddGenericID(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::LinkTwitch(ClientModels::LinkTwitchAccountRequest& request, ProcessApiCallback<ClientModels::LinkTwitchAccountResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::AddUsernamePassword(ClientModels::AddUsernamePasswordRequest& request, ProcessApiCallback<ClientModels::AddUsernamePasswordResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::LinkTwitch(request, callback, errorCallback, customData);
+        return PlayFabClientApi::AddUsernamePassword(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::LinkWindowsHello(ClientModels::LinkWindowsHelloAccountRequest& request, ProcessApiCallback<ClientModels::LinkWindowsHelloAccountResponse> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::AddUsernamePassword(ClientModels::AddUsernamePasswordRequest& request)
     {
-        PlayFabClientApi::LinkWindowsHello(request, callback, errorCallback, customData);
+        return AddUsernamePassword(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::RemoveGenericID(ClientModels::RemoveGenericIDRequest& request, ProcessApiCallback<ClientModels::RemoveGenericIDResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetAccountInfo(ClientModels::GetAccountInfoRequest& request, ProcessApiCallback<ClientModels::GetAccountInfoResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::RemoveGenericID(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetAccountInfo(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::ReportPlayer(ClientModels::ReportPlayerClientRequest& request, ProcessApiCallback<ClientModels::ReportPlayerClientResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetAccountInfo(ClientModels::GetAccountInfoRequest& request)
     {
-        PlayFabClientApi::ReportPlayer(request, callback, errorCallback, customData);
+        return GetAccountInfo(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::SendAccountRecoveryEmail(ClientModels::SendAccountRecoveryEmailRequest& request, ProcessApiCallback<ClientModels::SendAccountRecoveryEmailResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetPlayerCombinedInfo(ClientModels::GetPlayerCombinedInfoRequest& request, ProcessApiCallback<ClientModels::GetPlayerCombinedInfoResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::SendAccountRecoveryEmail(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetPlayerCombinedInfo(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::UnlinkAndroidDeviceID(ClientModels::UnlinkAndroidDeviceIDRequest& request, ProcessApiCallback<ClientModels::UnlinkAndroidDeviceIDResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPlayerCombinedInfo(ClientModels::GetPlayerCombinedInfoRequest& request)
     {
-        PlayFabClientApi::UnlinkAndroidDeviceID(request, callback, errorCallback, customData);
+        return GetPlayerCombinedInfo(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::UnlinkCustomID(ClientModels::UnlinkCustomIDRequest& request, ProcessApiCallback<ClientModels::UnlinkCustomIDResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetPlayerProfile(ClientModels::GetPlayerProfileRequest& request, ProcessApiCallback<ClientModels::GetPlayerProfileResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::UnlinkCustomID(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetPlayerProfile(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::UnlinkFacebookAccount(ProcessApiCallback<ClientModels::UnlinkFacebookAccountResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPlayerProfile(ClientModels::GetPlayerProfileRequest& request)
     {
-        PlayFabClientApi::UnlinkFacebookAccount(callback, errorCallback, customData);
+        return GetPlayerProfile(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::UnlinkGameCenterAccount(ProcessApiCallback<ClientModels::UnlinkGameCenterAccountResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromFacebookIDs(ClientModels::GetPlayFabIDsFromFacebookIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromFacebookIDsResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::UnlinkGameCenterAccount(callback, errorCallback, customData);
+        return PlayFabClientApi::GetPlayFabIDsFromFacebookIDs(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::UnlinkGoogleAccount(ProcessApiCallback<ClientModels::UnlinkGoogleAccountResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromFacebookIDs(ClientModels::GetPlayFabIDsFromFacebookIDsRequest& request)
     {
-        PlayFabClientApi::UnlinkGoogleAccount(callback, errorCallback, customData);
+        return GetPlayFabIDsFromFacebookIDs(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::UnlinkIOSDeviceID(ClientModels::UnlinkIOSDeviceIDRequest& request, ProcessApiCallback<ClientModels::UnlinkIOSDeviceIDResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromGameCenterIDs(ClientModels::GetPlayFabIDsFromGameCenterIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromGameCenterIDsResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::UnlinkIOSDeviceID(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetPlayFabIDsFromGameCenterIDs(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::UnlinkKongregate(ProcessApiCallback<ClientModels::UnlinkKongregateAccountResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromGameCenterIDs(ClientModels::GetPlayFabIDsFromGameCenterIDsRequest& request)
     {
-        PlayFabClientApi::UnlinkKongregate(callback, errorCallback, customData);
+        return GetPlayFabIDsFromGameCenterIDs(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::UnlinkSteamAccount(ProcessApiCallback<ClientModels::UnlinkSteamAccountResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromGenericIDs(ClientModels::GetPlayFabIDsFromGenericIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromGenericIDsResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::UnlinkSteamAccount(callback, errorCallback, customData);
+        return PlayFabClientApi::GetPlayFabIDsFromGenericIDs(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::UnlinkTwitch(ProcessApiCallback<ClientModels::UnlinkTwitchAccountResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromGenericIDs(ClientModels::GetPlayFabIDsFromGenericIDsRequest& request)
     {
-        PlayFabClientApi::UnlinkTwitch(callback, errorCallback, customData);
+        return GetPlayFabIDsFromGenericIDs(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::UnlinkWindowsHello(ClientModels::UnlinkWindowsHelloAccountRequest& request, ProcessApiCallback<ClientModels::UnlinkWindowsHelloAccountResponse> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromGoogleIDs(ClientModels::GetPlayFabIDsFromGoogleIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromGoogleIDsResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::UnlinkWindowsHello(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetPlayFabIDsFromGoogleIDs(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::UpdateAvatarUrl(ClientModels::UpdateAvatarUrlRequest& request, ProcessApiCallback<ClientModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromGoogleIDs(ClientModels::GetPlayFabIDsFromGoogleIDsRequest& request)
     {
-        PlayFabClientApi::UpdateAvatarUrl(request, callback, errorCallback, customData);
+        return GetPlayFabIDsFromGoogleIDs(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::UpdateUserTitleDisplayName(ClientModels::UpdateUserTitleDisplayNameRequest& request, ProcessApiCallback<ClientModels::UpdateUserTitleDisplayNameResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromKongregateIDs(ClientModels::GetPlayFabIDsFromKongregateIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromKongregateIDsResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::UpdateUserTitleDisplayName(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetPlayFabIDsFromKongregateIDs(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetFriendLeaderboard(ClientModels::GetFriendLeaderboardRequest& request, ProcessApiCallback<ClientModels::GetLeaderboardResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromKongregateIDs(ClientModels::GetPlayFabIDsFromKongregateIDsRequest& request)
     {
-        PlayFabClientApi::GetFriendLeaderboard(request, callback, errorCallback, customData);
+        return GetPlayFabIDsFromKongregateIDs(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetFriendLeaderboardAroundPlayer(ClientModels::GetFriendLeaderboardAroundPlayerRequest& request, ProcessApiCallback<ClientModels::GetFriendLeaderboardAroundPlayerResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromSteamIDs(ClientModels::GetPlayFabIDsFromSteamIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromSteamIDsResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetFriendLeaderboardAroundPlayer(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetPlayFabIDsFromSteamIDs(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetLeaderboard(ClientModels::GetLeaderboardRequest& request, ProcessApiCallback<ClientModels::GetLeaderboardResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromSteamIDs(ClientModels::GetPlayFabIDsFromSteamIDsRequest& request)
     {
-        PlayFabClientApi::GetLeaderboard(request, callback, errorCallback, customData);
+        return GetPlayFabIDsFromSteamIDs(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetLeaderboardAroundPlayer(ClientModels::GetLeaderboardAroundPlayerRequest& request, ProcessApiCallback<ClientModels::GetLeaderboardAroundPlayerResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromTwitchIDs(ClientModels::GetPlayFabIDsFromTwitchIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromTwitchIDsResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetLeaderboardAroundPlayer(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetPlayFabIDsFromTwitchIDs(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetPlayerStatistics(ClientModels::GetPlayerStatisticsRequest& request, ProcessApiCallback<ClientModels::GetPlayerStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPlayFabIDsFromTwitchIDs(ClientModels::GetPlayFabIDsFromTwitchIDsRequest& request)
     {
-        PlayFabClientApi::GetPlayerStatistics(request, callback, errorCallback, customData);
+        return GetPlayFabIDsFromTwitchIDs(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetPlayerStatisticVersions(ClientModels::GetPlayerStatisticVersionsRequest& request, ProcessApiCallback<ClientModels::GetPlayerStatisticVersionsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LinkAndroidDeviceID(ClientModels::LinkAndroidDeviceIDRequest& request, ProcessApiCallback<ClientModels::LinkAndroidDeviceIDResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetPlayerStatisticVersions(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LinkAndroidDeviceID(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetUserData(ClientModels::GetUserDataRequest& request, ProcessApiCallback<ClientModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LinkAndroidDeviceID(ClientModels::LinkAndroidDeviceIDRequest& request)
     {
-        PlayFabClientApi::GetUserData(request, callback, errorCallback, customData);
+        return LinkAndroidDeviceID(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetUserPublisherData(ClientModels::GetUserDataRequest& request, ProcessApiCallback<ClientModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LinkCustomID(ClientModels::LinkCustomIDRequest& request, ProcessApiCallback<ClientModels::LinkCustomIDResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetUserPublisherData(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LinkCustomID(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetUserPublisherReadOnlyData(ClientModels::GetUserDataRequest& request, ProcessApiCallback<ClientModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LinkCustomID(ClientModels::LinkCustomIDRequest& request)
     {
-        PlayFabClientApi::GetUserPublisherReadOnlyData(request, callback, errorCallback, customData);
+        return LinkCustomID(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetUserReadOnlyData(ClientModels::GetUserDataRequest& request, ProcessApiCallback<ClientModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LinkFacebookAccount(ClientModels::LinkFacebookAccountRequest& request, ProcessApiCallback<ClientModels::LinkFacebookAccountResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetUserReadOnlyData(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LinkFacebookAccount(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::UpdatePlayerStatistics(ClientModels::UpdatePlayerStatisticsRequest& request, ProcessApiCallback<ClientModels::UpdatePlayerStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LinkFacebookAccount(ClientModels::LinkFacebookAccountRequest& request)
     {
-        PlayFabClientApi::UpdatePlayerStatistics(request, callback, errorCallback, customData);
+        return LinkFacebookAccount(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::UpdateUserData(ClientModels::UpdateUserDataRequest& request, ProcessApiCallback<ClientModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LinkGameCenterAccount(ClientModels::LinkGameCenterAccountRequest& request, ProcessApiCallback<ClientModels::LinkGameCenterAccountResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::UpdateUserData(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LinkGameCenterAccount(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::UpdateUserPublisherData(ClientModels::UpdateUserDataRequest& request, ProcessApiCallback<ClientModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LinkGameCenterAccount(ClientModels::LinkGameCenterAccountRequest& request)
     {
-        PlayFabClientApi::UpdateUserPublisherData(request, callback, errorCallback, customData);
+        return LinkGameCenterAccount(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetCatalogItems(ClientModels::GetCatalogItemsRequest& request, ProcessApiCallback<ClientModels::GetCatalogItemsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LinkGoogleAccount(ClientModels::LinkGoogleAccountRequest& request, ProcessApiCallback<ClientModels::LinkGoogleAccountResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetCatalogItems(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LinkGoogleAccount(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetPublisherData(ClientModels::GetPublisherDataRequest& request, ProcessApiCallback<ClientModels::GetPublisherDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LinkGoogleAccount(ClientModels::LinkGoogleAccountRequest& request)
     {
-        PlayFabClientApi::GetPublisherData(request, callback, errorCallback, customData);
+        return LinkGoogleAccount(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetStoreItems(ClientModels::GetStoreItemsRequest& request, ProcessApiCallback<ClientModels::GetStoreItemsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LinkIOSDeviceID(ClientModels::LinkIOSDeviceIDRequest& request, ProcessApiCallback<ClientModels::LinkIOSDeviceIDResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetStoreItems(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LinkIOSDeviceID(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetTime(ProcessApiCallback<ClientModels::GetTimeResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LinkIOSDeviceID(ClientModels::LinkIOSDeviceIDRequest& request)
     {
-        PlayFabClientApi::GetTime(callback, errorCallback, customData);
+        return LinkIOSDeviceID(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetTitleData(ClientModels::GetTitleDataRequest& request, ProcessApiCallback<ClientModels::GetTitleDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LinkKongregate(ClientModels::LinkKongregateAccountRequest& request, ProcessApiCallback<ClientModels::LinkKongregateAccountResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetTitleData(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LinkKongregate(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetTitleNews(ClientModels::GetTitleNewsRequest& request, ProcessApiCallback<ClientModels::GetTitleNewsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LinkKongregate(ClientModels::LinkKongregateAccountRequest& request)
     {
-        PlayFabClientApi::GetTitleNews(request, callback, errorCallback, customData);
+        return LinkKongregate(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::AddUserVirtualCurrency(ClientModels::AddUserVirtualCurrencyRequest& request, ProcessApiCallback<ClientModels::ModifyUserVirtualCurrencyResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LinkSteamAccount(ClientModels::LinkSteamAccountRequest& request, ProcessApiCallback<ClientModels::LinkSteamAccountResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::AddUserVirtualCurrency(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LinkSteamAccount(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::ConfirmPurchase(ClientModels::ConfirmPurchaseRequest& request, ProcessApiCallback<ClientModels::ConfirmPurchaseResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LinkSteamAccount(ClientModels::LinkSteamAccountRequest& request)
     {
-        PlayFabClientApi::ConfirmPurchase(request, callback, errorCallback, customData);
+        return LinkSteamAccount(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::ConsumeItem(ClientModels::ConsumeItemRequest& request, ProcessApiCallback<ClientModels::ConsumeItemResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LinkTwitch(ClientModels::LinkTwitchAccountRequest& request, ProcessApiCallback<ClientModels::LinkTwitchAccountResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::ConsumeItem(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LinkTwitch(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetCharacterInventory(ClientModels::GetCharacterInventoryRequest& request, ProcessApiCallback<ClientModels::GetCharacterInventoryResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LinkTwitch(ClientModels::LinkTwitchAccountRequest& request)
     {
-        PlayFabClientApi::GetCharacterInventory(request, callback, errorCallback, customData);
+        return LinkTwitch(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetPurchase(ClientModels::GetPurchaseRequest& request, ProcessApiCallback<ClientModels::GetPurchaseResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::LinkWindowsHello(ClientModels::LinkWindowsHelloAccountRequest& request, ProcessApiCallback<ClientModels::LinkWindowsHelloAccountResponse> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetPurchase(request, callback, errorCallback, customData);
+        return PlayFabClientApi::LinkWindowsHello(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetUserInventory(ProcessApiCallback<ClientModels::GetUserInventoryResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::LinkWindowsHello(ClientModels::LinkWindowsHelloAccountRequest& request)
     {
-        PlayFabClientApi::GetUserInventory(callback, errorCallback, customData);
+        return LinkWindowsHello(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::PayForPurchase(ClientModels::PayForPurchaseRequest& request, ProcessApiCallback<ClientModels::PayForPurchaseResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::RemoveGenericID(ClientModels::RemoveGenericIDRequest& request, ProcessApiCallback<ClientModels::RemoveGenericIDResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::PayForPurchase(request, callback, errorCallback, customData);
+        return PlayFabClientApi::RemoveGenericID(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::PurchaseItem(ClientModels::PurchaseItemRequest& request, ProcessApiCallback<ClientModels::PurchaseItemResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::RemoveGenericID(ClientModels::RemoveGenericIDRequest& request)
     {
-        PlayFabClientApi::PurchaseItem(request, callback, errorCallback, customData);
+        return RemoveGenericID(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::RedeemCoupon(ClientModels::RedeemCouponRequest& request, ProcessApiCallback<ClientModels::RedeemCouponResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::ReportPlayer(ClientModels::ReportPlayerClientRequest& request, ProcessApiCallback<ClientModels::ReportPlayerClientResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::RedeemCoupon(request, callback, errorCallback, customData);
+        return PlayFabClientApi::ReportPlayer(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::StartPurchase(ClientModels::StartPurchaseRequest& request, ProcessApiCallback<ClientModels::StartPurchaseResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::ReportPlayer(ClientModels::ReportPlayerClientRequest& request)
     {
-        PlayFabClientApi::StartPurchase(request, callback, errorCallback, customData);
+        return ReportPlayer(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::SubtractUserVirtualCurrency(ClientModels::SubtractUserVirtualCurrencyRequest& request, ProcessApiCallback<ClientModels::ModifyUserVirtualCurrencyResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::SendAccountRecoveryEmail(ClientModels::SendAccountRecoveryEmailRequest& request, ProcessApiCallback<ClientModels::SendAccountRecoveryEmailResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::SubtractUserVirtualCurrency(request, callback, errorCallback, customData);
+        return PlayFabClientApi::SendAccountRecoveryEmail(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::UnlockContainerInstance(ClientModels::UnlockContainerInstanceRequest& request, ProcessApiCallback<ClientModels::UnlockContainerItemResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::SendAccountRecoveryEmail(ClientModels::SendAccountRecoveryEmailRequest& request)
     {
-        PlayFabClientApi::UnlockContainerInstance(request, callback, errorCallback, customData);
+        return SendAccountRecoveryEmail(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::UnlockContainerItem(ClientModels::UnlockContainerItemRequest& request, ProcessApiCallback<ClientModels::UnlockContainerItemResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UnlinkAndroidDeviceID(ClientModels::UnlinkAndroidDeviceIDRequest& request, ProcessApiCallback<ClientModels::UnlinkAndroidDeviceIDResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::UnlockContainerItem(request, callback, errorCallback, customData);
+        return PlayFabClientApi::UnlinkAndroidDeviceID(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::AddFriend(ClientModels::AddFriendRequest& request, ProcessApiCallback<ClientModels::AddFriendResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UnlinkAndroidDeviceID(ClientModels::UnlinkAndroidDeviceIDRequest& request)
     {
-        PlayFabClientApi::AddFriend(request, callback, errorCallback, customData);
+        return UnlinkAndroidDeviceID(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetFriendsList(ClientModels::GetFriendsListRequest& request, ProcessApiCallback<ClientModels::GetFriendsListResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UnlinkCustomID(ClientModels::UnlinkCustomIDRequest& request, ProcessApiCallback<ClientModels::UnlinkCustomIDResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetFriendsList(request, callback, errorCallback, customData);
+        return PlayFabClientApi::UnlinkCustomID(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::RemoveFriend(ClientModels::RemoveFriendRequest& request, ProcessApiCallback<ClientModels::RemoveFriendResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UnlinkCustomID(ClientModels::UnlinkCustomIDRequest& request)
     {
-        PlayFabClientApi::RemoveFriend(request, callback, errorCallback, customData);
+        return UnlinkCustomID(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::SetFriendTags(ClientModels::SetFriendTagsRequest& request, ProcessApiCallback<ClientModels::SetFriendTagsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UnlinkFacebookAccount(ProcessApiCallback<ClientModels::UnlinkFacebookAccountResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::SetFriendTags(request, callback, errorCallback, customData);
+        return PlayFabClientApi::UnlinkFacebookAccount(callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetCurrentGames(ClientModels::CurrentGamesRequest& request, ProcessApiCallback<ClientModels::CurrentGamesResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UnlinkFacebookAccount()
     {
-        PlayFabClientApi::GetCurrentGames(request, callback, errorCallback, customData);
+        return UnlinkFacebookAccount(nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetGameServerRegions(ClientModels::GameServerRegionsRequest& request, ProcessApiCallback<ClientModels::GameServerRegionsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UnlinkGameCenterAccount(ProcessApiCallback<ClientModels::UnlinkGameCenterAccountResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetGameServerRegions(request, callback, errorCallback, customData);
+        return PlayFabClientApi::UnlinkGameCenterAccount(callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::Matchmake(ClientModels::MatchmakeRequest& request, ProcessApiCallback<ClientModels::MatchmakeResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UnlinkGameCenterAccount()
     {
-        PlayFabClientApi::Matchmake(request, callback, errorCallback, customData);
+        return UnlinkGameCenterAccount(nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::StartGame(ClientModels::StartGameRequest& request, ProcessApiCallback<ClientModels::StartGameResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UnlinkGoogleAccount(ProcessApiCallback<ClientModels::UnlinkGoogleAccountResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::StartGame(request, callback, errorCallback, customData);
+        return PlayFabClientApi::UnlinkGoogleAccount(callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::WriteCharacterEvent(ClientModels::WriteClientCharacterEventRequest& request, ProcessApiCallback<ClientModels::WriteEventResponse> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UnlinkGoogleAccount()
     {
-        PlayFabClientApi::WriteCharacterEvent(request, callback, errorCallback, customData);
+        return UnlinkGoogleAccount(nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::WritePlayerEvent(ClientModels::WriteClientPlayerEventRequest& request, ProcessApiCallback<ClientModels::WriteEventResponse> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UnlinkIOSDeviceID(ClientModels::UnlinkIOSDeviceIDRequest& request, ProcessApiCallback<ClientModels::UnlinkIOSDeviceIDResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::WritePlayerEvent(request, callback, errorCallback, customData);
+        return PlayFabClientApi::UnlinkIOSDeviceID(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::WriteTitleEvent(ClientModels::WriteTitleEventRequest& request, ProcessApiCallback<ClientModels::WriteEventResponse> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UnlinkIOSDeviceID(ClientModels::UnlinkIOSDeviceIDRequest& request)
     {
-        PlayFabClientApi::WriteTitleEvent(request, callback, errorCallback, customData);
+        return UnlinkIOSDeviceID(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::AddSharedGroupMembers(ClientModels::AddSharedGroupMembersRequest& request, ProcessApiCallback<ClientModels::AddSharedGroupMembersResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UnlinkKongregate(ProcessApiCallback<ClientModels::UnlinkKongregateAccountResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::AddSharedGroupMembers(request, callback, errorCallback, customData);
+        return PlayFabClientApi::UnlinkKongregate(callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::CreateSharedGroup(ClientModels::CreateSharedGroupRequest& request, ProcessApiCallback<ClientModels::CreateSharedGroupResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UnlinkKongregate()
     {
-        PlayFabClientApi::CreateSharedGroup(request, callback, errorCallback, customData);
+        return UnlinkKongregate(nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetSharedGroupData(ClientModels::GetSharedGroupDataRequest& request, ProcessApiCallback<ClientModels::GetSharedGroupDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UnlinkSteamAccount(ProcessApiCallback<ClientModels::UnlinkSteamAccountResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetSharedGroupData(request, callback, errorCallback, customData);
+        return PlayFabClientApi::UnlinkSteamAccount(callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::RemoveSharedGroupMembers(ClientModels::RemoveSharedGroupMembersRequest& request, ProcessApiCallback<ClientModels::RemoveSharedGroupMembersResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UnlinkSteamAccount()
     {
-        PlayFabClientApi::RemoveSharedGroupMembers(request, callback, errorCallback, customData);
+        return UnlinkSteamAccount(nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::UpdateSharedGroupData(ClientModels::UpdateSharedGroupDataRequest& request, ProcessApiCallback<ClientModels::UpdateSharedGroupDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UnlinkTwitch(ProcessApiCallback<ClientModels::UnlinkTwitchAccountResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::UpdateSharedGroupData(request, callback, errorCallback, customData);
+        return PlayFabClientApi::UnlinkTwitch(callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::ExecuteCloudScript(ClientModels::ExecuteCloudScriptRequest& request, ProcessApiCallback<ClientModels::ExecuteCloudScriptResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UnlinkTwitch()
     {
-        PlayFabClientApi::ExecuteCloudScript(request, callback, errorCallback, customData);
+        return UnlinkTwitch(nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetContentDownloadUrl(ClientModels::GetContentDownloadUrlRequest& request, ProcessApiCallback<ClientModels::GetContentDownloadUrlResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UnlinkWindowsHello(ClientModels::UnlinkWindowsHelloAccountRequest& request, ProcessApiCallback<ClientModels::UnlinkWindowsHelloAccountResponse> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetContentDownloadUrl(request, callback, errorCallback, customData);
+        return PlayFabClientApi::UnlinkWindowsHello(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetAllUsersCharacters(ClientModels::ListUsersCharactersRequest& request, ProcessApiCallback<ClientModels::ListUsersCharactersResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UnlinkWindowsHello(ClientModels::UnlinkWindowsHelloAccountRequest& request)
     {
-        PlayFabClientApi::GetAllUsersCharacters(request, callback, errorCallback, customData);
+        return UnlinkWindowsHello(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetCharacterLeaderboard(ClientModels::GetCharacterLeaderboardRequest& request, ProcessApiCallback<ClientModels::GetCharacterLeaderboardResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UpdateAvatarUrl(ClientModels::UpdateAvatarUrlRequest& request, ProcessApiCallback<ClientModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetCharacterLeaderboard(request, callback, errorCallback, customData);
+        return PlayFabClientApi::UpdateAvatarUrl(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetCharacterStatistics(ClientModels::GetCharacterStatisticsRequest& request, ProcessApiCallback<ClientModels::GetCharacterStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UpdateAvatarUrl(ClientModels::UpdateAvatarUrlRequest& request)
     {
-        PlayFabClientApi::GetCharacterStatistics(request, callback, errorCallback, customData);
+        return UpdateAvatarUrl(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetLeaderboardAroundCharacter(ClientModels::GetLeaderboardAroundCharacterRequest& request, ProcessApiCallback<ClientModels::GetLeaderboardAroundCharacterResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UpdateUserTitleDisplayName(ClientModels::UpdateUserTitleDisplayNameRequest& request, ProcessApiCallback<ClientModels::UpdateUserTitleDisplayNameResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetLeaderboardAroundCharacter(request, callback, errorCallback, customData);
+        return PlayFabClientApi::UpdateUserTitleDisplayName(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetLeaderboardForUserCharacters(ClientModels::GetLeaderboardForUsersCharactersRequest& request, ProcessApiCallback<ClientModels::GetLeaderboardForUsersCharactersResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UpdateUserTitleDisplayName(ClientModels::UpdateUserTitleDisplayNameRequest& request)
     {
-        PlayFabClientApi::GetLeaderboardForUserCharacters(request, callback, errorCallback, customData);
+        return UpdateUserTitleDisplayName(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GrantCharacterToUser(ClientModels::GrantCharacterToUserRequest& request, ProcessApiCallback<ClientModels::GrantCharacterToUserResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetFriendLeaderboard(ClientModels::GetFriendLeaderboardRequest& request, ProcessApiCallback<ClientModels::GetLeaderboardResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GrantCharacterToUser(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetFriendLeaderboard(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::UpdateCharacterStatistics(ClientModels::UpdateCharacterStatisticsRequest& request, ProcessApiCallback<ClientModels::UpdateCharacterStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetFriendLeaderboard(ClientModels::GetFriendLeaderboardRequest& request)
     {
-        PlayFabClientApi::UpdateCharacterStatistics(request, callback, errorCallback, customData);
+        return GetFriendLeaderboard(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetCharacterData(ClientModels::GetCharacterDataRequest& request, ProcessApiCallback<ClientModels::GetCharacterDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetFriendLeaderboardAroundPlayer(ClientModels::GetFriendLeaderboardAroundPlayerRequest& request, ProcessApiCallback<ClientModels::GetFriendLeaderboardAroundPlayerResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetCharacterData(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetFriendLeaderboardAroundPlayer(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetCharacterReadOnlyData(ClientModels::GetCharacterDataRequest& request, ProcessApiCallback<ClientModels::GetCharacterDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetFriendLeaderboardAroundPlayer(ClientModels::GetFriendLeaderboardAroundPlayerRequest& request)
     {
-        PlayFabClientApi::GetCharacterReadOnlyData(request, callback, errorCallback, customData);
+        return GetFriendLeaderboardAroundPlayer(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::UpdateCharacterData(ClientModels::UpdateCharacterDataRequest& request, ProcessApiCallback<ClientModels::UpdateCharacterDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetLeaderboard(ClientModels::GetLeaderboardRequest& request, ProcessApiCallback<ClientModels::GetLeaderboardResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::UpdateCharacterData(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetLeaderboard(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::AcceptTrade(ClientModels::AcceptTradeRequest& request, ProcessApiCallback<ClientModels::AcceptTradeResponse> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetLeaderboard(ClientModels::GetLeaderboardRequest& request)
     {
-        PlayFabClientApi::AcceptTrade(request, callback, errorCallback, customData);
+        return GetLeaderboard(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::CancelTrade(ClientModels::CancelTradeRequest& request, ProcessApiCallback<ClientModels::CancelTradeResponse> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetLeaderboardAroundPlayer(ClientModels::GetLeaderboardAroundPlayerRequest& request, ProcessApiCallback<ClientModels::GetLeaderboardAroundPlayerResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::CancelTrade(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetLeaderboardAroundPlayer(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetPlayerTrades(ClientModels::GetPlayerTradesRequest& request, ProcessApiCallback<ClientModels::GetPlayerTradesResponse> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetLeaderboardAroundPlayer(ClientModels::GetLeaderboardAroundPlayerRequest& request)
     {
-        PlayFabClientApi::GetPlayerTrades(request, callback, errorCallback, customData);
+        return GetLeaderboardAroundPlayer(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetTradeStatus(ClientModels::GetTradeStatusRequest& request, ProcessApiCallback<ClientModels::GetTradeStatusResponse> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetPlayerStatistics(ClientModels::GetPlayerStatisticsRequest& request, ProcessApiCallback<ClientModels::GetPlayerStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetTradeStatus(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetPlayerStatistics(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::OpenTrade(ClientModels::OpenTradeRequest& request, ProcessApiCallback<ClientModels::OpenTradeResponse> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPlayerStatistics(ClientModels::GetPlayerStatisticsRequest& request)
     {
-        PlayFabClientApi::OpenTrade(request, callback, errorCallback, customData);
+        return GetPlayerStatistics(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::AttributeInstall(ClientModels::AttributeInstallRequest& request, ProcessApiCallback<ClientModels::AttributeInstallResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetPlayerStatisticVersions(ClientModels::GetPlayerStatisticVersionsRequest& request, ProcessApiCallback<ClientModels::GetPlayerStatisticVersionsResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::AttributeInstall(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetPlayerStatisticVersions(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::GetPlayerSegments(ProcessApiCallback<ClientModels::GetPlayerSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPlayerStatisticVersions(ClientModels::GetPlayerStatisticVersionsRequest& request)
     {
-        PlayFabClientApi::GetPlayerSegments(callback, errorCallback, customData);
+        return GetPlayerStatisticVersions(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::GetPlayerTags(ClientModels::GetPlayerTagsRequest& request, ProcessApiCallback<ClientModels::GetPlayerTagsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetUserData(ClientModels::GetUserDataRequest& request, ProcessApiCallback<ClientModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::GetPlayerTags(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetUserData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::AndroidDevicePushNotificationRegistration(ClientModels::AndroidDevicePushNotificationRegistrationRequest& request, ProcessApiCallback<ClientModels::AndroidDevicePushNotificationRegistrationResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetUserData(ClientModels::GetUserDataRequest& request)
     {
-        PlayFabClientApi::AndroidDevicePushNotificationRegistration(request, callback, errorCallback, customData);
+        return GetUserData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::RegisterForIOSPushNotification(ClientModels::RegisterForIOSPushNotificationRequest& request, ProcessApiCallback<ClientModels::RegisterForIOSPushNotificationResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetUserPublisherData(ClientModels::GetUserDataRequest& request, ProcessApiCallback<ClientModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::RegisterForIOSPushNotification(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetUserPublisherData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::RestoreIOSPurchases(ClientModels::RestoreIOSPurchasesRequest& request, ProcessApiCallback<ClientModels::RestoreIOSPurchasesResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetUserPublisherData(ClientModels::GetUserDataRequest& request)
     {
-        PlayFabClientApi::RestoreIOSPurchases(request, callback, errorCallback, customData);
+        return GetUserPublisherData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::ValidateAmazonIAPReceipt(ClientModels::ValidateAmazonReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateAmazonReceiptResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetUserPublisherReadOnlyData(ClientModels::GetUserDataRequest& request, ProcessApiCallback<ClientModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::ValidateAmazonIAPReceipt(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetUserPublisherReadOnlyData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::ValidateGooglePlayPurchase(ClientModels::ValidateGooglePlayPurchaseRequest& request, ProcessApiCallback<ClientModels::ValidateGooglePlayPurchaseResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetUserPublisherReadOnlyData(ClientModels::GetUserDataRequest& request)
     {
-        PlayFabClientApi::ValidateGooglePlayPurchase(request, callback, errorCallback, customData);
+        return GetUserPublisherReadOnlyData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_ClientSysComponent::ValidateIOSReceipt(ClientModels::ValidateIOSReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateIOSReceiptResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetUserReadOnlyData(ClientModels::GetUserDataRequest& request, ProcessApiCallback<ClientModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabClientApi::ValidateIOSReceipt(request, callback, errorCallback, customData);
+        return PlayFabClientApi::GetUserReadOnlyData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_ClientSysComponent::ValidateWindowsStoreReceipt(ClientModels::ValidateWindowsReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateWindowsReceiptResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetUserReadOnlyData(ClientModels::GetUserDataRequest& request)
     {
-        PlayFabClientApi::ValidateWindowsStoreReceipt(request, callback, errorCallback, customData);
+        return GetUserReadOnlyData(request, nullptr, nullptr, nullptr);
     }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UpdatePlayerStatistics(ClientModels::UpdatePlayerStatisticsRequest& request, ProcessApiCallback<ClientModels::UpdatePlayerStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::UpdatePlayerStatistics(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UpdatePlayerStatistics(ClientModels::UpdatePlayerStatisticsRequest& request)
+    {
+        return UpdatePlayerStatistics(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UpdateUserData(ClientModels::UpdateUserDataRequest& request, ProcessApiCallback<ClientModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::UpdateUserData(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UpdateUserData(ClientModels::UpdateUserDataRequest& request)
+    {
+        return UpdateUserData(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UpdateUserPublisherData(ClientModels::UpdateUserDataRequest& request, ProcessApiCallback<ClientModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::UpdateUserPublisherData(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UpdateUserPublisherData(ClientModels::UpdateUserDataRequest& request)
+    {
+        return UpdateUserPublisherData(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetCatalogItems(ClientModels::GetCatalogItemsRequest& request, ProcessApiCallback<ClientModels::GetCatalogItemsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetCatalogItems(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetCatalogItems(ClientModels::GetCatalogItemsRequest& request)
+    {
+        return GetCatalogItems(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetPublisherData(ClientModels::GetPublisherDataRequest& request, ProcessApiCallback<ClientModels::GetPublisherDataResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetPublisherData(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPublisherData(ClientModels::GetPublisherDataRequest& request)
+    {
+        return GetPublisherData(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetStoreItems(ClientModels::GetStoreItemsRequest& request, ProcessApiCallback<ClientModels::GetStoreItemsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetStoreItems(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetStoreItems(ClientModels::GetStoreItemsRequest& request)
+    {
+        return GetStoreItems(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetTime(ProcessApiCallback<ClientModels::GetTimeResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetTime(callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetTime()
+    {
+        return GetTime(nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetTitleData(ClientModels::GetTitleDataRequest& request, ProcessApiCallback<ClientModels::GetTitleDataResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetTitleData(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetTitleData(ClientModels::GetTitleDataRequest& request)
+    {
+        return GetTitleData(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetTitleNews(ClientModels::GetTitleNewsRequest& request, ProcessApiCallback<ClientModels::GetTitleNewsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetTitleNews(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetTitleNews(ClientModels::GetTitleNewsRequest& request)
+    {
+        return GetTitleNews(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::AddUserVirtualCurrency(ClientModels::AddUserVirtualCurrencyRequest& request, ProcessApiCallback<ClientModels::ModifyUserVirtualCurrencyResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::AddUserVirtualCurrency(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::AddUserVirtualCurrency(ClientModels::AddUserVirtualCurrencyRequest& request)
+    {
+        return AddUserVirtualCurrency(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::ConfirmPurchase(ClientModels::ConfirmPurchaseRequest& request, ProcessApiCallback<ClientModels::ConfirmPurchaseResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::ConfirmPurchase(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::ConfirmPurchase(ClientModels::ConfirmPurchaseRequest& request)
+    {
+        return ConfirmPurchase(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::ConsumeItem(ClientModels::ConsumeItemRequest& request, ProcessApiCallback<ClientModels::ConsumeItemResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::ConsumeItem(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::ConsumeItem(ClientModels::ConsumeItemRequest& request)
+    {
+        return ConsumeItem(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetCharacterInventory(ClientModels::GetCharacterInventoryRequest& request, ProcessApiCallback<ClientModels::GetCharacterInventoryResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetCharacterInventory(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetCharacterInventory(ClientModels::GetCharacterInventoryRequest& request)
+    {
+        return GetCharacterInventory(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetPurchase(ClientModels::GetPurchaseRequest& request, ProcessApiCallback<ClientModels::GetPurchaseResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetPurchase(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPurchase(ClientModels::GetPurchaseRequest& request)
+    {
+        return GetPurchase(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetUserInventory(ProcessApiCallback<ClientModels::GetUserInventoryResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetUserInventory(callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetUserInventory()
+    {
+        return GetUserInventory(nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::PayForPurchase(ClientModels::PayForPurchaseRequest& request, ProcessApiCallback<ClientModels::PayForPurchaseResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::PayForPurchase(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::PayForPurchase(ClientModels::PayForPurchaseRequest& request)
+    {
+        return PayForPurchase(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::PurchaseItem(ClientModels::PurchaseItemRequest& request, ProcessApiCallback<ClientModels::PurchaseItemResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::PurchaseItem(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::PurchaseItem(ClientModels::PurchaseItemRequest& request)
+    {
+        return PurchaseItem(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::RedeemCoupon(ClientModels::RedeemCouponRequest& request, ProcessApiCallback<ClientModels::RedeemCouponResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::RedeemCoupon(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::RedeemCoupon(ClientModels::RedeemCouponRequest& request)
+    {
+        return RedeemCoupon(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::StartPurchase(ClientModels::StartPurchaseRequest& request, ProcessApiCallback<ClientModels::StartPurchaseResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::StartPurchase(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::StartPurchase(ClientModels::StartPurchaseRequest& request)
+    {
+        return StartPurchase(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::SubtractUserVirtualCurrency(ClientModels::SubtractUserVirtualCurrencyRequest& request, ProcessApiCallback<ClientModels::ModifyUserVirtualCurrencyResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::SubtractUserVirtualCurrency(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::SubtractUserVirtualCurrency(ClientModels::SubtractUserVirtualCurrencyRequest& request)
+    {
+        return SubtractUserVirtualCurrency(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UnlockContainerInstance(ClientModels::UnlockContainerInstanceRequest& request, ProcessApiCallback<ClientModels::UnlockContainerItemResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::UnlockContainerInstance(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UnlockContainerInstance(ClientModels::UnlockContainerInstanceRequest& request)
+    {
+        return UnlockContainerInstance(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UnlockContainerItem(ClientModels::UnlockContainerItemRequest& request, ProcessApiCallback<ClientModels::UnlockContainerItemResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::UnlockContainerItem(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UnlockContainerItem(ClientModels::UnlockContainerItemRequest& request)
+    {
+        return UnlockContainerItem(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::AddFriend(ClientModels::AddFriendRequest& request, ProcessApiCallback<ClientModels::AddFriendResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::AddFriend(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::AddFriend(ClientModels::AddFriendRequest& request)
+    {
+        return AddFriend(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetFriendsList(ClientModels::GetFriendsListRequest& request, ProcessApiCallback<ClientModels::GetFriendsListResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetFriendsList(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetFriendsList(ClientModels::GetFriendsListRequest& request)
+    {
+        return GetFriendsList(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::RemoveFriend(ClientModels::RemoveFriendRequest& request, ProcessApiCallback<ClientModels::RemoveFriendResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::RemoveFriend(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::RemoveFriend(ClientModels::RemoveFriendRequest& request)
+    {
+        return RemoveFriend(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::SetFriendTags(ClientModels::SetFriendTagsRequest& request, ProcessApiCallback<ClientModels::SetFriendTagsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::SetFriendTags(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::SetFriendTags(ClientModels::SetFriendTagsRequest& request)
+    {
+        return SetFriendTags(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetCurrentGames(ClientModels::CurrentGamesRequest& request, ProcessApiCallback<ClientModels::CurrentGamesResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetCurrentGames(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetCurrentGames(ClientModels::CurrentGamesRequest& request)
+    {
+        return GetCurrentGames(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetGameServerRegions(ClientModels::GameServerRegionsRequest& request, ProcessApiCallback<ClientModels::GameServerRegionsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetGameServerRegions(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetGameServerRegions(ClientModels::GameServerRegionsRequest& request)
+    {
+        return GetGameServerRegions(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::Matchmake(ClientModels::MatchmakeRequest& request, ProcessApiCallback<ClientModels::MatchmakeResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::Matchmake(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::Matchmake(ClientModels::MatchmakeRequest& request)
+    {
+        return Matchmake(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::StartGame(ClientModels::StartGameRequest& request, ProcessApiCallback<ClientModels::StartGameResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::StartGame(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::StartGame(ClientModels::StartGameRequest& request)
+    {
+        return StartGame(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::WriteCharacterEvent(ClientModels::WriteClientCharacterEventRequest& request, ProcessApiCallback<ClientModels::WriteEventResponse> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::WriteCharacterEvent(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::WriteCharacterEvent(ClientModels::WriteClientCharacterEventRequest& request)
+    {
+        return WriteCharacterEvent(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::WritePlayerEvent(ClientModels::WriteClientPlayerEventRequest& request, ProcessApiCallback<ClientModels::WriteEventResponse> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::WritePlayerEvent(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::WritePlayerEvent(ClientModels::WriteClientPlayerEventRequest& request)
+    {
+        return WritePlayerEvent(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::WriteTitleEvent(ClientModels::WriteTitleEventRequest& request, ProcessApiCallback<ClientModels::WriteEventResponse> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::WriteTitleEvent(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::WriteTitleEvent(ClientModels::WriteTitleEventRequest& request)
+    {
+        return WriteTitleEvent(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::AddSharedGroupMembers(ClientModels::AddSharedGroupMembersRequest& request, ProcessApiCallback<ClientModels::AddSharedGroupMembersResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::AddSharedGroupMembers(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::AddSharedGroupMembers(ClientModels::AddSharedGroupMembersRequest& request)
+    {
+        return AddSharedGroupMembers(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::CreateSharedGroup(ClientModels::CreateSharedGroupRequest& request, ProcessApiCallback<ClientModels::CreateSharedGroupResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::CreateSharedGroup(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::CreateSharedGroup(ClientModels::CreateSharedGroupRequest& request)
+    {
+        return CreateSharedGroup(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetSharedGroupData(ClientModels::GetSharedGroupDataRequest& request, ProcessApiCallback<ClientModels::GetSharedGroupDataResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetSharedGroupData(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetSharedGroupData(ClientModels::GetSharedGroupDataRequest& request)
+    {
+        return GetSharedGroupData(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::RemoveSharedGroupMembers(ClientModels::RemoveSharedGroupMembersRequest& request, ProcessApiCallback<ClientModels::RemoveSharedGroupMembersResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::RemoveSharedGroupMembers(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::RemoveSharedGroupMembers(ClientModels::RemoveSharedGroupMembersRequest& request)
+    {
+        return RemoveSharedGroupMembers(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UpdateSharedGroupData(ClientModels::UpdateSharedGroupDataRequest& request, ProcessApiCallback<ClientModels::UpdateSharedGroupDataResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::UpdateSharedGroupData(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UpdateSharedGroupData(ClientModels::UpdateSharedGroupDataRequest& request)
+    {
+        return UpdateSharedGroupData(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::ExecuteCloudScript(ClientModels::ExecuteCloudScriptRequest& request, ProcessApiCallback<ClientModels::ExecuteCloudScriptResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::ExecuteCloudScript(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::ExecuteCloudScript(ClientModels::ExecuteCloudScriptRequest& request)
+    {
+        return ExecuteCloudScript(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetContentDownloadUrl(ClientModels::GetContentDownloadUrlRequest& request, ProcessApiCallback<ClientModels::GetContentDownloadUrlResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetContentDownloadUrl(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetContentDownloadUrl(ClientModels::GetContentDownloadUrlRequest& request)
+    {
+        return GetContentDownloadUrl(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetAllUsersCharacters(ClientModels::ListUsersCharactersRequest& request, ProcessApiCallback<ClientModels::ListUsersCharactersResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetAllUsersCharacters(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetAllUsersCharacters(ClientModels::ListUsersCharactersRequest& request)
+    {
+        return GetAllUsersCharacters(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetCharacterLeaderboard(ClientModels::GetCharacterLeaderboardRequest& request, ProcessApiCallback<ClientModels::GetCharacterLeaderboardResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetCharacterLeaderboard(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetCharacterLeaderboard(ClientModels::GetCharacterLeaderboardRequest& request)
+    {
+        return GetCharacterLeaderboard(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetCharacterStatistics(ClientModels::GetCharacterStatisticsRequest& request, ProcessApiCallback<ClientModels::GetCharacterStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetCharacterStatistics(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetCharacterStatistics(ClientModels::GetCharacterStatisticsRequest& request)
+    {
+        return GetCharacterStatistics(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetLeaderboardAroundCharacter(ClientModels::GetLeaderboardAroundCharacterRequest& request, ProcessApiCallback<ClientModels::GetLeaderboardAroundCharacterResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetLeaderboardAroundCharacter(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetLeaderboardAroundCharacter(ClientModels::GetLeaderboardAroundCharacterRequest& request)
+    {
+        return GetLeaderboardAroundCharacter(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetLeaderboardForUserCharacters(ClientModels::GetLeaderboardForUsersCharactersRequest& request, ProcessApiCallback<ClientModels::GetLeaderboardForUsersCharactersResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetLeaderboardForUserCharacters(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetLeaderboardForUserCharacters(ClientModels::GetLeaderboardForUsersCharactersRequest& request)
+    {
+        return GetLeaderboardForUserCharacters(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GrantCharacterToUser(ClientModels::GrantCharacterToUserRequest& request, ProcessApiCallback<ClientModels::GrantCharacterToUserResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GrantCharacterToUser(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GrantCharacterToUser(ClientModels::GrantCharacterToUserRequest& request)
+    {
+        return GrantCharacterToUser(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UpdateCharacterStatistics(ClientModels::UpdateCharacterStatisticsRequest& request, ProcessApiCallback<ClientModels::UpdateCharacterStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::UpdateCharacterStatistics(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UpdateCharacterStatistics(ClientModels::UpdateCharacterStatisticsRequest& request)
+    {
+        return UpdateCharacterStatistics(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetCharacterData(ClientModels::GetCharacterDataRequest& request, ProcessApiCallback<ClientModels::GetCharacterDataResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetCharacterData(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetCharacterData(ClientModels::GetCharacterDataRequest& request)
+    {
+        return GetCharacterData(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetCharacterReadOnlyData(ClientModels::GetCharacterDataRequest& request, ProcessApiCallback<ClientModels::GetCharacterDataResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetCharacterReadOnlyData(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetCharacterReadOnlyData(ClientModels::GetCharacterDataRequest& request)
+    {
+        return GetCharacterReadOnlyData(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::UpdateCharacterData(ClientModels::UpdateCharacterDataRequest& request, ProcessApiCallback<ClientModels::UpdateCharacterDataResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::UpdateCharacterData(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::UpdateCharacterData(ClientModels::UpdateCharacterDataRequest& request)
+    {
+        return UpdateCharacterData(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::AcceptTrade(ClientModels::AcceptTradeRequest& request, ProcessApiCallback<ClientModels::AcceptTradeResponse> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::AcceptTrade(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::AcceptTrade(ClientModels::AcceptTradeRequest& request)
+    {
+        return AcceptTrade(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::CancelTrade(ClientModels::CancelTradeRequest& request, ProcessApiCallback<ClientModels::CancelTradeResponse> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::CancelTrade(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::CancelTrade(ClientModels::CancelTradeRequest& request)
+    {
+        return CancelTrade(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetPlayerTrades(ClientModels::GetPlayerTradesRequest& request, ProcessApiCallback<ClientModels::GetPlayerTradesResponse> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetPlayerTrades(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPlayerTrades(ClientModels::GetPlayerTradesRequest& request)
+    {
+        return GetPlayerTrades(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetTradeStatus(ClientModels::GetTradeStatusRequest& request, ProcessApiCallback<ClientModels::GetTradeStatusResponse> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetTradeStatus(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetTradeStatus(ClientModels::GetTradeStatusRequest& request)
+    {
+        return GetTradeStatus(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::OpenTrade(ClientModels::OpenTradeRequest& request, ProcessApiCallback<ClientModels::OpenTradeResponse> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::OpenTrade(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::OpenTrade(ClientModels::OpenTradeRequest& request)
+    {
+        return OpenTrade(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::AttributeInstall(ClientModels::AttributeInstallRequest& request, ProcessApiCallback<ClientModels::AttributeInstallResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::AttributeInstall(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::AttributeInstall(ClientModels::AttributeInstallRequest& request)
+    {
+        return AttributeInstall(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetPlayerSegments(ProcessApiCallback<ClientModels::GetPlayerSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetPlayerSegments(callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPlayerSegments()
+    {
+        return GetPlayerSegments(nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::GetPlayerTags(ClientModels::GetPlayerTagsRequest& request, ProcessApiCallback<ClientModels::GetPlayerTagsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::GetPlayerTags(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::GetPlayerTags(ClientModels::GetPlayerTagsRequest& request)
+    {
+        return GetPlayerTags(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::AndroidDevicePushNotificationRegistration(ClientModels::AndroidDevicePushNotificationRegistrationRequest& request, ProcessApiCallback<ClientModels::AndroidDevicePushNotificationRegistrationResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::AndroidDevicePushNotificationRegistration(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::AndroidDevicePushNotificationRegistration(ClientModels::AndroidDevicePushNotificationRegistrationRequest& request)
+    {
+        return AndroidDevicePushNotificationRegistration(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::RegisterForIOSPushNotification(ClientModels::RegisterForIOSPushNotificationRequest& request, ProcessApiCallback<ClientModels::RegisterForIOSPushNotificationResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::RegisterForIOSPushNotification(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::RegisterForIOSPushNotification(ClientModels::RegisterForIOSPushNotificationRequest& request)
+    {
+        return RegisterForIOSPushNotification(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::RestoreIOSPurchases(ClientModels::RestoreIOSPurchasesRequest& request, ProcessApiCallback<ClientModels::RestoreIOSPurchasesResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::RestoreIOSPurchases(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::RestoreIOSPurchases(ClientModels::RestoreIOSPurchasesRequest& request)
+    {
+        return RestoreIOSPurchases(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::ValidateAmazonIAPReceipt(ClientModels::ValidateAmazonReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateAmazonReceiptResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::ValidateAmazonIAPReceipt(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::ValidateAmazonIAPReceipt(ClientModels::ValidateAmazonReceiptRequest& request)
+    {
+        return ValidateAmazonIAPReceipt(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::ValidateGooglePlayPurchase(ClientModels::ValidateGooglePlayPurchaseRequest& request, ProcessApiCallback<ClientModels::ValidateGooglePlayPurchaseResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::ValidateGooglePlayPurchase(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::ValidateGooglePlayPurchase(ClientModels::ValidateGooglePlayPurchaseRequest& request)
+    {
+        return ValidateGooglePlayPurchase(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::ValidateIOSReceipt(ClientModels::ValidateIOSReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateIOSReceiptResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::ValidateIOSReceipt(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::ValidateIOSReceipt(ClientModels::ValidateIOSReceiptRequest& request)
+    {
+        return ValidateIOSReceipt(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_ClientSysComponent::ValidateWindowsStoreReceipt(ClientModels::ValidateWindowsReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateWindowsReceiptResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabClientApi::ValidateWindowsStoreReceipt(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_ClientSysComponent::ValidateWindowsStoreReceipt(ClientModels::ValidateWindowsReceiptRequest& request)
+    {
+        return ValidateWindowsStoreReceipt(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
 }

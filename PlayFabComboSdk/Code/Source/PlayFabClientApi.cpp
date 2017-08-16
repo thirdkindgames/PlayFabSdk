@@ -2,6 +2,9 @@
 #include "PlayFabClientApi.h"
 #include "PlayFabSettings.h"
 
+#include <AzCore/EBus/EBus.h>
+#include "PlayFabComboSdk/PlayFabCombo_ClientNotificationBus.h" // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS: dbowen (2017/08/11)
+
 using namespace PlayFabComboSdk;
 
 // Client-Specific
@@ -38,10 +41,19 @@ void PlayFabClientApi::MultiStepClientLogin(bool needsAttribution)
     }
 }
 
+
+// #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+void PlayFabClientApi::OnError(const PlayFabRequest& request, const PlayFabError& error)
+{
+    EBUS_EVENT_ID(request.mRequestId,PlayFabCombo_ClientNotificationBus, OnError, error);     
+    EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnError, error, request.mRequestId);
+}
+// THIRD_KIND_END
+
 // PlayFabClient Api
 PlayFabClientApi::PlayFabClientApi() {}
 
-void PlayFabClientApi::GetPhotonAuthenticationToken(
+int PlayFabClientApi::GetPhotonAuthenticationToken(
     ClientModels::GetPhotonAuthenticationTokenRequest& request,
     ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult> callback,
     ErrorCallback errorCallback,
@@ -49,8 +61,8 @@ void PlayFabClientApi::GetPhotonAuthenticationToken(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPhotonAuthenticationToken"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPhotonAuthenticationTokenResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPhotonAuthenticationToken"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPhotonAuthenticationTokenResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPhotonAuthenticationTokenResult(PlayFabRequest* request)
@@ -66,12 +78,16 @@ void PlayFabClientApi::OnGetPhotonAuthenticationTokenResult(PlayFabRequest* requ
             ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPhotonAuthenticationToken, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPhotonAuthenticationToken, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetTitlePublicKey(
+int PlayFabClientApi::GetTitlePublicKey(
     ClientModels::GetTitlePublicKeyRequest& request,
     ProcessApiCallback<ClientModels::GetTitlePublicKeyResult> callback,
     ErrorCallback errorCallback,
@@ -79,8 +95,8 @@ void PlayFabClientApi::GetTitlePublicKey(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetTitlePublicKey"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnGetTitlePublicKeyResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetTitlePublicKey"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnGetTitlePublicKeyResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetTitlePublicKeyResult(PlayFabRequest* request)
@@ -96,12 +112,16 @@ void PlayFabClientApi::OnGetTitlePublicKeyResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetTitlePublicKeyResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetTitlePublicKeyResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetTitlePublicKey, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetTitlePublicKey, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetWindowsHelloChallenge(
+int PlayFabClientApi::GetWindowsHelloChallenge(
     ClientModels::GetWindowsHelloChallengeRequest& request,
     ProcessApiCallback<ClientModels::GetWindowsHelloChallengeResponse> callback,
     ErrorCallback errorCallback,
@@ -109,8 +129,8 @@ void PlayFabClientApi::GetWindowsHelloChallenge(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetWindowsHelloChallenge"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnGetWindowsHelloChallengeResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetWindowsHelloChallenge"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnGetWindowsHelloChallengeResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetWindowsHelloChallengeResult(PlayFabRequest* request)
@@ -126,12 +146,16 @@ void PlayFabClientApi::OnGetWindowsHelloChallengeResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetWindowsHelloChallengeResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetWindowsHelloChallengeResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetWindowsHelloChallenge, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetWindowsHelloChallenge, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LoginWithAndroidDeviceID(
+int PlayFabClientApi::LoginWithAndroidDeviceID(
     ClientModels::LoginWithAndroidDeviceIDRequest& request,
     ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
@@ -141,8 +165,8 @@ void PlayFabClientApi::LoginWithAndroidDeviceID(
     if (PlayFabSettings::playFabSettings->titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings->titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithAndroidDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithAndroidDeviceIDResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithAndroidDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithAndroidDeviceIDResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithAndroidDeviceIDResult(PlayFabRequest* request)
@@ -163,12 +187,16 @@ void PlayFabClientApi::OnLoginWithAndroidDeviceIDResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLoginWithAndroidDeviceID, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLoginWithAndroidDeviceID, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LoginWithCustomID(
+int PlayFabClientApi::LoginWithCustomID(
     ClientModels::LoginWithCustomIDRequest& request,
     ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
@@ -178,8 +206,8 @@ void PlayFabClientApi::LoginWithCustomID(
     if (PlayFabSettings::playFabSettings->titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings->titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithCustomID"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithCustomIDResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithCustomID"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithCustomIDResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithCustomIDResult(PlayFabRequest* request)
@@ -200,12 +228,16 @@ void PlayFabClientApi::OnLoginWithCustomIDResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLoginWithCustomID, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLoginWithCustomID, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LoginWithEmailAddress(
+int PlayFabClientApi::LoginWithEmailAddress(
     ClientModels::LoginWithEmailAddressRequest& request,
     ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
@@ -215,8 +247,8 @@ void PlayFabClientApi::LoginWithEmailAddress(
     if (PlayFabSettings::playFabSettings->titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings->titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithEmailAddress"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithEmailAddressResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithEmailAddress"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithEmailAddressResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithEmailAddressResult(PlayFabRequest* request)
@@ -237,12 +269,16 @@ void PlayFabClientApi::OnLoginWithEmailAddressResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLoginWithEmailAddress, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLoginWithEmailAddress, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LoginWithFacebook(
+int PlayFabClientApi::LoginWithFacebook(
     ClientModels::LoginWithFacebookRequest& request,
     ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
@@ -252,8 +288,8 @@ void PlayFabClientApi::LoginWithFacebook(
     if (PlayFabSettings::playFabSettings->titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings->titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithFacebook"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithFacebookResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithFacebook"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithFacebookResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithFacebookResult(PlayFabRequest* request)
@@ -274,12 +310,16 @@ void PlayFabClientApi::OnLoginWithFacebookResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLoginWithFacebook, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLoginWithFacebook, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LoginWithGameCenter(
+int PlayFabClientApi::LoginWithGameCenter(
     ClientModels::LoginWithGameCenterRequest& request,
     ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
@@ -289,8 +329,8 @@ void PlayFabClientApi::LoginWithGameCenter(
     if (PlayFabSettings::playFabSettings->titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings->titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithGameCenter"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithGameCenterResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithGameCenter"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithGameCenterResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithGameCenterResult(PlayFabRequest* request)
@@ -311,12 +351,16 @@ void PlayFabClientApi::OnLoginWithGameCenterResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLoginWithGameCenter, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLoginWithGameCenter, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LoginWithGoogleAccount(
+int PlayFabClientApi::LoginWithGoogleAccount(
     ClientModels::LoginWithGoogleAccountRequest& request,
     ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
@@ -326,8 +370,8 @@ void PlayFabClientApi::LoginWithGoogleAccount(
     if (PlayFabSettings::playFabSettings->titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings->titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithGoogleAccount"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithGoogleAccountResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithGoogleAccount"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithGoogleAccountResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithGoogleAccountResult(PlayFabRequest* request)
@@ -348,12 +392,16 @@ void PlayFabClientApi::OnLoginWithGoogleAccountResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLoginWithGoogleAccount, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLoginWithGoogleAccount, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LoginWithIOSDeviceID(
+int PlayFabClientApi::LoginWithIOSDeviceID(
     ClientModels::LoginWithIOSDeviceIDRequest& request,
     ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
@@ -363,8 +411,8 @@ void PlayFabClientApi::LoginWithIOSDeviceID(
     if (PlayFabSettings::playFabSettings->titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings->titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithIOSDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithIOSDeviceIDResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithIOSDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithIOSDeviceIDResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithIOSDeviceIDResult(PlayFabRequest* request)
@@ -385,12 +433,16 @@ void PlayFabClientApi::OnLoginWithIOSDeviceIDResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLoginWithIOSDeviceID, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLoginWithIOSDeviceID, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LoginWithKongregate(
+int PlayFabClientApi::LoginWithKongregate(
     ClientModels::LoginWithKongregateRequest& request,
     ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
@@ -400,8 +452,8 @@ void PlayFabClientApi::LoginWithKongregate(
     if (PlayFabSettings::playFabSettings->titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings->titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithKongregate"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithKongregateResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithKongregate"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithKongregateResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithKongregateResult(PlayFabRequest* request)
@@ -422,12 +474,16 @@ void PlayFabClientApi::OnLoginWithKongregateResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLoginWithKongregate, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLoginWithKongregate, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LoginWithPlayFab(
+int PlayFabClientApi::LoginWithPlayFab(
     ClientModels::LoginWithPlayFabRequest& request,
     ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
@@ -437,8 +493,8 @@ void PlayFabClientApi::LoginWithPlayFab(
     if (PlayFabSettings::playFabSettings->titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings->titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithPlayFab"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithPlayFabResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithPlayFab"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithPlayFabResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithPlayFabResult(PlayFabRequest* request)
@@ -459,12 +515,16 @@ void PlayFabClientApi::OnLoginWithPlayFabResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLoginWithPlayFab, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLoginWithPlayFab, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LoginWithSteam(
+int PlayFabClientApi::LoginWithSteam(
     ClientModels::LoginWithSteamRequest& request,
     ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
@@ -474,8 +534,8 @@ void PlayFabClientApi::LoginWithSteam(
     if (PlayFabSettings::playFabSettings->titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings->titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithSteam"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithSteamResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithSteam"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithSteamResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithSteamResult(PlayFabRequest* request)
@@ -496,12 +556,16 @@ void PlayFabClientApi::OnLoginWithSteamResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLoginWithSteam, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLoginWithSteam, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LoginWithTwitch(
+int PlayFabClientApi::LoginWithTwitch(
     ClientModels::LoginWithTwitchRequest& request,
     ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
@@ -511,8 +575,8 @@ void PlayFabClientApi::LoginWithTwitch(
     if (PlayFabSettings::playFabSettings->titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings->titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithTwitch"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithTwitchResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithTwitch"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithTwitchResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithTwitchResult(PlayFabRequest* request)
@@ -533,12 +597,16 @@ void PlayFabClientApi::OnLoginWithTwitchResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLoginWithTwitch, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLoginWithTwitch, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LoginWithWindowsHello(
+int PlayFabClientApi::LoginWithWindowsHello(
     ClientModels::LoginWithWindowsHelloRequest& request,
     ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
@@ -548,8 +616,8 @@ void PlayFabClientApi::LoginWithWindowsHello(
     if (PlayFabSettings::playFabSettings->titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings->titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithWindowsHelloResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithWindowsHelloResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLoginWithWindowsHelloResult(PlayFabRequest* request)
@@ -570,12 +638,16 @@ void PlayFabClientApi::OnLoginWithWindowsHelloResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLoginWithWindowsHello, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLoginWithWindowsHello, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::RegisterPlayFabUser(
+int PlayFabClientApi::RegisterPlayFabUser(
     ClientModels::RegisterPlayFabUserRequest& request,
     ProcessApiCallback<ClientModels::RegisterPlayFabUserResult> callback,
     ErrorCallback errorCallback,
@@ -585,8 +657,8 @@ void PlayFabClientApi::RegisterPlayFabUser(
     if (PlayFabSettings::playFabSettings->titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings->titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RegisterPlayFabUser"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnRegisterPlayFabUserResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RegisterPlayFabUser"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnRegisterPlayFabUserResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnRegisterPlayFabUserResult(PlayFabRequest* request)
@@ -607,12 +679,16 @@ void PlayFabClientApi::OnRegisterPlayFabUserResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::RegisterPlayFabUserResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::RegisterPlayFabUserResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnRegisterPlayFabUser, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnRegisterPlayFabUser, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::RegisterWithWindowsHello(
+int PlayFabClientApi::RegisterWithWindowsHello(
     ClientModels::RegisterWithWindowsHelloRequest& request,
     ProcessApiCallback<ClientModels::LoginResult> callback,
     ErrorCallback errorCallback,
@@ -622,8 +698,8 @@ void PlayFabClientApi::RegisterWithWindowsHello(
     if (PlayFabSettings::playFabSettings->titleId.length() > 0)
         request.TitleId = PlayFabSettings::playFabSettings->titleId;
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RegisterWithWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnRegisterWithWindowsHelloResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RegisterWithWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnRegisterWithWindowsHelloResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnRegisterWithWindowsHelloResult(PlayFabRequest* request)
@@ -644,12 +720,16 @@ void PlayFabClientApi::OnRegisterWithWindowsHelloResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnRegisterWithWindowsHello, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnRegisterWithWindowsHello, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::SetPlayerSecret(
+int PlayFabClientApi::SetPlayerSecret(
     ClientModels::SetPlayerSecretRequest& request,
     ProcessApiCallback<ClientModels::SetPlayerSecretResult> callback,
     ErrorCallback errorCallback,
@@ -657,8 +737,8 @@ void PlayFabClientApi::SetPlayerSecret(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/SetPlayerSecret"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnSetPlayerSecretResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/SetPlayerSecret"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnSetPlayerSecretResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnSetPlayerSecretResult(PlayFabRequest* request)
@@ -674,12 +754,16 @@ void PlayFabClientApi::OnSetPlayerSecretResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::SetPlayerSecretResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::SetPlayerSecretResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnSetPlayerSecret, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnSetPlayerSecret, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::AddGenericID(
+int PlayFabClientApi::AddGenericID(
     ClientModels::AddGenericIDRequest& request,
     ProcessApiCallback<ClientModels::AddGenericIDResult> callback,
     ErrorCallback errorCallback,
@@ -687,8 +771,8 @@ void PlayFabClientApi::AddGenericID(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AddGenericID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddGenericIDResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AddGenericID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddGenericIDResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnAddGenericIDResult(PlayFabRequest* request)
@@ -704,12 +788,16 @@ void PlayFabClientApi::OnAddGenericIDResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::AddGenericIDResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::AddGenericIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnAddGenericID, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnAddGenericID, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::AddUsernamePassword(
+int PlayFabClientApi::AddUsernamePassword(
     ClientModels::AddUsernamePasswordRequest& request,
     ProcessApiCallback<ClientModels::AddUsernamePasswordResult> callback,
     ErrorCallback errorCallback,
@@ -717,8 +805,8 @@ void PlayFabClientApi::AddUsernamePassword(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AddUsernamePassword"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddUsernamePasswordResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AddUsernamePassword"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddUsernamePasswordResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnAddUsernamePasswordResult(PlayFabRequest* request)
@@ -734,12 +822,16 @@ void PlayFabClientApi::OnAddUsernamePasswordResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::AddUsernamePasswordResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::AddUsernamePasswordResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnAddUsernamePassword, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnAddUsernamePassword, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetAccountInfo(
+int PlayFabClientApi::GetAccountInfo(
     ClientModels::GetAccountInfoRequest& request,
     ProcessApiCallback<ClientModels::GetAccountInfoResult> callback,
     ErrorCallback errorCallback,
@@ -747,8 +839,8 @@ void PlayFabClientApi::GetAccountInfo(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetAccountInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetAccountInfoResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetAccountInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetAccountInfoResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetAccountInfoResult(PlayFabRequest* request)
@@ -764,12 +856,16 @@ void PlayFabClientApi::OnGetAccountInfoResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetAccountInfoResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetAccountInfoResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetAccountInfo, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetAccountInfo, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetPlayerCombinedInfo(
+int PlayFabClientApi::GetPlayerCombinedInfo(
     ClientModels::GetPlayerCombinedInfoRequest& request,
     ProcessApiCallback<ClientModels::GetPlayerCombinedInfoResult> callback,
     ErrorCallback errorCallback,
@@ -777,8 +873,8 @@ void PlayFabClientApi::GetPlayerCombinedInfo(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayerCombinedInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerCombinedInfoResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayerCombinedInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerCombinedInfoResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayerCombinedInfoResult(PlayFabRequest* request)
@@ -794,12 +890,16 @@ void PlayFabClientApi::OnGetPlayerCombinedInfoResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetPlayerCombinedInfoResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayerCombinedInfoResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPlayerCombinedInfo, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPlayerCombinedInfo, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetPlayerProfile(
+int PlayFabClientApi::GetPlayerProfile(
     ClientModels::GetPlayerProfileRequest& request,
     ProcessApiCallback<ClientModels::GetPlayerProfileResult> callback,
     ErrorCallback errorCallback,
@@ -807,8 +907,8 @@ void PlayFabClientApi::GetPlayerProfile(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayerProfile"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerProfileResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayerProfile"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerProfileResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayerProfileResult(PlayFabRequest* request)
@@ -824,12 +924,16 @@ void PlayFabClientApi::OnGetPlayerProfileResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetPlayerProfileResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayerProfileResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPlayerProfile, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPlayerProfile, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetPlayFabIDsFromFacebookIDs(
+int PlayFabClientApi::GetPlayFabIDsFromFacebookIDs(
     ClientModels::GetPlayFabIDsFromFacebookIDsRequest& request,
     ProcessApiCallback<ClientModels::GetPlayFabIDsFromFacebookIDsResult> callback,
     ErrorCallback errorCallback,
@@ -837,8 +941,8 @@ void PlayFabClientApi::GetPlayFabIDsFromFacebookIDs(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayFabIDsFromFacebookIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromFacebookIDsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayFabIDsFromFacebookIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromFacebookIDsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayFabIDsFromFacebookIDsResult(PlayFabRequest* request)
@@ -854,12 +958,16 @@ void PlayFabClientApi::OnGetPlayFabIDsFromFacebookIDsResult(PlayFabRequest* requ
             ProcessApiCallback<ClientModels::GetPlayFabIDsFromFacebookIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayFabIDsFromFacebookIDsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPlayFabIDsFromFacebookIDs, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPlayFabIDsFromFacebookIDs, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetPlayFabIDsFromGameCenterIDs(
+int PlayFabClientApi::GetPlayFabIDsFromGameCenterIDs(
     ClientModels::GetPlayFabIDsFromGameCenterIDsRequest& request,
     ProcessApiCallback<ClientModels::GetPlayFabIDsFromGameCenterIDsResult> callback,
     ErrorCallback errorCallback,
@@ -867,8 +975,8 @@ void PlayFabClientApi::GetPlayFabIDsFromGameCenterIDs(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayFabIDsFromGameCenterIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromGameCenterIDsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayFabIDsFromGameCenterIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromGameCenterIDsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayFabIDsFromGameCenterIDsResult(PlayFabRequest* request)
@@ -884,12 +992,16 @@ void PlayFabClientApi::OnGetPlayFabIDsFromGameCenterIDsResult(PlayFabRequest* re
             ProcessApiCallback<ClientModels::GetPlayFabIDsFromGameCenterIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayFabIDsFromGameCenterIDsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPlayFabIDsFromGameCenterIDs, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPlayFabIDsFromGameCenterIDs, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetPlayFabIDsFromGenericIDs(
+int PlayFabClientApi::GetPlayFabIDsFromGenericIDs(
     ClientModels::GetPlayFabIDsFromGenericIDsRequest& request,
     ProcessApiCallback<ClientModels::GetPlayFabIDsFromGenericIDsResult> callback,
     ErrorCallback errorCallback,
@@ -897,8 +1009,8 @@ void PlayFabClientApi::GetPlayFabIDsFromGenericIDs(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayFabIDsFromGenericIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromGenericIDsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayFabIDsFromGenericIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromGenericIDsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayFabIDsFromGenericIDsResult(PlayFabRequest* request)
@@ -914,12 +1026,16 @@ void PlayFabClientApi::OnGetPlayFabIDsFromGenericIDsResult(PlayFabRequest* reque
             ProcessApiCallback<ClientModels::GetPlayFabIDsFromGenericIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayFabIDsFromGenericIDsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPlayFabIDsFromGenericIDs, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPlayFabIDsFromGenericIDs, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetPlayFabIDsFromGoogleIDs(
+int PlayFabClientApi::GetPlayFabIDsFromGoogleIDs(
     ClientModels::GetPlayFabIDsFromGoogleIDsRequest& request,
     ProcessApiCallback<ClientModels::GetPlayFabIDsFromGoogleIDsResult> callback,
     ErrorCallback errorCallback,
@@ -927,8 +1043,8 @@ void PlayFabClientApi::GetPlayFabIDsFromGoogleIDs(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayFabIDsFromGoogleIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromGoogleIDsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayFabIDsFromGoogleIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromGoogleIDsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayFabIDsFromGoogleIDsResult(PlayFabRequest* request)
@@ -944,12 +1060,16 @@ void PlayFabClientApi::OnGetPlayFabIDsFromGoogleIDsResult(PlayFabRequest* reques
             ProcessApiCallback<ClientModels::GetPlayFabIDsFromGoogleIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayFabIDsFromGoogleIDsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPlayFabIDsFromGoogleIDs, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPlayFabIDsFromGoogleIDs, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetPlayFabIDsFromKongregateIDs(
+int PlayFabClientApi::GetPlayFabIDsFromKongregateIDs(
     ClientModels::GetPlayFabIDsFromKongregateIDsRequest& request,
     ProcessApiCallback<ClientModels::GetPlayFabIDsFromKongregateIDsResult> callback,
     ErrorCallback errorCallback,
@@ -957,8 +1077,8 @@ void PlayFabClientApi::GetPlayFabIDsFromKongregateIDs(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayFabIDsFromKongregateIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromKongregateIDsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayFabIDsFromKongregateIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromKongregateIDsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayFabIDsFromKongregateIDsResult(PlayFabRequest* request)
@@ -974,12 +1094,16 @@ void PlayFabClientApi::OnGetPlayFabIDsFromKongregateIDsResult(PlayFabRequest* re
             ProcessApiCallback<ClientModels::GetPlayFabIDsFromKongregateIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayFabIDsFromKongregateIDsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPlayFabIDsFromKongregateIDs, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPlayFabIDsFromKongregateIDs, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetPlayFabIDsFromSteamIDs(
+int PlayFabClientApi::GetPlayFabIDsFromSteamIDs(
     ClientModels::GetPlayFabIDsFromSteamIDsRequest& request,
     ProcessApiCallback<ClientModels::GetPlayFabIDsFromSteamIDsResult> callback,
     ErrorCallback errorCallback,
@@ -987,8 +1111,8 @@ void PlayFabClientApi::GetPlayFabIDsFromSteamIDs(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayFabIDsFromSteamIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromSteamIDsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayFabIDsFromSteamIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromSteamIDsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayFabIDsFromSteamIDsResult(PlayFabRequest* request)
@@ -1004,12 +1128,16 @@ void PlayFabClientApi::OnGetPlayFabIDsFromSteamIDsResult(PlayFabRequest* request
             ProcessApiCallback<ClientModels::GetPlayFabIDsFromSteamIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayFabIDsFromSteamIDsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPlayFabIDsFromSteamIDs, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPlayFabIDsFromSteamIDs, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetPlayFabIDsFromTwitchIDs(
+int PlayFabClientApi::GetPlayFabIDsFromTwitchIDs(
     ClientModels::GetPlayFabIDsFromTwitchIDsRequest& request,
     ProcessApiCallback<ClientModels::GetPlayFabIDsFromTwitchIDsResult> callback,
     ErrorCallback errorCallback,
@@ -1017,8 +1145,8 @@ void PlayFabClientApi::GetPlayFabIDsFromTwitchIDs(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayFabIDsFromTwitchIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromTwitchIDsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayFabIDsFromTwitchIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromTwitchIDsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayFabIDsFromTwitchIDsResult(PlayFabRequest* request)
@@ -1034,12 +1162,16 @@ void PlayFabClientApi::OnGetPlayFabIDsFromTwitchIDsResult(PlayFabRequest* reques
             ProcessApiCallback<ClientModels::GetPlayFabIDsFromTwitchIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayFabIDsFromTwitchIDsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPlayFabIDsFromTwitchIDs, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPlayFabIDsFromTwitchIDs, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LinkAndroidDeviceID(
+int PlayFabClientApi::LinkAndroidDeviceID(
     ClientModels::LinkAndroidDeviceIDRequest& request,
     ProcessApiCallback<ClientModels::LinkAndroidDeviceIDResult> callback,
     ErrorCallback errorCallback,
@@ -1047,8 +1179,8 @@ void PlayFabClientApi::LinkAndroidDeviceID(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkAndroidDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkAndroidDeviceIDResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkAndroidDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkAndroidDeviceIDResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkAndroidDeviceIDResult(PlayFabRequest* request)
@@ -1064,12 +1196,16 @@ void PlayFabClientApi::OnLinkAndroidDeviceIDResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LinkAndroidDeviceIDResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkAndroidDeviceIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLinkAndroidDeviceID, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLinkAndroidDeviceID, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LinkCustomID(
+int PlayFabClientApi::LinkCustomID(
     ClientModels::LinkCustomIDRequest& request,
     ProcessApiCallback<ClientModels::LinkCustomIDResult> callback,
     ErrorCallback errorCallback,
@@ -1077,8 +1213,8 @@ void PlayFabClientApi::LinkCustomID(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkCustomID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkCustomIDResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkCustomID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkCustomIDResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkCustomIDResult(PlayFabRequest* request)
@@ -1094,12 +1230,16 @@ void PlayFabClientApi::OnLinkCustomIDResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LinkCustomIDResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkCustomIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLinkCustomID, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLinkCustomID, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LinkFacebookAccount(
+int PlayFabClientApi::LinkFacebookAccount(
     ClientModels::LinkFacebookAccountRequest& request,
     ProcessApiCallback<ClientModels::LinkFacebookAccountResult> callback,
     ErrorCallback errorCallback,
@@ -1107,8 +1247,8 @@ void PlayFabClientApi::LinkFacebookAccount(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkFacebookAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkFacebookAccountResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkFacebookAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkFacebookAccountResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkFacebookAccountResult(PlayFabRequest* request)
@@ -1124,12 +1264,16 @@ void PlayFabClientApi::OnLinkFacebookAccountResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LinkFacebookAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkFacebookAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLinkFacebookAccount, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLinkFacebookAccount, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LinkGameCenterAccount(
+int PlayFabClientApi::LinkGameCenterAccount(
     ClientModels::LinkGameCenterAccountRequest& request,
     ProcessApiCallback<ClientModels::LinkGameCenterAccountResult> callback,
     ErrorCallback errorCallback,
@@ -1137,8 +1281,8 @@ void PlayFabClientApi::LinkGameCenterAccount(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkGameCenterAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkGameCenterAccountResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkGameCenterAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkGameCenterAccountResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkGameCenterAccountResult(PlayFabRequest* request)
@@ -1154,12 +1298,16 @@ void PlayFabClientApi::OnLinkGameCenterAccountResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LinkGameCenterAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkGameCenterAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLinkGameCenterAccount, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLinkGameCenterAccount, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LinkGoogleAccount(
+int PlayFabClientApi::LinkGoogleAccount(
     ClientModels::LinkGoogleAccountRequest& request,
     ProcessApiCallback<ClientModels::LinkGoogleAccountResult> callback,
     ErrorCallback errorCallback,
@@ -1167,8 +1315,8 @@ void PlayFabClientApi::LinkGoogleAccount(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkGoogleAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkGoogleAccountResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkGoogleAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkGoogleAccountResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkGoogleAccountResult(PlayFabRequest* request)
@@ -1184,12 +1332,16 @@ void PlayFabClientApi::OnLinkGoogleAccountResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LinkGoogleAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkGoogleAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLinkGoogleAccount, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLinkGoogleAccount, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LinkIOSDeviceID(
+int PlayFabClientApi::LinkIOSDeviceID(
     ClientModels::LinkIOSDeviceIDRequest& request,
     ProcessApiCallback<ClientModels::LinkIOSDeviceIDResult> callback,
     ErrorCallback errorCallback,
@@ -1197,8 +1349,8 @@ void PlayFabClientApi::LinkIOSDeviceID(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkIOSDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkIOSDeviceIDResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkIOSDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkIOSDeviceIDResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkIOSDeviceIDResult(PlayFabRequest* request)
@@ -1214,12 +1366,16 @@ void PlayFabClientApi::OnLinkIOSDeviceIDResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LinkIOSDeviceIDResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkIOSDeviceIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLinkIOSDeviceID, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLinkIOSDeviceID, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LinkKongregate(
+int PlayFabClientApi::LinkKongregate(
     ClientModels::LinkKongregateAccountRequest& request,
     ProcessApiCallback<ClientModels::LinkKongregateAccountResult> callback,
     ErrorCallback errorCallback,
@@ -1227,8 +1383,8 @@ void PlayFabClientApi::LinkKongregate(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkKongregate"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkKongregateResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkKongregate"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkKongregateResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkKongregateResult(PlayFabRequest* request)
@@ -1244,12 +1400,16 @@ void PlayFabClientApi::OnLinkKongregateResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LinkKongregateAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkKongregateAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLinkKongregate, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLinkKongregate, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LinkSteamAccount(
+int PlayFabClientApi::LinkSteamAccount(
     ClientModels::LinkSteamAccountRequest& request,
     ProcessApiCallback<ClientModels::LinkSteamAccountResult> callback,
     ErrorCallback errorCallback,
@@ -1257,8 +1417,8 @@ void PlayFabClientApi::LinkSteamAccount(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkSteamAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkSteamAccountResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkSteamAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkSteamAccountResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkSteamAccountResult(PlayFabRequest* request)
@@ -1274,12 +1434,16 @@ void PlayFabClientApi::OnLinkSteamAccountResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LinkSteamAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkSteamAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLinkSteamAccount, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLinkSteamAccount, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LinkTwitch(
+int PlayFabClientApi::LinkTwitch(
     ClientModels::LinkTwitchAccountRequest& request,
     ProcessApiCallback<ClientModels::LinkTwitchAccountResult> callback,
     ErrorCallback errorCallback,
@@ -1287,8 +1451,8 @@ void PlayFabClientApi::LinkTwitch(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkTwitch"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkTwitchResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkTwitch"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkTwitchResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkTwitchResult(PlayFabRequest* request)
@@ -1304,12 +1468,16 @@ void PlayFabClientApi::OnLinkTwitchResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LinkTwitchAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkTwitchAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLinkTwitch, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLinkTwitch, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::LinkWindowsHello(
+int PlayFabClientApi::LinkWindowsHello(
     ClientModels::LinkWindowsHelloAccountRequest& request,
     ProcessApiCallback<ClientModels::LinkWindowsHelloAccountResponse> callback,
     ErrorCallback errorCallback,
@@ -1317,8 +1485,8 @@ void PlayFabClientApi::LinkWindowsHello(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkWindowsHelloResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkWindowsHelloResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnLinkWindowsHelloResult(PlayFabRequest* request)
@@ -1334,12 +1502,16 @@ void PlayFabClientApi::OnLinkWindowsHelloResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::LinkWindowsHelloAccountResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkWindowsHelloAccountResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnLinkWindowsHello, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnLinkWindowsHello, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::RemoveGenericID(
+int PlayFabClientApi::RemoveGenericID(
     ClientModels::RemoveGenericIDRequest& request,
     ProcessApiCallback<ClientModels::RemoveGenericIDResult> callback,
     ErrorCallback errorCallback,
@@ -1347,8 +1519,8 @@ void PlayFabClientApi::RemoveGenericID(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RemoveGenericID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRemoveGenericIDResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RemoveGenericID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRemoveGenericIDResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnRemoveGenericIDResult(PlayFabRequest* request)
@@ -1364,12 +1536,16 @@ void PlayFabClientApi::OnRemoveGenericIDResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::RemoveGenericIDResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::RemoveGenericIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnRemoveGenericID, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnRemoveGenericID, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::ReportPlayer(
+int PlayFabClientApi::ReportPlayer(
     ClientModels::ReportPlayerClientRequest& request,
     ProcessApiCallback<ClientModels::ReportPlayerClientResult> callback,
     ErrorCallback errorCallback,
@@ -1377,8 +1553,8 @@ void PlayFabClientApi::ReportPlayer(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ReportPlayer"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnReportPlayerResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ReportPlayer"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnReportPlayerResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnReportPlayerResult(PlayFabRequest* request)
@@ -1394,12 +1570,16 @@ void PlayFabClientApi::OnReportPlayerResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::ReportPlayerClientResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ReportPlayerClientResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnReportPlayer, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnReportPlayer, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::SendAccountRecoveryEmail(
+int PlayFabClientApi::SendAccountRecoveryEmail(
     ClientModels::SendAccountRecoveryEmailRequest& request,
     ProcessApiCallback<ClientModels::SendAccountRecoveryEmailResult> callback,
     ErrorCallback errorCallback,
@@ -1407,8 +1587,8 @@ void PlayFabClientApi::SendAccountRecoveryEmail(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/SendAccountRecoveryEmail"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnSendAccountRecoveryEmailResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/SendAccountRecoveryEmail"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnSendAccountRecoveryEmailResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnSendAccountRecoveryEmailResult(PlayFabRequest* request)
@@ -1424,12 +1604,16 @@ void PlayFabClientApi::OnSendAccountRecoveryEmailResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::SendAccountRecoveryEmailResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::SendAccountRecoveryEmailResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnSendAccountRecoveryEmail, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnSendAccountRecoveryEmail, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UnlinkAndroidDeviceID(
+int PlayFabClientApi::UnlinkAndroidDeviceID(
     ClientModels::UnlinkAndroidDeviceIDRequest& request,
     ProcessApiCallback<ClientModels::UnlinkAndroidDeviceIDResult> callback,
     ErrorCallback errorCallback,
@@ -1437,8 +1621,8 @@ void PlayFabClientApi::UnlinkAndroidDeviceID(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkAndroidDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlinkAndroidDeviceIDResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkAndroidDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlinkAndroidDeviceIDResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkAndroidDeviceIDResult(PlayFabRequest* request)
@@ -1454,12 +1638,16 @@ void PlayFabClientApi::OnUnlinkAndroidDeviceIDResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UnlinkAndroidDeviceIDResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkAndroidDeviceIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUnlinkAndroidDeviceID, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUnlinkAndroidDeviceID, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UnlinkCustomID(
+int PlayFabClientApi::UnlinkCustomID(
     ClientModels::UnlinkCustomIDRequest& request,
     ProcessApiCallback<ClientModels::UnlinkCustomIDResult> callback,
     ErrorCallback errorCallback,
@@ -1467,8 +1655,8 @@ void PlayFabClientApi::UnlinkCustomID(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkCustomID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlinkCustomIDResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkCustomID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlinkCustomIDResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkCustomIDResult(PlayFabRequest* request)
@@ -1484,12 +1672,16 @@ void PlayFabClientApi::OnUnlinkCustomIDResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UnlinkCustomIDResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkCustomIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUnlinkCustomID, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUnlinkCustomID, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UnlinkFacebookAccount(
+int PlayFabClientApi::UnlinkFacebookAccount(
 
     ProcessApiCallback<ClientModels::UnlinkFacebookAccountResult> callback,
     ErrorCallback errorCallback,
@@ -1497,8 +1689,8 @@ void PlayFabClientApi::UnlinkFacebookAccount(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkFacebookAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkFacebookAccountResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkFacebookAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkFacebookAccountResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkFacebookAccountResult(PlayFabRequest* request)
@@ -1514,12 +1706,16 @@ void PlayFabClientApi::OnUnlinkFacebookAccountResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UnlinkFacebookAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkFacebookAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUnlinkFacebookAccount, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUnlinkFacebookAccount, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UnlinkGameCenterAccount(
+int PlayFabClientApi::UnlinkGameCenterAccount(
 
     ProcessApiCallback<ClientModels::UnlinkGameCenterAccountResult> callback,
     ErrorCallback errorCallback,
@@ -1527,8 +1723,8 @@ void PlayFabClientApi::UnlinkGameCenterAccount(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkGameCenterAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkGameCenterAccountResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkGameCenterAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkGameCenterAccountResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkGameCenterAccountResult(PlayFabRequest* request)
@@ -1544,12 +1740,16 @@ void PlayFabClientApi::OnUnlinkGameCenterAccountResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UnlinkGameCenterAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkGameCenterAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUnlinkGameCenterAccount, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUnlinkGameCenterAccount, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UnlinkGoogleAccount(
+int PlayFabClientApi::UnlinkGoogleAccount(
 
     ProcessApiCallback<ClientModels::UnlinkGoogleAccountResult> callback,
     ErrorCallback errorCallback,
@@ -1557,8 +1757,8 @@ void PlayFabClientApi::UnlinkGoogleAccount(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkGoogleAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkGoogleAccountResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkGoogleAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkGoogleAccountResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkGoogleAccountResult(PlayFabRequest* request)
@@ -1574,12 +1774,16 @@ void PlayFabClientApi::OnUnlinkGoogleAccountResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UnlinkGoogleAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkGoogleAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUnlinkGoogleAccount, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUnlinkGoogleAccount, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UnlinkIOSDeviceID(
+int PlayFabClientApi::UnlinkIOSDeviceID(
     ClientModels::UnlinkIOSDeviceIDRequest& request,
     ProcessApiCallback<ClientModels::UnlinkIOSDeviceIDResult> callback,
     ErrorCallback errorCallback,
@@ -1587,8 +1791,8 @@ void PlayFabClientApi::UnlinkIOSDeviceID(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkIOSDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlinkIOSDeviceIDResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkIOSDeviceID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlinkIOSDeviceIDResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkIOSDeviceIDResult(PlayFabRequest* request)
@@ -1604,12 +1808,16 @@ void PlayFabClientApi::OnUnlinkIOSDeviceIDResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UnlinkIOSDeviceIDResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkIOSDeviceIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUnlinkIOSDeviceID, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUnlinkIOSDeviceID, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UnlinkKongregate(
+int PlayFabClientApi::UnlinkKongregate(
 
     ProcessApiCallback<ClientModels::UnlinkKongregateAccountResult> callback,
     ErrorCallback errorCallback,
@@ -1617,8 +1825,8 @@ void PlayFabClientApi::UnlinkKongregate(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkKongregate"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkKongregateResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkKongregate"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkKongregateResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkKongregateResult(PlayFabRequest* request)
@@ -1634,12 +1842,16 @@ void PlayFabClientApi::OnUnlinkKongregateResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UnlinkKongregateAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkKongregateAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUnlinkKongregate, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUnlinkKongregate, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UnlinkSteamAccount(
+int PlayFabClientApi::UnlinkSteamAccount(
 
     ProcessApiCallback<ClientModels::UnlinkSteamAccountResult> callback,
     ErrorCallback errorCallback,
@@ -1647,8 +1859,8 @@ void PlayFabClientApi::UnlinkSteamAccount(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkSteamAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkSteamAccountResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkSteamAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkSteamAccountResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkSteamAccountResult(PlayFabRequest* request)
@@ -1664,12 +1876,16 @@ void PlayFabClientApi::OnUnlinkSteamAccountResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UnlinkSteamAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkSteamAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUnlinkSteamAccount, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUnlinkSteamAccount, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UnlinkTwitch(
+int PlayFabClientApi::UnlinkTwitch(
 
     ProcessApiCallback<ClientModels::UnlinkTwitchAccountResult> callback,
     ErrorCallback errorCallback,
@@ -1677,8 +1893,8 @@ void PlayFabClientApi::UnlinkTwitch(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkTwitch"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkTwitchResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkTwitch"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkTwitchResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkTwitchResult(PlayFabRequest* request)
@@ -1694,12 +1910,16 @@ void PlayFabClientApi::OnUnlinkTwitchResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UnlinkTwitchAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkTwitchAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUnlinkTwitch, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUnlinkTwitch, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UnlinkWindowsHello(
+int PlayFabClientApi::UnlinkWindowsHello(
     ClientModels::UnlinkWindowsHelloAccountRequest& request,
     ProcessApiCallback<ClientModels::UnlinkWindowsHelloAccountResponse> callback,
     ErrorCallback errorCallback,
@@ -1707,8 +1927,8 @@ void PlayFabClientApi::UnlinkWindowsHello(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlinkWindowsHelloResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlinkWindowsHelloResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlinkWindowsHelloResult(PlayFabRequest* request)
@@ -1724,12 +1944,16 @@ void PlayFabClientApi::OnUnlinkWindowsHelloResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UnlinkWindowsHelloAccountResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkWindowsHelloAccountResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUnlinkWindowsHello, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUnlinkWindowsHello, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UpdateAvatarUrl(
+int PlayFabClientApi::UpdateAvatarUrl(
     ClientModels::UpdateAvatarUrlRequest& request,
     ProcessApiCallback<ClientModels::EmptyResult> callback,
     ErrorCallback errorCallback,
@@ -1737,8 +1961,8 @@ void PlayFabClientApi::UpdateAvatarUrl(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UpdateAvatarUrl"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateAvatarUrlResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UpdateAvatarUrl"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateAvatarUrlResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUpdateAvatarUrlResult(PlayFabRequest* request)
@@ -1754,12 +1978,16 @@ void PlayFabClientApi::OnUpdateAvatarUrlResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::EmptyResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::EmptyResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUpdateAvatarUrl, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUpdateAvatarUrl, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UpdateUserTitleDisplayName(
+int PlayFabClientApi::UpdateUserTitleDisplayName(
     ClientModels::UpdateUserTitleDisplayNameRequest& request,
     ProcessApiCallback<ClientModels::UpdateUserTitleDisplayNameResult> callback,
     ErrorCallback errorCallback,
@@ -1767,8 +1995,8 @@ void PlayFabClientApi::UpdateUserTitleDisplayName(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UpdateUserTitleDisplayName"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserTitleDisplayNameResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UpdateUserTitleDisplayName"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserTitleDisplayNameResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUpdateUserTitleDisplayNameResult(PlayFabRequest* request)
@@ -1784,12 +2012,16 @@ void PlayFabClientApi::OnUpdateUserTitleDisplayNameResult(PlayFabRequest* reques
             ProcessApiCallback<ClientModels::UpdateUserTitleDisplayNameResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UpdateUserTitleDisplayNameResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUpdateUserTitleDisplayName, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUpdateUserTitleDisplayName, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetFriendLeaderboard(
+int PlayFabClientApi::GetFriendLeaderboard(
     ClientModels::GetFriendLeaderboardRequest& request,
     ProcessApiCallback<ClientModels::GetLeaderboardResult> callback,
     ErrorCallback errorCallback,
@@ -1797,8 +2029,8 @@ void PlayFabClientApi::GetFriendLeaderboard(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetFriendLeaderboard"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetFriendLeaderboardResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetFriendLeaderboard"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetFriendLeaderboardResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetFriendLeaderboardResult(PlayFabRequest* request)
@@ -1814,12 +2046,16 @@ void PlayFabClientApi::OnGetFriendLeaderboardResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetLeaderboardResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetLeaderboardResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetFriendLeaderboard, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetFriendLeaderboard, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetFriendLeaderboardAroundPlayer(
+int PlayFabClientApi::GetFriendLeaderboardAroundPlayer(
     ClientModels::GetFriendLeaderboardAroundPlayerRequest& request,
     ProcessApiCallback<ClientModels::GetFriendLeaderboardAroundPlayerResult> callback,
     ErrorCallback errorCallback,
@@ -1827,8 +2063,8 @@ void PlayFabClientApi::GetFriendLeaderboardAroundPlayer(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetFriendLeaderboardAroundPlayer"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetFriendLeaderboardAroundPlayerResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetFriendLeaderboardAroundPlayer"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetFriendLeaderboardAroundPlayerResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetFriendLeaderboardAroundPlayerResult(PlayFabRequest* request)
@@ -1844,12 +2080,16 @@ void PlayFabClientApi::OnGetFriendLeaderboardAroundPlayerResult(PlayFabRequest* 
             ProcessApiCallback<ClientModels::GetFriendLeaderboardAroundPlayerResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetFriendLeaderboardAroundPlayerResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetFriendLeaderboardAroundPlayer, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetFriendLeaderboardAroundPlayer, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetLeaderboard(
+int PlayFabClientApi::GetLeaderboard(
     ClientModels::GetLeaderboardRequest& request,
     ProcessApiCallback<ClientModels::GetLeaderboardResult> callback,
     ErrorCallback errorCallback,
@@ -1857,8 +2097,8 @@ void PlayFabClientApi::GetLeaderboard(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetLeaderboard"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetLeaderboard"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetLeaderboardResult(PlayFabRequest* request)
@@ -1874,12 +2114,16 @@ void PlayFabClientApi::OnGetLeaderboardResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetLeaderboardResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetLeaderboardResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetLeaderboard, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetLeaderboard, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetLeaderboardAroundPlayer(
+int PlayFabClientApi::GetLeaderboardAroundPlayer(
     ClientModels::GetLeaderboardAroundPlayerRequest& request,
     ProcessApiCallback<ClientModels::GetLeaderboardAroundPlayerResult> callback,
     ErrorCallback errorCallback,
@@ -1887,8 +2131,8 @@ void PlayFabClientApi::GetLeaderboardAroundPlayer(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetLeaderboardAroundPlayer"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardAroundPlayerResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetLeaderboardAroundPlayer"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardAroundPlayerResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetLeaderboardAroundPlayerResult(PlayFabRequest* request)
@@ -1904,12 +2148,16 @@ void PlayFabClientApi::OnGetLeaderboardAroundPlayerResult(PlayFabRequest* reques
             ProcessApiCallback<ClientModels::GetLeaderboardAroundPlayerResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetLeaderboardAroundPlayerResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetLeaderboardAroundPlayer, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetLeaderboardAroundPlayer, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetPlayerStatistics(
+int PlayFabClientApi::GetPlayerStatistics(
     ClientModels::GetPlayerStatisticsRequest& request,
     ProcessApiCallback<ClientModels::GetPlayerStatisticsResult> callback,
     ErrorCallback errorCallback,
@@ -1917,8 +2165,8 @@ void PlayFabClientApi::GetPlayerStatistics(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayerStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerStatisticsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayerStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerStatisticsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayerStatisticsResult(PlayFabRequest* request)
@@ -1934,12 +2182,16 @@ void PlayFabClientApi::OnGetPlayerStatisticsResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetPlayerStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayerStatisticsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPlayerStatistics, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPlayerStatistics, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetPlayerStatisticVersions(
+int PlayFabClientApi::GetPlayerStatisticVersions(
     ClientModels::GetPlayerStatisticVersionsRequest& request,
     ProcessApiCallback<ClientModels::GetPlayerStatisticVersionsResult> callback,
     ErrorCallback errorCallback,
@@ -1947,8 +2199,8 @@ void PlayFabClientApi::GetPlayerStatisticVersions(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayerStatisticVersions"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerStatisticVersionsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayerStatisticVersions"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerStatisticVersionsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayerStatisticVersionsResult(PlayFabRequest* request)
@@ -1964,12 +2216,16 @@ void PlayFabClientApi::OnGetPlayerStatisticVersionsResult(PlayFabRequest* reques
             ProcessApiCallback<ClientModels::GetPlayerStatisticVersionsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayerStatisticVersionsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPlayerStatisticVersions, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPlayerStatisticVersions, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetUserData(
+int PlayFabClientApi::GetUserData(
     ClientModels::GetUserDataRequest& request,
     ProcessApiCallback<ClientModels::GetUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -1977,8 +2233,8 @@ void PlayFabClientApi::GetUserData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetUserData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetUserDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetUserData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetUserDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetUserDataResult(PlayFabRequest* request)
@@ -1994,12 +2250,16 @@ void PlayFabClientApi::OnGetUserDataResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetUserData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetUserData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetUserPublisherData(
+int PlayFabClientApi::GetUserPublisherData(
     ClientModels::GetUserDataRequest& request,
     ProcessApiCallback<ClientModels::GetUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -2007,8 +2267,8 @@ void PlayFabClientApi::GetUserPublisherData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetUserPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetUserPublisherDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetUserPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetUserPublisherDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetUserPublisherDataResult(PlayFabRequest* request)
@@ -2024,12 +2284,16 @@ void PlayFabClientApi::OnGetUserPublisherDataResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetUserPublisherData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetUserPublisherData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetUserPublisherReadOnlyData(
+int PlayFabClientApi::GetUserPublisherReadOnlyData(
     ClientModels::GetUserDataRequest& request,
     ProcessApiCallback<ClientModels::GetUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -2037,8 +2301,8 @@ void PlayFabClientApi::GetUserPublisherReadOnlyData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetUserPublisherReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetUserPublisherReadOnlyDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetUserPublisherReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetUserPublisherReadOnlyDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetUserPublisherReadOnlyDataResult(PlayFabRequest* request)
@@ -2054,12 +2318,16 @@ void PlayFabClientApi::OnGetUserPublisherReadOnlyDataResult(PlayFabRequest* requ
             ProcessApiCallback<ClientModels::GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetUserPublisherReadOnlyData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetUserPublisherReadOnlyData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetUserReadOnlyData(
+int PlayFabClientApi::GetUserReadOnlyData(
     ClientModels::GetUserDataRequest& request,
     ProcessApiCallback<ClientModels::GetUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -2067,8 +2335,8 @@ void PlayFabClientApi::GetUserReadOnlyData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetUserReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetUserReadOnlyDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetUserReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetUserReadOnlyDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetUserReadOnlyDataResult(PlayFabRequest* request)
@@ -2084,12 +2352,16 @@ void PlayFabClientApi::OnGetUserReadOnlyDataResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetUserReadOnlyData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetUserReadOnlyData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UpdatePlayerStatistics(
+int PlayFabClientApi::UpdatePlayerStatistics(
     ClientModels::UpdatePlayerStatisticsRequest& request,
     ProcessApiCallback<ClientModels::UpdatePlayerStatisticsResult> callback,
     ErrorCallback errorCallback,
@@ -2097,8 +2369,8 @@ void PlayFabClientApi::UpdatePlayerStatistics(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UpdatePlayerStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdatePlayerStatisticsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UpdatePlayerStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdatePlayerStatisticsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUpdatePlayerStatisticsResult(PlayFabRequest* request)
@@ -2114,12 +2386,16 @@ void PlayFabClientApi::OnUpdatePlayerStatisticsResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UpdatePlayerStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UpdatePlayerStatisticsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUpdatePlayerStatistics, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUpdatePlayerStatistics, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UpdateUserData(
+int PlayFabClientApi::UpdateUserData(
     ClientModels::UpdateUserDataRequest& request,
     ProcessApiCallback<ClientModels::UpdateUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -2127,8 +2403,8 @@ void PlayFabClientApi::UpdateUserData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UpdateUserData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UpdateUserData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUpdateUserDataResult(PlayFabRequest* request)
@@ -2144,12 +2420,16 @@ void PlayFabClientApi::OnUpdateUserDataResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UpdateUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UpdateUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUpdateUserData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUpdateUserData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UpdateUserPublisherData(
+int PlayFabClientApi::UpdateUserPublisherData(
     ClientModels::UpdateUserDataRequest& request,
     ProcessApiCallback<ClientModels::UpdateUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -2157,8 +2437,8 @@ void PlayFabClientApi::UpdateUserPublisherData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UpdateUserPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserPublisherDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UpdateUserPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserPublisherDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUpdateUserPublisherDataResult(PlayFabRequest* request)
@@ -2174,12 +2454,16 @@ void PlayFabClientApi::OnUpdateUserPublisherDataResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UpdateUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UpdateUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUpdateUserPublisherData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUpdateUserPublisherData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetCatalogItems(
+int PlayFabClientApi::GetCatalogItems(
     ClientModels::GetCatalogItemsRequest& request,
     ProcessApiCallback<ClientModels::GetCatalogItemsResult> callback,
     ErrorCallback errorCallback,
@@ -2187,8 +2471,8 @@ void PlayFabClientApi::GetCatalogItems(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetCatalogItems"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCatalogItemsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetCatalogItems"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCatalogItemsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetCatalogItemsResult(PlayFabRequest* request)
@@ -2204,12 +2488,16 @@ void PlayFabClientApi::OnGetCatalogItemsResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetCatalogItemsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetCatalogItemsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetCatalogItems, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetCatalogItems, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetPublisherData(
+int PlayFabClientApi::GetPublisherData(
     ClientModels::GetPublisherDataRequest& request,
     ProcessApiCallback<ClientModels::GetPublisherDataResult> callback,
     ErrorCallback errorCallback,
@@ -2217,8 +2505,8 @@ void PlayFabClientApi::GetPublisherData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPublisherDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPublisherDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPublisherDataResult(PlayFabRequest* request)
@@ -2234,12 +2522,16 @@ void PlayFabClientApi::OnGetPublisherDataResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetPublisherDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPublisherDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPublisherData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPublisherData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetStoreItems(
+int PlayFabClientApi::GetStoreItems(
     ClientModels::GetStoreItemsRequest& request,
     ProcessApiCallback<ClientModels::GetStoreItemsResult> callback,
     ErrorCallback errorCallback,
@@ -2247,8 +2539,8 @@ void PlayFabClientApi::GetStoreItems(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetStoreItems"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetStoreItemsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetStoreItems"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetStoreItemsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetStoreItemsResult(PlayFabRequest* request)
@@ -2264,12 +2556,16 @@ void PlayFabClientApi::OnGetStoreItemsResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetStoreItemsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetStoreItemsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetStoreItems, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetStoreItems, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetTime(
+int PlayFabClientApi::GetTime(
 
     ProcessApiCallback<ClientModels::GetTimeResult> callback,
     ErrorCallback errorCallback,
@@ -2277,8 +2573,8 @@ void PlayFabClientApi::GetTime(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetTime"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnGetTimeResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetTime"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnGetTimeResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetTimeResult(PlayFabRequest* request)
@@ -2294,12 +2590,16 @@ void PlayFabClientApi::OnGetTimeResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetTimeResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetTimeResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetTime, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetTime, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetTitleData(
+int PlayFabClientApi::GetTitleData(
     ClientModels::GetTitleDataRequest& request,
     ProcessApiCallback<ClientModels::GetTitleDataResult> callback,
     ErrorCallback errorCallback,
@@ -2307,8 +2607,8 @@ void PlayFabClientApi::GetTitleData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetTitleData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetTitleDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetTitleData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetTitleDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetTitleDataResult(PlayFabRequest* request)
@@ -2324,12 +2624,16 @@ void PlayFabClientApi::OnGetTitleDataResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetTitleDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetTitleDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetTitleData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetTitleData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetTitleNews(
+int PlayFabClientApi::GetTitleNews(
     ClientModels::GetTitleNewsRequest& request,
     ProcessApiCallback<ClientModels::GetTitleNewsResult> callback,
     ErrorCallback errorCallback,
@@ -2337,8 +2641,8 @@ void PlayFabClientApi::GetTitleNews(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetTitleNews"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetTitleNewsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetTitleNews"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetTitleNewsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetTitleNewsResult(PlayFabRequest* request)
@@ -2354,12 +2658,16 @@ void PlayFabClientApi::OnGetTitleNewsResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetTitleNewsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetTitleNewsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetTitleNews, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetTitleNews, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::AddUserVirtualCurrency(
+int PlayFabClientApi::AddUserVirtualCurrency(
     ClientModels::AddUserVirtualCurrencyRequest& request,
     ProcessApiCallback<ClientModels::ModifyUserVirtualCurrencyResult> callback,
     ErrorCallback errorCallback,
@@ -2367,8 +2675,8 @@ void PlayFabClientApi::AddUserVirtualCurrency(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AddUserVirtualCurrency"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddUserVirtualCurrencyResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AddUserVirtualCurrency"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddUserVirtualCurrencyResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnAddUserVirtualCurrencyResult(PlayFabRequest* request)
@@ -2384,12 +2692,16 @@ void PlayFabClientApi::OnAddUserVirtualCurrencyResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::ModifyUserVirtualCurrencyResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ModifyUserVirtualCurrencyResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnAddUserVirtualCurrency, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnAddUserVirtualCurrency, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::ConfirmPurchase(
+int PlayFabClientApi::ConfirmPurchase(
     ClientModels::ConfirmPurchaseRequest& request,
     ProcessApiCallback<ClientModels::ConfirmPurchaseResult> callback,
     ErrorCallback errorCallback,
@@ -2397,8 +2709,8 @@ void PlayFabClientApi::ConfirmPurchase(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ConfirmPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnConfirmPurchaseResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ConfirmPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnConfirmPurchaseResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnConfirmPurchaseResult(PlayFabRequest* request)
@@ -2414,12 +2726,16 @@ void PlayFabClientApi::OnConfirmPurchaseResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::ConfirmPurchaseResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ConfirmPurchaseResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnConfirmPurchase, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnConfirmPurchase, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::ConsumeItem(
+int PlayFabClientApi::ConsumeItem(
     ClientModels::ConsumeItemRequest& request,
     ProcessApiCallback<ClientModels::ConsumeItemResult> callback,
     ErrorCallback errorCallback,
@@ -2427,8 +2743,8 @@ void PlayFabClientApi::ConsumeItem(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ConsumeItem"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnConsumeItemResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ConsumeItem"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnConsumeItemResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnConsumeItemResult(PlayFabRequest* request)
@@ -2444,12 +2760,16 @@ void PlayFabClientApi::OnConsumeItemResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::ConsumeItemResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ConsumeItemResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnConsumeItem, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnConsumeItem, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetCharacterInventory(
+int PlayFabClientApi::GetCharacterInventory(
     ClientModels::GetCharacterInventoryRequest& request,
     ProcessApiCallback<ClientModels::GetCharacterInventoryResult> callback,
     ErrorCallback errorCallback,
@@ -2457,8 +2777,8 @@ void PlayFabClientApi::GetCharacterInventory(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetCharacterInventory"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterInventoryResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetCharacterInventory"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterInventoryResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetCharacterInventoryResult(PlayFabRequest* request)
@@ -2474,12 +2794,16 @@ void PlayFabClientApi::OnGetCharacterInventoryResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetCharacterInventoryResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetCharacterInventoryResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetCharacterInventory, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetCharacterInventory, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetPurchase(
+int PlayFabClientApi::GetPurchase(
     ClientModels::GetPurchaseRequest& request,
     ProcessApiCallback<ClientModels::GetPurchaseResult> callback,
     ErrorCallback errorCallback,
@@ -2487,8 +2811,8 @@ void PlayFabClientApi::GetPurchase(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPurchaseResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPurchaseResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPurchaseResult(PlayFabRequest* request)
@@ -2504,12 +2828,16 @@ void PlayFabClientApi::OnGetPurchaseResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetPurchaseResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPurchaseResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPurchase, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPurchase, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetUserInventory(
+int PlayFabClientApi::GetUserInventory(
 
     ProcessApiCallback<ClientModels::GetUserInventoryResult> callback,
     ErrorCallback errorCallback,
@@ -2517,8 +2845,8 @@ void PlayFabClientApi::GetUserInventory(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetUserInventory"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnGetUserInventoryResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetUserInventory"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnGetUserInventoryResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetUserInventoryResult(PlayFabRequest* request)
@@ -2534,12 +2862,16 @@ void PlayFabClientApi::OnGetUserInventoryResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetUserInventoryResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetUserInventoryResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetUserInventory, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetUserInventory, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::PayForPurchase(
+int PlayFabClientApi::PayForPurchase(
     ClientModels::PayForPurchaseRequest& request,
     ProcessApiCallback<ClientModels::PayForPurchaseResult> callback,
     ErrorCallback errorCallback,
@@ -2547,8 +2879,8 @@ void PlayFabClientApi::PayForPurchase(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/PayForPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnPayForPurchaseResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/PayForPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnPayForPurchaseResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnPayForPurchaseResult(PlayFabRequest* request)
@@ -2564,12 +2896,16 @@ void PlayFabClientApi::OnPayForPurchaseResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::PayForPurchaseResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::PayForPurchaseResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnPayForPurchase, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnPayForPurchase, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::PurchaseItem(
+int PlayFabClientApi::PurchaseItem(
     ClientModels::PurchaseItemRequest& request,
     ProcessApiCallback<ClientModels::PurchaseItemResult> callback,
     ErrorCallback errorCallback,
@@ -2577,8 +2913,8 @@ void PlayFabClientApi::PurchaseItem(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/PurchaseItem"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnPurchaseItemResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/PurchaseItem"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnPurchaseItemResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnPurchaseItemResult(PlayFabRequest* request)
@@ -2594,12 +2930,16 @@ void PlayFabClientApi::OnPurchaseItemResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::PurchaseItemResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::PurchaseItemResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnPurchaseItem, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnPurchaseItem, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::RedeemCoupon(
+int PlayFabClientApi::RedeemCoupon(
     ClientModels::RedeemCouponRequest& request,
     ProcessApiCallback<ClientModels::RedeemCouponResult> callback,
     ErrorCallback errorCallback,
@@ -2607,8 +2947,8 @@ void PlayFabClientApi::RedeemCoupon(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RedeemCoupon"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRedeemCouponResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RedeemCoupon"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRedeemCouponResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnRedeemCouponResult(PlayFabRequest* request)
@@ -2624,12 +2964,16 @@ void PlayFabClientApi::OnRedeemCouponResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::RedeemCouponResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::RedeemCouponResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnRedeemCoupon, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnRedeemCoupon, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::StartPurchase(
+int PlayFabClientApi::StartPurchase(
     ClientModels::StartPurchaseRequest& request,
     ProcessApiCallback<ClientModels::StartPurchaseResult> callback,
     ErrorCallback errorCallback,
@@ -2637,8 +2981,8 @@ void PlayFabClientApi::StartPurchase(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/StartPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnStartPurchaseResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/StartPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnStartPurchaseResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnStartPurchaseResult(PlayFabRequest* request)
@@ -2654,12 +2998,16 @@ void PlayFabClientApi::OnStartPurchaseResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::StartPurchaseResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::StartPurchaseResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnStartPurchase, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnStartPurchase, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::SubtractUserVirtualCurrency(
+int PlayFabClientApi::SubtractUserVirtualCurrency(
     ClientModels::SubtractUserVirtualCurrencyRequest& request,
     ProcessApiCallback<ClientModels::ModifyUserVirtualCurrencyResult> callback,
     ErrorCallback errorCallback,
@@ -2667,8 +3015,8 @@ void PlayFabClientApi::SubtractUserVirtualCurrency(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/SubtractUserVirtualCurrency"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnSubtractUserVirtualCurrencyResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/SubtractUserVirtualCurrency"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnSubtractUserVirtualCurrencyResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnSubtractUserVirtualCurrencyResult(PlayFabRequest* request)
@@ -2684,12 +3032,16 @@ void PlayFabClientApi::OnSubtractUserVirtualCurrencyResult(PlayFabRequest* reque
             ProcessApiCallback<ClientModels::ModifyUserVirtualCurrencyResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ModifyUserVirtualCurrencyResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnSubtractUserVirtualCurrency, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnSubtractUserVirtualCurrency, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UnlockContainerInstance(
+int PlayFabClientApi::UnlockContainerInstance(
     ClientModels::UnlockContainerInstanceRequest& request,
     ProcessApiCallback<ClientModels::UnlockContainerItemResult> callback,
     ErrorCallback errorCallback,
@@ -2697,8 +3049,8 @@ void PlayFabClientApi::UnlockContainerInstance(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlockContainerInstance"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlockContainerInstanceResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlockContainerInstance"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlockContainerInstanceResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlockContainerInstanceResult(PlayFabRequest* request)
@@ -2714,12 +3066,16 @@ void PlayFabClientApi::OnUnlockContainerInstanceResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UnlockContainerItemResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlockContainerItemResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUnlockContainerInstance, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUnlockContainerInstance, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UnlockContainerItem(
+int PlayFabClientApi::UnlockContainerItem(
     ClientModels::UnlockContainerItemRequest& request,
     ProcessApiCallback<ClientModels::UnlockContainerItemResult> callback,
     ErrorCallback errorCallback,
@@ -2727,8 +3083,8 @@ void PlayFabClientApi::UnlockContainerItem(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlockContainerItem"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlockContainerItemResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlockContainerItem"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlockContainerItemResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUnlockContainerItemResult(PlayFabRequest* request)
@@ -2744,12 +3100,16 @@ void PlayFabClientApi::OnUnlockContainerItemResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UnlockContainerItemResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlockContainerItemResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUnlockContainerItem, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUnlockContainerItem, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::AddFriend(
+int PlayFabClientApi::AddFriend(
     ClientModels::AddFriendRequest& request,
     ProcessApiCallback<ClientModels::AddFriendResult> callback,
     ErrorCallback errorCallback,
@@ -2757,8 +3117,8 @@ void PlayFabClientApi::AddFriend(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AddFriend"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddFriendResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AddFriend"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddFriendResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnAddFriendResult(PlayFabRequest* request)
@@ -2774,12 +3134,16 @@ void PlayFabClientApi::OnAddFriendResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::AddFriendResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::AddFriendResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnAddFriend, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnAddFriend, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetFriendsList(
+int PlayFabClientApi::GetFriendsList(
     ClientModels::GetFriendsListRequest& request,
     ProcessApiCallback<ClientModels::GetFriendsListResult> callback,
     ErrorCallback errorCallback,
@@ -2787,8 +3151,8 @@ void PlayFabClientApi::GetFriendsList(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetFriendsList"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetFriendsListResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetFriendsList"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetFriendsListResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetFriendsListResult(PlayFabRequest* request)
@@ -2804,12 +3168,16 @@ void PlayFabClientApi::OnGetFriendsListResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetFriendsListResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetFriendsListResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetFriendsList, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetFriendsList, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::RemoveFriend(
+int PlayFabClientApi::RemoveFriend(
     ClientModels::RemoveFriendRequest& request,
     ProcessApiCallback<ClientModels::RemoveFriendResult> callback,
     ErrorCallback errorCallback,
@@ -2817,8 +3185,8 @@ void PlayFabClientApi::RemoveFriend(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RemoveFriend"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRemoveFriendResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RemoveFriend"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRemoveFriendResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnRemoveFriendResult(PlayFabRequest* request)
@@ -2834,12 +3202,16 @@ void PlayFabClientApi::OnRemoveFriendResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::RemoveFriendResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::RemoveFriendResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnRemoveFriend, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnRemoveFriend, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::SetFriendTags(
+int PlayFabClientApi::SetFriendTags(
     ClientModels::SetFriendTagsRequest& request,
     ProcessApiCallback<ClientModels::SetFriendTagsResult> callback,
     ErrorCallback errorCallback,
@@ -2847,8 +3219,8 @@ void PlayFabClientApi::SetFriendTags(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/SetFriendTags"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnSetFriendTagsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/SetFriendTags"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnSetFriendTagsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnSetFriendTagsResult(PlayFabRequest* request)
@@ -2864,12 +3236,16 @@ void PlayFabClientApi::OnSetFriendTagsResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::SetFriendTagsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::SetFriendTagsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnSetFriendTags, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnSetFriendTags, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetCurrentGames(
+int PlayFabClientApi::GetCurrentGames(
     ClientModels::CurrentGamesRequest& request,
     ProcessApiCallback<ClientModels::CurrentGamesResult> callback,
     ErrorCallback errorCallback,
@@ -2877,8 +3253,8 @@ void PlayFabClientApi::GetCurrentGames(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetCurrentGames"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCurrentGamesResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetCurrentGames"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCurrentGamesResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetCurrentGamesResult(PlayFabRequest* request)
@@ -2894,12 +3270,16 @@ void PlayFabClientApi::OnGetCurrentGamesResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::CurrentGamesResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::CurrentGamesResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetCurrentGames, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetCurrentGames, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetGameServerRegions(
+int PlayFabClientApi::GetGameServerRegions(
     ClientModels::GameServerRegionsRequest& request,
     ProcessApiCallback<ClientModels::GameServerRegionsResult> callback,
     ErrorCallback errorCallback,
@@ -2907,8 +3287,8 @@ void PlayFabClientApi::GetGameServerRegions(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetGameServerRegions"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetGameServerRegionsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetGameServerRegions"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetGameServerRegionsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetGameServerRegionsResult(PlayFabRequest* request)
@@ -2924,12 +3304,16 @@ void PlayFabClientApi::OnGetGameServerRegionsResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GameServerRegionsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GameServerRegionsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetGameServerRegions, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetGameServerRegions, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::Matchmake(
+int PlayFabClientApi::Matchmake(
     ClientModels::MatchmakeRequest& request,
     ProcessApiCallback<ClientModels::MatchmakeResult> callback,
     ErrorCallback errorCallback,
@@ -2937,8 +3321,8 @@ void PlayFabClientApi::Matchmake(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/Matchmake"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnMatchmakeResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/Matchmake"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnMatchmakeResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnMatchmakeResult(PlayFabRequest* request)
@@ -2954,12 +3338,16 @@ void PlayFabClientApi::OnMatchmakeResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::MatchmakeResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::MatchmakeResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnMatchmake, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnMatchmake, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::StartGame(
+int PlayFabClientApi::StartGame(
     ClientModels::StartGameRequest& request,
     ProcessApiCallback<ClientModels::StartGameResult> callback,
     ErrorCallback errorCallback,
@@ -2967,8 +3355,8 @@ void PlayFabClientApi::StartGame(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/StartGame"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnStartGameResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/StartGame"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnStartGameResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnStartGameResult(PlayFabRequest* request)
@@ -2984,12 +3372,16 @@ void PlayFabClientApi::OnStartGameResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::StartGameResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::StartGameResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnStartGame, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnStartGame, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::WriteCharacterEvent(
+int PlayFabClientApi::WriteCharacterEvent(
     ClientModels::WriteClientCharacterEventRequest& request,
     ProcessApiCallback<ClientModels::WriteEventResponse> callback,
     ErrorCallback errorCallback,
@@ -2997,8 +3389,8 @@ void PlayFabClientApi::WriteCharacterEvent(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/WriteCharacterEvent"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnWriteCharacterEventResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/WriteCharacterEvent"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnWriteCharacterEventResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnWriteCharacterEventResult(PlayFabRequest* request)
@@ -3014,12 +3406,16 @@ void PlayFabClientApi::OnWriteCharacterEventResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::WriteEventResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::WriteEventResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnWriteCharacterEvent, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnWriteCharacterEvent, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::WritePlayerEvent(
+int PlayFabClientApi::WritePlayerEvent(
     ClientModels::WriteClientPlayerEventRequest& request,
     ProcessApiCallback<ClientModels::WriteEventResponse> callback,
     ErrorCallback errorCallback,
@@ -3027,8 +3423,8 @@ void PlayFabClientApi::WritePlayerEvent(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/WritePlayerEvent"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnWritePlayerEventResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/WritePlayerEvent"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnWritePlayerEventResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnWritePlayerEventResult(PlayFabRequest* request)
@@ -3044,12 +3440,16 @@ void PlayFabClientApi::OnWritePlayerEventResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::WriteEventResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::WriteEventResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnWritePlayerEvent, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnWritePlayerEvent, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::WriteTitleEvent(
+int PlayFabClientApi::WriteTitleEvent(
     ClientModels::WriteTitleEventRequest& request,
     ProcessApiCallback<ClientModels::WriteEventResponse> callback,
     ErrorCallback errorCallback,
@@ -3057,8 +3457,8 @@ void PlayFabClientApi::WriteTitleEvent(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/WriteTitleEvent"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnWriteTitleEventResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/WriteTitleEvent"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnWriteTitleEventResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnWriteTitleEventResult(PlayFabRequest* request)
@@ -3074,12 +3474,16 @@ void PlayFabClientApi::OnWriteTitleEventResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::WriteEventResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::WriteEventResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnWriteTitleEvent, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnWriteTitleEvent, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::AddSharedGroupMembers(
+int PlayFabClientApi::AddSharedGroupMembers(
     ClientModels::AddSharedGroupMembersRequest& request,
     ProcessApiCallback<ClientModels::AddSharedGroupMembersResult> callback,
     ErrorCallback errorCallback,
@@ -3087,8 +3491,8 @@ void PlayFabClientApi::AddSharedGroupMembers(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AddSharedGroupMembers"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddSharedGroupMembersResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AddSharedGroupMembers"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddSharedGroupMembersResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnAddSharedGroupMembersResult(PlayFabRequest* request)
@@ -3104,12 +3508,16 @@ void PlayFabClientApi::OnAddSharedGroupMembersResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::AddSharedGroupMembersResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::AddSharedGroupMembersResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnAddSharedGroupMembers, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnAddSharedGroupMembers, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::CreateSharedGroup(
+int PlayFabClientApi::CreateSharedGroup(
     ClientModels::CreateSharedGroupRequest& request,
     ProcessApiCallback<ClientModels::CreateSharedGroupResult> callback,
     ErrorCallback errorCallback,
@@ -3117,8 +3525,8 @@ void PlayFabClientApi::CreateSharedGroup(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/CreateSharedGroup"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnCreateSharedGroupResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/CreateSharedGroup"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnCreateSharedGroupResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnCreateSharedGroupResult(PlayFabRequest* request)
@@ -3134,12 +3542,16 @@ void PlayFabClientApi::OnCreateSharedGroupResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::CreateSharedGroupResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::CreateSharedGroupResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnCreateSharedGroup, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnCreateSharedGroup, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetSharedGroupData(
+int PlayFabClientApi::GetSharedGroupData(
     ClientModels::GetSharedGroupDataRequest& request,
     ProcessApiCallback<ClientModels::GetSharedGroupDataResult> callback,
     ErrorCallback errorCallback,
@@ -3147,8 +3559,8 @@ void PlayFabClientApi::GetSharedGroupData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetSharedGroupData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetSharedGroupDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetSharedGroupData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetSharedGroupDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetSharedGroupDataResult(PlayFabRequest* request)
@@ -3164,12 +3576,16 @@ void PlayFabClientApi::OnGetSharedGroupDataResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetSharedGroupDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetSharedGroupDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetSharedGroupData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetSharedGroupData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::RemoveSharedGroupMembers(
+int PlayFabClientApi::RemoveSharedGroupMembers(
     ClientModels::RemoveSharedGroupMembersRequest& request,
     ProcessApiCallback<ClientModels::RemoveSharedGroupMembersResult> callback,
     ErrorCallback errorCallback,
@@ -3177,8 +3593,8 @@ void PlayFabClientApi::RemoveSharedGroupMembers(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RemoveSharedGroupMembers"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRemoveSharedGroupMembersResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RemoveSharedGroupMembers"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRemoveSharedGroupMembersResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnRemoveSharedGroupMembersResult(PlayFabRequest* request)
@@ -3194,12 +3610,16 @@ void PlayFabClientApi::OnRemoveSharedGroupMembersResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::RemoveSharedGroupMembersResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::RemoveSharedGroupMembersResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnRemoveSharedGroupMembers, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnRemoveSharedGroupMembers, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UpdateSharedGroupData(
+int PlayFabClientApi::UpdateSharedGroupData(
     ClientModels::UpdateSharedGroupDataRequest& request,
     ProcessApiCallback<ClientModels::UpdateSharedGroupDataResult> callback,
     ErrorCallback errorCallback,
@@ -3207,8 +3627,8 @@ void PlayFabClientApi::UpdateSharedGroupData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UpdateSharedGroupData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateSharedGroupDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UpdateSharedGroupData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateSharedGroupDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUpdateSharedGroupDataResult(PlayFabRequest* request)
@@ -3224,12 +3644,16 @@ void PlayFabClientApi::OnUpdateSharedGroupDataResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UpdateSharedGroupDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UpdateSharedGroupDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUpdateSharedGroupData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUpdateSharedGroupData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::ExecuteCloudScript(
+int PlayFabClientApi::ExecuteCloudScript(
     ClientModels::ExecuteCloudScriptRequest& request,
     ProcessApiCallback<ClientModels::ExecuteCloudScriptResult> callback,
     ErrorCallback errorCallback,
@@ -3237,8 +3661,8 @@ void PlayFabClientApi::ExecuteCloudScript(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ExecuteCloudScript"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnExecuteCloudScriptResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ExecuteCloudScript"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnExecuteCloudScriptResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnExecuteCloudScriptResult(PlayFabRequest* request)
@@ -3254,12 +3678,16 @@ void PlayFabClientApi::OnExecuteCloudScriptResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::ExecuteCloudScriptResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ExecuteCloudScriptResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnExecuteCloudScript, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnExecuteCloudScript, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetContentDownloadUrl(
+int PlayFabClientApi::GetContentDownloadUrl(
     ClientModels::GetContentDownloadUrlRequest& request,
     ProcessApiCallback<ClientModels::GetContentDownloadUrlResult> callback,
     ErrorCallback errorCallback,
@@ -3267,8 +3695,8 @@ void PlayFabClientApi::GetContentDownloadUrl(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetContentDownloadUrl"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetContentDownloadUrlResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetContentDownloadUrl"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetContentDownloadUrlResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetContentDownloadUrlResult(PlayFabRequest* request)
@@ -3284,12 +3712,16 @@ void PlayFabClientApi::OnGetContentDownloadUrlResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetContentDownloadUrlResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetContentDownloadUrlResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetContentDownloadUrl, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetContentDownloadUrl, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetAllUsersCharacters(
+int PlayFabClientApi::GetAllUsersCharacters(
     ClientModels::ListUsersCharactersRequest& request,
     ProcessApiCallback<ClientModels::ListUsersCharactersResult> callback,
     ErrorCallback errorCallback,
@@ -3297,8 +3729,8 @@ void PlayFabClientApi::GetAllUsersCharacters(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetAllUsersCharacters"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetAllUsersCharactersResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetAllUsersCharacters"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetAllUsersCharactersResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetAllUsersCharactersResult(PlayFabRequest* request)
@@ -3314,12 +3746,16 @@ void PlayFabClientApi::OnGetAllUsersCharactersResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::ListUsersCharactersResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ListUsersCharactersResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetAllUsersCharacters, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetAllUsersCharacters, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetCharacterLeaderboard(
+int PlayFabClientApi::GetCharacterLeaderboard(
     ClientModels::GetCharacterLeaderboardRequest& request,
     ProcessApiCallback<ClientModels::GetCharacterLeaderboardResult> callback,
     ErrorCallback errorCallback,
@@ -3327,8 +3763,8 @@ void PlayFabClientApi::GetCharacterLeaderboard(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetCharacterLeaderboard"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterLeaderboardResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetCharacterLeaderboard"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterLeaderboardResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetCharacterLeaderboardResult(PlayFabRequest* request)
@@ -3344,12 +3780,16 @@ void PlayFabClientApi::OnGetCharacterLeaderboardResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetCharacterLeaderboardResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetCharacterLeaderboardResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetCharacterLeaderboard, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetCharacterLeaderboard, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetCharacterStatistics(
+int PlayFabClientApi::GetCharacterStatistics(
     ClientModels::GetCharacterStatisticsRequest& request,
     ProcessApiCallback<ClientModels::GetCharacterStatisticsResult> callback,
     ErrorCallback errorCallback,
@@ -3357,8 +3797,8 @@ void PlayFabClientApi::GetCharacterStatistics(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetCharacterStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterStatisticsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetCharacterStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterStatisticsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetCharacterStatisticsResult(PlayFabRequest* request)
@@ -3374,12 +3814,16 @@ void PlayFabClientApi::OnGetCharacterStatisticsResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetCharacterStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetCharacterStatisticsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetCharacterStatistics, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetCharacterStatistics, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetLeaderboardAroundCharacter(
+int PlayFabClientApi::GetLeaderboardAroundCharacter(
     ClientModels::GetLeaderboardAroundCharacterRequest& request,
     ProcessApiCallback<ClientModels::GetLeaderboardAroundCharacterResult> callback,
     ErrorCallback errorCallback,
@@ -3387,8 +3831,8 @@ void PlayFabClientApi::GetLeaderboardAroundCharacter(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetLeaderboardAroundCharacter"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardAroundCharacterResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetLeaderboardAroundCharacter"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardAroundCharacterResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetLeaderboardAroundCharacterResult(PlayFabRequest* request)
@@ -3404,12 +3848,16 @@ void PlayFabClientApi::OnGetLeaderboardAroundCharacterResult(PlayFabRequest* req
             ProcessApiCallback<ClientModels::GetLeaderboardAroundCharacterResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetLeaderboardAroundCharacterResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetLeaderboardAroundCharacter, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetLeaderboardAroundCharacter, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetLeaderboardForUserCharacters(
+int PlayFabClientApi::GetLeaderboardForUserCharacters(
     ClientModels::GetLeaderboardForUsersCharactersRequest& request,
     ProcessApiCallback<ClientModels::GetLeaderboardForUsersCharactersResult> callback,
     ErrorCallback errorCallback,
@@ -3417,8 +3865,8 @@ void PlayFabClientApi::GetLeaderboardForUserCharacters(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetLeaderboardForUserCharacters"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardForUserCharactersResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetLeaderboardForUserCharacters"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardForUserCharactersResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetLeaderboardForUserCharactersResult(PlayFabRequest* request)
@@ -3434,12 +3882,16 @@ void PlayFabClientApi::OnGetLeaderboardForUserCharactersResult(PlayFabRequest* r
             ProcessApiCallback<ClientModels::GetLeaderboardForUsersCharactersResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetLeaderboardForUsersCharactersResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetLeaderboardForUserCharacters, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetLeaderboardForUserCharacters, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GrantCharacterToUser(
+int PlayFabClientApi::GrantCharacterToUser(
     ClientModels::GrantCharacterToUserRequest& request,
     ProcessApiCallback<ClientModels::GrantCharacterToUserResult> callback,
     ErrorCallback errorCallback,
@@ -3447,8 +3899,8 @@ void PlayFabClientApi::GrantCharacterToUser(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GrantCharacterToUser"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGrantCharacterToUserResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GrantCharacterToUser"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGrantCharacterToUserResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGrantCharacterToUserResult(PlayFabRequest* request)
@@ -3464,12 +3916,16 @@ void PlayFabClientApi::OnGrantCharacterToUserResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GrantCharacterToUserResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GrantCharacterToUserResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGrantCharacterToUser, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGrantCharacterToUser, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UpdateCharacterStatistics(
+int PlayFabClientApi::UpdateCharacterStatistics(
     ClientModels::UpdateCharacterStatisticsRequest& request,
     ProcessApiCallback<ClientModels::UpdateCharacterStatisticsResult> callback,
     ErrorCallback errorCallback,
@@ -3477,8 +3933,8 @@ void PlayFabClientApi::UpdateCharacterStatistics(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UpdateCharacterStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateCharacterStatisticsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UpdateCharacterStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateCharacterStatisticsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUpdateCharacterStatisticsResult(PlayFabRequest* request)
@@ -3494,12 +3950,16 @@ void PlayFabClientApi::OnUpdateCharacterStatisticsResult(PlayFabRequest* request
             ProcessApiCallback<ClientModels::UpdateCharacterStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UpdateCharacterStatisticsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUpdateCharacterStatistics, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUpdateCharacterStatistics, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetCharacterData(
+int PlayFabClientApi::GetCharacterData(
     ClientModels::GetCharacterDataRequest& request,
     ProcessApiCallback<ClientModels::GetCharacterDataResult> callback,
     ErrorCallback errorCallback,
@@ -3507,8 +3967,8 @@ void PlayFabClientApi::GetCharacterData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetCharacterData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetCharacterData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetCharacterDataResult(PlayFabRequest* request)
@@ -3524,12 +3984,16 @@ void PlayFabClientApi::OnGetCharacterDataResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetCharacterDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetCharacterDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetCharacterData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetCharacterData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetCharacterReadOnlyData(
+int PlayFabClientApi::GetCharacterReadOnlyData(
     ClientModels::GetCharacterDataRequest& request,
     ProcessApiCallback<ClientModels::GetCharacterDataResult> callback,
     ErrorCallback errorCallback,
@@ -3537,8 +4001,8 @@ void PlayFabClientApi::GetCharacterReadOnlyData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetCharacterReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterReadOnlyDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetCharacterReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCharacterReadOnlyDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetCharacterReadOnlyDataResult(PlayFabRequest* request)
@@ -3554,12 +4018,16 @@ void PlayFabClientApi::OnGetCharacterReadOnlyDataResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetCharacterDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetCharacterDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetCharacterReadOnlyData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetCharacterReadOnlyData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::UpdateCharacterData(
+int PlayFabClientApi::UpdateCharacterData(
     ClientModels::UpdateCharacterDataRequest& request,
     ProcessApiCallback<ClientModels::UpdateCharacterDataResult> callback,
     ErrorCallback errorCallback,
@@ -3567,8 +4035,8 @@ void PlayFabClientApi::UpdateCharacterData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UpdateCharacterData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateCharacterDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UpdateCharacterData"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateCharacterDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnUpdateCharacterDataResult(PlayFabRequest* request)
@@ -3584,12 +4052,16 @@ void PlayFabClientApi::OnUpdateCharacterDataResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::UpdateCharacterDataResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UpdateCharacterDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnUpdateCharacterData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnUpdateCharacterData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::AcceptTrade(
+int PlayFabClientApi::AcceptTrade(
     ClientModels::AcceptTradeRequest& request,
     ProcessApiCallback<ClientModels::AcceptTradeResponse> callback,
     ErrorCallback errorCallback,
@@ -3597,8 +4069,8 @@ void PlayFabClientApi::AcceptTrade(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AcceptTrade"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAcceptTradeResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AcceptTrade"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAcceptTradeResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnAcceptTradeResult(PlayFabRequest* request)
@@ -3614,12 +4086,16 @@ void PlayFabClientApi::OnAcceptTradeResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::AcceptTradeResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::AcceptTradeResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnAcceptTrade, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnAcceptTrade, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::CancelTrade(
+int PlayFabClientApi::CancelTrade(
     ClientModels::CancelTradeRequest& request,
     ProcessApiCallback<ClientModels::CancelTradeResponse> callback,
     ErrorCallback errorCallback,
@@ -3627,8 +4103,8 @@ void PlayFabClientApi::CancelTrade(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/CancelTrade"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnCancelTradeResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/CancelTrade"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnCancelTradeResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnCancelTradeResult(PlayFabRequest* request)
@@ -3644,12 +4120,16 @@ void PlayFabClientApi::OnCancelTradeResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::CancelTradeResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::CancelTradeResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnCancelTrade, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnCancelTrade, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetPlayerTrades(
+int PlayFabClientApi::GetPlayerTrades(
     ClientModels::GetPlayerTradesRequest& request,
     ProcessApiCallback<ClientModels::GetPlayerTradesResponse> callback,
     ErrorCallback errorCallback,
@@ -3657,8 +4137,8 @@ void PlayFabClientApi::GetPlayerTrades(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayerTrades"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerTradesResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayerTrades"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerTradesResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayerTradesResult(PlayFabRequest* request)
@@ -3674,12 +4154,16 @@ void PlayFabClientApi::OnGetPlayerTradesResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetPlayerTradesResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayerTradesResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPlayerTrades, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPlayerTrades, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetTradeStatus(
+int PlayFabClientApi::GetTradeStatus(
     ClientModels::GetTradeStatusRequest& request,
     ProcessApiCallback<ClientModels::GetTradeStatusResponse> callback,
     ErrorCallback errorCallback,
@@ -3687,8 +4171,8 @@ void PlayFabClientApi::GetTradeStatus(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetTradeStatus"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetTradeStatusResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetTradeStatus"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetTradeStatusResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetTradeStatusResult(PlayFabRequest* request)
@@ -3704,12 +4188,16 @@ void PlayFabClientApi::OnGetTradeStatusResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetTradeStatusResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetTradeStatusResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetTradeStatus, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetTradeStatus, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::OpenTrade(
+int PlayFabClientApi::OpenTrade(
     ClientModels::OpenTradeRequest& request,
     ProcessApiCallback<ClientModels::OpenTradeResponse> callback,
     ErrorCallback errorCallback,
@@ -3717,8 +4205,8 @@ void PlayFabClientApi::OpenTrade(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/OpenTrade"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnOpenTradeResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/OpenTrade"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnOpenTradeResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnOpenTradeResult(PlayFabRequest* request)
@@ -3734,12 +4222,16 @@ void PlayFabClientApi::OnOpenTradeResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::OpenTradeResponse> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::OpenTradeResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnOpenTrade, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnOpenTrade, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::AttributeInstall(
+int PlayFabClientApi::AttributeInstall(
     ClientModels::AttributeInstallRequest& request,
     ProcessApiCallback<ClientModels::AttributeInstallResult> callback,
     ErrorCallback errorCallback,
@@ -3747,8 +4239,8 @@ void PlayFabClientApi::AttributeInstall(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AttributeInstall"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAttributeInstallResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AttributeInstall"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAttributeInstallResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnAttributeInstallResult(PlayFabRequest* request)
@@ -3766,12 +4258,16 @@ void PlayFabClientApi::OnAttributeInstallResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::AttributeInstallResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::AttributeInstallResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnAttributeInstall, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnAttributeInstall, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetPlayerSegments(
+int PlayFabClientApi::GetPlayerSegments(
 
     ProcessApiCallback<ClientModels::GetPlayerSegmentsResult> callback,
     ErrorCallback errorCallback,
@@ -3779,8 +4275,8 @@ void PlayFabClientApi::GetPlayerSegments(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayerSegments"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnGetPlayerSegmentsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayerSegments"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnGetPlayerSegmentsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayerSegmentsResult(PlayFabRequest* request)
@@ -3796,12 +4292,16 @@ void PlayFabClientApi::OnGetPlayerSegmentsResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetPlayerSegmentsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayerSegmentsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPlayerSegments, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPlayerSegments, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::GetPlayerTags(
+int PlayFabClientApi::GetPlayerTags(
     ClientModels::GetPlayerTagsRequest& request,
     ProcessApiCallback<ClientModels::GetPlayerTagsResult> callback,
     ErrorCallback errorCallback,
@@ -3809,8 +4309,8 @@ void PlayFabClientApi::GetPlayerTags(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayerTags"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerTagsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayerTags"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerTagsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnGetPlayerTagsResult(PlayFabRequest* request)
@@ -3826,12 +4326,16 @@ void PlayFabClientApi::OnGetPlayerTagsResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::GetPlayerTagsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayerTagsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnGetPlayerTags, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnGetPlayerTags, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::AndroidDevicePushNotificationRegistration(
+int PlayFabClientApi::AndroidDevicePushNotificationRegistration(
     ClientModels::AndroidDevicePushNotificationRegistrationRequest& request,
     ProcessApiCallback<ClientModels::AndroidDevicePushNotificationRegistrationResult> callback,
     ErrorCallback errorCallback,
@@ -3839,8 +4343,8 @@ void PlayFabClientApi::AndroidDevicePushNotificationRegistration(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AndroidDevicePushNotificationRegistration"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAndroidDevicePushNotificationRegistrationResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AndroidDevicePushNotificationRegistration"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAndroidDevicePushNotificationRegistrationResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnAndroidDevicePushNotificationRegistrationResult(PlayFabRequest* request)
@@ -3856,12 +4360,16 @@ void PlayFabClientApi::OnAndroidDevicePushNotificationRegistrationResult(PlayFab
             ProcessApiCallback<ClientModels::AndroidDevicePushNotificationRegistrationResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::AndroidDevicePushNotificationRegistrationResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnAndroidDevicePushNotificationRegistration, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnAndroidDevicePushNotificationRegistration, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::RegisterForIOSPushNotification(
+int PlayFabClientApi::RegisterForIOSPushNotification(
     ClientModels::RegisterForIOSPushNotificationRequest& request,
     ProcessApiCallback<ClientModels::RegisterForIOSPushNotificationResult> callback,
     ErrorCallback errorCallback,
@@ -3869,8 +4377,8 @@ void PlayFabClientApi::RegisterForIOSPushNotification(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RegisterForIOSPushNotification"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRegisterForIOSPushNotificationResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RegisterForIOSPushNotification"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRegisterForIOSPushNotificationResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnRegisterForIOSPushNotificationResult(PlayFabRequest* request)
@@ -3886,12 +4394,16 @@ void PlayFabClientApi::OnRegisterForIOSPushNotificationResult(PlayFabRequest* re
             ProcessApiCallback<ClientModels::RegisterForIOSPushNotificationResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::RegisterForIOSPushNotificationResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnRegisterForIOSPushNotification, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnRegisterForIOSPushNotification, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::RestoreIOSPurchases(
+int PlayFabClientApi::RestoreIOSPurchases(
     ClientModels::RestoreIOSPurchasesRequest& request,
     ProcessApiCallback<ClientModels::RestoreIOSPurchasesResult> callback,
     ErrorCallback errorCallback,
@@ -3899,8 +4411,8 @@ void PlayFabClientApi::RestoreIOSPurchases(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RestoreIOSPurchases"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRestoreIOSPurchasesResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RestoreIOSPurchases"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRestoreIOSPurchasesResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnRestoreIOSPurchasesResult(PlayFabRequest* request)
@@ -3916,12 +4428,16 @@ void PlayFabClientApi::OnRestoreIOSPurchasesResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::RestoreIOSPurchasesResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::RestoreIOSPurchasesResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnRestoreIOSPurchases, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnRestoreIOSPurchases, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::ValidateAmazonIAPReceipt(
+int PlayFabClientApi::ValidateAmazonIAPReceipt(
     ClientModels::ValidateAmazonReceiptRequest& request,
     ProcessApiCallback<ClientModels::ValidateAmazonReceiptResult> callback,
     ErrorCallback errorCallback,
@@ -3929,8 +4445,8 @@ void PlayFabClientApi::ValidateAmazonIAPReceipt(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ValidateAmazonIAPReceipt"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnValidateAmazonIAPReceiptResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ValidateAmazonIAPReceipt"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnValidateAmazonIAPReceiptResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnValidateAmazonIAPReceiptResult(PlayFabRequest* request)
@@ -3946,12 +4462,16 @@ void PlayFabClientApi::OnValidateAmazonIAPReceiptResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::ValidateAmazonReceiptResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ValidateAmazonReceiptResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnValidateAmazonIAPReceipt, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnValidateAmazonIAPReceipt, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::ValidateGooglePlayPurchase(
+int PlayFabClientApi::ValidateGooglePlayPurchase(
     ClientModels::ValidateGooglePlayPurchaseRequest& request,
     ProcessApiCallback<ClientModels::ValidateGooglePlayPurchaseResult> callback,
     ErrorCallback errorCallback,
@@ -3959,8 +4479,8 @@ void PlayFabClientApi::ValidateGooglePlayPurchase(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ValidateGooglePlayPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnValidateGooglePlayPurchaseResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ValidateGooglePlayPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnValidateGooglePlayPurchaseResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnValidateGooglePlayPurchaseResult(PlayFabRequest* request)
@@ -3976,12 +4496,16 @@ void PlayFabClientApi::OnValidateGooglePlayPurchaseResult(PlayFabRequest* reques
             ProcessApiCallback<ClientModels::ValidateGooglePlayPurchaseResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ValidateGooglePlayPurchaseResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnValidateGooglePlayPurchase, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnValidateGooglePlayPurchase, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::ValidateIOSReceipt(
+int PlayFabClientApi::ValidateIOSReceipt(
     ClientModels::ValidateIOSReceiptRequest& request,
     ProcessApiCallback<ClientModels::ValidateIOSReceiptResult> callback,
     ErrorCallback errorCallback,
@@ -3989,8 +4513,8 @@ void PlayFabClientApi::ValidateIOSReceipt(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ValidateIOSReceipt"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnValidateIOSReceiptResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ValidateIOSReceipt"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnValidateIOSReceiptResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnValidateIOSReceiptResult(PlayFabRequest* request)
@@ -4006,12 +4530,16 @@ void PlayFabClientApi::OnValidateIOSReceiptResult(PlayFabRequest* request)
             ProcessApiCallback<ClientModels::ValidateIOSReceiptResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ValidateIOSReceiptResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnValidateIOSReceipt, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnValidateIOSReceipt, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabClientApi::ValidateWindowsStoreReceipt(
+int PlayFabClientApi::ValidateWindowsStoreReceipt(
     ClientModels::ValidateWindowsReceiptRequest& request,
     ProcessApiCallback<ClientModels::ValidateWindowsReceiptResult> callback,
     ErrorCallback errorCallback,
@@ -4019,8 +4547,8 @@ void PlayFabClientApi::ValidateWindowsStoreReceipt(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ValidateWindowsStoreReceipt"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnValidateWindowsStoreReceiptResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ValidateWindowsStoreReceipt"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnValidateWindowsStoreReceiptResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabClientApi::OnValidateWindowsStoreReceiptResult(PlayFabRequest* request)
@@ -4036,6 +4564,10 @@ void PlayFabClientApi::OnValidateWindowsStoreReceiptResult(PlayFabRequest* reque
             ProcessApiCallback<ClientModels::ValidateWindowsReceiptResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::ValidateWindowsReceiptResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_ClientNotificationBus, OnValidateWindowsStoreReceipt, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_ClientGlobalNotificationBus, OnValidateWindowsStoreReceipt, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }

@@ -3,9 +3,13 @@
 
 #include <platform_impl.h> // Resharper says this is unused, but it's still required in some less direct way
 #include "PlayFabServer_SettingsSysComponent.h"
+#include "PlayFabServer_BehaviorContextShared.h"  // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
 #include "PlayFabServer_AdminSysComponent.h"
+#include "PlayFabServer_AdminBehaviorContext.h" // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
 #include "PlayFabServer_MatchmakerSysComponent.h"
+#include "PlayFabServer_MatchmakerBehaviorContext.h" // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
 #include "PlayFabServer_ServerSysComponent.h"
+#include "PlayFabServer_ServerBehaviorContext.h" // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
 
 #include "PlayFabSettings.h"
 #include <PlayFabServerSdk/PlayFabError.h>
@@ -45,9 +49,13 @@ namespace PlayFabServerSdk
             // Push results of [MyComponent]::CreateDescriptor() into m_descriptors here.
             m_descriptors.insert(m_descriptors.end(), {
                 PlayFabServer_SettingsSysComponent::CreateDescriptor(),
+                PlayFabServer_BehaviorContextShared::CreateDescriptor(),  // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
                 PlayFabServer_AdminSysComponent::CreateDescriptor(),
+				  PlayFabServer_AdminBehaviorContext::CreateDescriptor(),  // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
                 PlayFabServer_MatchmakerSysComponent::CreateDescriptor(),
+				  PlayFabServer_MatchmakerBehaviorContext::CreateDescriptor(),  // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
                 PlayFabServer_ServerSysComponent::CreateDescriptor(),
+				  PlayFabServer_ServerBehaviorContext::CreateDescriptor(),  // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
 
             });
         }

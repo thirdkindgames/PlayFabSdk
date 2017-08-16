@@ -58,11 +58,13 @@ namespace PlayFabComboSdk
     void PlayFabCombo_AdminSysComponent::Activate()
     {
         PlayFabCombo_AdminRequestBus::Handler::BusConnect();
+        PlayFabCombo_AdminSimpleRequestBus::Handler::BusConnect(); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
     }
 
     void PlayFabCombo_AdminSysComponent::Deactivate()
     {
         PlayFabCombo_AdminRequestBus::Handler::BusDisconnect();
+        PlayFabCombo_AdminSimpleRequestBus::Handler::BusDisconnect(); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
     }
 
     int PlayFabCombo_AdminSysComponent::GetPendingCalls()
@@ -71,396 +73,984 @@ namespace PlayFabComboSdk
     }
 
     // ------------ Generated API call wrappers
-    void PlayFabCombo_AdminSysComponent::CreatePlayerSharedSecret(AdminModels::CreatePlayerSharedSecretRequest& request, ProcessApiCallback<AdminModels::CreatePlayerSharedSecretResult> callback, ErrorCallback errorCallback, void* customData)
+    int PlayFabCombo_AdminSysComponent::CreatePlayerSharedSecret(AdminModels::CreatePlayerSharedSecretRequest& request, ProcessApiCallback<AdminModels::CreatePlayerSharedSecretResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::CreatePlayerSharedSecret(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::CreatePlayerSharedSecret(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::DeletePlayerSharedSecret(AdminModels::DeletePlayerSharedSecretRequest& request, ProcessApiCallback<AdminModels::DeletePlayerSharedSecretResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::CreatePlayerSharedSecret(AdminModels::CreatePlayerSharedSecretRequest& request)
     {
-        PlayFabAdminApi::DeletePlayerSharedSecret(request, callback, errorCallback, customData);
+        return CreatePlayerSharedSecret(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetPlayerSharedSecrets(ProcessApiCallback<AdminModels::GetPlayerSharedSecretsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::DeletePlayerSharedSecret(AdminModels::DeletePlayerSharedSecretRequest& request, ProcessApiCallback<AdminModels::DeletePlayerSharedSecretResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetPlayerSharedSecrets(callback, errorCallback, customData);
+        return PlayFabAdminApi::DeletePlayerSharedSecret(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetPolicy(AdminModels::GetPolicyRequest& request, ProcessApiCallback<AdminModels::GetPolicyResponse> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::DeletePlayerSharedSecret(AdminModels::DeletePlayerSharedSecretRequest& request)
     {
-        PlayFabAdminApi::GetPolicy(request, callback, errorCallback, customData);
+        return DeletePlayerSharedSecret(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::SetPlayerSecret(AdminModels::SetPlayerSecretRequest& request, ProcessApiCallback<AdminModels::SetPlayerSecretResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetPlayerSharedSecrets(ProcessApiCallback<AdminModels::GetPlayerSharedSecretsResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::SetPlayerSecret(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetPlayerSharedSecrets(callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::UpdatePlayerSharedSecret(AdminModels::UpdatePlayerSharedSecretRequest& request, ProcessApiCallback<AdminModels::UpdatePlayerSharedSecretResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetPlayerSharedSecrets()
     {
-        PlayFabAdminApi::UpdatePlayerSharedSecret(request, callback, errorCallback, customData);
+        return GetPlayerSharedSecrets(nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::UpdatePolicy(AdminModels::UpdatePolicyRequest& request, ProcessApiCallback<AdminModels::UpdatePolicyResponse> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetPolicy(AdminModels::GetPolicyRequest& request, ProcessApiCallback<AdminModels::GetPolicyResponse> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::UpdatePolicy(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetPolicy(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::BanUsers(AdminModels::BanUsersRequest& request, ProcessApiCallback<AdminModels::BanUsersResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetPolicy(AdminModels::GetPolicyRequest& request)
     {
-        PlayFabAdminApi::BanUsers(request, callback, errorCallback, customData);
+        return GetPolicy(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::DeletePlayer(AdminModels::DeletePlayerRequest& request, ProcessApiCallback<AdminModels::DeletePlayerResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::SetPlayerSecret(AdminModels::SetPlayerSecretRequest& request, ProcessApiCallback<AdminModels::SetPlayerSecretResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::DeletePlayer(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::SetPlayerSecret(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetUserAccountInfo(AdminModels::LookupUserAccountInfoRequest& request, ProcessApiCallback<AdminModels::LookupUserAccountInfoResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::SetPlayerSecret(AdminModels::SetPlayerSecretRequest& request)
     {
-        PlayFabAdminApi::GetUserAccountInfo(request, callback, errorCallback, customData);
+        return SetPlayerSecret(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetUserBans(AdminModels::GetUserBansRequest& request, ProcessApiCallback<AdminModels::GetUserBansResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::UpdatePlayerSharedSecret(AdminModels::UpdatePlayerSharedSecretRequest& request, ProcessApiCallback<AdminModels::UpdatePlayerSharedSecretResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetUserBans(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::UpdatePlayerSharedSecret(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::ResetUsers(AdminModels::ResetUsersRequest& request, ProcessApiCallback<AdminModels::BlankResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::UpdatePlayerSharedSecret(AdminModels::UpdatePlayerSharedSecretRequest& request)
     {
-        PlayFabAdminApi::ResetUsers(request, callback, errorCallback, customData);
+        return UpdatePlayerSharedSecret(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::RevokeAllBansForUser(AdminModels::RevokeAllBansForUserRequest& request, ProcessApiCallback<AdminModels::RevokeAllBansForUserResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::UpdatePolicy(AdminModels::UpdatePolicyRequest& request, ProcessApiCallback<AdminModels::UpdatePolicyResponse> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::RevokeAllBansForUser(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::UpdatePolicy(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::RevokeBans(AdminModels::RevokeBansRequest& request, ProcessApiCallback<AdminModels::RevokeBansResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::UpdatePolicy(AdminModels::UpdatePolicyRequest& request)
     {
-        PlayFabAdminApi::RevokeBans(request, callback, errorCallback, customData);
+        return UpdatePolicy(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::SendAccountRecoveryEmail(AdminModels::SendAccountRecoveryEmailRequest& request, ProcessApiCallback<AdminModels::SendAccountRecoveryEmailResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::BanUsers(AdminModels::BanUsersRequest& request, ProcessApiCallback<AdminModels::BanUsersResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::SendAccountRecoveryEmail(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::BanUsers(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::UpdateBans(AdminModels::UpdateBansRequest& request, ProcessApiCallback<AdminModels::UpdateBansResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::BanUsers(AdminModels::BanUsersRequest& request)
     {
-        PlayFabAdminApi::UpdateBans(request, callback, errorCallback, customData);
+        return BanUsers(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::UpdateUserTitleDisplayName(AdminModels::UpdateUserTitleDisplayNameRequest& request, ProcessApiCallback<AdminModels::UpdateUserTitleDisplayNameResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::DeletePlayer(AdminModels::DeletePlayerRequest& request, ProcessApiCallback<AdminModels::DeletePlayerResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::UpdateUserTitleDisplayName(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::DeletePlayer(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::CreatePlayerStatisticDefinition(AdminModels::CreatePlayerStatisticDefinitionRequest& request, ProcessApiCallback<AdminModels::CreatePlayerStatisticDefinitionResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::DeletePlayer(AdminModels::DeletePlayerRequest& request)
     {
-        PlayFabAdminApi::CreatePlayerStatisticDefinition(request, callback, errorCallback, customData);
+        return DeletePlayer(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::DeleteUsers(AdminModels::DeleteUsersRequest& request, ProcessApiCallback<AdminModels::DeleteUsersResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetUserAccountInfo(AdminModels::LookupUserAccountInfoRequest& request, ProcessApiCallback<AdminModels::LookupUserAccountInfoResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::DeleteUsers(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetUserAccountInfo(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetDataReport(AdminModels::GetDataReportRequest& request, ProcessApiCallback<AdminModels::GetDataReportResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetUserAccountInfo(AdminModels::LookupUserAccountInfoRequest& request)
     {
-        PlayFabAdminApi::GetDataReport(request, callback, errorCallback, customData);
+        return GetUserAccountInfo(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetPlayerStatisticDefinitions(ProcessApiCallback<AdminModels::GetPlayerStatisticDefinitionsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetUserBans(AdminModels::GetUserBansRequest& request, ProcessApiCallback<AdminModels::GetUserBansResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetPlayerStatisticDefinitions(callback, errorCallback, customData);
+        return PlayFabAdminApi::GetUserBans(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetPlayerStatisticVersions(AdminModels::GetPlayerStatisticVersionsRequest& request, ProcessApiCallback<AdminModels::GetPlayerStatisticVersionsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetUserBans(AdminModels::GetUserBansRequest& request)
     {
-        PlayFabAdminApi::GetPlayerStatisticVersions(request, callback, errorCallback, customData);
+        return GetUserBans(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetUserData(AdminModels::GetUserDataRequest& request, ProcessApiCallback<AdminModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::ResetUsers(AdminModels::ResetUsersRequest& request, ProcessApiCallback<AdminModels::BlankResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetUserData(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::ResetUsers(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetUserInternalData(AdminModels::GetUserDataRequest& request, ProcessApiCallback<AdminModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::ResetUsers(AdminModels::ResetUsersRequest& request)
     {
-        PlayFabAdminApi::GetUserInternalData(request, callback, errorCallback, customData);
+        return ResetUsers(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetUserPublisherData(AdminModels::GetUserDataRequest& request, ProcessApiCallback<AdminModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::RevokeAllBansForUser(AdminModels::RevokeAllBansForUserRequest& request, ProcessApiCallback<AdminModels::RevokeAllBansForUserResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetUserPublisherData(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::RevokeAllBansForUser(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetUserPublisherInternalData(AdminModels::GetUserDataRequest& request, ProcessApiCallback<AdminModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::RevokeAllBansForUser(AdminModels::RevokeAllBansForUserRequest& request)
     {
-        PlayFabAdminApi::GetUserPublisherInternalData(request, callback, errorCallback, customData);
+        return RevokeAllBansForUser(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetUserPublisherReadOnlyData(AdminModels::GetUserDataRequest& request, ProcessApiCallback<AdminModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::RevokeBans(AdminModels::RevokeBansRequest& request, ProcessApiCallback<AdminModels::RevokeBansResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetUserPublisherReadOnlyData(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::RevokeBans(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetUserReadOnlyData(AdminModels::GetUserDataRequest& request, ProcessApiCallback<AdminModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::RevokeBans(AdminModels::RevokeBansRequest& request)
     {
-        PlayFabAdminApi::GetUserReadOnlyData(request, callback, errorCallback, customData);
+        return RevokeBans(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::IncrementPlayerStatisticVersion(AdminModels::IncrementPlayerStatisticVersionRequest& request, ProcessApiCallback<AdminModels::IncrementPlayerStatisticVersionResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::SendAccountRecoveryEmail(AdminModels::SendAccountRecoveryEmailRequest& request, ProcessApiCallback<AdminModels::SendAccountRecoveryEmailResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::IncrementPlayerStatisticVersion(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::SendAccountRecoveryEmail(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::RefundPurchase(AdminModels::RefundPurchaseRequest& request, ProcessApiCallback<AdminModels::RefundPurchaseResponse> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::SendAccountRecoveryEmail(AdminModels::SendAccountRecoveryEmailRequest& request)
     {
-        PlayFabAdminApi::RefundPurchase(request, callback, errorCallback, customData);
+        return SendAccountRecoveryEmail(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::ResetUserStatistics(AdminModels::ResetUserStatisticsRequest& request, ProcessApiCallback<AdminModels::ResetUserStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::UpdateBans(AdminModels::UpdateBansRequest& request, ProcessApiCallback<AdminModels::UpdateBansResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::ResetUserStatistics(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::UpdateBans(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::ResolvePurchaseDispute(AdminModels::ResolvePurchaseDisputeRequest& request, ProcessApiCallback<AdminModels::ResolvePurchaseDisputeResponse> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::UpdateBans(AdminModels::UpdateBansRequest& request)
     {
-        PlayFabAdminApi::ResolvePurchaseDispute(request, callback, errorCallback, customData);
+        return UpdateBans(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::UpdatePlayerStatisticDefinition(AdminModels::UpdatePlayerStatisticDefinitionRequest& request, ProcessApiCallback<AdminModels::UpdatePlayerStatisticDefinitionResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::UpdateUserTitleDisplayName(AdminModels::UpdateUserTitleDisplayNameRequest& request, ProcessApiCallback<AdminModels::UpdateUserTitleDisplayNameResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::UpdatePlayerStatisticDefinition(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::UpdateUserTitleDisplayName(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::UpdateUserData(AdminModels::UpdateUserDataRequest& request, ProcessApiCallback<AdminModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::UpdateUserTitleDisplayName(AdminModels::UpdateUserTitleDisplayNameRequest& request)
     {
-        PlayFabAdminApi::UpdateUserData(request, callback, errorCallback, customData);
+        return UpdateUserTitleDisplayName(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::UpdateUserInternalData(AdminModels::UpdateUserInternalDataRequest& request, ProcessApiCallback<AdminModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::CreatePlayerStatisticDefinition(AdminModels::CreatePlayerStatisticDefinitionRequest& request, ProcessApiCallback<AdminModels::CreatePlayerStatisticDefinitionResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::UpdateUserInternalData(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::CreatePlayerStatisticDefinition(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::UpdateUserPublisherData(AdminModels::UpdateUserDataRequest& request, ProcessApiCallback<AdminModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::CreatePlayerStatisticDefinition(AdminModels::CreatePlayerStatisticDefinitionRequest& request)
     {
-        PlayFabAdminApi::UpdateUserPublisherData(request, callback, errorCallback, customData);
+        return CreatePlayerStatisticDefinition(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::UpdateUserPublisherInternalData(AdminModels::UpdateUserInternalDataRequest& request, ProcessApiCallback<AdminModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::DeleteUsers(AdminModels::DeleteUsersRequest& request, ProcessApiCallback<AdminModels::DeleteUsersResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::UpdateUserPublisherInternalData(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::DeleteUsers(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::UpdateUserPublisherReadOnlyData(AdminModels::UpdateUserDataRequest& request, ProcessApiCallback<AdminModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::DeleteUsers(AdminModels::DeleteUsersRequest& request)
     {
-        PlayFabAdminApi::UpdateUserPublisherReadOnlyData(request, callback, errorCallback, customData);
+        return DeleteUsers(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::UpdateUserReadOnlyData(AdminModels::UpdateUserDataRequest& request, ProcessApiCallback<AdminModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetDataReport(AdminModels::GetDataReportRequest& request, ProcessApiCallback<AdminModels::GetDataReportResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::UpdateUserReadOnlyData(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetDataReport(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::AddNews(AdminModels::AddNewsRequest& request, ProcessApiCallback<AdminModels::AddNewsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetDataReport(AdminModels::GetDataReportRequest& request)
     {
-        PlayFabAdminApi::AddNews(request, callback, errorCallback, customData);
+        return GetDataReport(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::AddVirtualCurrencyTypes(AdminModels::AddVirtualCurrencyTypesRequest& request, ProcessApiCallback<AdminModels::BlankResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetPlayerStatisticDefinitions(ProcessApiCallback<AdminModels::GetPlayerStatisticDefinitionsResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::AddVirtualCurrencyTypes(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetPlayerStatisticDefinitions(callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::DeleteStore(AdminModels::DeleteStoreRequest& request, ProcessApiCallback<AdminModels::DeleteStoreResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetPlayerStatisticDefinitions()
     {
-        PlayFabAdminApi::DeleteStore(request, callback, errorCallback, customData);
+        return GetPlayerStatisticDefinitions(nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetCatalogItems(AdminModels::GetCatalogItemsRequest& request, ProcessApiCallback<AdminModels::GetCatalogItemsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetPlayerStatisticVersions(AdminModels::GetPlayerStatisticVersionsRequest& request, ProcessApiCallback<AdminModels::GetPlayerStatisticVersionsResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetCatalogItems(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetPlayerStatisticVersions(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetPublisherData(AdminModels::GetPublisherDataRequest& request, ProcessApiCallback<AdminModels::GetPublisherDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetPlayerStatisticVersions(AdminModels::GetPlayerStatisticVersionsRequest& request)
     {
-        PlayFabAdminApi::GetPublisherData(request, callback, errorCallback, customData);
+        return GetPlayerStatisticVersions(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetRandomResultTables(AdminModels::GetRandomResultTablesRequest& request, ProcessApiCallback<AdminModels::GetRandomResultTablesResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetUserData(AdminModels::GetUserDataRequest& request, ProcessApiCallback<AdminModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetRandomResultTables(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetUserData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetStoreItems(AdminModels::GetStoreItemsRequest& request, ProcessApiCallback<AdminModels::GetStoreItemsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetUserData(AdminModels::GetUserDataRequest& request)
     {
-        PlayFabAdminApi::GetStoreItems(request, callback, errorCallback, customData);
+        return GetUserData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetTitleData(AdminModels::GetTitleDataRequest& request, ProcessApiCallback<AdminModels::GetTitleDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetUserInternalData(AdminModels::GetUserDataRequest& request, ProcessApiCallback<AdminModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetTitleData(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetUserInternalData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetTitleInternalData(AdminModels::GetTitleDataRequest& request, ProcessApiCallback<AdminModels::GetTitleDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetUserInternalData(AdminModels::GetUserDataRequest& request)
     {
-        PlayFabAdminApi::GetTitleInternalData(request, callback, errorCallback, customData);
+        return GetUserInternalData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::ListVirtualCurrencyTypes(ProcessApiCallback<AdminModels::ListVirtualCurrencyTypesResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetUserPublisherData(AdminModels::GetUserDataRequest& request, ProcessApiCallback<AdminModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::ListVirtualCurrencyTypes(callback, errorCallback, customData);
+        return PlayFabAdminApi::GetUserPublisherData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::RemoveVirtualCurrencyTypes(AdminModels::RemoveVirtualCurrencyTypesRequest& request, ProcessApiCallback<AdminModels::BlankResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetUserPublisherData(AdminModels::GetUserDataRequest& request)
     {
-        PlayFabAdminApi::RemoveVirtualCurrencyTypes(request, callback, errorCallback, customData);
+        return GetUserPublisherData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::SetCatalogItems(AdminModels::UpdateCatalogItemsRequest& request, ProcessApiCallback<AdminModels::UpdateCatalogItemsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetUserPublisherInternalData(AdminModels::GetUserDataRequest& request, ProcessApiCallback<AdminModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::SetCatalogItems(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetUserPublisherInternalData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::SetStoreItems(AdminModels::UpdateStoreItemsRequest& request, ProcessApiCallback<AdminModels::UpdateStoreItemsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetUserPublisherInternalData(AdminModels::GetUserDataRequest& request)
     {
-        PlayFabAdminApi::SetStoreItems(request, callback, errorCallback, customData);
+        return GetUserPublisherInternalData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::SetTitleData(AdminModels::SetTitleDataRequest& request, ProcessApiCallback<AdminModels::SetTitleDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetUserPublisherReadOnlyData(AdminModels::GetUserDataRequest& request, ProcessApiCallback<AdminModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::SetTitleData(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetUserPublisherReadOnlyData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::SetTitleInternalData(AdminModels::SetTitleDataRequest& request, ProcessApiCallback<AdminModels::SetTitleDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetUserPublisherReadOnlyData(AdminModels::GetUserDataRequest& request)
     {
-        PlayFabAdminApi::SetTitleInternalData(request, callback, errorCallback, customData);
+        return GetUserPublisherReadOnlyData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::SetupPushNotification(AdminModels::SetupPushNotificationRequest& request, ProcessApiCallback<AdminModels::SetupPushNotificationResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetUserReadOnlyData(AdminModels::GetUserDataRequest& request, ProcessApiCallback<AdminModels::GetUserDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::SetupPushNotification(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetUserReadOnlyData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::UpdateCatalogItems(AdminModels::UpdateCatalogItemsRequest& request, ProcessApiCallback<AdminModels::UpdateCatalogItemsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetUserReadOnlyData(AdminModels::GetUserDataRequest& request)
     {
-        PlayFabAdminApi::UpdateCatalogItems(request, callback, errorCallback, customData);
+        return GetUserReadOnlyData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::UpdateRandomResultTables(AdminModels::UpdateRandomResultTablesRequest& request, ProcessApiCallback<AdminModels::UpdateRandomResultTablesResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::IncrementPlayerStatisticVersion(AdminModels::IncrementPlayerStatisticVersionRequest& request, ProcessApiCallback<AdminModels::IncrementPlayerStatisticVersionResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::UpdateRandomResultTables(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::IncrementPlayerStatisticVersion(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::UpdateStoreItems(AdminModels::UpdateStoreItemsRequest& request, ProcessApiCallback<AdminModels::UpdateStoreItemsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::IncrementPlayerStatisticVersion(AdminModels::IncrementPlayerStatisticVersionRequest& request)
     {
-        PlayFabAdminApi::UpdateStoreItems(request, callback, errorCallback, customData);
+        return IncrementPlayerStatisticVersion(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::AddUserVirtualCurrency(AdminModels::AddUserVirtualCurrencyRequest& request, ProcessApiCallback<AdminModels::ModifyUserVirtualCurrencyResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::RefundPurchase(AdminModels::RefundPurchaseRequest& request, ProcessApiCallback<AdminModels::RefundPurchaseResponse> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::AddUserVirtualCurrency(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::RefundPurchase(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetUserInventory(AdminModels::GetUserInventoryRequest& request, ProcessApiCallback<AdminModels::GetUserInventoryResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::RefundPurchase(AdminModels::RefundPurchaseRequest& request)
     {
-        PlayFabAdminApi::GetUserInventory(request, callback, errorCallback, customData);
+        return RefundPurchase(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GrantItemsToUsers(AdminModels::GrantItemsToUsersRequest& request, ProcessApiCallback<AdminModels::GrantItemsToUsersResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::ResetUserStatistics(AdminModels::ResetUserStatisticsRequest& request, ProcessApiCallback<AdminModels::ResetUserStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GrantItemsToUsers(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::ResetUserStatistics(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::RevokeInventoryItem(AdminModels::RevokeInventoryItemRequest& request, ProcessApiCallback<AdminModels::RevokeInventoryResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::ResetUserStatistics(AdminModels::ResetUserStatisticsRequest& request)
     {
-        PlayFabAdminApi::RevokeInventoryItem(request, callback, errorCallback, customData);
+        return ResetUserStatistics(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::SubtractUserVirtualCurrency(AdminModels::SubtractUserVirtualCurrencyRequest& request, ProcessApiCallback<AdminModels::ModifyUserVirtualCurrencyResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::ResolvePurchaseDispute(AdminModels::ResolvePurchaseDisputeRequest& request, ProcessApiCallback<AdminModels::ResolvePurchaseDisputeResponse> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::SubtractUserVirtualCurrency(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::ResolvePurchaseDispute(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetMatchmakerGameInfo(AdminModels::GetMatchmakerGameInfoRequest& request, ProcessApiCallback<AdminModels::GetMatchmakerGameInfoResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::ResolvePurchaseDispute(AdminModels::ResolvePurchaseDisputeRequest& request)
     {
-        PlayFabAdminApi::GetMatchmakerGameInfo(request, callback, errorCallback, customData);
+        return ResolvePurchaseDispute(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetMatchmakerGameModes(AdminModels::GetMatchmakerGameModesRequest& request, ProcessApiCallback<AdminModels::GetMatchmakerGameModesResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::UpdatePlayerStatisticDefinition(AdminModels::UpdatePlayerStatisticDefinitionRequest& request, ProcessApiCallback<AdminModels::UpdatePlayerStatisticDefinitionResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetMatchmakerGameModes(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::UpdatePlayerStatisticDefinition(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::ModifyMatchmakerGameModes(AdminModels::ModifyMatchmakerGameModesRequest& request, ProcessApiCallback<AdminModels::ModifyMatchmakerGameModesResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::UpdatePlayerStatisticDefinition(AdminModels::UpdatePlayerStatisticDefinitionRequest& request)
     {
-        PlayFabAdminApi::ModifyMatchmakerGameModes(request, callback, errorCallback, customData);
+        return UpdatePlayerStatisticDefinition(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::AddServerBuild(AdminModels::AddServerBuildRequest& request, ProcessApiCallback<AdminModels::AddServerBuildResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::UpdateUserData(AdminModels::UpdateUserDataRequest& request, ProcessApiCallback<AdminModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::AddServerBuild(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::UpdateUserData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetServerBuildInfo(AdminModels::GetServerBuildInfoRequest& request, ProcessApiCallback<AdminModels::GetServerBuildInfoResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::UpdateUserData(AdminModels::UpdateUserDataRequest& request)
     {
-        PlayFabAdminApi::GetServerBuildInfo(request, callback, errorCallback, customData);
+        return UpdateUserData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetServerBuildUploadUrl(AdminModels::GetServerBuildUploadURLRequest& request, ProcessApiCallback<AdminModels::GetServerBuildUploadURLResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::UpdateUserInternalData(AdminModels::UpdateUserInternalDataRequest& request, ProcessApiCallback<AdminModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetServerBuildUploadUrl(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::UpdateUserInternalData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::ListServerBuilds(ProcessApiCallback<AdminModels::ListBuildsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::UpdateUserInternalData(AdminModels::UpdateUserInternalDataRequest& request)
     {
-        PlayFabAdminApi::ListServerBuilds(callback, errorCallback, customData);
+        return UpdateUserInternalData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::ModifyServerBuild(AdminModels::ModifyServerBuildRequest& request, ProcessApiCallback<AdminModels::ModifyServerBuildResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::UpdateUserPublisherData(AdminModels::UpdateUserDataRequest& request, ProcessApiCallback<AdminModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::ModifyServerBuild(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::UpdateUserPublisherData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::RemoveServerBuild(AdminModels::RemoveServerBuildRequest& request, ProcessApiCallback<AdminModels::RemoveServerBuildResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::UpdateUserPublisherData(AdminModels::UpdateUserDataRequest& request)
     {
-        PlayFabAdminApi::RemoveServerBuild(request, callback, errorCallback, customData);
+        return UpdateUserPublisherData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::SetPublisherData(AdminModels::SetPublisherDataRequest& request, ProcessApiCallback<AdminModels::SetPublisherDataResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::UpdateUserPublisherInternalData(AdminModels::UpdateUserInternalDataRequest& request, ProcessApiCallback<AdminModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::SetPublisherData(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::UpdateUserPublisherInternalData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetCloudScriptRevision(AdminModels::GetCloudScriptRevisionRequest& request, ProcessApiCallback<AdminModels::GetCloudScriptRevisionResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::UpdateUserPublisherInternalData(AdminModels::UpdateUserInternalDataRequest& request)
     {
-        PlayFabAdminApi::GetCloudScriptRevision(request, callback, errorCallback, customData);
+        return UpdateUserPublisherInternalData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetCloudScriptVersions(ProcessApiCallback<AdminModels::GetCloudScriptVersionsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::UpdateUserPublisherReadOnlyData(AdminModels::UpdateUserDataRequest& request, ProcessApiCallback<AdminModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetCloudScriptVersions(callback, errorCallback, customData);
+        return PlayFabAdminApi::UpdateUserPublisherReadOnlyData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::SetPublishedRevision(AdminModels::SetPublishedRevisionRequest& request, ProcessApiCallback<AdminModels::SetPublishedRevisionResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::UpdateUserPublisherReadOnlyData(AdminModels::UpdateUserDataRequest& request)
     {
-        PlayFabAdminApi::SetPublishedRevision(request, callback, errorCallback, customData);
+        return UpdateUserPublisherReadOnlyData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::UpdateCloudScript(AdminModels::UpdateCloudScriptRequest& request, ProcessApiCallback<AdminModels::UpdateCloudScriptResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::UpdateUserReadOnlyData(AdminModels::UpdateUserDataRequest& request, ProcessApiCallback<AdminModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::UpdateCloudScript(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::UpdateUserReadOnlyData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::DeleteContent(AdminModels::DeleteContentRequest& request, ProcessApiCallback<AdminModels::BlankResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::UpdateUserReadOnlyData(AdminModels::UpdateUserDataRequest& request)
     {
-        PlayFabAdminApi::DeleteContent(request, callback, errorCallback, customData);
+        return UpdateUserReadOnlyData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetContentList(AdminModels::GetContentListRequest& request, ProcessApiCallback<AdminModels::GetContentListResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::AddNews(AdminModels::AddNewsRequest& request, ProcessApiCallback<AdminModels::AddNewsResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetContentList(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::AddNews(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetContentUploadUrl(AdminModels::GetContentUploadUrlRequest& request, ProcessApiCallback<AdminModels::GetContentUploadUrlResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::AddNews(AdminModels::AddNewsRequest& request)
     {
-        PlayFabAdminApi::GetContentUploadUrl(request, callback, errorCallback, customData);
+        return AddNews(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::ResetCharacterStatistics(AdminModels::ResetCharacterStatisticsRequest& request, ProcessApiCallback<AdminModels::ResetCharacterStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::AddVirtualCurrencyTypes(AdminModels::AddVirtualCurrencyTypesRequest& request, ProcessApiCallback<AdminModels::BlankResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::ResetCharacterStatistics(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::AddVirtualCurrencyTypes(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::AddPlayerTag(AdminModels::AddPlayerTagRequest& request, ProcessApiCallback<AdminModels::AddPlayerTagResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::AddVirtualCurrencyTypes(AdminModels::AddVirtualCurrencyTypesRequest& request)
     {
-        PlayFabAdminApi::AddPlayerTag(request, callback, errorCallback, customData);
+        return AddVirtualCurrencyTypes(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetAllActionGroups(ProcessApiCallback<AdminModels::GetAllActionGroupsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::DeleteStore(AdminModels::DeleteStoreRequest& request, ProcessApiCallback<AdminModels::DeleteStoreResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetAllActionGroups(callback, errorCallback, customData);
+        return PlayFabAdminApi::DeleteStore(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetAllSegments(ProcessApiCallback<AdminModels::GetAllSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::DeleteStore(AdminModels::DeleteStoreRequest& request)
     {
-        PlayFabAdminApi::GetAllSegments(callback, errorCallback, customData);
+        return DeleteStore(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetPlayerSegments(AdminModels::GetPlayersSegmentsRequest& request, ProcessApiCallback<AdminModels::GetPlayerSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetCatalogItems(AdminModels::GetCatalogItemsRequest& request, ProcessApiCallback<AdminModels::GetCatalogItemsResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetPlayerSegments(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetCatalogItems(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetPlayersInSegment(AdminModels::GetPlayersInSegmentRequest& request, ProcessApiCallback<AdminModels::GetPlayersInSegmentResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetCatalogItems(AdminModels::GetCatalogItemsRequest& request)
     {
-        PlayFabAdminApi::GetPlayersInSegment(request, callback, errorCallback, customData);
+        return GetCatalogItems(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetPlayerTags(AdminModels::GetPlayerTagsRequest& request, ProcessApiCallback<AdminModels::GetPlayerTagsResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetPublisherData(AdminModels::GetPublisherDataRequest& request, ProcessApiCallback<AdminModels::GetPublisherDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetPlayerTags(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetPublisherData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::RemovePlayerTag(AdminModels::RemovePlayerTagRequest& request, ProcessApiCallback<AdminModels::RemovePlayerTagResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetPublisherData(AdminModels::GetPublisherDataRequest& request)
     {
-        PlayFabAdminApi::RemovePlayerTag(request, callback, errorCallback, customData);
+        return GetPublisherData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::AbortTaskInstance(AdminModels::AbortTaskInstanceRequest& request, ProcessApiCallback<AdminModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetRandomResultTables(AdminModels::GetRandomResultTablesRequest& request, ProcessApiCallback<AdminModels::GetRandomResultTablesResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::AbortTaskInstance(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetRandomResultTables(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::CreateActionsOnPlayersInSegmentTask(AdminModels::CreateActionsOnPlayerSegmentTaskRequest& request, ProcessApiCallback<AdminModels::CreateTaskResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetRandomResultTables(AdminModels::GetRandomResultTablesRequest& request)
     {
-        PlayFabAdminApi::CreateActionsOnPlayersInSegmentTask(request, callback, errorCallback, customData);
+        return GetRandomResultTables(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::CreateCloudScriptTask(AdminModels::CreateCloudScriptTaskRequest& request, ProcessApiCallback<AdminModels::CreateTaskResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetStoreItems(AdminModels::GetStoreItemsRequest& request, ProcessApiCallback<AdminModels::GetStoreItemsResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::CreateCloudScriptTask(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetStoreItems(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::DeleteTask(AdminModels::DeleteTaskRequest& request, ProcessApiCallback<AdminModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetStoreItems(AdminModels::GetStoreItemsRequest& request)
     {
-        PlayFabAdminApi::DeleteTask(request, callback, errorCallback, customData);
+        return GetStoreItems(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetActionsOnPlayersInSegmentTaskInstance(AdminModels::GetTaskInstanceRequest& request, ProcessApiCallback<AdminModels::GetActionsOnPlayersInSegmentTaskInstanceResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetTitleData(AdminModels::GetTitleDataRequest& request, ProcessApiCallback<AdminModels::GetTitleDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetActionsOnPlayersInSegmentTaskInstance(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetTitleData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetCloudScriptTaskInstance(AdminModels::GetTaskInstanceRequest& request, ProcessApiCallback<AdminModels::GetCloudScriptTaskInstanceResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetTitleData(AdminModels::GetTitleDataRequest& request)
     {
-        PlayFabAdminApi::GetCloudScriptTaskInstance(request, callback, errorCallback, customData);
+        return GetTitleData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::GetTaskInstances(AdminModels::GetTaskInstancesRequest& request, ProcessApiCallback<AdminModels::GetTaskInstancesResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetTitleInternalData(AdminModels::GetTitleDataRequest& request, ProcessApiCallback<AdminModels::GetTitleDataResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::GetTaskInstances(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::GetTitleInternalData(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetTasks(AdminModels::GetTasksRequest& request, ProcessApiCallback<AdminModels::GetTasksResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetTitleInternalData(AdminModels::GetTitleDataRequest& request)
     {
-        PlayFabAdminApi::GetTasks(request, callback, errorCallback, customData);
+        return GetTitleInternalData(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_AdminSysComponent::RunTask(AdminModels::RunTaskRequest& request, ProcessApiCallback<AdminModels::RunTaskResult> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::ListVirtualCurrencyTypes(ProcessApiCallback<AdminModels::ListVirtualCurrencyTypesResult> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabAdminApi::RunTask(request, callback, errorCallback, customData);
+        return PlayFabAdminApi::ListVirtualCurrencyTypes(callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::UpdateTask(AdminModels::UpdateTaskRequest& request, ProcessApiCallback<AdminModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::ListVirtualCurrencyTypes()
     {
-        PlayFabAdminApi::UpdateTask(request, callback, errorCallback, customData);
+        return ListVirtualCurrencyTypes(nullptr, nullptr, nullptr);
     }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::RemoveVirtualCurrencyTypes(AdminModels::RemoveVirtualCurrencyTypesRequest& request, ProcessApiCallback<AdminModels::BlankResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::RemoveVirtualCurrencyTypes(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::RemoveVirtualCurrencyTypes(AdminModels::RemoveVirtualCurrencyTypesRequest& request)
+    {
+        return RemoveVirtualCurrencyTypes(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::SetCatalogItems(AdminModels::UpdateCatalogItemsRequest& request, ProcessApiCallback<AdminModels::UpdateCatalogItemsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::SetCatalogItems(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::SetCatalogItems(AdminModels::UpdateCatalogItemsRequest& request)
+    {
+        return SetCatalogItems(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::SetStoreItems(AdminModels::UpdateStoreItemsRequest& request, ProcessApiCallback<AdminModels::UpdateStoreItemsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::SetStoreItems(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::SetStoreItems(AdminModels::UpdateStoreItemsRequest& request)
+    {
+        return SetStoreItems(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::SetTitleData(AdminModels::SetTitleDataRequest& request, ProcessApiCallback<AdminModels::SetTitleDataResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::SetTitleData(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::SetTitleData(AdminModels::SetTitleDataRequest& request)
+    {
+        return SetTitleData(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::SetTitleInternalData(AdminModels::SetTitleDataRequest& request, ProcessApiCallback<AdminModels::SetTitleDataResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::SetTitleInternalData(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::SetTitleInternalData(AdminModels::SetTitleDataRequest& request)
+    {
+        return SetTitleInternalData(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::SetupPushNotification(AdminModels::SetupPushNotificationRequest& request, ProcessApiCallback<AdminModels::SetupPushNotificationResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::SetupPushNotification(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::SetupPushNotification(AdminModels::SetupPushNotificationRequest& request)
+    {
+        return SetupPushNotification(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::UpdateCatalogItems(AdminModels::UpdateCatalogItemsRequest& request, ProcessApiCallback<AdminModels::UpdateCatalogItemsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::UpdateCatalogItems(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::UpdateCatalogItems(AdminModels::UpdateCatalogItemsRequest& request)
+    {
+        return UpdateCatalogItems(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::UpdateRandomResultTables(AdminModels::UpdateRandomResultTablesRequest& request, ProcessApiCallback<AdminModels::UpdateRandomResultTablesResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::UpdateRandomResultTables(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::UpdateRandomResultTables(AdminModels::UpdateRandomResultTablesRequest& request)
+    {
+        return UpdateRandomResultTables(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::UpdateStoreItems(AdminModels::UpdateStoreItemsRequest& request, ProcessApiCallback<AdminModels::UpdateStoreItemsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::UpdateStoreItems(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::UpdateStoreItems(AdminModels::UpdateStoreItemsRequest& request)
+    {
+        return UpdateStoreItems(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::AddUserVirtualCurrency(AdminModels::AddUserVirtualCurrencyRequest& request, ProcessApiCallback<AdminModels::ModifyUserVirtualCurrencyResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::AddUserVirtualCurrency(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::AddUserVirtualCurrency(AdminModels::AddUserVirtualCurrencyRequest& request)
+    {
+        return AddUserVirtualCurrency(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetUserInventory(AdminModels::GetUserInventoryRequest& request, ProcessApiCallback<AdminModels::GetUserInventoryResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetUserInventory(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetUserInventory(AdminModels::GetUserInventoryRequest& request)
+    {
+        return GetUserInventory(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GrantItemsToUsers(AdminModels::GrantItemsToUsersRequest& request, ProcessApiCallback<AdminModels::GrantItemsToUsersResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GrantItemsToUsers(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GrantItemsToUsers(AdminModels::GrantItemsToUsersRequest& request)
+    {
+        return GrantItemsToUsers(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::RevokeInventoryItem(AdminModels::RevokeInventoryItemRequest& request, ProcessApiCallback<AdminModels::RevokeInventoryResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::RevokeInventoryItem(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::RevokeInventoryItem(AdminModels::RevokeInventoryItemRequest& request)
+    {
+        return RevokeInventoryItem(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::SubtractUserVirtualCurrency(AdminModels::SubtractUserVirtualCurrencyRequest& request, ProcessApiCallback<AdminModels::ModifyUserVirtualCurrencyResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::SubtractUserVirtualCurrency(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::SubtractUserVirtualCurrency(AdminModels::SubtractUserVirtualCurrencyRequest& request)
+    {
+        return SubtractUserVirtualCurrency(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetMatchmakerGameInfo(AdminModels::GetMatchmakerGameInfoRequest& request, ProcessApiCallback<AdminModels::GetMatchmakerGameInfoResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetMatchmakerGameInfo(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetMatchmakerGameInfo(AdminModels::GetMatchmakerGameInfoRequest& request)
+    {
+        return GetMatchmakerGameInfo(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetMatchmakerGameModes(AdminModels::GetMatchmakerGameModesRequest& request, ProcessApiCallback<AdminModels::GetMatchmakerGameModesResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetMatchmakerGameModes(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetMatchmakerGameModes(AdminModels::GetMatchmakerGameModesRequest& request)
+    {
+        return GetMatchmakerGameModes(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::ModifyMatchmakerGameModes(AdminModels::ModifyMatchmakerGameModesRequest& request, ProcessApiCallback<AdminModels::ModifyMatchmakerGameModesResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::ModifyMatchmakerGameModes(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::ModifyMatchmakerGameModes(AdminModels::ModifyMatchmakerGameModesRequest& request)
+    {
+        return ModifyMatchmakerGameModes(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::AddServerBuild(AdminModels::AddServerBuildRequest& request, ProcessApiCallback<AdminModels::AddServerBuildResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::AddServerBuild(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::AddServerBuild(AdminModels::AddServerBuildRequest& request)
+    {
+        return AddServerBuild(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetServerBuildInfo(AdminModels::GetServerBuildInfoRequest& request, ProcessApiCallback<AdminModels::GetServerBuildInfoResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetServerBuildInfo(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetServerBuildInfo(AdminModels::GetServerBuildInfoRequest& request)
+    {
+        return GetServerBuildInfo(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetServerBuildUploadUrl(AdminModels::GetServerBuildUploadURLRequest& request, ProcessApiCallback<AdminModels::GetServerBuildUploadURLResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetServerBuildUploadUrl(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetServerBuildUploadUrl(AdminModels::GetServerBuildUploadURLRequest& request)
+    {
+        return GetServerBuildUploadUrl(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::ListServerBuilds(ProcessApiCallback<AdminModels::ListBuildsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::ListServerBuilds(callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::ListServerBuilds()
+    {
+        return ListServerBuilds(nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::ModifyServerBuild(AdminModels::ModifyServerBuildRequest& request, ProcessApiCallback<AdminModels::ModifyServerBuildResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::ModifyServerBuild(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::ModifyServerBuild(AdminModels::ModifyServerBuildRequest& request)
+    {
+        return ModifyServerBuild(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::RemoveServerBuild(AdminModels::RemoveServerBuildRequest& request, ProcessApiCallback<AdminModels::RemoveServerBuildResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::RemoveServerBuild(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::RemoveServerBuild(AdminModels::RemoveServerBuildRequest& request)
+    {
+        return RemoveServerBuild(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::SetPublisherData(AdminModels::SetPublisherDataRequest& request, ProcessApiCallback<AdminModels::SetPublisherDataResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::SetPublisherData(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::SetPublisherData(AdminModels::SetPublisherDataRequest& request)
+    {
+        return SetPublisherData(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetCloudScriptRevision(AdminModels::GetCloudScriptRevisionRequest& request, ProcessApiCallback<AdminModels::GetCloudScriptRevisionResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetCloudScriptRevision(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetCloudScriptRevision(AdminModels::GetCloudScriptRevisionRequest& request)
+    {
+        return GetCloudScriptRevision(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetCloudScriptVersions(ProcessApiCallback<AdminModels::GetCloudScriptVersionsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetCloudScriptVersions(callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetCloudScriptVersions()
+    {
+        return GetCloudScriptVersions(nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::SetPublishedRevision(AdminModels::SetPublishedRevisionRequest& request, ProcessApiCallback<AdminModels::SetPublishedRevisionResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::SetPublishedRevision(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::SetPublishedRevision(AdminModels::SetPublishedRevisionRequest& request)
+    {
+        return SetPublishedRevision(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::UpdateCloudScript(AdminModels::UpdateCloudScriptRequest& request, ProcessApiCallback<AdminModels::UpdateCloudScriptResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::UpdateCloudScript(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::UpdateCloudScript(AdminModels::UpdateCloudScriptRequest& request)
+    {
+        return UpdateCloudScript(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::DeleteContent(AdminModels::DeleteContentRequest& request, ProcessApiCallback<AdminModels::BlankResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::DeleteContent(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::DeleteContent(AdminModels::DeleteContentRequest& request)
+    {
+        return DeleteContent(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetContentList(AdminModels::GetContentListRequest& request, ProcessApiCallback<AdminModels::GetContentListResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetContentList(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetContentList(AdminModels::GetContentListRequest& request)
+    {
+        return GetContentList(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetContentUploadUrl(AdminModels::GetContentUploadUrlRequest& request, ProcessApiCallback<AdminModels::GetContentUploadUrlResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetContentUploadUrl(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetContentUploadUrl(AdminModels::GetContentUploadUrlRequest& request)
+    {
+        return GetContentUploadUrl(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::ResetCharacterStatistics(AdminModels::ResetCharacterStatisticsRequest& request, ProcessApiCallback<AdminModels::ResetCharacterStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::ResetCharacterStatistics(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::ResetCharacterStatistics(AdminModels::ResetCharacterStatisticsRequest& request)
+    {
+        return ResetCharacterStatistics(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::AddPlayerTag(AdminModels::AddPlayerTagRequest& request, ProcessApiCallback<AdminModels::AddPlayerTagResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::AddPlayerTag(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::AddPlayerTag(AdminModels::AddPlayerTagRequest& request)
+    {
+        return AddPlayerTag(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetAllActionGroups(ProcessApiCallback<AdminModels::GetAllActionGroupsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetAllActionGroups(callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetAllActionGroups()
+    {
+        return GetAllActionGroups(nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetAllSegments(ProcessApiCallback<AdminModels::GetAllSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetAllSegments(callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetAllSegments()
+    {
+        return GetAllSegments(nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetPlayerSegments(AdminModels::GetPlayersSegmentsRequest& request, ProcessApiCallback<AdminModels::GetPlayerSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetPlayerSegments(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetPlayerSegments(AdminModels::GetPlayersSegmentsRequest& request)
+    {
+        return GetPlayerSegments(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetPlayersInSegment(AdminModels::GetPlayersInSegmentRequest& request, ProcessApiCallback<AdminModels::GetPlayersInSegmentResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetPlayersInSegment(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetPlayersInSegment(AdminModels::GetPlayersInSegmentRequest& request)
+    {
+        return GetPlayersInSegment(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetPlayerTags(AdminModels::GetPlayerTagsRequest& request, ProcessApiCallback<AdminModels::GetPlayerTagsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetPlayerTags(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetPlayerTags(AdminModels::GetPlayerTagsRequest& request)
+    {
+        return GetPlayerTags(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::RemovePlayerTag(AdminModels::RemovePlayerTagRequest& request, ProcessApiCallback<AdminModels::RemovePlayerTagResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::RemovePlayerTag(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::RemovePlayerTag(AdminModels::RemovePlayerTagRequest& request)
+    {
+        return RemovePlayerTag(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::AbortTaskInstance(AdminModels::AbortTaskInstanceRequest& request, ProcessApiCallback<AdminModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::AbortTaskInstance(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::AbortTaskInstance(AdminModels::AbortTaskInstanceRequest& request)
+    {
+        return AbortTaskInstance(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::CreateActionsOnPlayersInSegmentTask(AdminModels::CreateActionsOnPlayerSegmentTaskRequest& request, ProcessApiCallback<AdminModels::CreateTaskResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::CreateActionsOnPlayersInSegmentTask(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::CreateActionsOnPlayersInSegmentTask(AdminModels::CreateActionsOnPlayerSegmentTaskRequest& request)
+    {
+        return CreateActionsOnPlayersInSegmentTask(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::CreateCloudScriptTask(AdminModels::CreateCloudScriptTaskRequest& request, ProcessApiCallback<AdminModels::CreateTaskResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::CreateCloudScriptTask(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::CreateCloudScriptTask(AdminModels::CreateCloudScriptTaskRequest& request)
+    {
+        return CreateCloudScriptTask(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::DeleteTask(AdminModels::DeleteTaskRequest& request, ProcessApiCallback<AdminModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::DeleteTask(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::DeleteTask(AdminModels::DeleteTaskRequest& request)
+    {
+        return DeleteTask(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetActionsOnPlayersInSegmentTaskInstance(AdminModels::GetTaskInstanceRequest& request, ProcessApiCallback<AdminModels::GetActionsOnPlayersInSegmentTaskInstanceResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetActionsOnPlayersInSegmentTaskInstance(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetActionsOnPlayersInSegmentTaskInstance(AdminModels::GetTaskInstanceRequest& request)
+    {
+        return GetActionsOnPlayersInSegmentTaskInstance(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetCloudScriptTaskInstance(AdminModels::GetTaskInstanceRequest& request, ProcessApiCallback<AdminModels::GetCloudScriptTaskInstanceResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetCloudScriptTaskInstance(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetCloudScriptTaskInstance(AdminModels::GetTaskInstanceRequest& request)
+    {
+        return GetCloudScriptTaskInstance(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetTaskInstances(AdminModels::GetTaskInstancesRequest& request, ProcessApiCallback<AdminModels::GetTaskInstancesResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetTaskInstances(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetTaskInstances(AdminModels::GetTaskInstancesRequest& request)
+    {
+        return GetTaskInstances(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::GetTasks(AdminModels::GetTasksRequest& request, ProcessApiCallback<AdminModels::GetTasksResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::GetTasks(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::GetTasks(AdminModels::GetTasksRequest& request)
+    {
+        return GetTasks(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::RunTask(AdminModels::RunTaskRequest& request, ProcessApiCallback<AdminModels::RunTaskResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::RunTask(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::RunTask(AdminModels::RunTaskRequest& request)
+    {
+        return RunTask(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_AdminSysComponent::UpdateTask(AdminModels::UpdateTaskRequest& request, ProcessApiCallback<AdminModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabAdminApi::UpdateTask(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_AdminSysComponent::UpdateTask(AdminModels::UpdateTaskRequest& request)
+    {
+        return UpdateTask(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
 }

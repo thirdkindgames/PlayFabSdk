@@ -3,7 +3,9 @@
 
 #include <platform_impl.h> // Resharper says this is unused, but it's still required in some less direct way
 #include "PlayFabClient_SettingsSysComponent.h"
+#include "PlayFabClient_BehaviorContextShared.h"  // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
 #include "PlayFabClient_ClientSysComponent.h"
+#include "PlayFabClient_ClientBehaviorContext.h" // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
 
 #include "PlayFabSettings.h"
 #include <PlayFabClientSdk/PlayFabError.h>
@@ -45,7 +47,9 @@ namespace PlayFabClientSdk
             // Push results of [MyComponent]::CreateDescriptor() into m_descriptors here.
             m_descriptors.insert(m_descriptors.end(), {
                 PlayFabClient_SettingsSysComponent::CreateDescriptor(),
+                PlayFabClient_BehaviorContextShared::CreateDescriptor(),  // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
                 PlayFabClient_ClientSysComponent::CreateDescriptor(),
+				  PlayFabClient_ClientBehaviorContext::CreateDescriptor(),  // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
 
             });
         }

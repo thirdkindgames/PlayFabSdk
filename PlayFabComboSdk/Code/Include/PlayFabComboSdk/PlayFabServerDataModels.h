@@ -2,6 +2,7 @@
 
 #include <PlayFabComboSdk/PlayFabBaseModel.h>
 #include <aws/core/utils/json/JsonSerializer.h>
+#include <AzCore/RTTI/RTTI.h> // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
 
 using namespace rapidjson;
 
@@ -11,6 +12,9 @@ namespace PlayFabComboSdk
     {
         struct NameIdentifier : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::NameIdentifier,"{0df4dfe7-2fbc-5a07-9233-7f1f18643225}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Name;
             AZStd::string Id;
 
@@ -112,6 +116,9 @@ namespace PlayFabComboSdk
 
         struct ActionsOnPlayersInSegmentTaskSummary : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ActionsOnPlayersInSegmentTaskSummary,"{5a7f3b83-7f1a-5970-b37a-55ae1da31590}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string TaskInstanceId;
             NameIdentifier* TaskIdentifier;
             time_t StartedAt;
@@ -252,6 +259,9 @@ namespace PlayFabComboSdk
 
         struct AdCampaignAttribution : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::AdCampaignAttribution,"{f44c3457-3833-5930-a1b6-7fef07ce0b57}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Platform;
             AZStd::string CampaignId;
             time_t AttributedAt;
@@ -310,6 +320,9 @@ namespace PlayFabComboSdk
 
         struct AdCampaignAttributionModel : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::AdCampaignAttributionModel,"{2bbbef82-3e56-5547-a8fd-ae2d0ad4eaea}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Platform;
             AZStd::string CampaignId;
             time_t AttributedAt;
@@ -368,6 +381,9 @@ namespace PlayFabComboSdk
 
         struct AddCharacterVirtualCurrencyRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::AddCharacterVirtualCurrencyRequest,"{738ef240-79c7-5b39-ad08-b514eedd78c8}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
             AZStd::string VirtualCurrency;
@@ -429,6 +445,9 @@ namespace PlayFabComboSdk
 
         struct AddFriendRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::AddFriendRequest,"{7eea37b8-b278-591c-90fb-bf5dd7a068ca}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string FriendPlayFabId;
             AZStd::string FriendUsername;
@@ -505,6 +524,9 @@ namespace PlayFabComboSdk
 
         struct AddPlayerTagRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::AddPlayerTagRequest,"{bc97757d-e38f-5964-85c2-0a7ef239b38b}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string TagName;
 
@@ -552,6 +574,9 @@ namespace PlayFabComboSdk
 
         struct AddPlayerTagResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::AddPlayerTagResult,"{0b0d5ba8-ffaf-589e-a07a-de452489ca81}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             AddPlayerTagResult() :
                 PlayFabBaseModel()
@@ -585,8 +610,11 @@ namespace PlayFabComboSdk
 
         struct AddSharedGroupMembersRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::AddSharedGroupMembersRequest,"{23a6ce1b-a2e5-53a7-b7ff-9be74215e30c}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string SharedGroupId;
-            std::list<AZStd::string> PlayFabIds;
+            AZStd::vector<AZStd::string> PlayFabIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             AddSharedGroupMembersRequest() :
                 PlayFabBaseModel(),
@@ -616,7 +644,7 @@ namespace PlayFabComboSdk
                 writer.String(SharedGroupId.c_str());
                 writer.String("PlayFabIds");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
+                for (auto iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -641,6 +669,9 @@ namespace PlayFabComboSdk
 
         struct AddSharedGroupMembersResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::AddSharedGroupMembersResult,"{bc4579c8-163c-50d8-999a-83a2e5231b3b}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             AddSharedGroupMembersResult() :
                 PlayFabBaseModel()
@@ -674,6 +705,9 @@ namespace PlayFabComboSdk
 
         struct AddUserVirtualCurrencyRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::AddUserVirtualCurrencyRequest,"{35178c66-073d-59f3-a696-1c2fbdb31629}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string VirtualCurrency;
             Int32 Amount;
@@ -728,6 +762,9 @@ namespace PlayFabComboSdk
 
         struct AuthenticateSessionTicketRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::AuthenticateSessionTicketRequest,"{23859dec-689b-5b2c-88df-7e411e57364c}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string SessionTicket;
 
             AuthenticateSessionTicketRequest() :
@@ -854,6 +891,9 @@ namespace PlayFabComboSdk
 
         struct UserTitleInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UserTitleInfo,"{93afcc86-3414-5bea-8625-64cc57b5cf0d}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string DisplayName;
             Boxed<UserOrigination> Origination;
             time_t Created;
@@ -948,6 +988,9 @@ namespace PlayFabComboSdk
 
         struct UserPrivateAccountInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UserPrivateAccountInfo,"{e15427d7-38c3-52c5-9054-0b3aaed4f2db}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Email;
 
             UserPrivateAccountInfo() :
@@ -990,6 +1033,9 @@ namespace PlayFabComboSdk
 
         struct UserFacebookInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UserFacebookInfo,"{ff200c2f-c077-5d02-9585-cf58b5f7201f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string FacebookId;
             AZStd::string FullName;
 
@@ -1606,6 +1652,9 @@ namespace PlayFabComboSdk
 
         struct UserSteamInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UserSteamInfo,"{1544dd6f-c4b6-58c8-a028-93f72ed3e599}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string SteamId;
             AZStd::string SteamCountry;
             Boxed<Currency> SteamCurrency;
@@ -1675,6 +1724,9 @@ namespace PlayFabComboSdk
 
         struct UserGameCenterInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UserGameCenterInfo,"{c02a1f3c-b288-59a5-a376-24884ed3a59e}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string GameCenterId;
 
             UserGameCenterInfo() :
@@ -1717,6 +1769,9 @@ namespace PlayFabComboSdk
 
         struct UserIosDeviceInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UserIosDeviceInfo,"{fe6f3403-796a-5bb9-8708-57b460741b70}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string IosDeviceId;
 
             UserIosDeviceInfo() :
@@ -1759,6 +1814,9 @@ namespace PlayFabComboSdk
 
         struct UserAndroidDeviceInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UserAndroidDeviceInfo,"{1e80c09c-fc4c-5593-8b21-7569594c814b}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string AndroidDeviceId;
 
             UserAndroidDeviceInfo() :
@@ -1801,6 +1859,9 @@ namespace PlayFabComboSdk
 
         struct UserKongregateInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UserKongregateInfo,"{d926dbcb-1856-5ff8-9bfa-32e17d73b268}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string KongregateId;
             AZStd::string KongregateName;
 
@@ -1852,6 +1913,9 @@ namespace PlayFabComboSdk
 
         struct UserTwitchInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UserTwitchInfo,"{c46f6a75-dfea-5869-b0e6-5659d216dc87}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string TwitchId;
             AZStd::string TwitchUserName;
 
@@ -1903,6 +1967,9 @@ namespace PlayFabComboSdk
 
         struct UserPsnInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UserPsnInfo,"{ae397da3-453a-5b9e-81f7-7b671fb8a8f5}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PsnAccountId;
             AZStd::string PsnOnlineId;
 
@@ -1954,6 +2021,9 @@ namespace PlayFabComboSdk
 
         struct UserGoogleInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UserGoogleInfo,"{988b06fe-18c5-5911-877f-f8829330a5ed}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string GoogleId;
             AZStd::string GoogleEmail;
             AZStd::string GoogleLocale;
@@ -2023,6 +2093,9 @@ namespace PlayFabComboSdk
 
         struct UserXboxInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UserXboxInfo,"{fdc97f2f-052b-549e-9965-7efb77e5c817}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string XboxUserId;
 
             UserXboxInfo() :
@@ -2065,6 +2138,9 @@ namespace PlayFabComboSdk
 
         struct UserCustomIdInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UserCustomIdInfo,"{4f465bf7-b0f7-5488-af71-8bbb0b0cf635}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string CustomId;
 
             UserCustomIdInfo() :
@@ -2107,6 +2183,9 @@ namespace PlayFabComboSdk
 
         struct UserAccountInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UserAccountInfo,"{286b1526-7865-5f51-8bf8-f0efebba0e8f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             time_t Created;
             AZStd::string Username;
@@ -2295,6 +2374,9 @@ namespace PlayFabComboSdk
 
         struct AuthenticateSessionTicketResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::AuthenticateSessionTicketResult,"{85d27a18-d8a3-57a6-b0fe-5678a22afe0e}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             UserAccountInfo* UserInfo;
 
             AuthenticateSessionTicketResult() :
@@ -2338,6 +2420,9 @@ namespace PlayFabComboSdk
 
         struct AwardSteamAchievementItem : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::AwardSteamAchievementItem,"{568a96db-e6b2-5cf7-abca-b385d6b402ad}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string AchievementName;
             bool Result;
@@ -2392,7 +2477,10 @@ namespace PlayFabComboSdk
 
         struct AwardSteamAchievementRequest : public PlayFabBaseModel
         {
-            std::list<AwardSteamAchievementItem> Achievements;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::AwardSteamAchievementRequest,"{5ef88712-94fa-5eea-82ea-78712a7af142}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<AwardSteamAchievementItem> Achievements; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             AwardSteamAchievementRequest() :
                 PlayFabBaseModel(),
@@ -2418,7 +2506,7 @@ namespace PlayFabComboSdk
                 writer.StartObject();
                 writer.String("Achievements");
                 writer.StartArray();
-                for (std::list<AwardSteamAchievementItem>::iterator iter = Achievements.begin(); iter != Achievements.end(); iter++) {
+                for (auto iter = Achievements.begin(); iter != Achievements.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     iter->writeJSON(writer);
                 }
                 writer.EndArray();
@@ -2441,7 +2529,10 @@ namespace PlayFabComboSdk
 
         struct AwardSteamAchievementResult : public PlayFabBaseModel
         {
-            std::list<AwardSteamAchievementItem> AchievementResults;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::AwardSteamAchievementResult,"{63343109-90a0-5b55-98e5-f99d084b699a}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<AwardSteamAchievementItem> AchievementResults; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             AwardSteamAchievementResult() :
                 PlayFabBaseModel(),
@@ -2468,7 +2559,7 @@ namespace PlayFabComboSdk
                 if (!AchievementResults.empty()) {
                     writer.String("AchievementResults");
                     writer.StartArray();
-                    for (std::list<AwardSteamAchievementItem>::iterator iter = AchievementResults.begin(); iter != AchievementResults.end(); iter++) {
+                    for (auto iter = AchievementResults.begin(); iter != AchievementResults.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -2492,6 +2583,9 @@ namespace PlayFabComboSdk
 
         struct BanInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::BanInfo,"{0d57dc5d-c8c3-5751-b030-8f163a37fe54}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string BanId;
             AZStd::string IPAddress;
@@ -2595,6 +2689,9 @@ namespace PlayFabComboSdk
 
         struct BanRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::BanRequest,"{78ed3d0c-80d0-553e-85fe-601d8cacaf56}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string IPAddress;
             AZStd::string MACAddress;
@@ -2671,7 +2768,10 @@ namespace PlayFabComboSdk
 
         struct BanUsersRequest : public PlayFabBaseModel
         {
-            std::list<BanRequest> Bans;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::BanUsersRequest,"{c0cbfcc6-1d21-58e6-a3a9-d6e5e7c34ef1}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<BanRequest> Bans; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             BanUsersRequest() :
                 PlayFabBaseModel(),
@@ -2697,7 +2797,7 @@ namespace PlayFabComboSdk
                 writer.StartObject();
                 writer.String("Bans");
                 writer.StartArray();
-                for (std::list<BanRequest>::iterator iter = Bans.begin(); iter != Bans.end(); iter++) {
+                for (auto iter = Bans.begin(); iter != Bans.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     iter->writeJSON(writer);
                 }
                 writer.EndArray();
@@ -2720,7 +2820,10 @@ namespace PlayFabComboSdk
 
         struct BanUsersResult : public PlayFabBaseModel
         {
-            std::list<BanInfo> BanData;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::BanUsersResult,"{9b4f162d-5470-56c6-a412-dffae759ca31}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<BanInfo> BanData; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             BanUsersResult() :
                 PlayFabBaseModel(),
@@ -2747,7 +2850,7 @@ namespace PlayFabComboSdk
                 if (!BanData.empty()) {
                     writer.String("BanData");
                     writer.StartArray();
-                    for (std::list<BanInfo>::iterator iter = BanData.begin(); iter != BanData.end(); iter++) {
+                    for (auto iter = BanData.begin(); iter != BanData.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -2771,6 +2874,9 @@ namespace PlayFabComboSdk
 
         struct CatalogItemConsumableInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::CatalogItemConsumableInfo,"{fbf955cb-a0f3-55a8-b8ab-54639a22bc96}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             OptionalUint32 UsageCount;
             OptionalUint32 UsagePeriod;
             AZStd::string UsagePeriodGroup;
@@ -2831,10 +2937,13 @@ namespace PlayFabComboSdk
 
         struct CatalogItemContainerInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::CatalogItemContainerInfo,"{73dc0211-2905-5bfe-be6e-d6c1a57d1375}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string KeyItemId;
-            std::list<AZStd::string> ItemContents;
-            std::list<AZStd::string> ResultTableContents;
-            std::map<AZStd::string, Uint32> VirtualCurrencyContents;
+            AZStd::vector<AZStd::string> ItemContents; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<AZStd::string> ResultTableContents; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::unordered_map<AZStd::string, Uint32> VirtualCurrencyContents;
 
             CatalogItemContainerInfo() :
                 PlayFabBaseModel(),
@@ -2871,7 +2980,7 @@ namespace PlayFabComboSdk
                 if (!ItemContents.empty()) {
                     writer.String("ItemContents");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = ItemContents.begin(); iter != ItemContents.end(); iter++) {
+                    for (auto iter = ItemContents.begin(); iter != ItemContents.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -2879,7 +2988,7 @@ namespace PlayFabComboSdk
                 if (!ResultTableContents.empty()) {
                     writer.String("ResultTableContents");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = ResultTableContents.begin(); iter != ResultTableContents.end(); iter++) {
+                    for (auto iter = ResultTableContents.begin(); iter != ResultTableContents.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -2887,7 +2996,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrencyContents.empty()) {
                     writer.String("VirtualCurrencyContents");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrencyContents.begin(); iter != VirtualCurrencyContents.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyContents.begin(); iter != VirtualCurrencyContents.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -2927,9 +3036,12 @@ namespace PlayFabComboSdk
 
         struct CatalogItemBundleInfo : public PlayFabBaseModel
         {
-            std::list<AZStd::string> BundledItems;
-            std::list<AZStd::string> BundledResultTables;
-            std::map<AZStd::string, Uint32> BundledVirtualCurrencies;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::CatalogItemBundleInfo,"{ed61cd80-b406-57ca-b52f-79555b9c827d}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<AZStd::string> BundledItems; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<AZStd::string> BundledResultTables; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::unordered_map<AZStd::string, Uint32> BundledVirtualCurrencies;
 
             CatalogItemBundleInfo() :
                 PlayFabBaseModel(),
@@ -2960,7 +3072,7 @@ namespace PlayFabComboSdk
                 if (!BundledItems.empty()) {
                     writer.String("BundledItems");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = BundledItems.begin(); iter != BundledItems.end(); iter++) {
+                    for (auto iter = BundledItems.begin(); iter != BundledItems.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -2968,7 +3080,7 @@ namespace PlayFabComboSdk
                 if (!BundledResultTables.empty()) {
                     writer.String("BundledResultTables");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = BundledResultTables.begin(); iter != BundledResultTables.end(); iter++) {
+                    for (auto iter = BundledResultTables.begin(); iter != BundledResultTables.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -2976,7 +3088,7 @@ namespace PlayFabComboSdk
                 if (!BundledVirtualCurrencies.empty()) {
                     writer.String("BundledVirtualCurrencies");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = BundledVirtualCurrencies.begin(); iter != BundledVirtualCurrencies.end(); ++iter) {
+                    for (auto iter = BundledVirtualCurrencies.begin(); iter != BundledVirtualCurrencies.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -3014,14 +3126,17 @@ namespace PlayFabComboSdk
 
         struct CatalogItem : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::CatalogItem,"{5a8ab6fc-5493-583f-929d-72bbab708c53}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string ItemId;
             AZStd::string ItemClass;
             AZStd::string CatalogVersion;
             AZStd::string DisplayName;
             AZStd::string Description;
-            std::map<AZStd::string, Uint32> VirtualCurrencyPrices;
-            std::map<AZStd::string, Uint32> RealCurrencyPrices;
-            std::list<AZStd::string> Tags;
+            AZStd::unordered_map<AZStd::string, Uint32> VirtualCurrencyPrices;
+            AZStd::unordered_map<AZStd::string, Uint32> RealCurrencyPrices;
+            AZStd::vector<AZStd::string> Tags; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             AZStd::string CustomData;
             CatalogItemConsumableInfo* Consumable;
             CatalogItemContainerInfo* Container;
@@ -3113,7 +3228,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrencyPrices.empty()) {
                     writer.String("VirtualCurrencyPrices");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -3122,7 +3237,7 @@ namespace PlayFabComboSdk
                 if (!RealCurrencyPrices.empty()) {
                     writer.String("RealCurrencyPrices");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
+                    for (auto iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -3131,7 +3246,7 @@ namespace PlayFabComboSdk
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                    for (auto iter = Tags.begin(); iter != Tags.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -3227,6 +3342,9 @@ namespace PlayFabComboSdk
 
         struct ItemInstance : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ItemInstance,"{98c9a399-2844-5dae-825c-9d1ef648c788}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string ItemId;
             AZStd::string ItemInstanceId;
             AZStd::string ItemClass;
@@ -3240,8 +3358,8 @@ namespace PlayFabComboSdk
             AZStd::string DisplayName;
             AZStd::string UnitCurrency;
             Uint32 UnitPrice;
-            std::list<AZStd::string> BundleContents;
-            std::map<AZStd::string, AZStd::string> CustomData;
+            AZStd::vector<AZStd::string> BundleContents; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::unordered_map<AZStd::string, AZStd::string> CustomData;
 
             ItemInstance() :
                 PlayFabBaseModel(),
@@ -3346,7 +3464,7 @@ namespace PlayFabComboSdk
                 if (!BundleContents.empty()) {
                     writer.String("BundleContents");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); iter++) {
+                    for (auto iter = BundleContents.begin(); iter != BundleContents.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -3354,7 +3472,7 @@ namespace PlayFabComboSdk
                 if (!CustomData.empty()) {
                     writer.String("CustomData");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
+                    for (auto iter = CustomData.begin(); iter != CustomData.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -3411,8 +3529,11 @@ namespace PlayFabComboSdk
 
         struct CharacterInventory : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::CharacterInventory,"{45553271-d5d9-54d4-9d50-1bdfebdcbd32}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string CharacterId;
-            std::list<ItemInstance> Inventory;
+            AZStd::vector<ItemInstance> Inventory; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             CharacterInventory() :
                 PlayFabBaseModel(),
@@ -3445,7 +3566,7 @@ namespace PlayFabComboSdk
                 if (!Inventory.empty()) {
                     writer.String("Inventory");
                     writer.StartArray();
-                    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
+                    for (auto iter = Inventory.begin(); iter != Inventory.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -3471,6 +3592,9 @@ namespace PlayFabComboSdk
 
         struct CharacterLeaderboardEntry : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::CharacterLeaderboardEntry,"{a5bb5da3-169c-5ba0-a50b-4bc099b2d717}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
             AZStd::string CharacterName;
@@ -3563,6 +3687,9 @@ namespace PlayFabComboSdk
 
         struct CharacterResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::CharacterResult,"{b3830314-88ae-5922-80a3-8465828100d1}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string CharacterId;
             AZStd::string CharacterName;
             AZStd::string CharacterType;
@@ -3664,6 +3791,9 @@ namespace PlayFabComboSdk
 
         struct ConsumeItemRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ConsumeItemRequest,"{7b758bcb-5b1a-533e-b352-537f3f86023e}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string ItemInstanceId;
             Int32 ConsumeCount;
@@ -3727,6 +3857,9 @@ namespace PlayFabComboSdk
 
         struct ConsumeItemResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ConsumeItemResult,"{ea0361cb-aed0-5621-9e05-b2e7c27909aa}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string ItemInstanceId;
             Int32 RemainingUses;
 
@@ -3817,6 +3950,9 @@ namespace PlayFabComboSdk
 
         struct ContactEmailInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ContactEmailInfo,"{b3347677-04dc-55b2-a790-f797dabde94d}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Name;
             AZStd::string EmailAddress;
             Boxed<EmailVerificationStatus> VerificationStatus;
@@ -4709,6 +4845,9 @@ namespace PlayFabComboSdk
 
         struct CreateSharedGroupRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::CreateSharedGroupRequest,"{630ae80b-6af4-57af-8433-ae23f8755e4e}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string SharedGroupId;
 
             CreateSharedGroupRequest() :
@@ -4751,6 +4890,9 @@ namespace PlayFabComboSdk
 
         struct CreateSharedGroupResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::CreateSharedGroupResult,"{dd5d2797-ee7d-5624-b252-dc3b1d35deb2}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string SharedGroupId;
 
             CreateSharedGroupResult() :
@@ -4793,6 +4935,9 @@ namespace PlayFabComboSdk
 
         struct DeleteCharacterFromUserRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::DeleteCharacterFromUserRequest,"{4f269c7b-e7dc-5691-8b42-3027022af070}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
             bool SaveCharacterInventory;
@@ -4847,6 +4992,9 @@ namespace PlayFabComboSdk
 
         struct DeleteCharacterFromUserResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::DeleteCharacterFromUserResult,"{ecf4e0f2-632f-5295-832d-b5204d821e67}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             DeleteCharacterFromUserResult() :
                 PlayFabBaseModel()
@@ -4880,6 +5028,9 @@ namespace PlayFabComboSdk
 
         struct DeleteSharedGroupRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::DeleteSharedGroupRequest,"{cc5a735e-6999-568d-95c7-d82e534161ec}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string SharedGroupId;
 
             DeleteSharedGroupRequest() :
@@ -4920,7 +5071,10 @@ namespace PlayFabComboSdk
 
         struct DeleteUsersRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> PlayFabIds;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::DeleteUsersRequest,"{d44adc61-df1c-54d5-89f0-d8b2a54f908e}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<AZStd::string> PlayFabIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             AZStd::string TitleId;
 
             DeleteUsersRequest() :
@@ -4949,7 +5103,7 @@ namespace PlayFabComboSdk
                 writer.StartObject();
                 writer.String("PlayFabIds");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
+                for (auto iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -4976,6 +5130,9 @@ namespace PlayFabComboSdk
 
         struct DeleteUsersResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::DeleteUsersResult,"{7bd2944e-c6f9-561d-b59f-1ef32c7a58a0}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             DeleteUsersResult() :
                 PlayFabBaseModel()
@@ -5009,6 +5166,9 @@ namespace PlayFabComboSdk
 
         struct DeregisterGameRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::DeregisterGameRequest,"{5a6357f8-7a31-5474-b0e5-2d8e939cd431}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string LobbyId;
 
             DeregisterGameRequest() :
@@ -5049,6 +5209,9 @@ namespace PlayFabComboSdk
 
         struct DeregisterGameResponse : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::DeregisterGameResponse,"{9344383c-18f9-5ba8-b214-149d1bcac2f4}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             DeregisterGameResponse() :
                 PlayFabBaseModel()
@@ -5082,6 +5245,9 @@ namespace PlayFabComboSdk
 
         struct EmptyResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::EmptyResult,"{9db676db-e39e-59a1-a441-5085cb464286}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             EmptyResult() :
                 PlayFabBaseModel()
@@ -5115,6 +5281,9 @@ namespace PlayFabComboSdk
 
         struct EvaluateRandomResultTableRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::EvaluateRandomResultTableRequest,"{b26e0f58-4607-5116-9ae7-a5b6c617777e}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string TableId;
             AZStd::string CatalogVersion;
 
@@ -5164,6 +5333,9 @@ namespace PlayFabComboSdk
 
         struct EvaluateRandomResultTableResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::EvaluateRandomResultTableResult,"{612b3b90-182e-5491-88c9-f006e48a9e20}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string ResultItemId;
 
             EvaluateRandomResultTableResult() :
@@ -5206,6 +5378,9 @@ namespace PlayFabComboSdk
 
         struct LogStatement : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::LogStatement,"{28e1c14a-733a-5dd5-bab0-541d0e2f4882}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Level;
             AZStd::string Message;
             MultitypeVar Data;
@@ -5266,6 +5441,9 @@ namespace PlayFabComboSdk
 
         struct ScriptExecutionError : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ScriptExecutionError,"{c4f0352d-f547-5f99-a7ff-afc770c7b4a0}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Error;
             AZStd::string Message;
             AZStd::string StackTrace;
@@ -5326,11 +5504,14 @@ namespace PlayFabComboSdk
 
         struct ExecuteCloudScriptResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ExecuteCloudScriptResult,"{5f906c69-7c17-5848-986b-434ab033095c}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string FunctionName;
             Int32 Revision;
             MultitypeVar FunctionResult;
             OptionalBool FunctionResultTooLarge;
-            std::list<LogStatement> Logs;
+            AZStd::vector<LogStatement> Logs; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             OptionalBool LogsTooLarge;
             double ExecutionTimeSeconds;
             double ProcessorTimeSeconds;
@@ -5401,7 +5582,7 @@ namespace PlayFabComboSdk
                 if (!Logs.empty()) {
                     writer.String("Logs");
                     writer.StartArray();
-                    for (std::list<LogStatement>::iterator iter = Logs.begin(); iter != Logs.end(); iter++) {
+                    for (auto iter = Logs.begin(); iter != Logs.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -5465,6 +5646,9 @@ namespace PlayFabComboSdk
 
         struct ExecuteCloudScriptServerRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ExecuteCloudScriptServerRequest,"{5e3e2fe0-f70c-5b6d-a3ad-ff6ccdaf1e59}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string FunctionName;
             MultitypeVar FunctionParameter;
@@ -5548,6 +5732,9 @@ namespace PlayFabComboSdk
 
         struct FacebookPlayFabIdPair : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::FacebookPlayFabIdPair,"{0094bc4d-13d1-5372-b4fb-a96bb705465a}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string FacebookId;
             AZStd::string PlayFabId;
 
@@ -5673,6 +5860,9 @@ namespace PlayFabComboSdk
 
         struct LocationModel : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::LocationModel,"{4c5fc2d7-3a54-562f-b4f9-7da0da84787f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             Boxed<ContinentCode> pfContinentCode;
             Boxed<CountryCode> pfCountryCode;
             AZStd::string City;
@@ -5751,6 +5941,9 @@ namespace PlayFabComboSdk
 
         struct TagModel : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::TagModel,"{81097267-fb17-5e08-b148-7ac33bf13a16}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string TagValue;
 
             TagModel() :
@@ -5831,6 +6024,9 @@ namespace PlayFabComboSdk
 
         struct PushNotificationRegistrationModel : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::PushNotificationRegistrationModel,"{b8f23054-680c-540d-b6bf-00b495d29d10}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             Boxed<PushNotificationPlatform> Platform;
             AZStd::string NotificationEndpointARN;
 
@@ -5882,6 +6078,9 @@ namespace PlayFabComboSdk
 
         struct LinkedPlatformAccountModel : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::LinkedPlatformAccountModel,"{c69a7475-4692-5882-8901-5ca19b7ed93e}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             Boxed<LoginIdentityProvider> Platform;
             AZStd::string PlatformUserId;
             AZStd::string Username;
@@ -5951,6 +6150,9 @@ namespace PlayFabComboSdk
 
         struct ValueToDateModel : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ValueToDateModel,"{2ebc5b71-b171-534e-9b41-0b0cb9e55e4f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Currency;
             Uint32 TotalValue;
             AZStd::string TotalValueAsDecimal;
@@ -6009,6 +6211,9 @@ namespace PlayFabComboSdk
 
         struct VirtualCurrencyBalanceModel : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::VirtualCurrencyBalanceModel,"{ec817c20-05cc-58f7-ae38-270c9f0885d1}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Currency;
             Int32 TotalValue;
 
@@ -6058,6 +6263,9 @@ namespace PlayFabComboSdk
 
         struct StatisticModel : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::StatisticModel,"{3152655f-7f5d-5f97-b18e-3ee6d541fffa}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Name;
             Int32 Version;
             Int32 Value;
@@ -6114,6 +6322,9 @@ namespace PlayFabComboSdk
 
         struct PlayerProfileModel : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::PlayerProfileModel,"{9522e533-01a8-5db2-9c04-a5d68e29d087}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PublisherId;
             AZStd::string TitleId;
             AZStd::string PlayerId;
@@ -6121,17 +6332,17 @@ namespace PlayFabComboSdk
             Boxed<LoginIdentityProvider> Origination;
             OptionalTime LastLogin;
             OptionalTime BannedUntil;
-            std::list<LocationModel> Locations;
+            AZStd::vector<LocationModel> Locations; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             AZStd::string DisplayName;
             AZStd::string AvatarUrl;
-            std::list<TagModel> Tags;
-            std::list<PushNotificationRegistrationModel> PushNotificationRegistrations;
-            std::list<LinkedPlatformAccountModel> LinkedAccounts;
-            std::list<AdCampaignAttributionModel> AdCampaignAttributions;
+            AZStd::vector<TagModel> Tags; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<PushNotificationRegistrationModel> PushNotificationRegistrations; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<LinkedPlatformAccountModel> LinkedAccounts; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<AdCampaignAttributionModel> AdCampaignAttributions; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             OptionalUint32 TotalValueToDateInUSD;
-            std::list<ValueToDateModel> ValuesToDate;
-            std::list<VirtualCurrencyBalanceModel> VirtualCurrencyBalances;
-            std::list<StatisticModel> Statistics;
+            AZStd::vector<ValueToDateModel> ValuesToDate; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<VirtualCurrencyBalanceModel> VirtualCurrencyBalances; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<StatisticModel> Statistics; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             PlayerProfileModel() :
                 PlayFabBaseModel(),
@@ -6220,7 +6431,7 @@ namespace PlayFabComboSdk
                 if (!Locations.empty()) {
                     writer.String("Locations");
                     writer.StartArray();
-                    for (std::list<LocationModel>::iterator iter = Locations.begin(); iter != Locations.end(); iter++) {
+                    for (auto iter = Locations.begin(); iter != Locations.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -6236,7 +6447,7 @@ namespace PlayFabComboSdk
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartArray();
-                    for (std::list<TagModel>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                    for (auto iter = Tags.begin(); iter != Tags.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -6244,7 +6455,7 @@ namespace PlayFabComboSdk
                 if (!PushNotificationRegistrations.empty()) {
                     writer.String("PushNotificationRegistrations");
                     writer.StartArray();
-                    for (std::list<PushNotificationRegistrationModel>::iterator iter = PushNotificationRegistrations.begin(); iter != PushNotificationRegistrations.end(); iter++) {
+                    for (auto iter = PushNotificationRegistrations.begin(); iter != PushNotificationRegistrations.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -6252,7 +6463,7 @@ namespace PlayFabComboSdk
                 if (!LinkedAccounts.empty()) {
                     writer.String("LinkedAccounts");
                     writer.StartArray();
-                    for (std::list<LinkedPlatformAccountModel>::iterator iter = LinkedAccounts.begin(); iter != LinkedAccounts.end(); iter++) {
+                    for (auto iter = LinkedAccounts.begin(); iter != LinkedAccounts.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -6260,7 +6471,7 @@ namespace PlayFabComboSdk
                 if (!AdCampaignAttributions.empty()) {
                     writer.String("AdCampaignAttributions");
                     writer.StartArray();
-                    for (std::list<AdCampaignAttributionModel>::iterator iter = AdCampaignAttributions.begin(); iter != AdCampaignAttributions.end(); iter++) {
+                    for (auto iter = AdCampaignAttributions.begin(); iter != AdCampaignAttributions.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -6272,7 +6483,7 @@ namespace PlayFabComboSdk
                 if (!ValuesToDate.empty()) {
                     writer.String("ValuesToDate");
                     writer.StartArray();
-                    for (std::list<ValueToDateModel>::iterator iter = ValuesToDate.begin(); iter != ValuesToDate.end(); iter++) {
+                    for (auto iter = ValuesToDate.begin(); iter != ValuesToDate.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -6280,7 +6491,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrencyBalances.empty()) {
                     writer.String("VirtualCurrencyBalances");
                     writer.StartArray();
-                    for (std::list<VirtualCurrencyBalanceModel>::iterator iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); iter++) {
+                    for (auto iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -6288,7 +6499,7 @@ namespace PlayFabComboSdk
                 if (!Statistics.empty()) {
                     writer.String("Statistics");
                     writer.StartArray();
-                    for (std::list<StatisticModel>::iterator iter = Statistics.begin(); iter != Statistics.end(); iter++) {
+                    for (auto iter = Statistics.begin(); iter != Statistics.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -6381,10 +6592,13 @@ namespace PlayFabComboSdk
 
         struct FriendInfo : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::FriendInfo,"{91fd6a23-cc44-5b06-b2e7-f789f70583ae}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string FriendPlayFabId;
             AZStd::string Username;
             AZStd::string TitleDisplayName;
-            std::list<AZStd::string> Tags;
+            AZStd::vector<AZStd::string> Tags; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             AZStd::string CurrentMatchmakerLobbyId;
             UserFacebookInfo* FacebookInfo;
             UserSteamInfo* SteamInfo;
@@ -6448,7 +6662,7 @@ namespace PlayFabComboSdk
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                    for (auto iter = Tags.begin(); iter != Tags.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -6546,6 +6760,9 @@ namespace PlayFabComboSdk
 
         struct GetActionGroupResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetActionGroupResult,"{58b96757-e35c-5f6e-981f-9f028a1a24f5}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Name;
             AZStd::string Id;
 
@@ -6595,6 +6812,9 @@ namespace PlayFabComboSdk
 
         struct GetAllActionGroupsRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetAllActionGroupsRequest,"{f0e19c00-293a-58e2-884b-40d5b0699880}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             GetAllActionGroupsRequest() :
                 PlayFabBaseModel()
@@ -6628,7 +6848,10 @@ namespace PlayFabComboSdk
 
         struct GetAllActionGroupsResult : public PlayFabBaseModel
         {
-            std::list<GetActionGroupResult> ActionGroups;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetAllActionGroupsResult,"{ee32f3f2-484e-5a4e-a4e2-e46719610d2b}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<GetActionGroupResult> ActionGroups; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetAllActionGroupsResult() :
                 PlayFabBaseModel(),
@@ -6654,7 +6877,7 @@ namespace PlayFabComboSdk
                 writer.StartObject();
                 writer.String("ActionGroups");
                 writer.StartArray();
-                for (std::list<GetActionGroupResult>::iterator iter = ActionGroups.begin(); iter != ActionGroups.end(); iter++) {
+                for (auto iter = ActionGroups.begin(); iter != ActionGroups.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     iter->writeJSON(writer);
                 }
                 writer.EndArray();
@@ -6677,6 +6900,9 @@ namespace PlayFabComboSdk
 
         struct GetAllSegmentsRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetAllSegmentsRequest,"{71ba2b73-e6e6-523c-aebf-1d9102b9a66f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             GetAllSegmentsRequest() :
                 PlayFabBaseModel()
@@ -6710,6 +6936,9 @@ namespace PlayFabComboSdk
 
         struct GetSegmentResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetSegmentResult,"{4f023b15-3d28-5a13-8dbe-b1c7ef16043f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Id;
             AZStd::string Name;
             AZStd::string ABTestParent;
@@ -6768,7 +6997,10 @@ namespace PlayFabComboSdk
 
         struct GetAllSegmentsResult : public PlayFabBaseModel
         {
-            std::list<GetSegmentResult> Segments;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetAllSegmentsResult,"{fa659248-9306-5941-b620-f287b6e6f744}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<GetSegmentResult> Segments; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetAllSegmentsResult() :
                 PlayFabBaseModel(),
@@ -6795,7 +7027,7 @@ namespace PlayFabComboSdk
                 if (!Segments.empty()) {
                     writer.String("Segments");
                     writer.StartArray();
-                    for (std::list<GetSegmentResult>::iterator iter = Segments.begin(); iter != Segments.end(); iter++) {
+                    for (auto iter = Segments.begin(); iter != Segments.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -6819,6 +7051,9 @@ namespace PlayFabComboSdk
 
         struct GetCatalogItemsRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetCatalogItemsRequest,"{39e4535c-97aa-5ca7-b91a-520ca577c2b2}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string CatalogVersion;
 
             GetCatalogItemsRequest() :
@@ -6861,7 +7096,10 @@ namespace PlayFabComboSdk
 
         struct GetCatalogItemsResult : public PlayFabBaseModel
         {
-            std::list<CatalogItem> Catalog;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetCatalogItemsResult,"{fc4b8ce3-885b-5719-a236-ab7271954d7e}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<CatalogItem> Catalog; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetCatalogItemsResult() :
                 PlayFabBaseModel(),
@@ -6888,7 +7126,7 @@ namespace PlayFabComboSdk
                 if (!Catalog.empty()) {
                     writer.String("Catalog");
                     writer.StartArray();
-                    for (std::list<CatalogItem>::iterator iter = Catalog.begin(); iter != Catalog.end(); iter++) {
+                    for (auto iter = Catalog.begin(); iter != Catalog.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -6912,9 +7150,12 @@ namespace PlayFabComboSdk
 
         struct GetCharacterDataRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetCharacterDataRequest,"{de4e348e-ce24-5e58-95cf-1280b370988f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
-            std::list<AZStd::string> Keys;
+            AZStd::vector<AZStd::string> Keys; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             OptionalUint32 IfChangedFromDataVersion;
 
             GetCharacterDataRequest() :
@@ -6952,7 +7193,7 @@ namespace PlayFabComboSdk
                 if (!Keys.empty()) {
                     writer.String("Keys");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                    for (auto iter = Keys.begin(); iter != Keys.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -7024,6 +7265,9 @@ namespace PlayFabComboSdk
 
         struct UserDataRecord : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UserDataRecord,"{5f150313-fbb2-5351-96ca-39f935576c0f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Value;
             time_t LastUpdated;
             Boxed<UserDataPermission> Permission;
@@ -7082,9 +7326,12 @@ namespace PlayFabComboSdk
 
         struct GetCharacterDataResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetCharacterDataResult,"{05d24502-0ef2-5da8-b498-ad644dd22a26}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             Uint32 DataVersion;
-            std::map<AZStd::string, UserDataRecord> Data;
+            AZStd::unordered_map<AZStd::string, UserDataRecord> Data;
             AZStd::string CharacterId;
 
             GetCharacterDataResult() :
@@ -7124,7 +7371,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -7158,6 +7405,9 @@ namespace PlayFabComboSdk
 
         struct GetCharacterInventoryRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetCharacterInventoryRequest,"{a7bdcde7-fe03-5e18-a5be-dc71d22617f5}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
             AZStd::string CatalogVersion;
@@ -7214,6 +7464,9 @@ namespace PlayFabComboSdk
 
         struct VirtualCurrencyRechargeTime : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::VirtualCurrencyRechargeTime,"{84f1b9e7-456d-5cbe-85e1-3537be0afd5f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             Int32 SecondsToRecharge;
             time_t RechargeTime;
             Int32 RechargeMax;
@@ -7268,11 +7521,14 @@ namespace PlayFabComboSdk
 
         struct GetCharacterInventoryResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetCharacterInventoryResult,"{80cf42cd-856e-557b-be68-5b59e3c4b8a4}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
-            std::list<ItemInstance> Inventory;
-            std::map<AZStd::string, Int32> VirtualCurrency;
-            std::map<AZStd::string, VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
+            AZStd::vector<ItemInstance> Inventory; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::unordered_map<AZStd::string, Int32> VirtualCurrency;
+            AZStd::unordered_map<AZStd::string, VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
 
             GetCharacterInventoryResult() :
                 PlayFabBaseModel(),
@@ -7315,7 +7571,7 @@ namespace PlayFabComboSdk
                 if (!Inventory.empty()) {
                     writer.String("Inventory");
                     writer.StartArray();
-                    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
+                    for (auto iter = Inventory.begin(); iter != Inventory.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -7323,7 +7579,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                    for (auto iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -7332,7 +7588,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrencyRechargeTimes.empty()) {
                     writer.String("VirtualCurrencyRechargeTimes");
                     writer.StartObject();
-                    for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -7373,6 +7629,9 @@ namespace PlayFabComboSdk
 
         struct GetCharacterLeaderboardRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetCharacterLeaderboardRequest,"{3573fee2-0e45-5b6b-992d-f1e9c36a6694}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string CharacterId;
             AZStd::string CharacterType;
             AZStd::string StatisticName;
@@ -7443,7 +7702,10 @@ namespace PlayFabComboSdk
 
         struct GetCharacterLeaderboardResult : public PlayFabBaseModel
         {
-            std::list<CharacterLeaderboardEntry> Leaderboard;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetCharacterLeaderboardResult,"{ed86d9bd-4ace-5af0-8000-2e5de82a4911}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<CharacterLeaderboardEntry> Leaderboard; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetCharacterLeaderboardResult() :
                 PlayFabBaseModel(),
@@ -7470,7 +7732,7 @@ namespace PlayFabComboSdk
                 if (!Leaderboard.empty()) {
                     writer.String("Leaderboard");
                     writer.StartArray();
-                    for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                    for (auto iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -7494,6 +7756,9 @@ namespace PlayFabComboSdk
 
         struct GetCharacterStatisticsRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetCharacterStatisticsRequest,"{1307eec5-7b77-5b6a-8c27-71cf1a1413c6}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
 
@@ -7541,9 +7806,12 @@ namespace PlayFabComboSdk
 
         struct GetCharacterStatisticsResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetCharacterStatisticsResult,"{0216a23d-5294-5099-9f90-2ec8ca5c6841}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
-            std::map<AZStd::string, Int32> CharacterStatistics;
+            AZStd::unordered_map<AZStd::string, Int32> CharacterStatistics;
 
             GetCharacterStatisticsResult() :
                 PlayFabBaseModel(),
@@ -7582,7 +7850,7 @@ namespace PlayFabComboSdk
                 if (!CharacterStatistics.empty()) {
                     writer.String("CharacterStatistics");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
+                    for (auto iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -7610,6 +7878,9 @@ namespace PlayFabComboSdk
 
         struct GetContentDownloadUrlRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetContentDownloadUrlRequest,"{c462a867-deb0-5dc9-aa8b-b9c78cba9b15}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Key;
             AZStd::string HttpMethod;
             OptionalBool ThruCDN;
@@ -7668,6 +7939,9 @@ namespace PlayFabComboSdk
 
         struct GetContentDownloadUrlResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetContentDownloadUrlResult,"{6c33efe7-c8d5-5f6f-b271-ee1f176c5699}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string URL;
 
             GetContentDownloadUrlResult() :
@@ -7710,6 +7984,9 @@ namespace PlayFabComboSdk
 
         struct PlayerProfileViewConstraints : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::PlayerProfileViewConstraints,"{d3b8cb1e-5f2c-5e5a-9795-af328653e84e}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             bool ShowDisplayName;
             bool ShowCreated;
             bool ShowOrigination;
@@ -7841,6 +8118,9 @@ namespace PlayFabComboSdk
 
         struct GetFriendLeaderboardRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetFriendLeaderboardRequest,"{7c3dafd5-1054-5136-90d2-2c8220462d5f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string StatisticName;
             Int32 StartPosition;
@@ -7939,6 +8219,9 @@ namespace PlayFabComboSdk
 
         struct GetFriendsListRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetFriendsListRequest,"{6bfe01c4-7c56-516a-9dfb-9d8492c11035}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             OptionalBool IncludeSteamFriends;
             OptionalBool IncludeFacebookFriends;
@@ -8007,7 +8290,10 @@ namespace PlayFabComboSdk
 
         struct GetFriendsListResult : public PlayFabBaseModel
         {
-            std::list<FriendInfo> Friends;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetFriendsListResult,"{b0f475dd-2ff6-52a6-a0e6-f72799570eec}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<FriendInfo> Friends; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetFriendsListResult() :
                 PlayFabBaseModel(),
@@ -8034,7 +8320,7 @@ namespace PlayFabComboSdk
                 if (!Friends.empty()) {
                     writer.String("Friends");
                     writer.StartArray();
-                    for (std::list<FriendInfo>::iterator iter = Friends.begin(); iter != Friends.end(); iter++) {
+                    for (auto iter = Friends.begin(); iter != Friends.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -8058,6 +8344,9 @@ namespace PlayFabComboSdk
 
         struct GetLeaderboardAroundCharacterRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetLeaderboardAroundCharacterRequest,"{de30166d-352e-5bcc-925f-f581c57b5c57}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string StatisticName;
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
@@ -8128,7 +8417,10 @@ namespace PlayFabComboSdk
 
         struct GetLeaderboardAroundCharacterResult : public PlayFabBaseModel
         {
-            std::list<CharacterLeaderboardEntry> Leaderboard;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetLeaderboardAroundCharacterResult,"{1520e7d2-e86d-5d36-b8f2-954e418a6ed2}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<CharacterLeaderboardEntry> Leaderboard; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetLeaderboardAroundCharacterResult() :
                 PlayFabBaseModel(),
@@ -8155,7 +8447,7 @@ namespace PlayFabComboSdk
                 if (!Leaderboard.empty()) {
                     writer.String("Leaderboard");
                     writer.StartArray();
-                    for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                    for (auto iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -8179,6 +8471,9 @@ namespace PlayFabComboSdk
 
         struct GetLeaderboardAroundUserRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetLeaderboardAroundUserRequest,"{9d0574d0-a6fa-57d5-9bff-c8a1ecc6efe4}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string StatisticName;
             AZStd::string PlayFabId;
             Int32 MaxResultsCount;
@@ -8252,6 +8547,9 @@ namespace PlayFabComboSdk
 
         struct PlayerLeaderboardEntry : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::PlayerLeaderboardEntry,"{c89ee4b1-b657-5b11-a0e5-77a8cf05caa8}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string DisplayName;
             Int32 StatValue;
@@ -8327,7 +8625,10 @@ namespace PlayFabComboSdk
 
         struct GetLeaderboardAroundUserResult : public PlayFabBaseModel
         {
-            std::list<PlayerLeaderboardEntry> Leaderboard;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetLeaderboardAroundUserResult,"{10443d30-6daa-56e6-8c35-3c765056c4a0}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<PlayerLeaderboardEntry> Leaderboard; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             Int32 Version;
             OptionalTime NextReset;
 
@@ -8360,7 +8661,7 @@ namespace PlayFabComboSdk
                 if (!Leaderboard.empty()) {
                     writer.String("Leaderboard");
                     writer.StartArray();
-                    for (std::list<PlayerLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                    for (auto iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -8394,6 +8695,9 @@ namespace PlayFabComboSdk
 
         struct GetLeaderboardForUsersCharactersRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetLeaderboardForUsersCharactersRequest,"{9ffae2e2-fb65-547b-8b7d-1a7bcb071cc3}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string StatisticName;
             AZStd::string PlayFabId;
             Int32 MaxResultsCount;
@@ -8448,7 +8752,10 @@ namespace PlayFabComboSdk
 
         struct GetLeaderboardForUsersCharactersResult : public PlayFabBaseModel
         {
-            std::list<CharacterLeaderboardEntry> Leaderboard;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetLeaderboardForUsersCharactersResult,"{69c03521-2e8e-5ef5-9bee-f957c2ca291d}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<CharacterLeaderboardEntry> Leaderboard; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetLeaderboardForUsersCharactersResult() :
                 PlayFabBaseModel(),
@@ -8475,7 +8782,7 @@ namespace PlayFabComboSdk
                 if (!Leaderboard.empty()) {
                     writer.String("Leaderboard");
                     writer.StartArray();
-                    for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                    for (auto iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -8499,6 +8806,9 @@ namespace PlayFabComboSdk
 
         struct GetLeaderboardRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetLeaderboardRequest,"{5f10af7e-423a-5811-87c9-f10d1e49d2d1}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string StatisticName;
             Int32 StartPosition;
             Int32 MaxResultsCount;
@@ -8572,7 +8882,10 @@ namespace PlayFabComboSdk
 
         struct GetLeaderboardResult : public PlayFabBaseModel
         {
-            std::list<PlayerLeaderboardEntry> Leaderboard;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetLeaderboardResult,"{78632289-6000-5f18-9389-1ebced2cd6ef}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<PlayerLeaderboardEntry> Leaderboard; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             Int32 Version;
             OptionalTime NextReset;
 
@@ -8605,7 +8918,7 @@ namespace PlayFabComboSdk
                 if (!Leaderboard.empty()) {
                     writer.String("Leaderboard");
                     writer.StartArray();
-                    for (std::list<PlayerLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                    for (auto iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -8639,19 +8952,22 @@ namespace PlayFabComboSdk
 
         struct GetPlayerCombinedInfoRequestParams : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayerCombinedInfoRequestParams,"{5e705700-c3b1-5b9e-a11a-84da95104bd4}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             bool GetUserAccountInfo;
             bool GetUserInventory;
             bool GetUserVirtualCurrency;
             bool GetUserData;
-            std::list<AZStd::string> UserDataKeys;
+            AZStd::vector<AZStd::string> UserDataKeys; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             bool GetUserReadOnlyData;
-            std::list<AZStd::string> UserReadOnlyDataKeys;
+            AZStd::vector<AZStd::string> UserReadOnlyDataKeys; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             bool GetCharacterInventories;
             bool GetCharacterList;
             bool GetTitleData;
-            std::list<AZStd::string> TitleDataKeys;
+            AZStd::vector<AZStd::string> TitleDataKeys; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             bool GetPlayerStatistics;
-            std::list<AZStd::string> PlayerStatisticNames;
+            AZStd::vector<AZStd::string> PlayerStatisticNames; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             bool GetPlayerProfile;
             PlayerProfileViewConstraints* ProfileConstraints;
 
@@ -8717,7 +9033,7 @@ namespace PlayFabComboSdk
                 if (!UserDataKeys.empty()) {
                     writer.String("UserDataKeys");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = UserDataKeys.begin(); iter != UserDataKeys.end(); iter++) {
+                    for (auto iter = UserDataKeys.begin(); iter != UserDataKeys.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -8727,7 +9043,7 @@ namespace PlayFabComboSdk
                 if (!UserReadOnlyDataKeys.empty()) {
                     writer.String("UserReadOnlyDataKeys");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = UserReadOnlyDataKeys.begin(); iter != UserReadOnlyDataKeys.end(); iter++) {
+                    for (auto iter = UserReadOnlyDataKeys.begin(); iter != UserReadOnlyDataKeys.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -8741,7 +9057,7 @@ namespace PlayFabComboSdk
                 if (!TitleDataKeys.empty()) {
                     writer.String("TitleDataKeys");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = TitleDataKeys.begin(); iter != TitleDataKeys.end(); iter++) {
+                    for (auto iter = TitleDataKeys.begin(); iter != TitleDataKeys.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -8751,7 +9067,7 @@ namespace PlayFabComboSdk
                 if (!PlayerStatisticNames.empty()) {
                     writer.String("PlayerStatisticNames");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = PlayerStatisticNames.begin(); iter != PlayerStatisticNames.end(); iter++) {
+                    for (auto iter = PlayerStatisticNames.begin(); iter != PlayerStatisticNames.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -8824,6 +9140,9 @@ namespace PlayFabComboSdk
 
         struct GetPlayerCombinedInfoRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayerCombinedInfoRequest,"{90ba30a1-14b9-52f3-ac83-c1ba9588f5ff}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
@@ -8871,6 +9190,9 @@ namespace PlayFabComboSdk
 
         struct StatisticValue : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::StatisticValue,"{26f79b29-8899-5a9a-b34a-6ee667049633}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string StatisticName;
             Int32 Value;
             Uint32 Version;
@@ -8927,18 +9249,21 @@ namespace PlayFabComboSdk
 
         struct GetPlayerCombinedInfoResultPayload : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayerCombinedInfoResultPayload,"{b8eb0eb9-4da9-524e-a415-3e2c7a86f47f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             UserAccountInfo* AccountInfo;
-            std::list<ItemInstance> UserInventory;
-            std::map<AZStd::string, Int32> UserVirtualCurrency;
-            std::map<AZStd::string, VirtualCurrencyRechargeTime> UserVirtualCurrencyRechargeTimes;
-            std::map<AZStd::string, UserDataRecord> UserData;
+            AZStd::vector<ItemInstance> UserInventory; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::unordered_map<AZStd::string, Int32> UserVirtualCurrency;
+            AZStd::unordered_map<AZStd::string, VirtualCurrencyRechargeTime> UserVirtualCurrencyRechargeTimes;
+            AZStd::unordered_map<AZStd::string, UserDataRecord> UserData;
             Uint32 UserDataVersion;
-            std::map<AZStd::string, UserDataRecord> UserReadOnlyData;
+            AZStd::unordered_map<AZStd::string, UserDataRecord> UserReadOnlyData;
             Uint32 UserReadOnlyDataVersion;
-            std::list<CharacterResult> CharacterList;
-            std::list<CharacterInventory> CharacterInventories;
-            std::map<AZStd::string, AZStd::string> TitleData;
-            std::list<StatisticValue> PlayerStatistics;
+            AZStd::vector<CharacterResult> CharacterList; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<CharacterInventory> CharacterInventories; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::unordered_map<AZStd::string, AZStd::string> TitleData;
+            AZStd::vector<StatisticValue> PlayerStatistics; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             PlayerProfileModel* PlayerProfile;
 
             GetPlayerCombinedInfoResultPayload() :
@@ -8996,7 +9321,7 @@ namespace PlayFabComboSdk
                 if (!UserInventory.empty()) {
                     writer.String("UserInventory");
                     writer.StartArray();
-                    for (std::list<ItemInstance>::iterator iter = UserInventory.begin(); iter != UserInventory.end(); iter++) {
+                    for (auto iter = UserInventory.begin(); iter != UserInventory.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -9004,7 +9329,7 @@ namespace PlayFabComboSdk
                 if (!UserVirtualCurrency.empty()) {
                     writer.String("UserVirtualCurrency");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = UserVirtualCurrency.begin(); iter != UserVirtualCurrency.end(); ++iter) {
+                    for (auto iter = UserVirtualCurrency.begin(); iter != UserVirtualCurrency.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -9013,7 +9338,7 @@ namespace PlayFabComboSdk
                 if (!UserVirtualCurrencyRechargeTimes.empty()) {
                     writer.String("UserVirtualCurrencyRechargeTimes");
                     writer.StartObject();
-                    for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = UserVirtualCurrencyRechargeTimes.begin(); iter != UserVirtualCurrencyRechargeTimes.end(); ++iter) {
+                    for (auto iter = UserVirtualCurrencyRechargeTimes.begin(); iter != UserVirtualCurrencyRechargeTimes.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -9022,7 +9347,7 @@ namespace PlayFabComboSdk
                 if (!UserData.empty()) {
                     writer.String("UserData");
                     writer.StartObject();
-                    for (std::map<AZStd::string, UserDataRecord>::iterator iter = UserData.begin(); iter != UserData.end(); ++iter) {
+                    for (auto iter = UserData.begin(); iter != UserData.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -9033,7 +9358,7 @@ namespace PlayFabComboSdk
                 if (!UserReadOnlyData.empty()) {
                     writer.String("UserReadOnlyData");
                     writer.StartObject();
-                    for (std::map<AZStd::string, UserDataRecord>::iterator iter = UserReadOnlyData.begin(); iter != UserReadOnlyData.end(); ++iter) {
+                    for (auto iter = UserReadOnlyData.begin(); iter != UserReadOnlyData.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -9044,7 +9369,7 @@ namespace PlayFabComboSdk
                 if (!CharacterList.empty()) {
                     writer.String("CharacterList");
                     writer.StartArray();
-                    for (std::list<CharacterResult>::iterator iter = CharacterList.begin(); iter != CharacterList.end(); iter++) {
+                    for (auto iter = CharacterList.begin(); iter != CharacterList.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -9052,7 +9377,7 @@ namespace PlayFabComboSdk
                 if (!CharacterInventories.empty()) {
                     writer.String("CharacterInventories");
                     writer.StartArray();
-                    for (std::list<CharacterInventory>::iterator iter = CharacterInventories.begin(); iter != CharacterInventories.end(); iter++) {
+                    for (auto iter = CharacterInventories.begin(); iter != CharacterInventories.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -9060,7 +9385,7 @@ namespace PlayFabComboSdk
                 if (!TitleData.empty()) {
                     writer.String("TitleData");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = TitleData.begin(); iter != TitleData.end(); ++iter) {
+                    for (auto iter = TitleData.begin(); iter != TitleData.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -9069,7 +9394,7 @@ namespace PlayFabComboSdk
                 if (!PlayerStatistics.empty()) {
                     writer.String("PlayerStatistics");
                     writer.StartArray();
-                    for (std::list<StatisticValue>::iterator iter = PlayerStatistics.begin(); iter != PlayerStatistics.end(); iter++) {
+                    for (auto iter = PlayerStatistics.begin(); iter != PlayerStatistics.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -9156,6 +9481,9 @@ namespace PlayFabComboSdk
 
         struct GetPlayerCombinedInfoResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayerCombinedInfoResult,"{45cf6611-29d7-5262-9423-5d14cca8bc6c}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             GetPlayerCombinedInfoResultPayload* InfoResultPayload;
 
@@ -9208,6 +9536,9 @@ namespace PlayFabComboSdk
 
         struct GetPlayerProfileRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayerProfileRequest,"{6033e4dd-b462-58da-8e17-ed799f5e488f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             PlayerProfileViewConstraints* ProfileConstraints;
 
@@ -9258,6 +9589,9 @@ namespace PlayFabComboSdk
 
         struct GetPlayerProfileResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayerProfileResult,"{f9265238-c00a-5513-a8e2-4c20e93af9d2}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             PlayerProfileModel* PlayerProfile;
 
             GetPlayerProfileResult() :
@@ -9301,7 +9635,10 @@ namespace PlayFabComboSdk
 
         struct GetPlayerSegmentsResult : public PlayFabBaseModel
         {
-            std::list<GetSegmentResult> Segments;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayerSegmentsResult,"{3500e273-96b7-5c11-aeb6-67237ba23fee}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<GetSegmentResult> Segments; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayerSegmentsResult() :
                 PlayFabBaseModel(),
@@ -9328,7 +9665,7 @@ namespace PlayFabComboSdk
                 if (!Segments.empty()) {
                     writer.String("Segments");
                     writer.StartArray();
-                    for (std::list<GetSegmentResult>::iterator iter = Segments.begin(); iter != Segments.end(); iter++) {
+                    for (auto iter = Segments.begin(); iter != Segments.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -9352,6 +9689,9 @@ namespace PlayFabComboSdk
 
         struct GetPlayersInSegmentRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayersInSegmentRequest,"{83c39deb-3a61-55fe-ba09-34d79e2eda3f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string SegmentId;
             OptionalUint32 SecondsToLive;
             OptionalUint32 MaxBatchSize;
@@ -9419,6 +9759,9 @@ namespace PlayFabComboSdk
 
         struct PlayerLocation : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::PlayerLocation,"{c162478d-ca79-58ac-bc67-7385c5af0eae}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             ContinentCode pfContinentCode;
             CountryCode pfCountryCode;
             AZStd::string City;
@@ -9493,6 +9836,9 @@ namespace PlayFabComboSdk
 
         struct PushNotificationRegistration : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::PushNotificationRegistration,"{68e9368b-cd70-5843-a78d-1df873e33576}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             Boxed<PushNotificationPlatform> Platform;
             AZStd::string NotificationEndpointARN;
 
@@ -9544,6 +9890,9 @@ namespace PlayFabComboSdk
 
         struct PlayerLinkedAccount : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::PlayerLinkedAccount,"{3481c3be-bef3-54b7-b884-804c90d2ed29}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             Boxed<LoginIdentityProvider> Platform;
             AZStd::string PlatformUserId;
             AZStd::string Username;
@@ -9613,6 +9962,9 @@ namespace PlayFabComboSdk
 
         struct PlayerStatistic : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::PlayerStatistic,"{698da552-3bee-5d9d-ac5b-51b10b85b57c}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Id;
             Int32 StatisticVersion;
             Int32 StatisticValue;
@@ -9678,6 +10030,9 @@ namespace PlayFabComboSdk
 
         struct PlayerProfile : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::PlayerProfile,"{e5c0ad9d-0821-5684-8ac5-0888d61598d8}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayerId;
             AZStd::string TitleId;
             AZStd::string DisplayName;
@@ -9687,17 +10042,17 @@ namespace PlayFabComboSdk
             OptionalTime LastLogin;
             OptionalTime BannedUntil;
             AZStd::string AvatarUrl;
-            std::map<AZStd::string, Int32> Statistics;
+            AZStd::unordered_map<AZStd::string, Int32> Statistics;
             OptionalUint32 TotalValueToDateInUSD;
-            std::map<AZStd::string, Uint32> ValuesToDate;
-            std::list<AZStd::string> Tags;
-            std::map<AZStd::string, PlayerLocation> Locations;
-            std::map<AZStd::string, Int32> VirtualCurrencyBalances;
-            std::list<AdCampaignAttribution> AdCampaignAttributions;
-            std::list<PushNotificationRegistration> PushNotificationRegistrations;
-            std::list<PlayerLinkedAccount> LinkedAccounts;
-            std::list<PlayerStatistic> PlayerStatistics;
-            std::list<ContactEmailInfo> ContactEmailAddresses;
+            AZStd::unordered_map<AZStd::string, Uint32> ValuesToDate;
+            AZStd::vector<AZStd::string> Tags; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::unordered_map<AZStd::string, PlayerLocation> Locations;
+            AZStd::unordered_map<AZStd::string, Int32> VirtualCurrencyBalances;
+            AZStd::vector<AdCampaignAttribution> AdCampaignAttributions; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<PushNotificationRegistration> PushNotificationRegistrations; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<PlayerLinkedAccount> LinkedAccounts; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<PlayerStatistic> PlayerStatistics; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<ContactEmailInfo> ContactEmailAddresses; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             PlayerProfile() :
                 PlayFabBaseModel(),
@@ -9798,7 +10153,7 @@ namespace PlayFabComboSdk
                 if (!Statistics.empty()) {
                     writer.String("Statistics");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = Statistics.begin(); iter != Statistics.end(); ++iter) {
+                    for (auto iter = Statistics.begin(); iter != Statistics.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -9811,7 +10166,7 @@ namespace PlayFabComboSdk
                 if (!ValuesToDate.empty()) {
                     writer.String("ValuesToDate");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = ValuesToDate.begin(); iter != ValuesToDate.end(); ++iter) {
+                    for (auto iter = ValuesToDate.begin(); iter != ValuesToDate.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -9820,7 +10175,7 @@ namespace PlayFabComboSdk
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                    for (auto iter = Tags.begin(); iter != Tags.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -9828,7 +10183,7 @@ namespace PlayFabComboSdk
                 if (!Locations.empty()) {
                     writer.String("Locations");
                     writer.StartObject();
-                    for (std::map<AZStd::string, PlayerLocation>::iterator iter = Locations.begin(); iter != Locations.end(); ++iter) {
+                    for (auto iter = Locations.begin(); iter != Locations.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -9837,7 +10192,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrencyBalances.empty()) {
                     writer.String("VirtualCurrencyBalances");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -9846,7 +10201,7 @@ namespace PlayFabComboSdk
                 if (!AdCampaignAttributions.empty()) {
                     writer.String("AdCampaignAttributions");
                     writer.StartArray();
-                    for (std::list<AdCampaignAttribution>::iterator iter = AdCampaignAttributions.begin(); iter != AdCampaignAttributions.end(); iter++) {
+                    for (auto iter = AdCampaignAttributions.begin(); iter != AdCampaignAttributions.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -9854,7 +10209,7 @@ namespace PlayFabComboSdk
                 if (!PushNotificationRegistrations.empty()) {
                     writer.String("PushNotificationRegistrations");
                     writer.StartArray();
-                    for (std::list<PushNotificationRegistration>::iterator iter = PushNotificationRegistrations.begin(); iter != PushNotificationRegistrations.end(); iter++) {
+                    for (auto iter = PushNotificationRegistrations.begin(); iter != PushNotificationRegistrations.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -9862,7 +10217,7 @@ namespace PlayFabComboSdk
                 if (!LinkedAccounts.empty()) {
                     writer.String("LinkedAccounts");
                     writer.StartArray();
-                    for (std::list<PlayerLinkedAccount>::iterator iter = LinkedAccounts.begin(); iter != LinkedAccounts.end(); iter++) {
+                    for (auto iter = LinkedAccounts.begin(); iter != LinkedAccounts.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -9870,7 +10225,7 @@ namespace PlayFabComboSdk
                 if (!PlayerStatistics.empty()) {
                     writer.String("PlayerStatistics");
                     writer.StartArray();
-                    for (std::list<PlayerStatistic>::iterator iter = PlayerStatistics.begin(); iter != PlayerStatistics.end(); iter++) {
+                    for (auto iter = PlayerStatistics.begin(); iter != PlayerStatistics.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -9878,7 +10233,7 @@ namespace PlayFabComboSdk
                 if (!ContactEmailAddresses.empty()) {
                     writer.String("ContactEmailAddresses");
                     writer.StartArray();
-                    for (std::list<ContactEmailInfo>::iterator iter = ContactEmailAddresses.begin(); iter != ContactEmailAddresses.end(); iter++) {
+                    for (auto iter = ContactEmailAddresses.begin(); iter != ContactEmailAddresses.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -9981,9 +10336,12 @@ namespace PlayFabComboSdk
 
         struct GetPlayersInSegmentResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayersInSegmentResult,"{18984e69-25a5-5147-9608-53c8146d06e4}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             Int32 ProfilesInSegment;
             AZStd::string ContinuationToken;
-            std::list<PlayerProfile> PlayerProfiles;
+            AZStd::vector<PlayerProfile> PlayerProfiles; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayersInSegmentResult() :
                 PlayFabBaseModel(),
@@ -10020,7 +10378,7 @@ namespace PlayFabComboSdk
                 if (!PlayerProfiles.empty()) {
                     writer.String("PlayerProfiles");
                     writer.StartArray();
-                    for (std::list<PlayerProfile>::iterator iter = PlayerProfiles.begin(); iter != PlayerProfiles.end(); iter++) {
+                    for (auto iter = PlayerProfiles.begin(); iter != PlayerProfiles.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -10048,6 +10406,9 @@ namespace PlayFabComboSdk
 
         struct GetPlayersSegmentsRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayersSegmentsRequest,"{d9b06141-f7b9-5fa2-b191-4170d14f83cf}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
 
             GetPlayersSegmentsRequest() :
@@ -10088,6 +10449,9 @@ namespace PlayFabComboSdk
 
         struct StatisticNameVersion : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::StatisticNameVersion,"{6c3aaf85-738b-5126-9937-182165cd4982}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string StatisticName;
             Uint32 Version;
 
@@ -10135,9 +10499,12 @@ namespace PlayFabComboSdk
 
         struct GetPlayerStatisticsRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayerStatisticsRequest,"{47e878ca-47af-5319-ba42-c19f6bb941d5}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
-            std::list<AZStd::string> StatisticNames;
-            std::list<StatisticNameVersion> StatisticNameVersions;
+            AZStd::vector<AZStd::string> StatisticNames; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<StatisticNameVersion> StatisticNameVersions; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayerStatisticsRequest() :
                 PlayFabBaseModel(),
@@ -10170,7 +10537,7 @@ namespace PlayFabComboSdk
                 if (!StatisticNames.empty()) {
                     writer.String("StatisticNames");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = StatisticNames.begin(); iter != StatisticNames.end(); iter++) {
+                    for (auto iter = StatisticNames.begin(); iter != StatisticNames.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -10178,7 +10545,7 @@ namespace PlayFabComboSdk
                 if (!StatisticNameVersions.empty()) {
                     writer.String("StatisticNameVersions");
                     writer.StartArray();
-                    for (std::list<StatisticNameVersion>::iterator iter = StatisticNameVersions.begin(); iter != StatisticNameVersions.end(); iter++) {
+                    for (auto iter = StatisticNameVersions.begin(); iter != StatisticNameVersions.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -10211,8 +10578,11 @@ namespace PlayFabComboSdk
 
         struct GetPlayerStatisticsResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayerStatisticsResult,"{35f6f571-8666-598d-a248-1dff7ec4cbc4}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
-            std::list<StatisticValue> Statistics;
+            AZStd::vector<StatisticValue> Statistics; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayerStatisticsResult() :
                 PlayFabBaseModel(),
@@ -10245,7 +10615,7 @@ namespace PlayFabComboSdk
                 if (!Statistics.empty()) {
                     writer.String("Statistics");
                     writer.StartArray();
-                    for (std::list<StatisticValue>::iterator iter = Statistics.begin(); iter != Statistics.end(); iter++) {
+                    for (auto iter = Statistics.begin(); iter != Statistics.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -10271,6 +10641,9 @@ namespace PlayFabComboSdk
 
         struct GetPlayerStatisticVersionsRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayerStatisticVersionsRequest,"{892b609b-dbcf-5701-bfa8-c9a987668812}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string StatisticName;
 
             GetPlayerStatisticVersionsRequest() :
@@ -10313,6 +10686,9 @@ namespace PlayFabComboSdk
 
         struct PlayerStatisticVersion : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::PlayerStatisticVersion,"{7b0f06c3-d4f8-5db7-878e-a85de0dfb599}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string StatisticName;
             Uint32 Version;
             OptionalTime ScheduledActivationTime;
@@ -10396,7 +10772,10 @@ namespace PlayFabComboSdk
 
         struct GetPlayerStatisticVersionsResult : public PlayFabBaseModel
         {
-            std::list<PlayerStatisticVersion> StatisticVersions;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayerStatisticVersionsResult,"{881d6228-01cd-5c52-8d41-41f7d6f6c753}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<PlayerStatisticVersion> StatisticVersions; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayerStatisticVersionsResult() :
                 PlayFabBaseModel(),
@@ -10423,7 +10802,7 @@ namespace PlayFabComboSdk
                 if (!StatisticVersions.empty()) {
                     writer.String("StatisticVersions");
                     writer.StartArray();
-                    for (std::list<PlayerStatisticVersion>::iterator iter = StatisticVersions.begin(); iter != StatisticVersions.end(); iter++) {
+                    for (auto iter = StatisticVersions.begin(); iter != StatisticVersions.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -10447,6 +10826,9 @@ namespace PlayFabComboSdk
 
         struct GetPlayerTagsRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayerTagsRequest,"{5547bb5c-3043-5350-bc02-d038e0970bea}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string Namespace;
 
@@ -10496,8 +10878,11 @@ namespace PlayFabComboSdk
 
         struct GetPlayerTagsResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayerTagsResult,"{9a72bc00-386f-5749-8c25-219448c7fc12}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
-            std::list<AZStd::string> Tags;
+            AZStd::vector<AZStd::string> Tags; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayerTagsResult() :
                 PlayFabBaseModel(),
@@ -10527,7 +10912,7 @@ namespace PlayFabComboSdk
                 writer.String(PlayFabId.c_str());
                 writer.String("Tags");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                for (auto iter = Tags.begin(); iter != Tags.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -10552,7 +10937,10 @@ namespace PlayFabComboSdk
 
         struct GetPlayFabIDsFromFacebookIDsRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> FacebookIDs;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayFabIDsFromFacebookIDsRequest,"{e593be13-9f65-593c-9b12-5052ac64f1e5}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<AZStd::string> FacebookIDs; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromFacebookIDsRequest() :
                 PlayFabBaseModel(),
@@ -10578,7 +10966,7 @@ namespace PlayFabComboSdk
                 writer.StartObject();
                 writer.String("FacebookIDs");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = FacebookIDs.begin(); iter != FacebookIDs.end(); iter++) {
+                for (auto iter = FacebookIDs.begin(); iter != FacebookIDs.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -10601,7 +10989,10 @@ namespace PlayFabComboSdk
 
         struct GetPlayFabIDsFromFacebookIDsResult : public PlayFabBaseModel
         {
-            std::list<FacebookPlayFabIdPair> Data;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayFabIDsFromFacebookIDsResult,"{a7ad1920-902c-5c0d-8302-85291a4fd004}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<FacebookPlayFabIdPair> Data; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromFacebookIDsResult() :
                 PlayFabBaseModel(),
@@ -10628,7 +11019,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartArray();
-                    for (std::list<FacebookPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+                    for (auto iter = Data.begin(); iter != Data.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -10652,7 +11043,10 @@ namespace PlayFabComboSdk
 
         struct GetPlayFabIDsFromSteamIDsRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> SteamStringIDs;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayFabIDsFromSteamIDsRequest,"{75c55ccb-fbe4-5856-b0ad-9631e0acbabc}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<AZStd::string> SteamStringIDs; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromSteamIDsRequest() :
                 PlayFabBaseModel(),
@@ -10679,7 +11073,7 @@ namespace PlayFabComboSdk
                 if (!SteamStringIDs.empty()) {
                     writer.String("SteamStringIDs");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = SteamStringIDs.begin(); iter != SteamStringIDs.end(); iter++) {
+                    for (auto iter = SteamStringIDs.begin(); iter != SteamStringIDs.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -10703,6 +11097,9 @@ namespace PlayFabComboSdk
 
         struct SteamPlayFabIdPair : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SteamPlayFabIdPair,"{b8951466-74cf-5f07-82a5-7e86d730190b}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string SteamStringId;
             AZStd::string PlayFabId;
 
@@ -10754,7 +11151,10 @@ namespace PlayFabComboSdk
 
         struct GetPlayFabIDsFromSteamIDsResult : public PlayFabBaseModel
         {
-            std::list<SteamPlayFabIdPair> Data;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPlayFabIDsFromSteamIDsResult,"{066b676e-9acc-5f28-a31f-5bbf36823f52}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<SteamPlayFabIdPair> Data; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromSteamIDsResult() :
                 PlayFabBaseModel(),
@@ -10781,7 +11181,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartArray();
-                    for (std::list<SteamPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+                    for (auto iter = Data.begin(); iter != Data.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -10805,7 +11205,10 @@ namespace PlayFabComboSdk
 
         struct GetPublisherDataRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> Keys;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPublisherDataRequest,"{7a2ad96e-1cf1-50b0-9e7d-fea486e4abbf}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<AZStd::string> Keys; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPublisherDataRequest() :
                 PlayFabBaseModel(),
@@ -10831,7 +11234,7 @@ namespace PlayFabComboSdk
                 writer.StartObject();
                 writer.String("Keys");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                for (auto iter = Keys.begin(); iter != Keys.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -10854,7 +11257,10 @@ namespace PlayFabComboSdk
 
         struct GetPublisherDataResult : public PlayFabBaseModel
         {
-            std::map<AZStd::string, AZStd::string> Data;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetPublisherDataResult,"{ba8fddc7-fae3-5fc1-ad58-a107e58009d8}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::unordered_map<AZStd::string, AZStd::string> Data;
 
             GetPublisherDataResult() :
                 PlayFabBaseModel(),
@@ -10881,7 +11287,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -10905,8 +11311,11 @@ namespace PlayFabComboSdk
 
         struct GetRandomResultTablesRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetRandomResultTablesRequest,"{8af06664-73b2-5053-b167-c409b6fe5474}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string CatalogVersion;
-            std::list<AZStd::string> TableIDs;
+            AZStd::vector<AZStd::string> TableIDs; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetRandomResultTablesRequest() :
                 PlayFabBaseModel(),
@@ -10938,7 +11347,7 @@ namespace PlayFabComboSdk
                 }
                 writer.String("TableIDs");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = TableIDs.begin(); iter != TableIDs.end(); iter++) {
+                for (auto iter = TableIDs.begin(); iter != TableIDs.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -11001,6 +11410,9 @@ namespace PlayFabComboSdk
 
         struct ResultTableNode : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ResultTableNode,"{189d62e8-a658-5a49-ad37-74dff1cd4ad8}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             ResultTableNodeType ResultItemType;
             AZStd::string ResultItem;
             Int32 Weight;
@@ -11055,9 +11467,12 @@ namespace PlayFabComboSdk
 
         struct RandomResultTableListing : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RandomResultTableListing,"{731bd625-2cf1-564c-9d0d-06889e4d2175}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string CatalogVersion;
             AZStd::string TableId;
-            std::list<ResultTableNode> Nodes;
+            AZStd::vector<ResultTableNode> Nodes; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             RandomResultTableListing() :
                 PlayFabBaseModel(),
@@ -11093,7 +11508,7 @@ namespace PlayFabComboSdk
                 writer.String(TableId.c_str());
                 writer.String("Nodes");
                 writer.StartArray();
-                for (std::list<ResultTableNode>::iterator iter = Nodes.begin(); iter != Nodes.end(); iter++) {
+                for (auto iter = Nodes.begin(); iter != Nodes.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     iter->writeJSON(writer);
                 }
                 writer.EndArray();
@@ -11120,7 +11535,10 @@ namespace PlayFabComboSdk
 
         struct GetRandomResultTablesResult : public PlayFabBaseModel
         {
-            std::map<AZStd::string, RandomResultTableListing> Tables;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetRandomResultTablesResult,"{77500f0f-3d62-5a04-9ef4-9ec88f4cf0c1}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::unordered_map<AZStd::string, RandomResultTableListing> Tables;
 
             GetRandomResultTablesResult() :
                 PlayFabBaseModel(),
@@ -11147,7 +11565,7 @@ namespace PlayFabComboSdk
                 if (!Tables.empty()) {
                     writer.String("Tables");
                     writer.StartObject();
-                    for (std::map<AZStd::string, RandomResultTableListing>::iterator iter = Tables.begin(); iter != Tables.end(); ++iter) {
+                    for (auto iter = Tables.begin(); iter != Tables.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -11171,8 +11589,11 @@ namespace PlayFabComboSdk
 
         struct GetSharedGroupDataRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetSharedGroupDataRequest,"{214b35dc-5888-52ff-9c24-dcfd1eddef3d}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string SharedGroupId;
-            std::list<AZStd::string> Keys;
+            AZStd::vector<AZStd::string> Keys; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             OptionalBool GetMembers;
 
             GetSharedGroupDataRequest() :
@@ -11206,7 +11627,7 @@ namespace PlayFabComboSdk
                 if (!Keys.empty()) {
                     writer.String("Keys");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                    for (auto iter = Keys.begin(); iter != Keys.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -11238,6 +11659,9 @@ namespace PlayFabComboSdk
 
         struct SharedGroupDataRecord : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SharedGroupDataRecord,"{8d965c4b-568b-5ee1-9ccf-9aaceeeddf61}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Value;
             AZStd::string LastUpdatedBy;
             time_t LastUpdated;
@@ -11305,8 +11729,11 @@ namespace PlayFabComboSdk
 
         struct GetSharedGroupDataResult : public PlayFabBaseModel
         {
-            std::map<AZStd::string, SharedGroupDataRecord> Data;
-            std::list<AZStd::string> Members;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetSharedGroupDataResult,"{03081612-e82c-57e3-8abc-5eb577420758}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::unordered_map<AZStd::string, SharedGroupDataRecord> Data;
+            AZStd::vector<AZStd::string> Members; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetSharedGroupDataResult() :
                 PlayFabBaseModel(),
@@ -11335,7 +11762,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, SharedGroupDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -11344,7 +11771,7 @@ namespace PlayFabComboSdk
                 if (!Members.empty()) {
                     writer.String("Members");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = Members.begin(); iter != Members.end(); iter++) {
+                    for (auto iter = Members.begin(); iter != Members.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -11374,6 +11801,9 @@ namespace PlayFabComboSdk
 
         struct GetTimeRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetTimeRequest,"{f5947dfd-792c-5147-bfa8-d2795fbdcfb7}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             GetTimeRequest() :
                 PlayFabBaseModel()
@@ -11407,6 +11837,9 @@ namespace PlayFabComboSdk
 
         struct GetTimeResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetTimeResult,"{42681469-2f7d-57bc-a017-c525d0c1ff82}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             time_t Time;
 
             GetTimeResult() :
@@ -11447,7 +11880,10 @@ namespace PlayFabComboSdk
 
         struct GetTitleDataRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> Keys;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetTitleDataRequest,"{cc499a3e-e7d0-55ce-ab29-11d1eeba8505}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<AZStd::string> Keys; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetTitleDataRequest() :
                 PlayFabBaseModel(),
@@ -11474,7 +11910,7 @@ namespace PlayFabComboSdk
                 if (!Keys.empty()) {
                     writer.String("Keys");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                    for (auto iter = Keys.begin(); iter != Keys.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -11498,7 +11934,10 @@ namespace PlayFabComboSdk
 
         struct GetTitleDataResult : public PlayFabBaseModel
         {
-            std::map<AZStd::string, AZStd::string> Data;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetTitleDataResult,"{46a330f7-89c5-5d09-9928-c7410db3d222}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::unordered_map<AZStd::string, AZStd::string> Data;
 
             GetTitleDataResult() :
                 PlayFabBaseModel(),
@@ -11525,7 +11964,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -11549,6 +11988,9 @@ namespace PlayFabComboSdk
 
         struct GetTitleNewsRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetTitleNewsRequest,"{6721f741-4098-59d0-a209-5bab2b99b779}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             OptionalInt32 Count;
 
             GetTitleNewsRequest() :
@@ -11591,6 +12033,9 @@ namespace PlayFabComboSdk
 
         struct TitleNewsItem : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::TitleNewsItem,"{11c7feb0-166e-55be-bef6-c8fcc9036fda}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             time_t Timestamp;
             AZStd::string NewsId;
             AZStd::string Title;
@@ -11658,7 +12103,10 @@ namespace PlayFabComboSdk
 
         struct GetTitleNewsResult : public PlayFabBaseModel
         {
-            std::list<TitleNewsItem> News;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetTitleNewsResult,"{f4356341-e49e-5e86-9ef9-5403a8608a9d}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<TitleNewsItem> News; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetTitleNewsResult() :
                 PlayFabBaseModel(),
@@ -11685,7 +12133,7 @@ namespace PlayFabComboSdk
                 if (!News.empty()) {
                     writer.String("News");
                     writer.StartArray();
-                    for (std::list<TitleNewsItem>::iterator iter = News.begin(); iter != News.end(); iter++) {
+                    for (auto iter = News.begin(); iter != News.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -11709,6 +12157,9 @@ namespace PlayFabComboSdk
 
         struct GetUserAccountInfoRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetUserAccountInfoRequest,"{b7dd6a8b-a49e-52b9-a19e-01bb797c9806}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
 
             GetUserAccountInfoRequest() :
@@ -11749,6 +12200,9 @@ namespace PlayFabComboSdk
 
         struct GetUserAccountInfoResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetUserAccountInfoResult,"{9ce4dc24-fa86-580c-b23f-76fe9ca3f5f3}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             UserAccountInfo* UserInfo;
 
             GetUserAccountInfoResult() :
@@ -11792,6 +12246,9 @@ namespace PlayFabComboSdk
 
         struct GetUserBansRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetUserBansRequest,"{6ca170ce-1248-5a59-9f8f-216abd3fec84}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
 
             GetUserBansRequest() :
@@ -11832,7 +12289,10 @@ namespace PlayFabComboSdk
 
         struct GetUserBansResult : public PlayFabBaseModel
         {
-            std::list<BanInfo> BanData;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetUserBansResult,"{2af56425-0249-5fc3-8910-e7c3c21c4fe4}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<BanInfo> BanData; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetUserBansResult() :
                 PlayFabBaseModel(),
@@ -11859,7 +12319,7 @@ namespace PlayFabComboSdk
                 if (!BanData.empty()) {
                     writer.String("BanData");
                     writer.StartArray();
-                    for (std::list<BanInfo>::iterator iter = BanData.begin(); iter != BanData.end(); iter++) {
+                    for (auto iter = BanData.begin(); iter != BanData.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -11883,8 +12343,11 @@ namespace PlayFabComboSdk
 
         struct GetUserDataRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetUserDataRequest,"{ee85cbce-c37e-5f66-98e5-9792009cd96e}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
-            std::list<AZStd::string> Keys;
+            AZStd::vector<AZStd::string> Keys; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             OptionalUint32 IfChangedFromDataVersion;
 
             GetUserDataRequest() :
@@ -11918,7 +12381,7 @@ namespace PlayFabComboSdk
                 if (!Keys.empty()) {
                     writer.String("Keys");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                    for (auto iter = Keys.begin(); iter != Keys.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -11950,9 +12413,12 @@ namespace PlayFabComboSdk
 
         struct GetUserDataResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetUserDataResult,"{0d6fe505-4d4a-5c35-a00f-c5708d7c2daa}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             Uint32 DataVersion;
-            std::map<AZStd::string, UserDataRecord> Data;
+            AZStd::unordered_map<AZStd::string, UserDataRecord> Data;
 
             GetUserDataResult() :
                 PlayFabBaseModel(),
@@ -11989,7 +12455,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -12017,6 +12483,9 @@ namespace PlayFabComboSdk
 
         struct GetUserInventoryRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetUserInventoryRequest,"{8ae744c5-5e0e-50ef-a613-1246017ef605}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
 
             GetUserInventoryRequest() :
@@ -12057,10 +12526,13 @@ namespace PlayFabComboSdk
 
         struct GetUserInventoryResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GetUserInventoryResult,"{280bb9be-c74a-5651-a57e-af8a7f03c7c4}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
-            std::list<ItemInstance> Inventory;
-            std::map<AZStd::string, Int32> VirtualCurrency;
-            std::map<AZStd::string, VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
+            AZStd::vector<ItemInstance> Inventory; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::unordered_map<AZStd::string, Int32> VirtualCurrency;
+            AZStd::unordered_map<AZStd::string, VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
 
             GetUserInventoryResult() :
                 PlayFabBaseModel(),
@@ -12097,7 +12569,7 @@ namespace PlayFabComboSdk
                 if (!Inventory.empty()) {
                     writer.String("Inventory");
                     writer.StartArray();
-                    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
+                    for (auto iter = Inventory.begin(); iter != Inventory.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -12105,7 +12577,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                    for (auto iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -12114,7 +12586,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrencyRechargeTimes.empty()) {
                     writer.String("VirtualCurrencyRechargeTimes");
                     writer.StartObject();
-                    for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -12153,6 +12625,9 @@ namespace PlayFabComboSdk
 
         struct GrantCharacterToUserRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GrantCharacterToUserRequest,"{b2a95f1f-4076-5859-a481-87da5af98bfe}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterName;
             AZStd::string CharacterType;
@@ -12207,6 +12682,9 @@ namespace PlayFabComboSdk
 
         struct GrantCharacterToUserResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GrantCharacterToUserResult,"{a874ef70-aabe-5d49-bf6c-3ee2c8da5c29}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string CharacterId;
 
             GrantCharacterToUserResult() :
@@ -12249,6 +12727,9 @@ namespace PlayFabComboSdk
 
         struct GrantedItemInstance : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GrantedItemInstance,"{0b51c575-a7e5-5ab1-8654-da431b6642f0}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
             bool Result;
@@ -12265,8 +12746,8 @@ namespace PlayFabComboSdk
             AZStd::string DisplayName;
             AZStd::string UnitCurrency;
             Uint32 UnitPrice;
-            std::list<AZStd::string> BundleContents;
-            std::map<AZStd::string, AZStd::string> CustomData;
+            AZStd::vector<AZStd::string> BundleContents; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::unordered_map<AZStd::string, AZStd::string> CustomData;
 
             GrantedItemInstance() :
                 PlayFabBaseModel(),
@@ -12387,7 +12868,7 @@ namespace PlayFabComboSdk
                 if (!BundleContents.empty()) {
                     writer.String("BundleContents");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); iter++) {
+                    for (auto iter = BundleContents.begin(); iter != BundleContents.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -12395,7 +12876,7 @@ namespace PlayFabComboSdk
                 if (!CustomData.empty()) {
                     writer.String("CustomData");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
+                    for (auto iter = CustomData.begin(); iter != CustomData.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -12458,11 +12939,14 @@ namespace PlayFabComboSdk
 
         struct GrantItemsToCharacterRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GrantItemsToCharacterRequest,"{b6d68e6c-fef8-5707-a97b-1047e34c32fd}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string CatalogVersion;
             AZStd::string CharacterId;
             AZStd::string PlayFabId;
             AZStd::string Annotation;
-            std::list<AZStd::string> ItemIds;
+            AZStd::vector<AZStd::string> ItemIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GrantItemsToCharacterRequest() :
                 PlayFabBaseModel(),
@@ -12509,7 +12993,7 @@ namespace PlayFabComboSdk
                 if (!ItemIds.empty()) {
                     writer.String("ItemIds");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = ItemIds.begin(); iter != ItemIds.end(); iter++) {
+                    for (auto iter = ItemIds.begin(); iter != ItemIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -12541,7 +13025,10 @@ namespace PlayFabComboSdk
 
         struct GrantItemsToCharacterResult : public PlayFabBaseModel
         {
-            std::list<GrantedItemInstance> ItemGrantResults;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GrantItemsToCharacterResult,"{3af8d932-3c0c-5024-ba70-ad8d6f34c870}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<GrantedItemInstance> ItemGrantResults; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GrantItemsToCharacterResult() :
                 PlayFabBaseModel(),
@@ -12568,7 +13055,7 @@ namespace PlayFabComboSdk
                 if (!ItemGrantResults.empty()) {
                     writer.String("ItemGrantResults");
                     writer.StartArray();
-                    for (std::list<GrantedItemInstance>::iterator iter = ItemGrantResults.begin(); iter != ItemGrantResults.end(); iter++) {
+                    for (auto iter = ItemGrantResults.begin(); iter != ItemGrantResults.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -12592,10 +13079,13 @@ namespace PlayFabComboSdk
 
         struct GrantItemsToUserRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GrantItemsToUserRequest,"{8d246f31-af89-55c6-8054-6554663f8b7c}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string CatalogVersion;
             AZStd::string PlayFabId;
             AZStd::string Annotation;
-            std::list<AZStd::string> ItemIds;
+            AZStd::vector<AZStd::string> ItemIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GrantItemsToUserRequest() :
                 PlayFabBaseModel(),
@@ -12637,7 +13127,7 @@ namespace PlayFabComboSdk
                 }
                 writer.String("ItemIds");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = ItemIds.begin(); iter != ItemIds.end(); iter++) {
+                for (auto iter = ItemIds.begin(); iter != ItemIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -12666,7 +13156,10 @@ namespace PlayFabComboSdk
 
         struct GrantItemsToUserResult : public PlayFabBaseModel
         {
-            std::list<GrantedItemInstance> ItemGrantResults;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GrantItemsToUserResult,"{7ffbf46a-1f7d-5799-bbc4-dbbd9246ed20}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<GrantedItemInstance> ItemGrantResults; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GrantItemsToUserResult() :
                 PlayFabBaseModel(),
@@ -12693,7 +13186,7 @@ namespace PlayFabComboSdk
                 if (!ItemGrantResults.empty()) {
                     writer.String("ItemGrantResults");
                     writer.StartArray();
-                    for (std::list<GrantedItemInstance>::iterator iter = ItemGrantResults.begin(); iter != ItemGrantResults.end(); iter++) {
+                    for (auto iter = ItemGrantResults.begin(); iter != ItemGrantResults.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -12717,12 +13210,15 @@ namespace PlayFabComboSdk
 
         struct ItemGrant : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ItemGrant,"{6f1f780d-86e6-5a1e-b195-10d03bab9607}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string ItemId;
             AZStd::string Annotation;
             AZStd::string CharacterId;
-            std::map<AZStd::string, AZStd::string> Data;
-            std::list<AZStd::string> KeysToRemove;
+            AZStd::unordered_map<AZStd::string, AZStd::string> Data;
+            AZStd::vector<AZStd::string> KeysToRemove; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             ItemGrant() :
                 PlayFabBaseModel(),
@@ -12771,7 +13267,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -12780,7 +13276,7 @@ namespace PlayFabComboSdk
                 if (!KeysToRemove.empty()) {
                     writer.String("KeysToRemove");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+                    for (auto iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -12818,8 +13314,11 @@ namespace PlayFabComboSdk
 
         struct GrantItemsToUsersRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GrantItemsToUsersRequest,"{9ae8cb4d-8949-5143-9704-830771a15fd1}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string CatalogVersion;
-            std::list<ItemGrant> ItemGrants;
+            AZStd::vector<ItemGrant> ItemGrants; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GrantItemsToUsersRequest() :
                 PlayFabBaseModel(),
@@ -12851,7 +13350,7 @@ namespace PlayFabComboSdk
                 }
                 writer.String("ItemGrants");
                 writer.StartArray();
-                for (std::list<ItemGrant>::iterator iter = ItemGrants.begin(); iter != ItemGrants.end(); iter++) {
+                for (auto iter = ItemGrants.begin(); iter != ItemGrants.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     iter->writeJSON(writer);
                 }
                 writer.EndArray();
@@ -12876,7 +13375,10 @@ namespace PlayFabComboSdk
 
         struct GrantItemsToUsersResult : public PlayFabBaseModel
         {
-            std::list<GrantedItemInstance> ItemGrantResults;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::GrantItemsToUsersResult,"{06855864-0412-5979-b071-f8c896997aaf}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<GrantedItemInstance> ItemGrantResults; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GrantItemsToUsersResult() :
                 PlayFabBaseModel(),
@@ -12903,7 +13405,7 @@ namespace PlayFabComboSdk
                 if (!ItemGrantResults.empty()) {
                     writer.String("ItemGrantResults");
                     writer.StartArray();
-                    for (std::list<GrantedItemInstance>::iterator iter = ItemGrantResults.begin(); iter != ItemGrantResults.end(); iter++) {
+                    for (auto iter = ItemGrantResults.begin(); iter != ItemGrantResults.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -12927,6 +13429,9 @@ namespace PlayFabComboSdk
 
         struct ListUsersCharactersRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ListUsersCharactersRequest,"{d873de50-9ef7-5903-afcc-e13880708d21}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
 
             ListUsersCharactersRequest() :
@@ -12967,7 +13472,10 @@ namespace PlayFabComboSdk
 
         struct ListUsersCharactersResult : public PlayFabBaseModel
         {
-            std::list<CharacterResult> Characters;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ListUsersCharactersResult,"{9a7860ed-f5eb-5298-a84d-eb46f2c29a50}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<CharacterResult> Characters; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             ListUsersCharactersResult() :
                 PlayFabBaseModel(),
@@ -12994,7 +13502,7 @@ namespace PlayFabComboSdk
                 if (!Characters.empty()) {
                     writer.String("Characters");
                     writer.StartArray();
-                    for (std::list<CharacterResult>::iterator iter = Characters.begin(); iter != Characters.end(); iter++) {
+                    for (auto iter = Characters.begin(); iter != Characters.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -13018,6 +13526,9 @@ namespace PlayFabComboSdk
 
         struct ModifyCharacterVirtualCurrencyResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ModifyCharacterVirtualCurrencyResult,"{8452acff-c1ef-5a78-ba3d-aca501c05d79}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string VirtualCurrency;
             Int32 Balance;
 
@@ -13067,6 +13578,9 @@ namespace PlayFabComboSdk
 
         struct ModifyItemUsesRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ModifyItemUsesRequest,"{266506e4-6f62-5584-927f-6bc9e643a8fb}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string ItemInstanceId;
             Int32 UsesToAdd;
@@ -13121,6 +13635,9 @@ namespace PlayFabComboSdk
 
         struct ModifyItemUsesResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ModifyItemUsesResult,"{f868744e-6d1f-58d3-a8f1-12220dc22674}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string ItemInstanceId;
             Int32 RemainingUses;
 
@@ -13170,6 +13687,9 @@ namespace PlayFabComboSdk
 
         struct ModifyUserVirtualCurrencyResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ModifyUserVirtualCurrencyResult,"{eb04ca2f-8ad5-52e8-9248-db0472f4e7b0}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string VirtualCurrency;
             Int32 BalanceChange;
@@ -13235,6 +13755,9 @@ namespace PlayFabComboSdk
 
         struct MoveItemToCharacterFromCharacterRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::MoveItemToCharacterFromCharacterRequest,"{ffd32c06-d753-5299-b24b-8c5d9a6cc649}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string GivingCharacterId;
             AZStd::string ReceivingCharacterId;
@@ -13296,6 +13819,9 @@ namespace PlayFabComboSdk
 
         struct MoveItemToCharacterFromCharacterResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::MoveItemToCharacterFromCharacterResult,"{35acd239-e61b-5545-bed5-46c13b7a9e0a}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             MoveItemToCharacterFromCharacterResult() :
                 PlayFabBaseModel()
@@ -13329,6 +13855,9 @@ namespace PlayFabComboSdk
 
         struct MoveItemToCharacterFromUserRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::MoveItemToCharacterFromUserRequest,"{d0716f1b-c5bd-5a7f-8b49-81175758bd2f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
             AZStd::string ItemInstanceId;
@@ -13383,6 +13912,9 @@ namespace PlayFabComboSdk
 
         struct MoveItemToCharacterFromUserResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::MoveItemToCharacterFromUserResult,"{f33f28fb-7d52-5061-9cc2-ae9714a82f3f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             MoveItemToCharacterFromUserResult() :
                 PlayFabBaseModel()
@@ -13416,6 +13948,9 @@ namespace PlayFabComboSdk
 
         struct MoveItemToUserFromCharacterRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::MoveItemToUserFromCharacterRequest,"{04c4c002-9c59-5f32-88fb-ed510902ae2a}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
             AZStd::string ItemInstanceId;
@@ -13470,6 +14005,9 @@ namespace PlayFabComboSdk
 
         struct MoveItemToUserFromCharacterResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::MoveItemToUserFromCharacterResult,"{449ad88e-74de-5699-b8af-708028145705}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             MoveItemToUserFromCharacterResult() :
                 PlayFabBaseModel()
@@ -13503,6 +14041,9 @@ namespace PlayFabComboSdk
 
         struct NotifyMatchmakerPlayerLeftRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::NotifyMatchmakerPlayerLeftRequest,"{fe75832c-a94e-5ba7-a84e-95745d5eb881}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string LobbyId;
             AZStd::string PlayFabId;
 
@@ -13594,6 +14135,9 @@ namespace PlayFabComboSdk
 
         struct NotifyMatchmakerPlayerLeftResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::NotifyMatchmakerPlayerLeftResult,"{3235fbdc-014e-5eca-8f20-bd4eb996a820}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             Boxed<PlayerConnectionState> PlayerState;
 
             NotifyMatchmakerPlayerLeftResult() :
@@ -13636,6 +14180,9 @@ namespace PlayFabComboSdk
 
         struct PushNotificationPackage : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::PushNotificationPackage,"{23d9d505-6826-52fe-9a2e-4f9497b3e950}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string ScheduleDate;
             AZStd::string Title;
             AZStd::string Message;
@@ -13719,6 +14266,9 @@ namespace PlayFabComboSdk
 
         struct RedeemCouponRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RedeemCouponRequest,"{acc1f47f-a3a4-5132-b390-f5c8fa5d0c64}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string CouponCode;
             AZStd::string PlayFabId;
             AZStd::string CatalogVersion;
@@ -13784,7 +14334,10 @@ namespace PlayFabComboSdk
 
         struct RedeemCouponResult : public PlayFabBaseModel
         {
-            std::list<ItemInstance> GrantedItems;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RedeemCouponResult,"{439d606c-bb2c-5196-bdcc-2c36321f50f3}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<ItemInstance> GrantedItems; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             RedeemCouponResult() :
                 PlayFabBaseModel(),
@@ -13811,7 +14364,7 @@ namespace PlayFabComboSdk
                 if (!GrantedItems.empty()) {
                     writer.String("GrantedItems");
                     writer.StartArray();
-                    for (std::list<ItemInstance>::iterator iter = GrantedItems.begin(); iter != GrantedItems.end(); iter++) {
+                    for (auto iter = GrantedItems.begin(); iter != GrantedItems.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -13835,6 +14388,9 @@ namespace PlayFabComboSdk
 
         struct RedeemMatchmakerTicketRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RedeemMatchmakerTicketRequest,"{9eb7dd76-c442-5403-aa8a-88126799fa61}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Ticket;
             AZStd::string LobbyId;
 
@@ -13882,6 +14438,9 @@ namespace PlayFabComboSdk
 
         struct RedeemMatchmakerTicketResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RedeemMatchmakerTicketResult,"{3c84943a-425b-535d-a2a3-eb4427fdb7ca}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             bool TicketIsValid;
             AZStd::string Error;
             UserAccountInfo* UserInfo;
@@ -13941,6 +14500,9 @@ namespace PlayFabComboSdk
 
         struct RefreshGameServerInstanceHeartbeatRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RefreshGameServerInstanceHeartbeatRequest,"{32d8fde6-8b18-587f-b293-7e9ede400f4f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string LobbyId;
 
             RefreshGameServerInstanceHeartbeatRequest() :
@@ -13981,6 +14543,9 @@ namespace PlayFabComboSdk
 
         struct RefreshGameServerInstanceHeartbeatResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RefreshGameServerInstanceHeartbeatResult,"{18a48552-c81b-5216-985a-17bb4b0c0a5f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             RefreshGameServerInstanceHeartbeatResult() :
                 PlayFabBaseModel()
@@ -14067,13 +14632,16 @@ namespace PlayFabComboSdk
 
         struct RegisterGameRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RegisterGameRequest,"{d95bca0c-968f-5493-94a6-68bf4289acbe}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string LobbyId;
             AZStd::string ServerHost;
             AZStd::string ServerPort;
             AZStd::string Build;
             Region pfRegion;
             AZStd::string GameMode;
-            std::map<AZStd::string, AZStd::string> Tags;
+            AZStd::unordered_map<AZStd::string, AZStd::string> Tags;
 
             RegisterGameRequest() :
                 PlayFabBaseModel(),
@@ -14126,7 +14694,7 @@ namespace PlayFabComboSdk
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); ++iter) {
+                    for (auto iter = Tags.begin(); iter != Tags.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -14162,6 +14730,9 @@ namespace PlayFabComboSdk
 
         struct RegisterGameResponse : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RegisterGameResponse,"{5930a473-2fad-51e3-9f9c-6e8c78ba56d5}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string LobbyId;
 
             RegisterGameResponse() :
@@ -14204,6 +14775,9 @@ namespace PlayFabComboSdk
 
         struct RemoveFriendRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RemoveFriendRequest,"{96ee3a4c-1d37-5613-8921-3f1e62d72b84}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string FriendPlayFabId;
             AZStd::string PlayFabId;
 
@@ -14251,6 +14825,9 @@ namespace PlayFabComboSdk
 
         struct RemovePlayerTagRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RemovePlayerTagRequest,"{0f7228ed-f7eb-517f-bdae-c45fc73c2d17}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string TagName;
 
@@ -14298,6 +14875,9 @@ namespace PlayFabComboSdk
 
         struct RemovePlayerTagResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RemovePlayerTagResult,"{7618d7e0-2f6a-5017-9ff3-3acbfbf9acb3}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             RemovePlayerTagResult() :
                 PlayFabBaseModel()
@@ -14331,8 +14911,11 @@ namespace PlayFabComboSdk
 
         struct RemoveSharedGroupMembersRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RemoveSharedGroupMembersRequest,"{74ded13c-b6fb-5fc2-902c-e7531383e5b4}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string SharedGroupId;
-            std::list<AZStd::string> PlayFabIds;
+            AZStd::vector<AZStd::string> PlayFabIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             RemoveSharedGroupMembersRequest() :
                 PlayFabBaseModel(),
@@ -14362,7 +14945,7 @@ namespace PlayFabComboSdk
                 writer.String(SharedGroupId.c_str());
                 writer.String("PlayFabIds");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
+                for (auto iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -14387,6 +14970,9 @@ namespace PlayFabComboSdk
 
         struct RemoveSharedGroupMembersResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RemoveSharedGroupMembersResult,"{b4ffe8f9-4337-53bb-96ea-e5c5877d9352}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             RemoveSharedGroupMembersResult() :
                 PlayFabBaseModel()
@@ -14420,6 +15006,9 @@ namespace PlayFabComboSdk
 
         struct ReportPlayerServerRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ReportPlayerServerRequest,"{3f4d010d-949b-5c2c-9a84-513482191e37}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string ReporterId;
             AZStd::string ReporteeId;
             AZStd::string Comment;
@@ -14476,6 +15065,9 @@ namespace PlayFabComboSdk
 
         struct ReportPlayerServerResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::ReportPlayerServerResult,"{a52f8121-389c-5945-a1d5-1c22c85cb436}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             OptionalBool Updated;
             Int32 SubmissionsRemaining;
 
@@ -14525,6 +15117,9 @@ namespace PlayFabComboSdk
 
         struct RevokeAllBansForUserRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RevokeAllBansForUserRequest,"{aba26f65-c9c3-5a7f-9d59-26999d440d27}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
 
             RevokeAllBansForUserRequest() :
@@ -14565,7 +15160,10 @@ namespace PlayFabComboSdk
 
         struct RevokeAllBansForUserResult : public PlayFabBaseModel
         {
-            std::list<BanInfo> BanData;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RevokeAllBansForUserResult,"{e4aa43e4-6c90-543d-9ee9-cf4c1d634d15}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<BanInfo> BanData; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             RevokeAllBansForUserResult() :
                 PlayFabBaseModel(),
@@ -14592,7 +15190,7 @@ namespace PlayFabComboSdk
                 if (!BanData.empty()) {
                     writer.String("BanData");
                     writer.StartArray();
-                    for (std::list<BanInfo>::iterator iter = BanData.begin(); iter != BanData.end(); iter++) {
+                    for (auto iter = BanData.begin(); iter != BanData.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -14616,7 +15214,10 @@ namespace PlayFabComboSdk
 
         struct RevokeBansRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> BanIds;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RevokeBansRequest,"{c7555dcc-7ae4-5cfc-bf5a-2d347b6394f5}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<AZStd::string> BanIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             RevokeBansRequest() :
                 PlayFabBaseModel(),
@@ -14642,7 +15243,7 @@ namespace PlayFabComboSdk
                 writer.StartObject();
                 writer.String("BanIds");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = BanIds.begin(); iter != BanIds.end(); iter++) {
+                for (auto iter = BanIds.begin(); iter != BanIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -14665,7 +15266,10 @@ namespace PlayFabComboSdk
 
         struct RevokeBansResult : public PlayFabBaseModel
         {
-            std::list<BanInfo> BanData;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RevokeBansResult,"{15ace582-5b13-5917-b140-65902fec8915}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<BanInfo> BanData; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             RevokeBansResult() :
                 PlayFabBaseModel(),
@@ -14692,7 +15296,7 @@ namespace PlayFabComboSdk
                 if (!BanData.empty()) {
                     writer.String("BanData");
                     writer.StartArray();
-                    for (std::list<BanInfo>::iterator iter = BanData.begin(); iter != BanData.end(); iter++) {
+                    for (auto iter = BanData.begin(); iter != BanData.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -14716,6 +15320,9 @@ namespace PlayFabComboSdk
 
         struct RevokeInventoryItemRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RevokeInventoryItemRequest,"{5a2648ee-e0e8-5ef3-a340-e3e2d4f80c64}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
             AZStd::string ItemInstanceId;
@@ -14772,6 +15379,9 @@ namespace PlayFabComboSdk
 
         struct RevokeInventoryResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::RevokeInventoryResult,"{90d6f771-67c3-50ed-a4cb-bbe43d6f9290}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             RevokeInventoryResult() :
                 PlayFabBaseModel()
@@ -14805,6 +15415,9 @@ namespace PlayFabComboSdk
 
         struct SendPushNotificationRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SendPushNotificationRequest,"{d254320a-a5d2-5b6b-8001-3fd90981744f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Recipient;
             AZStd::string Message;
             PushNotificationPackage* Package;
@@ -14873,6 +15486,9 @@ namespace PlayFabComboSdk
 
         struct SendPushNotificationResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SendPushNotificationResult,"{c202e556-3e88-5cd8-b146-99a3c93ae9db}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             SendPushNotificationResult() :
                 PlayFabBaseModel()
@@ -14906,9 +15522,12 @@ namespace PlayFabComboSdk
 
         struct SetFriendTagsRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SetFriendTagsRequest,"{8821b502-1605-5243-b76e-f35dd1018019}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string FriendPlayFabId;
-            std::list<AZStd::string> Tags;
+            AZStd::vector<AZStd::string> Tags; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             SetFriendTagsRequest() :
                 PlayFabBaseModel(),
@@ -14942,7 +15561,7 @@ namespace PlayFabComboSdk
                 writer.String(FriendPlayFabId.c_str());
                 writer.String("Tags");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                for (auto iter = Tags.begin(); iter != Tags.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -14969,6 +15588,9 @@ namespace PlayFabComboSdk
 
         struct SetGameServerInstanceDataRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SetGameServerInstanceDataRequest,"{fcc3ffae-3b6c-52b6-af97-edb0ac2015b6}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string LobbyId;
             AZStd::string GameServerData;
 
@@ -15016,6 +15638,9 @@ namespace PlayFabComboSdk
 
         struct SetGameServerInstanceDataResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SetGameServerInstanceDataResult,"{de4af2f6-534a-5d8a-82ad-651451724540}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             SetGameServerInstanceDataResult() :
                 PlayFabBaseModel()
@@ -15049,6 +15674,9 @@ namespace PlayFabComboSdk
 
         struct SetGameServerInstanceStateRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SetGameServerInstanceStateRequest,"{a3fb5907-6230-5044-af5c-8dbdd882d5fb}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string LobbyId;
             GameInstanceState State;
 
@@ -15096,6 +15724,9 @@ namespace PlayFabComboSdk
 
         struct SetGameServerInstanceStateResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SetGameServerInstanceStateResult,"{7a4cc63a-72ee-5c56-a28a-a5def3c670e7}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             SetGameServerInstanceStateResult() :
                 PlayFabBaseModel()
@@ -15129,8 +15760,11 @@ namespace PlayFabComboSdk
 
         struct SetGameServerInstanceTagsRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SetGameServerInstanceTagsRequest,"{214eb834-a465-587f-8cdd-35db1268ca21}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string LobbyId;
-            std::map<AZStd::string, AZStd::string> Tags;
+            AZStd::unordered_map<AZStd::string, AZStd::string> Tags;
 
             SetGameServerInstanceTagsRequest() :
                 PlayFabBaseModel(),
@@ -15160,7 +15794,7 @@ namespace PlayFabComboSdk
                 writer.String(LobbyId.c_str());
                 writer.String("Tags");
                 writer.StartObject();
-                for (std::map<AZStd::string, AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); ++iter) {
+                for (auto iter = Tags.begin(); iter != Tags.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                     writer.String(iter->first.c_str());
                     writer.String(iter->second.c_str());
                 }
@@ -15185,6 +15819,9 @@ namespace PlayFabComboSdk
 
         struct SetGameServerInstanceTagsResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SetGameServerInstanceTagsResult,"{fb07b4b8-4bc5-5ccf-8474-30aafe6f6482}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             SetGameServerInstanceTagsResult() :
                 PlayFabBaseModel()
@@ -15218,6 +15855,9 @@ namespace PlayFabComboSdk
 
         struct SetPlayerSecretRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SetPlayerSecretRequest,"{fc00e3e6-06ca-5f32-8a71-1c84095c3908}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayerSecret;
             AZStd::string PlayFabId;
 
@@ -15265,6 +15905,9 @@ namespace PlayFabComboSdk
 
         struct SetPlayerSecretResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SetPlayerSecretResult,"{30cddea9-91a0-53e9-b861-566adae95b6d}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             SetPlayerSecretResult() :
                 PlayFabBaseModel()
@@ -15298,6 +15941,9 @@ namespace PlayFabComboSdk
 
         struct SetPublisherDataRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SetPublisherDataRequest,"{1fc5fc8a-184a-574b-836d-2c803a3cf43e}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Key;
             AZStd::string Value;
 
@@ -15347,6 +15993,9 @@ namespace PlayFabComboSdk
 
         struct SetPublisherDataResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SetPublisherDataResult,"{00e12ba6-cc9a-5e9d-bffa-2f99e08dcb49}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             SetPublisherDataResult() :
                 PlayFabBaseModel()
@@ -15380,6 +16029,9 @@ namespace PlayFabComboSdk
 
         struct SetTitleDataRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SetTitleDataRequest,"{c893f708-f71f-5bf4-899e-9b24d01da9f1}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string Key;
             AZStd::string Value;
 
@@ -15429,6 +16081,9 @@ namespace PlayFabComboSdk
 
         struct SetTitleDataResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SetTitleDataResult,"{3e87557f-50b3-5b9b-aafb-634a36a1da4d}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             SetTitleDataResult() :
                 PlayFabBaseModel()
@@ -15462,6 +16117,9 @@ namespace PlayFabComboSdk
 
         struct StatisticUpdate : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::StatisticUpdate,"{3ce60591-54ae-585a-9e84-08f891222443}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string StatisticName;
             OptionalUint32 Version;
             Int32 Value;
@@ -15518,6 +16176,9 @@ namespace PlayFabComboSdk
 
         struct SubtractCharacterVirtualCurrencyRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SubtractCharacterVirtualCurrencyRequest,"{5f3a01f0-472c-523c-9cbb-7cd18cdfb24a}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
             AZStd::string VirtualCurrency;
@@ -15579,6 +16240,9 @@ namespace PlayFabComboSdk
 
         struct SubtractUserVirtualCurrencyRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::SubtractUserVirtualCurrencyRequest,"{e683afc1-1bfa-5f59-96e4-2185a6480630}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string VirtualCurrency;
             Int32 Amount;
@@ -15633,6 +16297,9 @@ namespace PlayFabComboSdk
 
         struct UnlockContainerInstanceRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UnlockContainerInstanceRequest,"{edd497d1-60ca-5930-95f0-da000c1ded8c}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
             AZStd::string ContainerItemInstanceId;
@@ -15707,6 +16374,9 @@ namespace PlayFabComboSdk
 
         struct UnlockContainerItemRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UnlockContainerItemRequest,"{c3d97a34-6def-5395-b6d3-4793a2eb12bf}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
             AZStd::string ContainerItemId;
@@ -15772,10 +16442,13 @@ namespace PlayFabComboSdk
 
         struct UnlockContainerItemResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UnlockContainerItemResult,"{e00768c5-816d-52d4-91b3-082fbf4f73a1}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string UnlockedItemInstanceId;
             AZStd::string UnlockedWithItemInstanceId;
-            std::list<ItemInstance> GrantedItems;
-            std::map<AZStd::string, Uint32> VirtualCurrency;
+            AZStd::vector<ItemInstance> GrantedItems; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::unordered_map<AZStd::string, Uint32> VirtualCurrency;
 
             UnlockContainerItemResult() :
                 PlayFabBaseModel(),
@@ -15816,7 +16489,7 @@ namespace PlayFabComboSdk
                 if (!GrantedItems.empty()) {
                     writer.String("GrantedItems");
                     writer.StartArray();
-                    for (std::list<ItemInstance>::iterator iter = GrantedItems.begin(); iter != GrantedItems.end(); iter++) {
+                    for (auto iter = GrantedItems.begin(); iter != GrantedItems.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -15824,7 +16497,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                    for (auto iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -15859,6 +16532,9 @@ namespace PlayFabComboSdk
 
         struct UpdateAvatarUrlRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UpdateAvatarUrlRequest,"{fff440f6-ce07-58f8-9ac9-f324ba2208c3}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string ImageUrl;
 
@@ -15906,6 +16582,9 @@ namespace PlayFabComboSdk
 
         struct UpdateBanRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UpdateBanRequest,"{2c4b1e6e-8d18-5353-99a1-f637b0181734}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string BanId;
             AZStd::string Reason;
             OptionalTime Expires;
@@ -16000,7 +16679,10 @@ namespace PlayFabComboSdk
 
         struct UpdateBansRequest : public PlayFabBaseModel
         {
-            std::list<UpdateBanRequest> Bans;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UpdateBansRequest,"{7e165ded-e9f8-5f46-97fd-aeee924ac62a}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<UpdateBanRequest> Bans; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             UpdateBansRequest() :
                 PlayFabBaseModel(),
@@ -16026,7 +16708,7 @@ namespace PlayFabComboSdk
                 writer.StartObject();
                 writer.String("Bans");
                 writer.StartArray();
-                for (std::list<UpdateBanRequest>::iterator iter = Bans.begin(); iter != Bans.end(); iter++) {
+                for (auto iter = Bans.begin(); iter != Bans.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     iter->writeJSON(writer);
                 }
                 writer.EndArray();
@@ -16049,7 +16731,10 @@ namespace PlayFabComboSdk
 
         struct UpdateBansResult : public PlayFabBaseModel
         {
-            std::list<BanInfo> BanData;
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UpdateBansResult,"{6d85a503-cb1d-5abb-a6e9-a8292afc6159}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
+            AZStd::vector<BanInfo> BanData; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             UpdateBansResult() :
                 PlayFabBaseModel(),
@@ -16076,7 +16761,7 @@ namespace PlayFabComboSdk
                 if (!BanData.empty()) {
                     writer.String("BanData");
                     writer.StartArray();
-                    for (std::list<BanInfo>::iterator iter = BanData.begin(); iter != BanData.end(); iter++) {
+                    for (auto iter = BanData.begin(); iter != BanData.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -16100,10 +16785,13 @@ namespace PlayFabComboSdk
 
         struct UpdateCharacterDataRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UpdateCharacterDataRequest,"{3da59d94-2ce4-5e43-933b-123ce1f2cc23}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
-            std::map<AZStd::string, AZStd::string> Data;
-            std::list<AZStd::string> KeysToRemove;
+            AZStd::unordered_map<AZStd::string, AZStd::string> Data;
+            AZStd::vector<AZStd::string> KeysToRemove; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             Boxed<UserDataPermission> Permission;
 
             UpdateCharacterDataRequest() :
@@ -16143,7 +16831,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -16152,7 +16840,7 @@ namespace PlayFabComboSdk
                 if (!KeysToRemove.empty()) {
                     writer.String("KeysToRemove");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+                    for (auto iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -16192,6 +16880,9 @@ namespace PlayFabComboSdk
 
         struct UpdateCharacterDataResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UpdateCharacterDataResult,"{d9904b2a-0366-541a-8386-bb812a9340f2}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             Uint32 DataVersion;
 
             UpdateCharacterDataResult() :
@@ -16232,9 +16923,12 @@ namespace PlayFabComboSdk
 
         struct UpdateCharacterStatisticsRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UpdateCharacterStatisticsRequest,"{d9e60e9b-a4cc-5e9c-bbdf-8d5fe22adf0c}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
-            std::map<AZStd::string, Int32> CharacterStatistics;
+            AZStd::unordered_map<AZStd::string, Int32> CharacterStatistics;
 
             UpdateCharacterStatisticsRequest() :
                 PlayFabBaseModel(),
@@ -16269,7 +16963,7 @@ namespace PlayFabComboSdk
                 if (!CharacterStatistics.empty()) {
                     writer.String("CharacterStatistics");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
+                    for (auto iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -16297,6 +16991,9 @@ namespace PlayFabComboSdk
 
         struct UpdateCharacterStatisticsResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UpdateCharacterStatisticsResult,"{79e91b41-1fcc-56a3-a81c-41f1934dda84}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             UpdateCharacterStatisticsResult() :
                 PlayFabBaseModel()
@@ -16330,8 +17027,11 @@ namespace PlayFabComboSdk
 
         struct UpdatePlayerStatisticsRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UpdatePlayerStatisticsRequest,"{f66a3666-2d8a-5765-8d13-68e9182718f3}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
-            std::list<StatisticUpdate> Statistics;
+            AZStd::vector<StatisticUpdate> Statistics; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             OptionalBool ForceUpdate;
 
             UpdatePlayerStatisticsRequest() :
@@ -16364,7 +17064,7 @@ namespace PlayFabComboSdk
                 writer.String(PlayFabId.c_str());
                 writer.String("Statistics");
                 writer.StartArray();
-                for (std::list<StatisticUpdate>::iterator iter = Statistics.begin(); iter != Statistics.end(); iter++) {
+                for (auto iter = Statistics.begin(); iter != Statistics.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     iter->writeJSON(writer);
                 }
                 writer.EndArray();
@@ -16395,6 +17095,9 @@ namespace PlayFabComboSdk
 
         struct UpdatePlayerStatisticsResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UpdatePlayerStatisticsResult,"{e7d141ad-e927-5f91-9b42-76dcc0290247}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             UpdatePlayerStatisticsResult() :
                 PlayFabBaseModel()
@@ -16428,9 +17131,12 @@ namespace PlayFabComboSdk
 
         struct UpdateSharedGroupDataRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UpdateSharedGroupDataRequest,"{d3f83677-9440-55cf-ba43-8bb62e95c248}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string SharedGroupId;
-            std::map<AZStd::string, AZStd::string> Data;
-            std::list<AZStd::string> KeysToRemove;
+            AZStd::unordered_map<AZStd::string, AZStd::string> Data;
+            AZStd::vector<AZStd::string> KeysToRemove; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             Boxed<UserDataPermission> Permission;
 
             UpdateSharedGroupDataRequest() :
@@ -16466,7 +17172,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -16475,7 +17181,7 @@ namespace PlayFabComboSdk
                 if (!KeysToRemove.empty()) {
                     writer.String("KeysToRemove");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+                    for (auto iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -16513,6 +17219,9 @@ namespace PlayFabComboSdk
 
         struct UpdateSharedGroupDataResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UpdateSharedGroupDataResult,"{0e3c8dac-7c15-5667-970d-caf9db6c236c}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
 
             UpdateSharedGroupDataResult() :
                 PlayFabBaseModel()
@@ -16546,9 +17255,12 @@ namespace PlayFabComboSdk
 
         struct UpdateUserDataRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UpdateUserDataRequest,"{40042c67-dca3-58c8-bb51-e34eedc0ae97}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
-            std::map<AZStd::string, AZStd::string> Data;
-            std::list<AZStd::string> KeysToRemove;
+            AZStd::unordered_map<AZStd::string, AZStd::string> Data;
+            AZStd::vector<AZStd::string> KeysToRemove; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             Boxed<UserDataPermission> Permission;
 
             UpdateUserDataRequest() :
@@ -16584,7 +17296,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -16593,7 +17305,7 @@ namespace PlayFabComboSdk
                 if (!KeysToRemove.empty()) {
                     writer.String("KeysToRemove");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+                    for (auto iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -16631,6 +17343,9 @@ namespace PlayFabComboSdk
 
         struct UpdateUserDataResult : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UpdateUserDataResult,"{95af679b-b707-5470-9fad-bcbc0e6fde32}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             Uint32 DataVersion;
 
             UpdateUserDataResult() :
@@ -16671,9 +17386,12 @@ namespace PlayFabComboSdk
 
         struct UpdateUserInternalDataRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UpdateUserInternalDataRequest,"{93c7875c-1730-5c9c-830e-50b5e568172f}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
-            std::map<AZStd::string, AZStd::string> Data;
-            std::list<AZStd::string> KeysToRemove;
+            AZStd::unordered_map<AZStd::string, AZStd::string> Data;
+            AZStd::vector<AZStd::string> KeysToRemove; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             UpdateUserInternalDataRequest() :
                 PlayFabBaseModel(),
@@ -16706,7 +17424,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -16715,7 +17433,7 @@ namespace PlayFabComboSdk
                 if (!KeysToRemove.empty()) {
                     writer.String("KeysToRemove");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+                    for (auto iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -16747,11 +17465,14 @@ namespace PlayFabComboSdk
 
         struct UpdateUserInventoryItemDataRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::UpdateUserInventoryItemDataRequest,"{d317ed7b-bdc4-5cdf-ac6f-dad66d376aad}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
             AZStd::string ItemInstanceId;
-            std::map<AZStd::string, AZStd::string> Data;
-            std::list<AZStd::string> KeysToRemove;
+            AZStd::unordered_map<AZStd::string, AZStd::string> Data;
+            AZStd::vector<AZStd::string> KeysToRemove; 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             UpdateUserInventoryItemDataRequest() :
                 PlayFabBaseModel(),
@@ -16794,7 +17515,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -16803,7 +17524,7 @@ namespace PlayFabComboSdk
                 if (!KeysToRemove.empty()) {
                     writer.String("KeysToRemove");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+                    for (auto iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -16839,6 +17560,9 @@ namespace PlayFabComboSdk
 
         struct WriteEventResponse : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::WriteEventResponse,"{1fd3f64a-e9d8-5f22-a062-a1ee022391a1}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string EventId;
 
             WriteEventResponse() :
@@ -16881,11 +17605,14 @@ namespace PlayFabComboSdk
 
         struct WriteServerCharacterEventRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::WriteServerCharacterEventRequest,"{20401a62-ec1b-56a9-bea7-002e13550632}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
             AZStd::string EventName;
             OptionalTime Timestamp;
-            std::map<AZStd::string, MultitypeVar> Body;
+            AZStd::unordered_map<AZStd::string, MultitypeVar> Body;
 
             WriteServerCharacterEventRequest() :
                 PlayFabBaseModel(),
@@ -16930,7 +17657,7 @@ namespace PlayFabComboSdk
                 if (!Body.empty()) {
                     writer.String("Body");
                     writer.StartObject();
-                    for (std::map<AZStd::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
+                    for (auto iter = Body.begin(); iter != Body.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -16962,10 +17689,13 @@ namespace PlayFabComboSdk
 
         struct WriteServerPlayerEventRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::WriteServerPlayerEventRequest,"{4272c5e8-e039-5b2f-a89a-9e9843e5150c}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string PlayFabId;
             AZStd::string EventName;
             OptionalTime Timestamp;
-            std::map<AZStd::string, MultitypeVar> Body;
+            AZStd::unordered_map<AZStd::string, MultitypeVar> Body;
 
             WriteServerPlayerEventRequest() :
                 PlayFabBaseModel(),
@@ -17006,7 +17736,7 @@ namespace PlayFabComboSdk
                 if (!Body.empty()) {
                     writer.String("Body");
                     writer.StartObject();
-                    for (std::map<AZStd::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
+                    for (auto iter = Body.begin(); iter != Body.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -17036,9 +17766,12 @@ namespace PlayFabComboSdk
 
         struct WriteTitleEventRequest : public PlayFabBaseModel
         {
+		    
+			AZ_TYPE_INFO(PlayFabComboSdk::ServerModels::WriteTitleEventRequest,"{300dde8c-e41e-55c6-bed1-8895391b0bdf}"); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+
             AZStd::string EventName;
             OptionalTime Timestamp;
-            std::map<AZStd::string, MultitypeVar> Body;
+            AZStd::unordered_map<AZStd::string, MultitypeVar> Body;
 
             WriteTitleEventRequest() :
                 PlayFabBaseModel(),
@@ -17075,7 +17808,7 @@ namespace PlayFabComboSdk
                 if (!Body.empty()) {
                     writer.String("Body");
                     writer.StartObject();
-                    for (std::map<AZStd::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
+                    for (auto iter = Body.begin(); iter != Body.end(); ++iter) { // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11) - Change std::map to AZStd::AZStd::unordered_map because the latter supports reflection to behavior context in LY1.10+. 
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -17104,3 +17837,29 @@ namespace PlayFabComboSdk
 
     }
 }
+
+
+// #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+namespace AZ
+{
+    // Generate RTTI uuids for each enum type, these are needed to reflect any optional enums which are wrapped with Boxed<T>.
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabComboSdk::Boxed<PlayFabComboSdk::ServerModels::TaskInstanceStatus>, "{81fd1547-2268-58f4-9fdf-ff5c5abb0df8}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabComboSdk::Boxed<PlayFabComboSdk::ServerModels::UserOrigination>, "{6c0cab81-ee2d-5a85-9c66-1ac72159ccc6}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabComboSdk::Boxed<PlayFabComboSdk::ServerModels::Currency>, "{20427e21-acc2-59e4-8201-03ffec997461}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabComboSdk::Boxed<PlayFabComboSdk::ServerModels::TitleActivationStatus>, "{51f35bfa-b08d-507c-9ed8-70c161f12f6d}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabComboSdk::Boxed<PlayFabComboSdk::ServerModels::CloudScriptRevisionOption>, "{8edd0589-ce0f-54e0-b5f1-00d187a1196c}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabComboSdk::Boxed<PlayFabComboSdk::ServerModels::EmailVerificationStatus>, "{62278bea-5ab2-5059-97cb-b06d1858200f}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabComboSdk::Boxed<PlayFabComboSdk::ServerModels::ContinentCode>, "{e9d429a5-5990-588e-9be3-c7319fdc01db}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabComboSdk::Boxed<PlayFabComboSdk::ServerModels::CountryCode>, "{35f96491-9ba9-5065-88f1-240b366d841b}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabComboSdk::Boxed<PlayFabComboSdk::ServerModels::LoginIdentityProvider>, "{d87f6994-1d6c-5a78-a30d-1c91693f8001}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabComboSdk::Boxed<PlayFabComboSdk::ServerModels::PushNotificationPlatform>, "{31046ec0-a0d8-57fa-94e2-2f37915f7e5b}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabComboSdk::Boxed<PlayFabComboSdk::ServerModels::GameInstanceState>, "{1ec0aa5d-bb1d-5fdb-9571-73775255c98a}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabComboSdk::Boxed<PlayFabComboSdk::ServerModels::UserDataPermission>, "{3cf31841-b06f-500c-aad1-f29339a95b8f}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabComboSdk::Boxed<PlayFabComboSdk::ServerModels::ResultTableNodeType>, "{455df437-137a-57f8-85ec-a7a1928cd241}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabComboSdk::Boxed<PlayFabComboSdk::ServerModels::PlayerConnectionState>, "{6154138b-4ab7-5647-b1d1-cd0e2405cb96}");
+    AZ_TYPE_INFO_SPECIALIZE(PlayFabComboSdk::Boxed<PlayFabComboSdk::ServerModels::Region>, "{b1c39dd9-3a60-55fb-8068-e6526977b215}");
+
+
+}
+// #THIRD_KIND_END
+

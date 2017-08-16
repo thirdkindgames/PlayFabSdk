@@ -2,12 +2,24 @@
 #include "PlayFabMatchmakerApi.h"
 #include "PlayFabSettings.h"
 
+#include <AzCore/EBus/EBus.h>
+#include "PlayFabComboSdk/PlayFabCombo_MatchmakerNotificationBus.h" // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS: dbowen (2017/08/11)
+
 using namespace PlayFabComboSdk;
+
+
+// #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+void PlayFabMatchmakerApi::OnError(const PlayFabRequest& request, const PlayFabError& error)
+{
+    EBUS_EVENT_ID(request.mRequestId,PlayFabCombo_MatchmakerNotificationBus, OnError, error);     
+    EBUS_EVENT(PlayFabCombo_MatchmakerGlobalNotificationBus, OnError, error, request.mRequestId);
+}
+// THIRD_KIND_END
 
 // PlayFabMatchmaker Api
 PlayFabMatchmakerApi::PlayFabMatchmakerApi() {}
 
-void PlayFabMatchmakerApi::AuthUser(
+int PlayFabMatchmakerApi::AuthUser(
     MatchmakerModels::AuthUserRequest& request,
     ProcessApiCallback<MatchmakerModels::AuthUserResponse> callback,
     ErrorCallback errorCallback,
@@ -15,8 +27,8 @@ void PlayFabMatchmakerApi::AuthUser(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Matchmaker/AuthUser"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAuthUserResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Matchmaker/AuthUser"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAuthUserResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabMatchmakerApi::OnAuthUserResult(PlayFabRequest* request)
@@ -32,12 +44,16 @@ void PlayFabMatchmakerApi::OnAuthUserResult(PlayFabRequest* request)
             ProcessApiCallback<MatchmakerModels::AuthUserResponse> successCallback = reinterpret_cast<ProcessApiCallback<MatchmakerModels::AuthUserResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_MatchmakerNotificationBus, OnAuthUser, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_MatchmakerGlobalNotificationBus, OnAuthUser, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabMatchmakerApi::PlayerJoined(
+int PlayFabMatchmakerApi::PlayerJoined(
     MatchmakerModels::PlayerJoinedRequest& request,
     ProcessApiCallback<MatchmakerModels::PlayerJoinedResponse> callback,
     ErrorCallback errorCallback,
@@ -45,8 +61,8 @@ void PlayFabMatchmakerApi::PlayerJoined(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Matchmaker/PlayerJoined"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnPlayerJoinedResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Matchmaker/PlayerJoined"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnPlayerJoinedResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabMatchmakerApi::OnPlayerJoinedResult(PlayFabRequest* request)
@@ -62,12 +78,16 @@ void PlayFabMatchmakerApi::OnPlayerJoinedResult(PlayFabRequest* request)
             ProcessApiCallback<MatchmakerModels::PlayerJoinedResponse> successCallback = reinterpret_cast<ProcessApiCallback<MatchmakerModels::PlayerJoinedResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_MatchmakerNotificationBus, OnPlayerJoined, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_MatchmakerGlobalNotificationBus, OnPlayerJoined, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabMatchmakerApi::PlayerLeft(
+int PlayFabMatchmakerApi::PlayerLeft(
     MatchmakerModels::PlayerLeftRequest& request,
     ProcessApiCallback<MatchmakerModels::PlayerLeftResponse> callback,
     ErrorCallback errorCallback,
@@ -75,8 +95,8 @@ void PlayFabMatchmakerApi::PlayerLeft(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Matchmaker/PlayerLeft"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnPlayerLeftResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Matchmaker/PlayerLeft"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnPlayerLeftResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabMatchmakerApi::OnPlayerLeftResult(PlayFabRequest* request)
@@ -92,12 +112,16 @@ void PlayFabMatchmakerApi::OnPlayerLeftResult(PlayFabRequest* request)
             ProcessApiCallback<MatchmakerModels::PlayerLeftResponse> successCallback = reinterpret_cast<ProcessApiCallback<MatchmakerModels::PlayerLeftResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_MatchmakerNotificationBus, OnPlayerLeft, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_MatchmakerGlobalNotificationBus, OnPlayerLeft, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabMatchmakerApi::StartGame(
+int PlayFabMatchmakerApi::StartGame(
     MatchmakerModels::StartGameRequest& request,
     ProcessApiCallback<MatchmakerModels::StartGameResponse> callback,
     ErrorCallback errorCallback,
@@ -105,8 +129,8 @@ void PlayFabMatchmakerApi::StartGame(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Matchmaker/StartGame"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnStartGameResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Matchmaker/StartGame"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnStartGameResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabMatchmakerApi::OnStartGameResult(PlayFabRequest* request)
@@ -122,12 +146,16 @@ void PlayFabMatchmakerApi::OnStartGameResult(PlayFabRequest* request)
             ProcessApiCallback<MatchmakerModels::StartGameResponse> successCallback = reinterpret_cast<ProcessApiCallback<MatchmakerModels::StartGameResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_MatchmakerNotificationBus, OnStartGame, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_MatchmakerGlobalNotificationBus, OnStartGame, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabMatchmakerApi::UserInfo(
+int PlayFabMatchmakerApi::UserInfo(
     MatchmakerModels::UserInfoRequest& request,
     ProcessApiCallback<MatchmakerModels::UserInfoResponse> callback,
     ErrorCallback errorCallback,
@@ -135,8 +163,8 @@ void PlayFabMatchmakerApi::UserInfo(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Matchmaker/UserInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUserInfoResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Matchmaker/UserInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUserInfoResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabMatchmakerApi::OnUserInfoResult(PlayFabRequest* request)
@@ -152,6 +180,10 @@ void PlayFabMatchmakerApi::OnUserInfoResult(PlayFabRequest* request)
             ProcessApiCallback<MatchmakerModels::UserInfoResponse> successCallback = reinterpret_cast<ProcessApiCallback<MatchmakerModels::UserInfoResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabCombo_MatchmakerNotificationBus, OnUserInfo, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabCombo_MatchmakerGlobalNotificationBus, OnUserInfo, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }

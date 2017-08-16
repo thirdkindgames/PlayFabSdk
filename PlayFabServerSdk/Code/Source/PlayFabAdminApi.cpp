@@ -2,12 +2,24 @@
 #include "PlayFabAdminApi.h"
 #include "PlayFabSettings.h"
 
+#include <AzCore/EBus/EBus.h>
+#include "PlayFabServerSdk/PlayFabServer_AdminNotificationBus.h" // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS: dbowen (2017/08/11)
+
 using namespace PlayFabServerSdk;
+
+
+// #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+void PlayFabAdminApi::OnError(const PlayFabRequest& request, const PlayFabError& error)
+{
+    EBUS_EVENT_ID(request.mRequestId,PlayFabServer_AdminNotificationBus, OnError, error);     
+    EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnError, error, request.mRequestId);
+}
+// THIRD_KIND_END
 
 // PlayFabAdmin Api
 PlayFabAdminApi::PlayFabAdminApi() {}
 
-void PlayFabAdminApi::CreatePlayerSharedSecret(
+int PlayFabAdminApi::CreatePlayerSharedSecret(
     AdminModels::CreatePlayerSharedSecretRequest& request,
     ProcessApiCallback<AdminModels::CreatePlayerSharedSecretResult> callback,
     ErrorCallback errorCallback,
@@ -15,8 +27,8 @@ void PlayFabAdminApi::CreatePlayerSharedSecret(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/CreatePlayerSharedSecret"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnCreatePlayerSharedSecretResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/CreatePlayerSharedSecret"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnCreatePlayerSharedSecretResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnCreatePlayerSharedSecretResult(PlayFabRequest* request)
@@ -32,12 +44,16 @@ void PlayFabAdminApi::OnCreatePlayerSharedSecretResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::CreatePlayerSharedSecretResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::CreatePlayerSharedSecretResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnCreatePlayerSharedSecret, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnCreatePlayerSharedSecret, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::DeletePlayerSharedSecret(
+int PlayFabAdminApi::DeletePlayerSharedSecret(
     AdminModels::DeletePlayerSharedSecretRequest& request,
     ProcessApiCallback<AdminModels::DeletePlayerSharedSecretResult> callback,
     ErrorCallback errorCallback,
@@ -45,8 +61,8 @@ void PlayFabAdminApi::DeletePlayerSharedSecret(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/DeletePlayerSharedSecret"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnDeletePlayerSharedSecretResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/DeletePlayerSharedSecret"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnDeletePlayerSharedSecretResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnDeletePlayerSharedSecretResult(PlayFabRequest* request)
@@ -62,12 +78,16 @@ void PlayFabAdminApi::OnDeletePlayerSharedSecretResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::DeletePlayerSharedSecretResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::DeletePlayerSharedSecretResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnDeletePlayerSharedSecret, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnDeletePlayerSharedSecret, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetPlayerSharedSecrets(
+int PlayFabAdminApi::GetPlayerSharedSecrets(
 
     ProcessApiCallback<AdminModels::GetPlayerSharedSecretsResult> callback,
     ErrorCallback errorCallback,
@@ -75,8 +95,8 @@ void PlayFabAdminApi::GetPlayerSharedSecrets(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPlayerSharedSecrets"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, "", customData, callback, errorCallback, OnGetPlayerSharedSecretsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPlayerSharedSecrets"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, "", customData, callback, errorCallback, OnGetPlayerSharedSecretsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetPlayerSharedSecretsResult(PlayFabRequest* request)
@@ -92,12 +112,16 @@ void PlayFabAdminApi::OnGetPlayerSharedSecretsResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetPlayerSharedSecretsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetPlayerSharedSecretsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetPlayerSharedSecrets, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetPlayerSharedSecrets, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetPolicy(
+int PlayFabAdminApi::GetPolicy(
     AdminModels::GetPolicyRequest& request,
     ProcessApiCallback<AdminModels::GetPolicyResponse> callback,
     ErrorCallback errorCallback,
@@ -105,8 +129,8 @@ void PlayFabAdminApi::GetPolicy(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPolicy"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPolicyResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPolicy"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPolicyResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetPolicyResult(PlayFabRequest* request)
@@ -122,12 +146,16 @@ void PlayFabAdminApi::OnGetPolicyResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetPolicyResponse> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetPolicyResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetPolicy, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetPolicy, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::SetPlayerSecret(
+int PlayFabAdminApi::SetPlayerSecret(
     AdminModels::SetPlayerSecretRequest& request,
     ProcessApiCallback<AdminModels::SetPlayerSecretResult> callback,
     ErrorCallback errorCallback,
@@ -135,8 +163,8 @@ void PlayFabAdminApi::SetPlayerSecret(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SetPlayerSecret"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetPlayerSecretResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SetPlayerSecret"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetPlayerSecretResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnSetPlayerSecretResult(PlayFabRequest* request)
@@ -152,12 +180,16 @@ void PlayFabAdminApi::OnSetPlayerSecretResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::SetPlayerSecretResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::SetPlayerSecretResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnSetPlayerSecret, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnSetPlayerSecret, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::UpdatePlayerSharedSecret(
+int PlayFabAdminApi::UpdatePlayerSharedSecret(
     AdminModels::UpdatePlayerSharedSecretRequest& request,
     ProcessApiCallback<AdminModels::UpdatePlayerSharedSecretResult> callback,
     ErrorCallback errorCallback,
@@ -165,8 +197,8 @@ void PlayFabAdminApi::UpdatePlayerSharedSecret(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdatePlayerSharedSecret"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdatePlayerSharedSecretResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdatePlayerSharedSecret"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdatePlayerSharedSecretResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnUpdatePlayerSharedSecretResult(PlayFabRequest* request)
@@ -182,12 +214,16 @@ void PlayFabAdminApi::OnUpdatePlayerSharedSecretResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::UpdatePlayerSharedSecretResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdatePlayerSharedSecretResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnUpdatePlayerSharedSecret, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnUpdatePlayerSharedSecret, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::UpdatePolicy(
+int PlayFabAdminApi::UpdatePolicy(
     AdminModels::UpdatePolicyRequest& request,
     ProcessApiCallback<AdminModels::UpdatePolicyResponse> callback,
     ErrorCallback errorCallback,
@@ -195,8 +231,8 @@ void PlayFabAdminApi::UpdatePolicy(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdatePolicy"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdatePolicyResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdatePolicy"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdatePolicyResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnUpdatePolicyResult(PlayFabRequest* request)
@@ -212,12 +248,16 @@ void PlayFabAdminApi::OnUpdatePolicyResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::UpdatePolicyResponse> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdatePolicyResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnUpdatePolicy, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnUpdatePolicy, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::BanUsers(
+int PlayFabAdminApi::BanUsers(
     AdminModels::BanUsersRequest& request,
     ProcessApiCallback<AdminModels::BanUsersResult> callback,
     ErrorCallback errorCallback,
@@ -225,8 +265,8 @@ void PlayFabAdminApi::BanUsers(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/BanUsers"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnBanUsersResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/BanUsers"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnBanUsersResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnBanUsersResult(PlayFabRequest* request)
@@ -242,12 +282,16 @@ void PlayFabAdminApi::OnBanUsersResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::BanUsersResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::BanUsersResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnBanUsers, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnBanUsers, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::DeletePlayer(
+int PlayFabAdminApi::DeletePlayer(
     AdminModels::DeletePlayerRequest& request,
     ProcessApiCallback<AdminModels::DeletePlayerResult> callback,
     ErrorCallback errorCallback,
@@ -255,8 +299,8 @@ void PlayFabAdminApi::DeletePlayer(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/DeletePlayer"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnDeletePlayerResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/DeletePlayer"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnDeletePlayerResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnDeletePlayerResult(PlayFabRequest* request)
@@ -272,12 +316,16 @@ void PlayFabAdminApi::OnDeletePlayerResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::DeletePlayerResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::DeletePlayerResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnDeletePlayer, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnDeletePlayer, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetUserAccountInfo(
+int PlayFabAdminApi::GetUserAccountInfo(
     AdminModels::LookupUserAccountInfoRequest& request,
     ProcessApiCallback<AdminModels::LookupUserAccountInfoResult> callback,
     ErrorCallback errorCallback,
@@ -285,8 +333,8 @@ void PlayFabAdminApi::GetUserAccountInfo(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserAccountInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserAccountInfoResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserAccountInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserAccountInfoResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetUserAccountInfoResult(PlayFabRequest* request)
@@ -302,12 +350,16 @@ void PlayFabAdminApi::OnGetUserAccountInfoResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::LookupUserAccountInfoResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::LookupUserAccountInfoResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetUserAccountInfo, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetUserAccountInfo, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetUserBans(
+int PlayFabAdminApi::GetUserBans(
     AdminModels::GetUserBansRequest& request,
     ProcessApiCallback<AdminModels::GetUserBansResult> callback,
     ErrorCallback errorCallback,
@@ -315,8 +367,8 @@ void PlayFabAdminApi::GetUserBans(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserBans"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserBansResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserBans"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserBansResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetUserBansResult(PlayFabRequest* request)
@@ -332,12 +384,16 @@ void PlayFabAdminApi::OnGetUserBansResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetUserBansResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetUserBansResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetUserBans, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetUserBans, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::ResetUsers(
+int PlayFabAdminApi::ResetUsers(
     AdminModels::ResetUsersRequest& request,
     ProcessApiCallback<AdminModels::BlankResult> callback,
     ErrorCallback errorCallback,
@@ -345,8 +401,8 @@ void PlayFabAdminApi::ResetUsers(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ResetUsers"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnResetUsersResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ResetUsers"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnResetUsersResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnResetUsersResult(PlayFabRequest* request)
@@ -362,12 +418,16 @@ void PlayFabAdminApi::OnResetUsersResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::BlankResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::BlankResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnResetUsers, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnResetUsers, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::RevokeAllBansForUser(
+int PlayFabAdminApi::RevokeAllBansForUser(
     AdminModels::RevokeAllBansForUserRequest& request,
     ProcessApiCallback<AdminModels::RevokeAllBansForUserResult> callback,
     ErrorCallback errorCallback,
@@ -375,8 +435,8 @@ void PlayFabAdminApi::RevokeAllBansForUser(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RevokeAllBansForUser"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRevokeAllBansForUserResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RevokeAllBansForUser"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRevokeAllBansForUserResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnRevokeAllBansForUserResult(PlayFabRequest* request)
@@ -392,12 +452,16 @@ void PlayFabAdminApi::OnRevokeAllBansForUserResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::RevokeAllBansForUserResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::RevokeAllBansForUserResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnRevokeAllBansForUser, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnRevokeAllBansForUser, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::RevokeBans(
+int PlayFabAdminApi::RevokeBans(
     AdminModels::RevokeBansRequest& request,
     ProcessApiCallback<AdminModels::RevokeBansResult> callback,
     ErrorCallback errorCallback,
@@ -405,8 +469,8 @@ void PlayFabAdminApi::RevokeBans(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RevokeBans"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRevokeBansResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RevokeBans"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRevokeBansResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnRevokeBansResult(PlayFabRequest* request)
@@ -422,12 +486,16 @@ void PlayFabAdminApi::OnRevokeBansResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::RevokeBansResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::RevokeBansResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnRevokeBans, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnRevokeBans, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::SendAccountRecoveryEmail(
+int PlayFabAdminApi::SendAccountRecoveryEmail(
     AdminModels::SendAccountRecoveryEmailRequest& request,
     ProcessApiCallback<AdminModels::SendAccountRecoveryEmailResult> callback,
     ErrorCallback errorCallback,
@@ -435,8 +503,8 @@ void PlayFabAdminApi::SendAccountRecoveryEmail(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SendAccountRecoveryEmail"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSendAccountRecoveryEmailResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SendAccountRecoveryEmail"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSendAccountRecoveryEmailResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnSendAccountRecoveryEmailResult(PlayFabRequest* request)
@@ -452,12 +520,16 @@ void PlayFabAdminApi::OnSendAccountRecoveryEmailResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::SendAccountRecoveryEmailResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::SendAccountRecoveryEmailResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnSendAccountRecoveryEmail, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnSendAccountRecoveryEmail, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::UpdateBans(
+int PlayFabAdminApi::UpdateBans(
     AdminModels::UpdateBansRequest& request,
     ProcessApiCallback<AdminModels::UpdateBansResult> callback,
     ErrorCallback errorCallback,
@@ -465,8 +537,8 @@ void PlayFabAdminApi::UpdateBans(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateBans"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateBansResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateBans"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateBansResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnUpdateBansResult(PlayFabRequest* request)
@@ -482,12 +554,16 @@ void PlayFabAdminApi::OnUpdateBansResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::UpdateBansResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdateBansResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnUpdateBans, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnUpdateBans, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::UpdateUserTitleDisplayName(
+int PlayFabAdminApi::UpdateUserTitleDisplayName(
     AdminModels::UpdateUserTitleDisplayNameRequest& request,
     ProcessApiCallback<AdminModels::UpdateUserTitleDisplayNameResult> callback,
     ErrorCallback errorCallback,
@@ -495,8 +571,8 @@ void PlayFabAdminApi::UpdateUserTitleDisplayName(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateUserTitleDisplayName"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserTitleDisplayNameResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateUserTitleDisplayName"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserTitleDisplayNameResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnUpdateUserTitleDisplayNameResult(PlayFabRequest* request)
@@ -512,12 +588,16 @@ void PlayFabAdminApi::OnUpdateUserTitleDisplayNameResult(PlayFabRequest* request
             ProcessApiCallback<AdminModels::UpdateUserTitleDisplayNameResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdateUserTitleDisplayNameResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnUpdateUserTitleDisplayName, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnUpdateUserTitleDisplayName, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::CreatePlayerStatisticDefinition(
+int PlayFabAdminApi::CreatePlayerStatisticDefinition(
     AdminModels::CreatePlayerStatisticDefinitionRequest& request,
     ProcessApiCallback<AdminModels::CreatePlayerStatisticDefinitionResult> callback,
     ErrorCallback errorCallback,
@@ -525,8 +605,8 @@ void PlayFabAdminApi::CreatePlayerStatisticDefinition(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/CreatePlayerStatisticDefinition"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnCreatePlayerStatisticDefinitionResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/CreatePlayerStatisticDefinition"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnCreatePlayerStatisticDefinitionResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnCreatePlayerStatisticDefinitionResult(PlayFabRequest* request)
@@ -542,12 +622,16 @@ void PlayFabAdminApi::OnCreatePlayerStatisticDefinitionResult(PlayFabRequest* re
             ProcessApiCallback<AdminModels::CreatePlayerStatisticDefinitionResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::CreatePlayerStatisticDefinitionResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnCreatePlayerStatisticDefinition, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnCreatePlayerStatisticDefinition, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::DeleteUsers(
+int PlayFabAdminApi::DeleteUsers(
     AdminModels::DeleteUsersRequest& request,
     ProcessApiCallback<AdminModels::DeleteUsersResult> callback,
     ErrorCallback errorCallback,
@@ -555,8 +639,8 @@ void PlayFabAdminApi::DeleteUsers(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/DeleteUsers"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnDeleteUsersResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/DeleteUsers"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnDeleteUsersResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnDeleteUsersResult(PlayFabRequest* request)
@@ -572,12 +656,16 @@ void PlayFabAdminApi::OnDeleteUsersResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::DeleteUsersResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::DeleteUsersResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnDeleteUsers, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnDeleteUsers, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetDataReport(
+int PlayFabAdminApi::GetDataReport(
     AdminModels::GetDataReportRequest& request,
     ProcessApiCallback<AdminModels::GetDataReportResult> callback,
     ErrorCallback errorCallback,
@@ -585,8 +673,8 @@ void PlayFabAdminApi::GetDataReport(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetDataReport"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetDataReportResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetDataReport"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetDataReportResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetDataReportResult(PlayFabRequest* request)
@@ -602,12 +690,16 @@ void PlayFabAdminApi::OnGetDataReportResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetDataReportResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetDataReportResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetDataReport, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetDataReport, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetPlayerStatisticDefinitions(
+int PlayFabAdminApi::GetPlayerStatisticDefinitions(
 
     ProcessApiCallback<AdminModels::GetPlayerStatisticDefinitionsResult> callback,
     ErrorCallback errorCallback,
@@ -615,8 +707,8 @@ void PlayFabAdminApi::GetPlayerStatisticDefinitions(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPlayerStatisticDefinitions"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, "", customData, callback, errorCallback, OnGetPlayerStatisticDefinitionsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPlayerStatisticDefinitions"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, "", customData, callback, errorCallback, OnGetPlayerStatisticDefinitionsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetPlayerStatisticDefinitionsResult(PlayFabRequest* request)
@@ -632,12 +724,16 @@ void PlayFabAdminApi::OnGetPlayerStatisticDefinitionsResult(PlayFabRequest* requ
             ProcessApiCallback<AdminModels::GetPlayerStatisticDefinitionsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetPlayerStatisticDefinitionsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetPlayerStatisticDefinitions, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetPlayerStatisticDefinitions, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetPlayerStatisticVersions(
+int PlayFabAdminApi::GetPlayerStatisticVersions(
     AdminModels::GetPlayerStatisticVersionsRequest& request,
     ProcessApiCallback<AdminModels::GetPlayerStatisticVersionsResult> callback,
     ErrorCallback errorCallback,
@@ -645,8 +741,8 @@ void PlayFabAdminApi::GetPlayerStatisticVersions(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPlayerStatisticVersions"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerStatisticVersionsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPlayerStatisticVersions"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerStatisticVersionsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetPlayerStatisticVersionsResult(PlayFabRequest* request)
@@ -662,12 +758,16 @@ void PlayFabAdminApi::OnGetPlayerStatisticVersionsResult(PlayFabRequest* request
             ProcessApiCallback<AdminModels::GetPlayerStatisticVersionsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetPlayerStatisticVersionsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetPlayerStatisticVersions, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetPlayerStatisticVersions, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetUserData(
+int PlayFabAdminApi::GetUserData(
     AdminModels::GetUserDataRequest& request,
     ProcessApiCallback<AdminModels::GetUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -675,8 +775,8 @@ void PlayFabAdminApi::GetUserData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetUserDataResult(PlayFabRequest* request)
@@ -692,12 +792,16 @@ void PlayFabAdminApi::OnGetUserDataResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetUserData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetUserData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetUserInternalData(
+int PlayFabAdminApi::GetUserInternalData(
     AdminModels::GetUserDataRequest& request,
     ProcessApiCallback<AdminModels::GetUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -705,8 +809,8 @@ void PlayFabAdminApi::GetUserInternalData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserInternalData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserInternalDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserInternalData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserInternalDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetUserInternalDataResult(PlayFabRequest* request)
@@ -722,12 +826,16 @@ void PlayFabAdminApi::OnGetUserInternalDataResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetUserInternalData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetUserInternalData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetUserPublisherData(
+int PlayFabAdminApi::GetUserPublisherData(
     AdminModels::GetUserDataRequest& request,
     ProcessApiCallback<AdminModels::GetUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -735,8 +843,8 @@ void PlayFabAdminApi::GetUserPublisherData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserPublisherDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserPublisherDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetUserPublisherDataResult(PlayFabRequest* request)
@@ -752,12 +860,16 @@ void PlayFabAdminApi::OnGetUserPublisherDataResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetUserPublisherData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetUserPublisherData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetUserPublisherInternalData(
+int PlayFabAdminApi::GetUserPublisherInternalData(
     AdminModels::GetUserDataRequest& request,
     ProcessApiCallback<AdminModels::GetUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -765,8 +877,8 @@ void PlayFabAdminApi::GetUserPublisherInternalData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserPublisherInternalData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserPublisherInternalDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserPublisherInternalData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserPublisherInternalDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetUserPublisherInternalDataResult(PlayFabRequest* request)
@@ -782,12 +894,16 @@ void PlayFabAdminApi::OnGetUserPublisherInternalDataResult(PlayFabRequest* reque
             ProcessApiCallback<AdminModels::GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetUserPublisherInternalData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetUserPublisherInternalData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetUserPublisherReadOnlyData(
+int PlayFabAdminApi::GetUserPublisherReadOnlyData(
     AdminModels::GetUserDataRequest& request,
     ProcessApiCallback<AdminModels::GetUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -795,8 +911,8 @@ void PlayFabAdminApi::GetUserPublisherReadOnlyData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserPublisherReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserPublisherReadOnlyDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserPublisherReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserPublisherReadOnlyDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetUserPublisherReadOnlyDataResult(PlayFabRequest* request)
@@ -812,12 +928,16 @@ void PlayFabAdminApi::OnGetUserPublisherReadOnlyDataResult(PlayFabRequest* reque
             ProcessApiCallback<AdminModels::GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetUserPublisherReadOnlyData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetUserPublisherReadOnlyData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetUserReadOnlyData(
+int PlayFabAdminApi::GetUserReadOnlyData(
     AdminModels::GetUserDataRequest& request,
     ProcessApiCallback<AdminModels::GetUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -825,8 +945,8 @@ void PlayFabAdminApi::GetUserReadOnlyData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserReadOnlyDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserReadOnlyDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetUserReadOnlyDataResult(PlayFabRequest* request)
@@ -842,12 +962,16 @@ void PlayFabAdminApi::OnGetUserReadOnlyDataResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetUserReadOnlyData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetUserReadOnlyData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::IncrementPlayerStatisticVersion(
+int PlayFabAdminApi::IncrementPlayerStatisticVersion(
     AdminModels::IncrementPlayerStatisticVersionRequest& request,
     ProcessApiCallback<AdminModels::IncrementPlayerStatisticVersionResult> callback,
     ErrorCallback errorCallback,
@@ -855,8 +979,8 @@ void PlayFabAdminApi::IncrementPlayerStatisticVersion(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/IncrementPlayerStatisticVersion"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnIncrementPlayerStatisticVersionResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/IncrementPlayerStatisticVersion"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnIncrementPlayerStatisticVersionResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnIncrementPlayerStatisticVersionResult(PlayFabRequest* request)
@@ -872,12 +996,16 @@ void PlayFabAdminApi::OnIncrementPlayerStatisticVersionResult(PlayFabRequest* re
             ProcessApiCallback<AdminModels::IncrementPlayerStatisticVersionResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::IncrementPlayerStatisticVersionResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnIncrementPlayerStatisticVersion, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnIncrementPlayerStatisticVersion, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::RefundPurchase(
+int PlayFabAdminApi::RefundPurchase(
     AdminModels::RefundPurchaseRequest& request,
     ProcessApiCallback<AdminModels::RefundPurchaseResponse> callback,
     ErrorCallback errorCallback,
@@ -885,8 +1013,8 @@ void PlayFabAdminApi::RefundPurchase(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RefundPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRefundPurchaseResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RefundPurchase"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRefundPurchaseResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnRefundPurchaseResult(PlayFabRequest* request)
@@ -902,12 +1030,16 @@ void PlayFabAdminApi::OnRefundPurchaseResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::RefundPurchaseResponse> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::RefundPurchaseResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnRefundPurchase, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnRefundPurchase, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::ResetUserStatistics(
+int PlayFabAdminApi::ResetUserStatistics(
     AdminModels::ResetUserStatisticsRequest& request,
     ProcessApiCallback<AdminModels::ResetUserStatisticsResult> callback,
     ErrorCallback errorCallback,
@@ -915,8 +1047,8 @@ void PlayFabAdminApi::ResetUserStatistics(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ResetUserStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnResetUserStatisticsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ResetUserStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnResetUserStatisticsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnResetUserStatisticsResult(PlayFabRequest* request)
@@ -932,12 +1064,16 @@ void PlayFabAdminApi::OnResetUserStatisticsResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::ResetUserStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::ResetUserStatisticsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnResetUserStatistics, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnResetUserStatistics, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::ResolvePurchaseDispute(
+int PlayFabAdminApi::ResolvePurchaseDispute(
     AdminModels::ResolvePurchaseDisputeRequest& request,
     ProcessApiCallback<AdminModels::ResolvePurchaseDisputeResponse> callback,
     ErrorCallback errorCallback,
@@ -945,8 +1081,8 @@ void PlayFabAdminApi::ResolvePurchaseDispute(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ResolvePurchaseDispute"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnResolvePurchaseDisputeResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ResolvePurchaseDispute"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnResolvePurchaseDisputeResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnResolvePurchaseDisputeResult(PlayFabRequest* request)
@@ -962,12 +1098,16 @@ void PlayFabAdminApi::OnResolvePurchaseDisputeResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::ResolvePurchaseDisputeResponse> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::ResolvePurchaseDisputeResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnResolvePurchaseDispute, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnResolvePurchaseDispute, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::UpdatePlayerStatisticDefinition(
+int PlayFabAdminApi::UpdatePlayerStatisticDefinition(
     AdminModels::UpdatePlayerStatisticDefinitionRequest& request,
     ProcessApiCallback<AdminModels::UpdatePlayerStatisticDefinitionResult> callback,
     ErrorCallback errorCallback,
@@ -975,8 +1115,8 @@ void PlayFabAdminApi::UpdatePlayerStatisticDefinition(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdatePlayerStatisticDefinition"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdatePlayerStatisticDefinitionResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdatePlayerStatisticDefinition"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdatePlayerStatisticDefinitionResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnUpdatePlayerStatisticDefinitionResult(PlayFabRequest* request)
@@ -992,12 +1132,16 @@ void PlayFabAdminApi::OnUpdatePlayerStatisticDefinitionResult(PlayFabRequest* re
             ProcessApiCallback<AdminModels::UpdatePlayerStatisticDefinitionResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdatePlayerStatisticDefinitionResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnUpdatePlayerStatisticDefinition, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnUpdatePlayerStatisticDefinition, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::UpdateUserData(
+int PlayFabAdminApi::UpdateUserData(
     AdminModels::UpdateUserDataRequest& request,
     ProcessApiCallback<AdminModels::UpdateUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -1005,8 +1149,8 @@ void PlayFabAdminApi::UpdateUserData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateUserData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateUserData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnUpdateUserDataResult(PlayFabRequest* request)
@@ -1022,12 +1166,16 @@ void PlayFabAdminApi::OnUpdateUserDataResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::UpdateUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdateUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnUpdateUserData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnUpdateUserData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::UpdateUserInternalData(
+int PlayFabAdminApi::UpdateUserInternalData(
     AdminModels::UpdateUserInternalDataRequest& request,
     ProcessApiCallback<AdminModels::UpdateUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -1035,8 +1183,8 @@ void PlayFabAdminApi::UpdateUserInternalData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateUserInternalData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserInternalDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateUserInternalData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserInternalDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnUpdateUserInternalDataResult(PlayFabRequest* request)
@@ -1052,12 +1200,16 @@ void PlayFabAdminApi::OnUpdateUserInternalDataResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::UpdateUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdateUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnUpdateUserInternalData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnUpdateUserInternalData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::UpdateUserPublisherData(
+int PlayFabAdminApi::UpdateUserPublisherData(
     AdminModels::UpdateUserDataRequest& request,
     ProcessApiCallback<AdminModels::UpdateUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -1065,8 +1217,8 @@ void PlayFabAdminApi::UpdateUserPublisherData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateUserPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserPublisherDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateUserPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserPublisherDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnUpdateUserPublisherDataResult(PlayFabRequest* request)
@@ -1082,12 +1234,16 @@ void PlayFabAdminApi::OnUpdateUserPublisherDataResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::UpdateUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdateUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnUpdateUserPublisherData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnUpdateUserPublisherData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::UpdateUserPublisherInternalData(
+int PlayFabAdminApi::UpdateUserPublisherInternalData(
     AdminModels::UpdateUserInternalDataRequest& request,
     ProcessApiCallback<AdminModels::UpdateUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -1095,8 +1251,8 @@ void PlayFabAdminApi::UpdateUserPublisherInternalData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateUserPublisherInternalData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserPublisherInternalDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateUserPublisherInternalData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserPublisherInternalDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnUpdateUserPublisherInternalDataResult(PlayFabRequest* request)
@@ -1112,12 +1268,16 @@ void PlayFabAdminApi::OnUpdateUserPublisherInternalDataResult(PlayFabRequest* re
             ProcessApiCallback<AdminModels::UpdateUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdateUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnUpdateUserPublisherInternalData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnUpdateUserPublisherInternalData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::UpdateUserPublisherReadOnlyData(
+int PlayFabAdminApi::UpdateUserPublisherReadOnlyData(
     AdminModels::UpdateUserDataRequest& request,
     ProcessApiCallback<AdminModels::UpdateUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -1125,8 +1285,8 @@ void PlayFabAdminApi::UpdateUserPublisherReadOnlyData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateUserPublisherReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserPublisherReadOnlyDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateUserPublisherReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserPublisherReadOnlyDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnUpdateUserPublisherReadOnlyDataResult(PlayFabRequest* request)
@@ -1142,12 +1302,16 @@ void PlayFabAdminApi::OnUpdateUserPublisherReadOnlyDataResult(PlayFabRequest* re
             ProcessApiCallback<AdminModels::UpdateUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdateUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnUpdateUserPublisherReadOnlyData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnUpdateUserPublisherReadOnlyData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::UpdateUserReadOnlyData(
+int PlayFabAdminApi::UpdateUserReadOnlyData(
     AdminModels::UpdateUserDataRequest& request,
     ProcessApiCallback<AdminModels::UpdateUserDataResult> callback,
     ErrorCallback errorCallback,
@@ -1155,8 +1319,8 @@ void PlayFabAdminApi::UpdateUserReadOnlyData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateUserReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserReadOnlyDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateUserReadOnlyData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserReadOnlyDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnUpdateUserReadOnlyDataResult(PlayFabRequest* request)
@@ -1172,12 +1336,16 @@ void PlayFabAdminApi::OnUpdateUserReadOnlyDataResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::UpdateUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdateUserDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnUpdateUserReadOnlyData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnUpdateUserReadOnlyData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::AddNews(
+int PlayFabAdminApi::AddNews(
     AdminModels::AddNewsRequest& request,
     ProcessApiCallback<AdminModels::AddNewsResult> callback,
     ErrorCallback errorCallback,
@@ -1185,8 +1353,8 @@ void PlayFabAdminApi::AddNews(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/AddNews"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAddNewsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/AddNews"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAddNewsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnAddNewsResult(PlayFabRequest* request)
@@ -1202,12 +1370,16 @@ void PlayFabAdminApi::OnAddNewsResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::AddNewsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::AddNewsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnAddNews, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnAddNews, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::AddVirtualCurrencyTypes(
+int PlayFabAdminApi::AddVirtualCurrencyTypes(
     AdminModels::AddVirtualCurrencyTypesRequest& request,
     ProcessApiCallback<AdminModels::BlankResult> callback,
     ErrorCallback errorCallback,
@@ -1215,8 +1387,8 @@ void PlayFabAdminApi::AddVirtualCurrencyTypes(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/AddVirtualCurrencyTypes"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAddVirtualCurrencyTypesResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/AddVirtualCurrencyTypes"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAddVirtualCurrencyTypesResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnAddVirtualCurrencyTypesResult(PlayFabRequest* request)
@@ -1232,12 +1404,16 @@ void PlayFabAdminApi::OnAddVirtualCurrencyTypesResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::BlankResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::BlankResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnAddVirtualCurrencyTypes, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnAddVirtualCurrencyTypes, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::DeleteStore(
+int PlayFabAdminApi::DeleteStore(
     AdminModels::DeleteStoreRequest& request,
     ProcessApiCallback<AdminModels::DeleteStoreResult> callback,
     ErrorCallback errorCallback,
@@ -1245,8 +1421,8 @@ void PlayFabAdminApi::DeleteStore(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/DeleteStore"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnDeleteStoreResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/DeleteStore"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnDeleteStoreResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnDeleteStoreResult(PlayFabRequest* request)
@@ -1262,12 +1438,16 @@ void PlayFabAdminApi::OnDeleteStoreResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::DeleteStoreResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::DeleteStoreResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnDeleteStore, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnDeleteStore, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetCatalogItems(
+int PlayFabAdminApi::GetCatalogItems(
     AdminModels::GetCatalogItemsRequest& request,
     ProcessApiCallback<AdminModels::GetCatalogItemsResult> callback,
     ErrorCallback errorCallback,
@@ -1275,8 +1455,8 @@ void PlayFabAdminApi::GetCatalogItems(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetCatalogItems"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetCatalogItemsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetCatalogItems"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetCatalogItemsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetCatalogItemsResult(PlayFabRequest* request)
@@ -1292,12 +1472,16 @@ void PlayFabAdminApi::OnGetCatalogItemsResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetCatalogItemsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetCatalogItemsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetCatalogItems, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetCatalogItems, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetPublisherData(
+int PlayFabAdminApi::GetPublisherData(
     AdminModels::GetPublisherDataRequest& request,
     ProcessApiCallback<AdminModels::GetPublisherDataResult> callback,
     ErrorCallback errorCallback,
@@ -1305,8 +1489,8 @@ void PlayFabAdminApi::GetPublisherData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPublisherDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPublisherDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetPublisherDataResult(PlayFabRequest* request)
@@ -1322,12 +1506,16 @@ void PlayFabAdminApi::OnGetPublisherDataResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetPublisherDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetPublisherDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetPublisherData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetPublisherData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetRandomResultTables(
+int PlayFabAdminApi::GetRandomResultTables(
     AdminModels::GetRandomResultTablesRequest& request,
     ProcessApiCallback<AdminModels::GetRandomResultTablesResult> callback,
     ErrorCallback errorCallback,
@@ -1335,8 +1523,8 @@ void PlayFabAdminApi::GetRandomResultTables(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetRandomResultTables"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetRandomResultTablesResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetRandomResultTables"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetRandomResultTablesResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetRandomResultTablesResult(PlayFabRequest* request)
@@ -1352,12 +1540,16 @@ void PlayFabAdminApi::OnGetRandomResultTablesResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetRandomResultTablesResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetRandomResultTablesResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetRandomResultTables, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetRandomResultTables, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetStoreItems(
+int PlayFabAdminApi::GetStoreItems(
     AdminModels::GetStoreItemsRequest& request,
     ProcessApiCallback<AdminModels::GetStoreItemsResult> callback,
     ErrorCallback errorCallback,
@@ -1365,8 +1557,8 @@ void PlayFabAdminApi::GetStoreItems(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetStoreItems"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetStoreItemsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetStoreItems"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetStoreItemsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetStoreItemsResult(PlayFabRequest* request)
@@ -1382,12 +1574,16 @@ void PlayFabAdminApi::OnGetStoreItemsResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetStoreItemsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetStoreItemsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetStoreItems, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetStoreItems, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetTitleData(
+int PlayFabAdminApi::GetTitleData(
     AdminModels::GetTitleDataRequest& request,
     ProcessApiCallback<AdminModels::GetTitleDataResult> callback,
     ErrorCallback errorCallback,
@@ -1395,8 +1591,8 @@ void PlayFabAdminApi::GetTitleData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetTitleData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetTitleDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetTitleData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetTitleDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetTitleDataResult(PlayFabRequest* request)
@@ -1412,12 +1608,16 @@ void PlayFabAdminApi::OnGetTitleDataResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetTitleDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetTitleDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetTitleData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetTitleData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetTitleInternalData(
+int PlayFabAdminApi::GetTitleInternalData(
     AdminModels::GetTitleDataRequest& request,
     ProcessApiCallback<AdminModels::GetTitleDataResult> callback,
     ErrorCallback errorCallback,
@@ -1425,8 +1625,8 @@ void PlayFabAdminApi::GetTitleInternalData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetTitleInternalData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetTitleInternalDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetTitleInternalData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetTitleInternalDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetTitleInternalDataResult(PlayFabRequest* request)
@@ -1442,12 +1642,16 @@ void PlayFabAdminApi::OnGetTitleInternalDataResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetTitleDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetTitleDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetTitleInternalData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetTitleInternalData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::ListVirtualCurrencyTypes(
+int PlayFabAdminApi::ListVirtualCurrencyTypes(
 
     ProcessApiCallback<AdminModels::ListVirtualCurrencyTypesResult> callback,
     ErrorCallback errorCallback,
@@ -1455,8 +1659,8 @@ void PlayFabAdminApi::ListVirtualCurrencyTypes(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ListVirtualCurrencyTypes"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, "", customData, callback, errorCallback, OnListVirtualCurrencyTypesResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ListVirtualCurrencyTypes"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, "", customData, callback, errorCallback, OnListVirtualCurrencyTypesResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnListVirtualCurrencyTypesResult(PlayFabRequest* request)
@@ -1472,12 +1676,16 @@ void PlayFabAdminApi::OnListVirtualCurrencyTypesResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::ListVirtualCurrencyTypesResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::ListVirtualCurrencyTypesResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnListVirtualCurrencyTypes, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnListVirtualCurrencyTypes, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::RemoveVirtualCurrencyTypes(
+int PlayFabAdminApi::RemoveVirtualCurrencyTypes(
     AdminModels::RemoveVirtualCurrencyTypesRequest& request,
     ProcessApiCallback<AdminModels::BlankResult> callback,
     ErrorCallback errorCallback,
@@ -1485,8 +1693,8 @@ void PlayFabAdminApi::RemoveVirtualCurrencyTypes(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RemoveVirtualCurrencyTypes"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRemoveVirtualCurrencyTypesResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RemoveVirtualCurrencyTypes"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRemoveVirtualCurrencyTypesResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnRemoveVirtualCurrencyTypesResult(PlayFabRequest* request)
@@ -1502,12 +1710,16 @@ void PlayFabAdminApi::OnRemoveVirtualCurrencyTypesResult(PlayFabRequest* request
             ProcessApiCallback<AdminModels::BlankResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::BlankResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnRemoveVirtualCurrencyTypes, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnRemoveVirtualCurrencyTypes, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::SetCatalogItems(
+int PlayFabAdminApi::SetCatalogItems(
     AdminModels::UpdateCatalogItemsRequest& request,
     ProcessApiCallback<AdminModels::UpdateCatalogItemsResult> callback,
     ErrorCallback errorCallback,
@@ -1515,8 +1727,8 @@ void PlayFabAdminApi::SetCatalogItems(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SetCatalogItems"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetCatalogItemsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SetCatalogItems"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetCatalogItemsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnSetCatalogItemsResult(PlayFabRequest* request)
@@ -1532,12 +1744,16 @@ void PlayFabAdminApi::OnSetCatalogItemsResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::UpdateCatalogItemsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdateCatalogItemsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnSetCatalogItems, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnSetCatalogItems, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::SetStoreItems(
+int PlayFabAdminApi::SetStoreItems(
     AdminModels::UpdateStoreItemsRequest& request,
     ProcessApiCallback<AdminModels::UpdateStoreItemsResult> callback,
     ErrorCallback errorCallback,
@@ -1545,8 +1761,8 @@ void PlayFabAdminApi::SetStoreItems(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SetStoreItems"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetStoreItemsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SetStoreItems"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetStoreItemsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnSetStoreItemsResult(PlayFabRequest* request)
@@ -1562,12 +1778,16 @@ void PlayFabAdminApi::OnSetStoreItemsResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::UpdateStoreItemsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdateStoreItemsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnSetStoreItems, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnSetStoreItems, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::SetTitleData(
+int PlayFabAdminApi::SetTitleData(
     AdminModels::SetTitleDataRequest& request,
     ProcessApiCallback<AdminModels::SetTitleDataResult> callback,
     ErrorCallback errorCallback,
@@ -1575,8 +1795,8 @@ void PlayFabAdminApi::SetTitleData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SetTitleData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetTitleDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SetTitleData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetTitleDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnSetTitleDataResult(PlayFabRequest* request)
@@ -1592,12 +1812,16 @@ void PlayFabAdminApi::OnSetTitleDataResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::SetTitleDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::SetTitleDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnSetTitleData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnSetTitleData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::SetTitleInternalData(
+int PlayFabAdminApi::SetTitleInternalData(
     AdminModels::SetTitleDataRequest& request,
     ProcessApiCallback<AdminModels::SetTitleDataResult> callback,
     ErrorCallback errorCallback,
@@ -1605,8 +1829,8 @@ void PlayFabAdminApi::SetTitleInternalData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SetTitleInternalData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetTitleInternalDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SetTitleInternalData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetTitleInternalDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnSetTitleInternalDataResult(PlayFabRequest* request)
@@ -1622,12 +1846,16 @@ void PlayFabAdminApi::OnSetTitleInternalDataResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::SetTitleDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::SetTitleDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnSetTitleInternalData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnSetTitleInternalData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::SetupPushNotification(
+int PlayFabAdminApi::SetupPushNotification(
     AdminModels::SetupPushNotificationRequest& request,
     ProcessApiCallback<AdminModels::SetupPushNotificationResult> callback,
     ErrorCallback errorCallback,
@@ -1635,8 +1863,8 @@ void PlayFabAdminApi::SetupPushNotification(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SetupPushNotification"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetupPushNotificationResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SetupPushNotification"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetupPushNotificationResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnSetupPushNotificationResult(PlayFabRequest* request)
@@ -1652,12 +1880,16 @@ void PlayFabAdminApi::OnSetupPushNotificationResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::SetupPushNotificationResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::SetupPushNotificationResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnSetupPushNotification, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnSetupPushNotification, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::UpdateCatalogItems(
+int PlayFabAdminApi::UpdateCatalogItems(
     AdminModels::UpdateCatalogItemsRequest& request,
     ProcessApiCallback<AdminModels::UpdateCatalogItemsResult> callback,
     ErrorCallback errorCallback,
@@ -1665,8 +1897,8 @@ void PlayFabAdminApi::UpdateCatalogItems(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateCatalogItems"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateCatalogItemsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateCatalogItems"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateCatalogItemsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnUpdateCatalogItemsResult(PlayFabRequest* request)
@@ -1682,12 +1914,16 @@ void PlayFabAdminApi::OnUpdateCatalogItemsResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::UpdateCatalogItemsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdateCatalogItemsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnUpdateCatalogItems, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnUpdateCatalogItems, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::UpdateRandomResultTables(
+int PlayFabAdminApi::UpdateRandomResultTables(
     AdminModels::UpdateRandomResultTablesRequest& request,
     ProcessApiCallback<AdminModels::UpdateRandomResultTablesResult> callback,
     ErrorCallback errorCallback,
@@ -1695,8 +1931,8 @@ void PlayFabAdminApi::UpdateRandomResultTables(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateRandomResultTables"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateRandomResultTablesResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateRandomResultTables"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateRandomResultTablesResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnUpdateRandomResultTablesResult(PlayFabRequest* request)
@@ -1712,12 +1948,16 @@ void PlayFabAdminApi::OnUpdateRandomResultTablesResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::UpdateRandomResultTablesResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdateRandomResultTablesResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnUpdateRandomResultTables, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnUpdateRandomResultTables, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::UpdateStoreItems(
+int PlayFabAdminApi::UpdateStoreItems(
     AdminModels::UpdateStoreItemsRequest& request,
     ProcessApiCallback<AdminModels::UpdateStoreItemsResult> callback,
     ErrorCallback errorCallback,
@@ -1725,8 +1965,8 @@ void PlayFabAdminApi::UpdateStoreItems(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateStoreItems"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateStoreItemsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateStoreItems"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateStoreItemsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnUpdateStoreItemsResult(PlayFabRequest* request)
@@ -1742,12 +1982,16 @@ void PlayFabAdminApi::OnUpdateStoreItemsResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::UpdateStoreItemsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdateStoreItemsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnUpdateStoreItems, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnUpdateStoreItems, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::AddUserVirtualCurrency(
+int PlayFabAdminApi::AddUserVirtualCurrency(
     AdminModels::AddUserVirtualCurrencyRequest& request,
     ProcessApiCallback<AdminModels::ModifyUserVirtualCurrencyResult> callback,
     ErrorCallback errorCallback,
@@ -1755,8 +1999,8 @@ void PlayFabAdminApi::AddUserVirtualCurrency(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/AddUserVirtualCurrency"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAddUserVirtualCurrencyResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/AddUserVirtualCurrency"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAddUserVirtualCurrencyResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnAddUserVirtualCurrencyResult(PlayFabRequest* request)
@@ -1772,12 +2016,16 @@ void PlayFabAdminApi::OnAddUserVirtualCurrencyResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::ModifyUserVirtualCurrencyResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::ModifyUserVirtualCurrencyResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnAddUserVirtualCurrency, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnAddUserVirtualCurrency, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetUserInventory(
+int PlayFabAdminApi::GetUserInventory(
     AdminModels::GetUserInventoryRequest& request,
     ProcessApiCallback<AdminModels::GetUserInventoryResult> callback,
     ErrorCallback errorCallback,
@@ -1785,8 +2033,8 @@ void PlayFabAdminApi::GetUserInventory(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserInventory"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserInventoryResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetUserInventory"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserInventoryResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetUserInventoryResult(PlayFabRequest* request)
@@ -1802,12 +2050,16 @@ void PlayFabAdminApi::OnGetUserInventoryResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetUserInventoryResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetUserInventoryResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetUserInventory, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetUserInventory, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GrantItemsToUsers(
+int PlayFabAdminApi::GrantItemsToUsers(
     AdminModels::GrantItemsToUsersRequest& request,
     ProcessApiCallback<AdminModels::GrantItemsToUsersResult> callback,
     ErrorCallback errorCallback,
@@ -1815,8 +2067,8 @@ void PlayFabAdminApi::GrantItemsToUsers(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GrantItemsToUsers"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGrantItemsToUsersResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GrantItemsToUsers"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGrantItemsToUsersResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGrantItemsToUsersResult(PlayFabRequest* request)
@@ -1832,12 +2084,16 @@ void PlayFabAdminApi::OnGrantItemsToUsersResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GrantItemsToUsersResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GrantItemsToUsersResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGrantItemsToUsers, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGrantItemsToUsers, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::RevokeInventoryItem(
+int PlayFabAdminApi::RevokeInventoryItem(
     AdminModels::RevokeInventoryItemRequest& request,
     ProcessApiCallback<AdminModels::RevokeInventoryResult> callback,
     ErrorCallback errorCallback,
@@ -1845,8 +2101,8 @@ void PlayFabAdminApi::RevokeInventoryItem(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RevokeInventoryItem"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRevokeInventoryItemResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RevokeInventoryItem"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRevokeInventoryItemResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnRevokeInventoryItemResult(PlayFabRequest* request)
@@ -1862,12 +2118,16 @@ void PlayFabAdminApi::OnRevokeInventoryItemResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::RevokeInventoryResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::RevokeInventoryResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnRevokeInventoryItem, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnRevokeInventoryItem, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::SubtractUserVirtualCurrency(
+int PlayFabAdminApi::SubtractUserVirtualCurrency(
     AdminModels::SubtractUserVirtualCurrencyRequest& request,
     ProcessApiCallback<AdminModels::ModifyUserVirtualCurrencyResult> callback,
     ErrorCallback errorCallback,
@@ -1875,8 +2135,8 @@ void PlayFabAdminApi::SubtractUserVirtualCurrency(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SubtractUserVirtualCurrency"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSubtractUserVirtualCurrencyResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SubtractUserVirtualCurrency"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSubtractUserVirtualCurrencyResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnSubtractUserVirtualCurrencyResult(PlayFabRequest* request)
@@ -1892,12 +2152,16 @@ void PlayFabAdminApi::OnSubtractUserVirtualCurrencyResult(PlayFabRequest* reques
             ProcessApiCallback<AdminModels::ModifyUserVirtualCurrencyResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::ModifyUserVirtualCurrencyResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnSubtractUserVirtualCurrency, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnSubtractUserVirtualCurrency, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetMatchmakerGameInfo(
+int PlayFabAdminApi::GetMatchmakerGameInfo(
     AdminModels::GetMatchmakerGameInfoRequest& request,
     ProcessApiCallback<AdminModels::GetMatchmakerGameInfoResult> callback,
     ErrorCallback errorCallback,
@@ -1905,8 +2169,8 @@ void PlayFabAdminApi::GetMatchmakerGameInfo(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetMatchmakerGameInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetMatchmakerGameInfoResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetMatchmakerGameInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetMatchmakerGameInfoResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetMatchmakerGameInfoResult(PlayFabRequest* request)
@@ -1922,12 +2186,16 @@ void PlayFabAdminApi::OnGetMatchmakerGameInfoResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetMatchmakerGameInfoResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetMatchmakerGameInfoResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetMatchmakerGameInfo, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetMatchmakerGameInfo, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetMatchmakerGameModes(
+int PlayFabAdminApi::GetMatchmakerGameModes(
     AdminModels::GetMatchmakerGameModesRequest& request,
     ProcessApiCallback<AdminModels::GetMatchmakerGameModesResult> callback,
     ErrorCallback errorCallback,
@@ -1935,8 +2203,8 @@ void PlayFabAdminApi::GetMatchmakerGameModes(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetMatchmakerGameModes"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetMatchmakerGameModesResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetMatchmakerGameModes"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetMatchmakerGameModesResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetMatchmakerGameModesResult(PlayFabRequest* request)
@@ -1952,12 +2220,16 @@ void PlayFabAdminApi::OnGetMatchmakerGameModesResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetMatchmakerGameModesResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetMatchmakerGameModesResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetMatchmakerGameModes, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetMatchmakerGameModes, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::ModifyMatchmakerGameModes(
+int PlayFabAdminApi::ModifyMatchmakerGameModes(
     AdminModels::ModifyMatchmakerGameModesRequest& request,
     ProcessApiCallback<AdminModels::ModifyMatchmakerGameModesResult> callback,
     ErrorCallback errorCallback,
@@ -1965,8 +2237,8 @@ void PlayFabAdminApi::ModifyMatchmakerGameModes(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ModifyMatchmakerGameModes"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnModifyMatchmakerGameModesResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ModifyMatchmakerGameModes"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnModifyMatchmakerGameModesResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnModifyMatchmakerGameModesResult(PlayFabRequest* request)
@@ -1982,12 +2254,16 @@ void PlayFabAdminApi::OnModifyMatchmakerGameModesResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::ModifyMatchmakerGameModesResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::ModifyMatchmakerGameModesResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnModifyMatchmakerGameModes, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnModifyMatchmakerGameModes, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::AddServerBuild(
+int PlayFabAdminApi::AddServerBuild(
     AdminModels::AddServerBuildRequest& request,
     ProcessApiCallback<AdminModels::AddServerBuildResult> callback,
     ErrorCallback errorCallback,
@@ -1995,8 +2271,8 @@ void PlayFabAdminApi::AddServerBuild(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/AddServerBuild"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAddServerBuildResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/AddServerBuild"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAddServerBuildResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnAddServerBuildResult(PlayFabRequest* request)
@@ -2012,12 +2288,16 @@ void PlayFabAdminApi::OnAddServerBuildResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::AddServerBuildResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::AddServerBuildResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnAddServerBuild, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnAddServerBuild, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetServerBuildInfo(
+int PlayFabAdminApi::GetServerBuildInfo(
     AdminModels::GetServerBuildInfoRequest& request,
     ProcessApiCallback<AdminModels::GetServerBuildInfoResult> callback,
     ErrorCallback errorCallback,
@@ -2025,8 +2305,8 @@ void PlayFabAdminApi::GetServerBuildInfo(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetServerBuildInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetServerBuildInfoResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetServerBuildInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetServerBuildInfoResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetServerBuildInfoResult(PlayFabRequest* request)
@@ -2042,12 +2322,16 @@ void PlayFabAdminApi::OnGetServerBuildInfoResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetServerBuildInfoResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetServerBuildInfoResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetServerBuildInfo, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetServerBuildInfo, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetServerBuildUploadUrl(
+int PlayFabAdminApi::GetServerBuildUploadUrl(
     AdminModels::GetServerBuildUploadURLRequest& request,
     ProcessApiCallback<AdminModels::GetServerBuildUploadURLResult> callback,
     ErrorCallback errorCallback,
@@ -2055,8 +2339,8 @@ void PlayFabAdminApi::GetServerBuildUploadUrl(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetServerBuildUploadUrl"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetServerBuildUploadUrlResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetServerBuildUploadUrl"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetServerBuildUploadUrlResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetServerBuildUploadUrlResult(PlayFabRequest* request)
@@ -2072,12 +2356,16 @@ void PlayFabAdminApi::OnGetServerBuildUploadUrlResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetServerBuildUploadURLResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetServerBuildUploadURLResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetServerBuildUploadUrl, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetServerBuildUploadUrl, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::ListServerBuilds(
+int PlayFabAdminApi::ListServerBuilds(
 
     ProcessApiCallback<AdminModels::ListBuildsResult> callback,
     ErrorCallback errorCallback,
@@ -2085,8 +2373,8 @@ void PlayFabAdminApi::ListServerBuilds(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ListServerBuilds"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, "", customData, callback, errorCallback, OnListServerBuildsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ListServerBuilds"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, "", customData, callback, errorCallback, OnListServerBuildsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnListServerBuildsResult(PlayFabRequest* request)
@@ -2102,12 +2390,16 @@ void PlayFabAdminApi::OnListServerBuildsResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::ListBuildsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::ListBuildsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnListServerBuilds, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnListServerBuilds, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::ModifyServerBuild(
+int PlayFabAdminApi::ModifyServerBuild(
     AdminModels::ModifyServerBuildRequest& request,
     ProcessApiCallback<AdminModels::ModifyServerBuildResult> callback,
     ErrorCallback errorCallback,
@@ -2115,8 +2407,8 @@ void PlayFabAdminApi::ModifyServerBuild(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ModifyServerBuild"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnModifyServerBuildResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ModifyServerBuild"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnModifyServerBuildResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnModifyServerBuildResult(PlayFabRequest* request)
@@ -2132,12 +2424,16 @@ void PlayFabAdminApi::OnModifyServerBuildResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::ModifyServerBuildResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::ModifyServerBuildResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnModifyServerBuild, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnModifyServerBuild, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::RemoveServerBuild(
+int PlayFabAdminApi::RemoveServerBuild(
     AdminModels::RemoveServerBuildRequest& request,
     ProcessApiCallback<AdminModels::RemoveServerBuildResult> callback,
     ErrorCallback errorCallback,
@@ -2145,8 +2441,8 @@ void PlayFabAdminApi::RemoveServerBuild(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RemoveServerBuild"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRemoveServerBuildResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RemoveServerBuild"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRemoveServerBuildResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnRemoveServerBuildResult(PlayFabRequest* request)
@@ -2162,12 +2458,16 @@ void PlayFabAdminApi::OnRemoveServerBuildResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::RemoveServerBuildResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::RemoveServerBuildResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnRemoveServerBuild, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnRemoveServerBuild, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::SetPublisherData(
+int PlayFabAdminApi::SetPublisherData(
     AdminModels::SetPublisherDataRequest& request,
     ProcessApiCallback<AdminModels::SetPublisherDataResult> callback,
     ErrorCallback errorCallback,
@@ -2175,8 +2475,8 @@ void PlayFabAdminApi::SetPublisherData(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SetPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetPublisherDataResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SetPublisherData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetPublisherDataResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnSetPublisherDataResult(PlayFabRequest* request)
@@ -2192,12 +2492,16 @@ void PlayFabAdminApi::OnSetPublisherDataResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::SetPublisherDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::SetPublisherDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnSetPublisherData, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnSetPublisherData, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetCloudScriptRevision(
+int PlayFabAdminApi::GetCloudScriptRevision(
     AdminModels::GetCloudScriptRevisionRequest& request,
     ProcessApiCallback<AdminModels::GetCloudScriptRevisionResult> callback,
     ErrorCallback errorCallback,
@@ -2205,8 +2509,8 @@ void PlayFabAdminApi::GetCloudScriptRevision(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetCloudScriptRevision"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetCloudScriptRevisionResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetCloudScriptRevision"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetCloudScriptRevisionResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetCloudScriptRevisionResult(PlayFabRequest* request)
@@ -2222,12 +2526,16 @@ void PlayFabAdminApi::OnGetCloudScriptRevisionResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetCloudScriptRevisionResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetCloudScriptRevisionResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetCloudScriptRevision, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetCloudScriptRevision, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetCloudScriptVersions(
+int PlayFabAdminApi::GetCloudScriptVersions(
 
     ProcessApiCallback<AdminModels::GetCloudScriptVersionsResult> callback,
     ErrorCallback errorCallback,
@@ -2235,8 +2543,8 @@ void PlayFabAdminApi::GetCloudScriptVersions(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetCloudScriptVersions"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, "", customData, callback, errorCallback, OnGetCloudScriptVersionsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetCloudScriptVersions"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, "", customData, callback, errorCallback, OnGetCloudScriptVersionsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetCloudScriptVersionsResult(PlayFabRequest* request)
@@ -2252,12 +2560,16 @@ void PlayFabAdminApi::OnGetCloudScriptVersionsResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetCloudScriptVersionsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetCloudScriptVersionsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetCloudScriptVersions, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetCloudScriptVersions, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::SetPublishedRevision(
+int PlayFabAdminApi::SetPublishedRevision(
     AdminModels::SetPublishedRevisionRequest& request,
     ProcessApiCallback<AdminModels::SetPublishedRevisionResult> callback,
     ErrorCallback errorCallback,
@@ -2265,8 +2577,8 @@ void PlayFabAdminApi::SetPublishedRevision(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SetPublishedRevision"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetPublishedRevisionResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/SetPublishedRevision"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetPublishedRevisionResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnSetPublishedRevisionResult(PlayFabRequest* request)
@@ -2282,12 +2594,16 @@ void PlayFabAdminApi::OnSetPublishedRevisionResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::SetPublishedRevisionResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::SetPublishedRevisionResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnSetPublishedRevision, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnSetPublishedRevision, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::UpdateCloudScript(
+int PlayFabAdminApi::UpdateCloudScript(
     AdminModels::UpdateCloudScriptRequest& request,
     ProcessApiCallback<AdminModels::UpdateCloudScriptResult> callback,
     ErrorCallback errorCallback,
@@ -2295,8 +2611,8 @@ void PlayFabAdminApi::UpdateCloudScript(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateCloudScript"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateCloudScriptResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateCloudScript"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateCloudScriptResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnUpdateCloudScriptResult(PlayFabRequest* request)
@@ -2312,12 +2628,16 @@ void PlayFabAdminApi::OnUpdateCloudScriptResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::UpdateCloudScriptResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::UpdateCloudScriptResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnUpdateCloudScript, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnUpdateCloudScript, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::DeleteContent(
+int PlayFabAdminApi::DeleteContent(
     AdminModels::DeleteContentRequest& request,
     ProcessApiCallback<AdminModels::BlankResult> callback,
     ErrorCallback errorCallback,
@@ -2325,8 +2645,8 @@ void PlayFabAdminApi::DeleteContent(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/DeleteContent"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnDeleteContentResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/DeleteContent"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnDeleteContentResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnDeleteContentResult(PlayFabRequest* request)
@@ -2342,12 +2662,16 @@ void PlayFabAdminApi::OnDeleteContentResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::BlankResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::BlankResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnDeleteContent, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnDeleteContent, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetContentList(
+int PlayFabAdminApi::GetContentList(
     AdminModels::GetContentListRequest& request,
     ProcessApiCallback<AdminModels::GetContentListResult> callback,
     ErrorCallback errorCallback,
@@ -2355,8 +2679,8 @@ void PlayFabAdminApi::GetContentList(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetContentList"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetContentListResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetContentList"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetContentListResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetContentListResult(PlayFabRequest* request)
@@ -2372,12 +2696,16 @@ void PlayFabAdminApi::OnGetContentListResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetContentListResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetContentListResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetContentList, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetContentList, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetContentUploadUrl(
+int PlayFabAdminApi::GetContentUploadUrl(
     AdminModels::GetContentUploadUrlRequest& request,
     ProcessApiCallback<AdminModels::GetContentUploadUrlResult> callback,
     ErrorCallback errorCallback,
@@ -2385,8 +2713,8 @@ void PlayFabAdminApi::GetContentUploadUrl(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetContentUploadUrl"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetContentUploadUrlResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetContentUploadUrl"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetContentUploadUrlResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetContentUploadUrlResult(PlayFabRequest* request)
@@ -2402,12 +2730,16 @@ void PlayFabAdminApi::OnGetContentUploadUrlResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetContentUploadUrlResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetContentUploadUrlResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetContentUploadUrl, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetContentUploadUrl, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::ResetCharacterStatistics(
+int PlayFabAdminApi::ResetCharacterStatistics(
     AdminModels::ResetCharacterStatisticsRequest& request,
     ProcessApiCallback<AdminModels::ResetCharacterStatisticsResult> callback,
     ErrorCallback errorCallback,
@@ -2415,8 +2747,8 @@ void PlayFabAdminApi::ResetCharacterStatistics(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ResetCharacterStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnResetCharacterStatisticsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ResetCharacterStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnResetCharacterStatisticsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnResetCharacterStatisticsResult(PlayFabRequest* request)
@@ -2432,12 +2764,16 @@ void PlayFabAdminApi::OnResetCharacterStatisticsResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::ResetCharacterStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::ResetCharacterStatisticsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnResetCharacterStatistics, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnResetCharacterStatistics, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::AddPlayerTag(
+int PlayFabAdminApi::AddPlayerTag(
     AdminModels::AddPlayerTagRequest& request,
     ProcessApiCallback<AdminModels::AddPlayerTagResult> callback,
     ErrorCallback errorCallback,
@@ -2445,8 +2781,8 @@ void PlayFabAdminApi::AddPlayerTag(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/AddPlayerTag"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAddPlayerTagResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/AddPlayerTag"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAddPlayerTagResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnAddPlayerTagResult(PlayFabRequest* request)
@@ -2462,12 +2798,16 @@ void PlayFabAdminApi::OnAddPlayerTagResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::AddPlayerTagResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::AddPlayerTagResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnAddPlayerTag, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnAddPlayerTag, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetAllActionGroups(
+int PlayFabAdminApi::GetAllActionGroups(
 
     ProcessApiCallback<AdminModels::GetAllActionGroupsResult> callback,
     ErrorCallback errorCallback,
@@ -2475,8 +2815,8 @@ void PlayFabAdminApi::GetAllActionGroups(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetAllActionGroups"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, "", customData, callback, errorCallback, OnGetAllActionGroupsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetAllActionGroups"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, "", customData, callback, errorCallback, OnGetAllActionGroupsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetAllActionGroupsResult(PlayFabRequest* request)
@@ -2492,12 +2832,16 @@ void PlayFabAdminApi::OnGetAllActionGroupsResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetAllActionGroupsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetAllActionGroupsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetAllActionGroups, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetAllActionGroups, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetAllSegments(
+int PlayFabAdminApi::GetAllSegments(
 
     ProcessApiCallback<AdminModels::GetAllSegmentsResult> callback,
     ErrorCallback errorCallback,
@@ -2505,8 +2849,8 @@ void PlayFabAdminApi::GetAllSegments(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetAllSegments"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, "", customData, callback, errorCallback, OnGetAllSegmentsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetAllSegments"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, "", customData, callback, errorCallback, OnGetAllSegmentsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetAllSegmentsResult(PlayFabRequest* request)
@@ -2522,12 +2866,16 @@ void PlayFabAdminApi::OnGetAllSegmentsResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetAllSegmentsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetAllSegmentsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetAllSegments, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetAllSegments, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetPlayerSegments(
+int PlayFabAdminApi::GetPlayerSegments(
     AdminModels::GetPlayersSegmentsRequest& request,
     ProcessApiCallback<AdminModels::GetPlayerSegmentsResult> callback,
     ErrorCallback errorCallback,
@@ -2535,8 +2883,8 @@ void PlayFabAdminApi::GetPlayerSegments(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPlayerSegments"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerSegmentsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPlayerSegments"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerSegmentsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetPlayerSegmentsResult(PlayFabRequest* request)
@@ -2552,12 +2900,16 @@ void PlayFabAdminApi::OnGetPlayerSegmentsResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetPlayerSegmentsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetPlayerSegmentsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetPlayerSegments, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetPlayerSegments, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetPlayersInSegment(
+int PlayFabAdminApi::GetPlayersInSegment(
     AdminModels::GetPlayersInSegmentRequest& request,
     ProcessApiCallback<AdminModels::GetPlayersInSegmentResult> callback,
     ErrorCallback errorCallback,
@@ -2565,8 +2917,8 @@ void PlayFabAdminApi::GetPlayersInSegment(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPlayersInSegment"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPlayersInSegmentResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPlayersInSegment"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPlayersInSegmentResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetPlayersInSegmentResult(PlayFabRequest* request)
@@ -2582,12 +2934,16 @@ void PlayFabAdminApi::OnGetPlayersInSegmentResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetPlayersInSegmentResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetPlayersInSegmentResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetPlayersInSegment, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetPlayersInSegment, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetPlayerTags(
+int PlayFabAdminApi::GetPlayerTags(
     AdminModels::GetPlayerTagsRequest& request,
     ProcessApiCallback<AdminModels::GetPlayerTagsResult> callback,
     ErrorCallback errorCallback,
@@ -2595,8 +2951,8 @@ void PlayFabAdminApi::GetPlayerTags(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPlayerTags"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerTagsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPlayerTags"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerTagsResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetPlayerTagsResult(PlayFabRequest* request)
@@ -2612,12 +2968,16 @@ void PlayFabAdminApi::OnGetPlayerTagsResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetPlayerTagsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetPlayerTagsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetPlayerTags, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetPlayerTags, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::RemovePlayerTag(
+int PlayFabAdminApi::RemovePlayerTag(
     AdminModels::RemovePlayerTagRequest& request,
     ProcessApiCallback<AdminModels::RemovePlayerTagResult> callback,
     ErrorCallback errorCallback,
@@ -2625,8 +2985,8 @@ void PlayFabAdminApi::RemovePlayerTag(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RemovePlayerTag"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRemovePlayerTagResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RemovePlayerTag"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRemovePlayerTagResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnRemovePlayerTagResult(PlayFabRequest* request)
@@ -2642,12 +3002,16 @@ void PlayFabAdminApi::OnRemovePlayerTagResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::RemovePlayerTagResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::RemovePlayerTagResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnRemovePlayerTag, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnRemovePlayerTag, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::AbortTaskInstance(
+int PlayFabAdminApi::AbortTaskInstance(
     AdminModels::AbortTaskInstanceRequest& request,
     ProcessApiCallback<AdminModels::EmptyResult> callback,
     ErrorCallback errorCallback,
@@ -2655,8 +3019,8 @@ void PlayFabAdminApi::AbortTaskInstance(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/AbortTaskInstance"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAbortTaskInstanceResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/AbortTaskInstance"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAbortTaskInstanceResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnAbortTaskInstanceResult(PlayFabRequest* request)
@@ -2672,12 +3036,16 @@ void PlayFabAdminApi::OnAbortTaskInstanceResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::EmptyResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::EmptyResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnAbortTaskInstance, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnAbortTaskInstance, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::CreateActionsOnPlayersInSegmentTask(
+int PlayFabAdminApi::CreateActionsOnPlayersInSegmentTask(
     AdminModels::CreateActionsOnPlayerSegmentTaskRequest& request,
     ProcessApiCallback<AdminModels::CreateTaskResult> callback,
     ErrorCallback errorCallback,
@@ -2685,8 +3053,8 @@ void PlayFabAdminApi::CreateActionsOnPlayersInSegmentTask(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/CreateActionsOnPlayersInSegmentTask"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnCreateActionsOnPlayersInSegmentTaskResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/CreateActionsOnPlayersInSegmentTask"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnCreateActionsOnPlayersInSegmentTaskResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnCreateActionsOnPlayersInSegmentTaskResult(PlayFabRequest* request)
@@ -2702,12 +3070,16 @@ void PlayFabAdminApi::OnCreateActionsOnPlayersInSegmentTaskResult(PlayFabRequest
             ProcessApiCallback<AdminModels::CreateTaskResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::CreateTaskResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnCreateActionsOnPlayersInSegmentTask, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnCreateActionsOnPlayersInSegmentTask, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::CreateCloudScriptTask(
+int PlayFabAdminApi::CreateCloudScriptTask(
     AdminModels::CreateCloudScriptTaskRequest& request,
     ProcessApiCallback<AdminModels::CreateTaskResult> callback,
     ErrorCallback errorCallback,
@@ -2715,8 +3087,8 @@ void PlayFabAdminApi::CreateCloudScriptTask(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/CreateCloudScriptTask"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnCreateCloudScriptTaskResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/CreateCloudScriptTask"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnCreateCloudScriptTaskResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnCreateCloudScriptTaskResult(PlayFabRequest* request)
@@ -2732,12 +3104,16 @@ void PlayFabAdminApi::OnCreateCloudScriptTaskResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::CreateTaskResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::CreateTaskResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnCreateCloudScriptTask, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnCreateCloudScriptTask, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::DeleteTask(
+int PlayFabAdminApi::DeleteTask(
     AdminModels::DeleteTaskRequest& request,
     ProcessApiCallback<AdminModels::EmptyResult> callback,
     ErrorCallback errorCallback,
@@ -2745,8 +3121,8 @@ void PlayFabAdminApi::DeleteTask(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/DeleteTask"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnDeleteTaskResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/DeleteTask"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnDeleteTaskResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnDeleteTaskResult(PlayFabRequest* request)
@@ -2762,12 +3138,16 @@ void PlayFabAdminApi::OnDeleteTaskResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::EmptyResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::EmptyResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnDeleteTask, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnDeleteTask, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetActionsOnPlayersInSegmentTaskInstance(
+int PlayFabAdminApi::GetActionsOnPlayersInSegmentTaskInstance(
     AdminModels::GetTaskInstanceRequest& request,
     ProcessApiCallback<AdminModels::GetActionsOnPlayersInSegmentTaskInstanceResult> callback,
     ErrorCallback errorCallback,
@@ -2775,8 +3155,8 @@ void PlayFabAdminApi::GetActionsOnPlayersInSegmentTaskInstance(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetActionsOnPlayersInSegmentTaskInstance"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetActionsOnPlayersInSegmentTaskInstanceResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetActionsOnPlayersInSegmentTaskInstance"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetActionsOnPlayersInSegmentTaskInstanceResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetActionsOnPlayersInSegmentTaskInstanceResult(PlayFabRequest* request)
@@ -2792,12 +3172,16 @@ void PlayFabAdminApi::OnGetActionsOnPlayersInSegmentTaskInstanceResult(PlayFabRe
             ProcessApiCallback<AdminModels::GetActionsOnPlayersInSegmentTaskInstanceResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetActionsOnPlayersInSegmentTaskInstanceResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetActionsOnPlayersInSegmentTaskInstance, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetActionsOnPlayersInSegmentTaskInstance, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetCloudScriptTaskInstance(
+int PlayFabAdminApi::GetCloudScriptTaskInstance(
     AdminModels::GetTaskInstanceRequest& request,
     ProcessApiCallback<AdminModels::GetCloudScriptTaskInstanceResult> callback,
     ErrorCallback errorCallback,
@@ -2805,8 +3189,8 @@ void PlayFabAdminApi::GetCloudScriptTaskInstance(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetCloudScriptTaskInstance"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetCloudScriptTaskInstanceResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetCloudScriptTaskInstance"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetCloudScriptTaskInstanceResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetCloudScriptTaskInstanceResult(PlayFabRequest* request)
@@ -2822,12 +3206,16 @@ void PlayFabAdminApi::OnGetCloudScriptTaskInstanceResult(PlayFabRequest* request
             ProcessApiCallback<AdminModels::GetCloudScriptTaskInstanceResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetCloudScriptTaskInstanceResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetCloudScriptTaskInstance, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetCloudScriptTaskInstance, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetTaskInstances(
+int PlayFabAdminApi::GetTaskInstances(
     AdminModels::GetTaskInstancesRequest& request,
     ProcessApiCallback<AdminModels::GetTaskInstancesResult> callback,
     ErrorCallback errorCallback,
@@ -2835,8 +3223,8 @@ void PlayFabAdminApi::GetTaskInstances(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetTaskInstances"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetTaskInstancesResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetTaskInstances"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetTaskInstancesResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetTaskInstancesResult(PlayFabRequest* request)
@@ -2852,12 +3240,16 @@ void PlayFabAdminApi::OnGetTaskInstancesResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetTaskInstancesResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetTaskInstancesResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetTaskInstances, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetTaskInstances, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::GetTasks(
+int PlayFabAdminApi::GetTasks(
     AdminModels::GetTasksRequest& request,
     ProcessApiCallback<AdminModels::GetTasksResult> callback,
     ErrorCallback errorCallback,
@@ -2865,8 +3257,8 @@ void PlayFabAdminApi::GetTasks(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetTasks"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetTasksResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetTasks"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetTasksResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnGetTasksResult(PlayFabRequest* request)
@@ -2882,12 +3274,16 @@ void PlayFabAdminApi::OnGetTasksResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::GetTasksResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetTasksResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnGetTasks, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnGetTasks, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::RunTask(
+int PlayFabAdminApi::RunTask(
     AdminModels::RunTaskRequest& request,
     ProcessApiCallback<AdminModels::RunTaskResult> callback,
     ErrorCallback errorCallback,
@@ -2895,8 +3291,8 @@ void PlayFabAdminApi::RunTask(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RunTask"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRunTaskResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RunTask"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRunTaskResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnRunTaskResult(PlayFabRequest* request)
@@ -2912,12 +3308,16 @@ void PlayFabAdminApi::OnRunTaskResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::RunTaskResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::RunTaskResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnRunTask, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnRunTask, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }
 }
 
-void PlayFabAdminApi::UpdateTask(
+int PlayFabAdminApi::UpdateTask(
     AdminModels::UpdateTaskRequest& request,
     ProcessApiCallback<AdminModels::EmptyResult> callback,
     ErrorCallback errorCallback,
@@ -2925,8 +3325,8 @@ void PlayFabAdminApi::UpdateTask(
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateTask"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateTaskResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/UpdateTask"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateTaskResult, OnError);
+    return PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
 void PlayFabAdminApi::OnUpdateTaskResult(PlayFabRequest* request)
@@ -2942,6 +3342,10 @@ void PlayFabAdminApi::OnUpdateTaskResult(PlayFabRequest* request)
             ProcessApiCallback<AdminModels::EmptyResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::EmptyResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
+
+		EBUS_EVENT_ID(request->mRequestId,PlayFabServer_AdminNotificationBus, OnUpdateTask, *outResult); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+        EBUS_EVENT(PlayFabServer_AdminGlobalNotificationBus, OnUpdateTask, *outResult, request->mRequestId); // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS_: dbowen (2017/08/11)
+
         delete outResult;
         delete request;
     }

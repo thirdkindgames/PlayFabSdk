@@ -15,15 +15,16 @@ namespace PlayFabComboSdk
     {
     public:
         typedef std::function<void(PlayFabRequest* request)> HttpCallback;
+        typedef std::function<void(const PlayFabRequest& request, const PlayFabError&)> InternalErrorCallback; // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS: dbowen (2017/08/11)
 
         // Initializing ctor
-        PlayFabRequest(const AZStd::string& URI, Aws::Http::HttpMethod method, const AZStd::string& authKey, const AZStd::string& authValue, const AZStd::string& requestJsonBody, void* customData, void* mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback);
+        PlayFabRequest(const AZStd::string& URI, Aws::Http::HttpMethod method, const AZStd::string& authKey, const AZStd::string& authValue, const AZStd::string& requestJsonBody, void* customData, void* mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback, const InternalErrorCallback& mInternalErrorCallback );
         ~PlayFabRequest();
 
         // #THIRD_KIND_PLAYFAB_REQUEST_CALLBACK_LINUX: Allow conversion of ProcessApiCallback<T> to void*. Fixes no matching constructor for initialization of 'PlayFabComboSdk::PlayFabRequest'. no known conversion from 'ProcessApiCallback<XXX>' (aka 'void (*)(const XXX &, void *)') to 'void *'
         template < typename T >
-        inline PlayFabRequest(const AZStd::string& URI, Aws::Http::HttpMethod method, const AZStd::string& authKey, const AZStd::string& authValue, const AZStd::string& requestJsonBody, void* customData, T mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback)
-            : PlayFabRequest(URI, method, authKey, authValue, requestJsonBody, customData, (void*)mResultCallback, mErrorCallback, internalCallback)
+        inline PlayFabRequest(const AZStd::string& URI, Aws::Http::HttpMethod method, const AZStd::string& authKey, const AZStd::string& authValue, const AZStd::string& requestJsonBody, void* customData, T mResultCallback, ErrorCallback mErrorCallback, const HttpCallback& internalCallback, const InternalErrorCallback& mInternalErrorCallback)
+            : PlayFabRequest(URI, method, authKey, authValue, requestJsonBody, customData, (void*)mResultCallback, mErrorCallback, internalCallback, mInternalErrorCallback)
         {
             static_assert(sizeof(T) <= sizeof(void*), "Size of function pointer is larger than void*, bad cast will occur.");
         }
@@ -42,6 +43,8 @@ namespace PlayFabComboSdk
         // Customizable object that provides identification or other information for the caller, in the callback
         void* mCustomData;
 
+        int mRequestId; // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS: dbowen (2017/08/11) - Each request is assigned a unique ID, it is used to address the notification ebus so that other systems can choose to listen only to callbacks for requests that they sent.
+
         // Everything about the response
         std::shared_ptr<Aws::Http::HttpResponse> httpResponse;
         char* mResponseText; // If the server responded, this will be the raw text returned
@@ -55,6 +58,7 @@ namespace PlayFabComboSdk
         HttpCallback mInternalCallback;
         void* mResultCallback;
         ErrorCallback mErrorCallback;
+        InternalErrorCallback mInternalErrorCallback; // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS: dbowen (2017/08/11)
     private:
         // Disable copy constructor and assignment by making them private
         PlayFabRequest(const PlayFabRequest&);
@@ -71,7 +75,7 @@ namespace PlayFabComboSdk
 
         // see IHttpRequestManager::AddRequest
         // Add these parameters to a queue of request parameters to send off as an HTTP request as soon as they reach the head of the queue
-        void AddRequest(PlayFabRequest* httpRequestParameters);
+        int AddRequest(PlayFabRequest* httpRequestParameters);
         int GetPendingCalls(); // Return the number of unfinished calls
 
     private:
@@ -95,5 +99,8 @@ namespace PlayFabComboSdk
 
         // This is the thread that will be used for all async operations
         AZStd::thread m_thread;
+
+        // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS: dbowen (2017/08/11) - ID number of last sent request, every request is assigned a unique ID.
+		AZStd::atomic<int> m_requestID = 0;
     };
 }

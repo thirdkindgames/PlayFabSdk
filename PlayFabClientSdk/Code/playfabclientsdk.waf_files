@@ -7,6 +7,7 @@
         "Interface": [
             "Include/PlayFabClientSdk/PlayFabClientDataModels.h",
             "Include/PlayFabClientSdk/PlayFabClient_ClientBus.h",
+            "Include/PlayFabClientSdk/PlayFabClient_ClientNotificationBus.h",
             "Include/PlayFabClientSdk/PlayFabClient_SettingsBus.h",
             "Include/PlayFabClientSdk/PlayFabBaseModel.h",
             "Include/PlayFabClientSdk/PlayFabError.h",
@@ -17,6 +18,10 @@
             "Source/PlayFabClientApi.cpp",
             "Source/PlayFabClient_ClientSysComponent.h",
             "Source/PlayFabClient_ClientSysComponent.cpp",
+            "Source/PlayFabClient_ClientBehaviorContext.h",
+            "Source/PlayFabClient_ClientBehaviorContext.cpp",
+            "Source/PlayFabClient_OnDemandReflection.inl",
+            "Source/PlayFabClient_BehaviorContextShared.h",
             "Source/PlayFabClient_SettingsSysComponent.h",
             "Source/PlayFabClient_SettingsSysComponent.cpp",
             "Source/PlayFabClientSdkModule.cpp",

@@ -58,11 +58,13 @@ namespace PlayFabComboSdk
     void PlayFabCombo_MatchmakerSysComponent::Activate()
     {
         PlayFabCombo_MatchmakerRequestBus::Handler::BusConnect();
+        PlayFabCombo_MatchmakerSimpleRequestBus::Handler::BusConnect(); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
     }
 
     void PlayFabCombo_MatchmakerSysComponent::Deactivate()
     {
         PlayFabCombo_MatchmakerRequestBus::Handler::BusDisconnect();
+        PlayFabCombo_MatchmakerSimpleRequestBus::Handler::BusDisconnect(); // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
     }
 
     int PlayFabCombo_MatchmakerSysComponent::GetPendingCalls()
@@ -71,24 +73,54 @@ namespace PlayFabComboSdk
     }
 
     // ------------ Generated API call wrappers
-    void PlayFabCombo_MatchmakerSysComponent::AuthUser(MatchmakerModels::AuthUserRequest& request, ProcessApiCallback<MatchmakerModels::AuthUserResponse> callback, ErrorCallback errorCallback, void* customData)
+    int PlayFabCombo_MatchmakerSysComponent::AuthUser(MatchmakerModels::AuthUserRequest& request, ProcessApiCallback<MatchmakerModels::AuthUserResponse> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabMatchmakerApi::AuthUser(request, callback, errorCallback, customData);
+        return PlayFabMatchmakerApi::AuthUser(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_MatchmakerSysComponent::PlayerJoined(MatchmakerModels::PlayerJoinedRequest& request, ProcessApiCallback<MatchmakerModels::PlayerJoinedResponse> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_MatchmakerSysComponent::AuthUser(MatchmakerModels::AuthUserRequest& request)
     {
-        PlayFabMatchmakerApi::PlayerJoined(request, callback, errorCallback, customData);
+        return AuthUser(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_MatchmakerSysComponent::PlayerLeft(MatchmakerModels::PlayerLeftRequest& request, ProcessApiCallback<MatchmakerModels::PlayerLeftResponse> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_MatchmakerSysComponent::PlayerJoined(MatchmakerModels::PlayerJoinedRequest& request, ProcessApiCallback<MatchmakerModels::PlayerJoinedResponse> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabMatchmakerApi::PlayerLeft(request, callback, errorCallback, customData);
+        return PlayFabMatchmakerApi::PlayerJoined(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_MatchmakerSysComponent::StartGame(MatchmakerModels::StartGameRequest& request, ProcessApiCallback<MatchmakerModels::StartGameResponse> callback, ErrorCallback errorCallback, void* customData)
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_MatchmakerSysComponent::PlayerJoined(MatchmakerModels::PlayerJoinedRequest& request)
     {
-        PlayFabMatchmakerApi::StartGame(request, callback, errorCallback, customData);
+        return PlayerJoined(request, nullptr, nullptr, nullptr);
     }
-    void PlayFabCombo_MatchmakerSysComponent::UserInfo(MatchmakerModels::UserInfoRequest& request, ProcessApiCallback<MatchmakerModels::UserInfoResponse> callback, ErrorCallback errorCallback, void* customData)
+    // THIRD_KIND_END
+    int PlayFabCombo_MatchmakerSysComponent::PlayerLeft(MatchmakerModels::PlayerLeftRequest& request, ProcessApiCallback<MatchmakerModels::PlayerLeftResponse> callback, ErrorCallback errorCallback, void* customData)
     {
-        PlayFabMatchmakerApi::UserInfo(request, callback, errorCallback, customData);
+        return PlayFabMatchmakerApi::PlayerLeft(request, callback, errorCallback, customData);
     }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_MatchmakerSysComponent::PlayerLeft(MatchmakerModels::PlayerLeftRequest& request)
+    {
+        return PlayerLeft(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_MatchmakerSysComponent::StartGame(MatchmakerModels::StartGameRequest& request, ProcessApiCallback<MatchmakerModels::StartGameResponse> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabMatchmakerApi::StartGame(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_MatchmakerSysComponent::StartGame(MatchmakerModels::StartGameRequest& request)
+    {
+        return StartGame(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
+    int PlayFabCombo_MatchmakerSysComponent::UserInfo(MatchmakerModels::UserInfoRequest& request, ProcessApiCallback<MatchmakerModels::UserInfoResponse> callback, ErrorCallback errorCallback, void* customData)
+    {
+        return PlayFabMatchmakerApi::UserInfo(request, callback, errorCallback, customData);
+    }
+    // #THIRD_KIND_PLAYFAB_BEHAVIOR_CONTEXT: dbowen (2017/08/11)
+    int PlayFabCombo_MatchmakerSysComponent::UserInfo(MatchmakerModels::UserInfoRequest& request)
+    {
+        return UserInfo(request, nullptr, nullptr, nullptr);
+    }
+    // THIRD_KIND_END
 }
