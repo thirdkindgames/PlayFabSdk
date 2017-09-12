@@ -27,7 +27,9 @@
             "Source/PlayFabClientSdkModule.cpp",
             "Source/PlayFabHttp.cpp",
             "Source/PlayFabSettings.h",
-            "Source/PlayFabSettings.cpp"
+            "Source/PlayFabSettings.cpp",
+            "Source/PlayFabDataGatherer.h",
+            "Source/PlayFabDataGatherer.cpp"
         ]
     }
 }

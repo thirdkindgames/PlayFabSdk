@@ -5,6 +5,8 @@
 #include <AzCore/EBus/EBus.h>
 #include "PlayFabClientSdk/PlayFabClient_ClientNotificationBus.h" // #THIRD_KIND_PLAYFAB_NOTIFICATION_BUS: dbowen (2017/08/11)
 
+#include "PlayFabDataGatherer.h"        // #THIRD_KIND_PLAYFAB_DATA_GATHERER: gwatson (2017/09/12) - Added PlayFab data gatherer to send system information events to PlayFab on login
+
 using namespace PlayFabClientSdk;
 
 // Client-Specific
@@ -28,6 +30,17 @@ void PlayFabClientApi::ForgetClientCredentials()
 
 void PlayFabClientApi::MultiStepClientLogin(bool needsAttribution)
 {
+    // #THIRD_KIND_PLAYFAB_DATA_GATHERER: gwatson (2017/09/12) - Added PlayFab data gatherer to send system information events to PlayFab on login
+    // Output the system information event
+    PlayFab::PlayFabDataGatherer dataGatherer;
+    AZ_TracePrintf("PlayFab", dataGatherer.GenerateReport().c_str());
+
+    ClientModels::WriteClientPlayerEventRequest request;
+    request.EventName = "system_information";
+    request.Body = dataGatherer.GetData();;
+    WritePlayerEvent(request, nullptr, nullptr, nullptr);
+    // #THIRD_KIND_PLAYFAB_DATA_GATHERER: gwatson (2017/09/12) - Added PlayFab data gatherer to send system information events to PlayFab on login
+
     if (needsAttribution && !PlayFabSettings::playFabSettings->disableAdvertising && PlayFabSettings::playFabSettings->advertisingIdType.length() > 0 && PlayFabSettings::playFabSettings->advertisingIdValue.length() > 0)
     {
         ClientModels::AttributeInstallRequest request;
